@@ -186,7 +186,7 @@ button { cursor:pointer; font-family:inherit; }
 
 /* ── BOUTON CONFIGURATEUR ── */
 .sb-config {
-  margin-top: 18px;
+  margin-top: 10px;
   background: var(--noir);
   color: var(--white);
   border: none;
@@ -205,14 +205,14 @@ button { cursor:pointer; font-family:inherit; }
 /* ── FOOTER SIDEBAR ── */
 .sb-footer {
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 12px;
 }
 .sb-club-img {
   height: 52px;
   width: auto;
   mix-blend-mode: multiply;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   cursor: pointer;
 }
 .sb-legal {
@@ -244,6 +244,14 @@ button { cursor:pointer; font-family:inherit; }
   min-height: 100vh;
   padding: 40px 60px 0;
   text-align: center;
+}
+.home-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .home-logo { margin-bottom: 48px; }
 .home-logo-name {
@@ -498,26 +506,28 @@ body.sb-open .home-hamburger { display: none; }
   <a class="home-heart" href="favoris.html" aria-label="Favoris">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   </a>
-  <div class="home-logo">
-    <div class="home-logo-name">Réunis</div>
-    <div class="home-logo-sub">Créateur d'événements</div>
+  <div class="home-center">
+    <div class="home-logo">
+      <div class="home-logo-name">Réunis</div>
+      <div class="home-logo-sub">Créateur d'événements</div>
+    </div>
+    <div class="home-ctas">
+      <a class="home-btn" href="planifier.html">
+        <div class="home-btn-title">Planifier</div>
+        <div class="home-btn-sub">Accompagnement sur mesure</div>
+      </a>
+      <a class="home-btn" href="decorer.html">
+        <div class="home-btn-title">Décorer</div>
+        <div class="home-btn-sub">Location &amp; Personnalisation</div>
+      </a>
+    </div>
+    <div class="home-links">
+      <a href="manifest.html">Manifest</a> &nbsp;|&nbsp;
+      <a href="galerie.html">Galerie</a> &nbsp;|&nbsp;
+      <a href="faq.html">FAQ</a>
+    </div>
+    <a class="home-email" id="home-email" href="#">contact&#64;reunisevent.com</a>
   </div>
-  <div class="home-ctas">
-    <a class="home-btn" href="planifier.html">
-      <div class="home-btn-title">Planifier</div>
-      <div class="home-btn-sub">Accompagnement sur mesure</div>
-    </a>
-    <a class="home-btn" href="decorer.html">
-      <div class="home-btn-title">Décorer</div>
-      <div class="home-btn-sub">Location &amp; Personnalisation</div>
-    </a>
-  </div>
-  <div class="home-links">
-    <a href="manifest.html">Manifest</a> &nbsp;|&nbsp;
-    <a href="galerie.html">Galerie</a> &nbsp;|&nbsp;
-    <a href="faq.html">FAQ</a>
-  </div>
-  <a class="home-email" id="home-email" href="#">contact&#64;reunisevent.com</a>
   <footer class="home-footer">
     <div class="home-social">
       <a href="https://instagram.com/reunisevent" target="_blank" aria-label="Instagram">

@@ -178,7 +178,7 @@ button { cursor:pointer; font-family:inherit; }
 
 /* ── BOUTON CONFIGURATEUR ── */
 .sb-config {
-  margin-top: 18px;
+  margin-top: 10px;
   background: var(--noir);
   color: var(--white);
   border: none;
@@ -197,14 +197,14 @@ button { cursor:pointer; font-family:inherit; }
 /* ── FOOTER SIDEBAR ── */
 .sb-footer {
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 12px;
 }
 .sb-club-img {
   height: 52px;
   width: auto;
   mix-blend-mode: multiply;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   cursor: pointer;
 }
 .sb-legal {
@@ -237,7 +237,15 @@ button { cursor:pointer; font-family:inherit; }
   padding: 40px 60px 0;
   text-align: center;
 }
-.home-logo { margin-bottom: 28px; }
+.home-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.home-logo { margin-bottom: 48px; }
 .home-logo-name {
   font-family: 'Abril Fatface', serif;
   font-size: clamp(4rem, 12vw, 9rem);
@@ -258,7 +266,7 @@ button { cursor:pointer; font-family:inherit; }
   gap: 16px;
   width: 100%;
   max-width: 420px;
-  margin: 0 auto 24px;
+  margin: 0 auto 40px;
 }
 .home-btn {
   background: var(--white);
@@ -414,15 +422,9 @@ button { cursor:pointer; font-family:inherit; }
   .main.shifted,
   .main.desktop-shifted { margin-left: 0; }
   #page-home {
-    padding: 20px 24px 0;
+    padding: 40px 24px 0;
     min-height: 100svh;
   }
-  .home-logo { margin-bottom: 20px; }
-  .home-logo-name { font-size: clamp(3.5rem, 18vw, 6rem); }
-  .home-logo-sub { font-size: 10px; letter-spacing: 4px; }
-  .home-ctas { margin: 0 auto 16px; gap: 10px; }
-  .home-btn { padding: 16px 22px; }
-  .home-btn-title { font-size: 14px; }
   .home-footer {
     width: calc(100% + 48px);
     margin: auto -24px 0;
