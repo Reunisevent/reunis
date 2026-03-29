@@ -456,29 +456,71 @@ button { cursor:pointer; font-family:inherit; }
 }
 .sb-close:hover { color: var(--noir); }
 body.sb-open .home-hamburger { display: none; }
+/* ── PAGE CONTACT ── */
+.contact-wrap { max-width:560px; margin:0 auto; padding:48px 28px 80px; }
+.contact-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,5vw,3rem); font-weight:400; margin-bottom:6px; }
+.contact-sub { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:36px; }
+.form-group { margin-bottom:18px; }
+.form-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.form-input, .form-select, .form-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; transition:border-color .2s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--rose); }
+.form-textarea { resize:vertical; min-height:120px; }
+.form-select { appearance:none; cursor:pointer; }
+.form-submit { background:var(--noir); color:var(--white); border:none; border-radius:8px; padding:14px 28px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; width:100%; margin-top:8px; }
+.form-submit:hover { background:var(--rose); }
+.contact-info { margin-top:36px; padding-top:28px; border-top:1px solid rgba(0,0,0,.08); }
+.contact-info a { display:block; font-size:13px; font-weight:700; color:var(--rose); text-decoration:none; margin-bottom:6px; transition:opacity .2s; }
+.contact-info a:hover { opacity:.7; }
+.contact-info p { font-size:12px; color:var(--muted); line-height:1.7; margin-top:10px; }
 
 /* ── PAGE CONTACT ── */
-.contact-wrap {
-  max-width: 560px;
-  margin: 0 auto;
-  padding: 48px 28px 80px;
+.contact-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: calc(100vh - 56px);
 }
-.contact-wrap h1 {
+.contact-left {
+  padding: 60px 52px;
+  border-right: 1px solid rgba(0,0,0,.07);
+  display: flex;
+  flex-direction: column;
+}
+.contact-right {
+  padding: 60px 52px;
+  background: var(--white);
+}
+.contact-page h1 {
   font-family: 'Abril Fatface', serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 400;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+  line-height: 1.1;
 }
-.contact-sub {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
+.contact-intro {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #444;
   margin-bottom: 36px;
 }
-.form-group {
-  margin-bottom: 18px;
+.contact-bottom {
+  margin-top: auto;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,0,0,.08);
 }
+.contact-bottom p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.contact-bottom a {
+  color: var(--rose);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity .2s;
+}
+.contact-bottom a:hover { opacity: .7; }
+.form-group { margin-bottom: 18px; }
 .form-label {
   display: block;
   font-size: 10px;
@@ -488,25 +530,22 @@ body.sb-open .home-hamburger { display: none; }
   color: var(--muted);
   margin-bottom: 6px;
 }
-.form-input,
-.form-select,
-.form-textarea {
+.form-input, .form-select, .form-textarea {
   width: 100%;
   border: 1px solid rgba(0,0,0,.15);
   border-radius: 8px;
   padding: 12px 14px;
   font-family: 'Arimo', sans-serif;
   font-size: 13px;
-  background: var(--white);
+  background: var(--bg);
   color: var(--noir);
   outline: none;
   transition: border-color .2s;
 }
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus { border-color: var(--rose); }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--rose); }
 .form-textarea { resize: vertical; min-height: 120px; }
 .form-select { appearance: none; cursor: pointer; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-submit {
   background: var(--noir);
   color: var(--white);
@@ -524,26 +563,17 @@ body.sb-open .home-hamburger { display: none; }
   margin-top: 8px;
 }
 .form-submit:hover { background: var(--rose); }
-.contact-info {
-  margin-top: 36px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(0,0,0,.08);
-}
-.contact-info a {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--rose);
-  text-decoration: none;
-  margin-bottom: 6px;
-  transition: opacity .2s;
-}
-.contact-info a:hover { opacity: .7; }
-.contact-info p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-top: 10px;
+@media (max-width: 860px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+  }
+  .contact-left {
+    padding: 32px 24px;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+  }
+  .contact-right { padding: 32px 24px; }
+  .form-row { grid-template-columns: 1fr; }
 }
 
 </style>
@@ -558,13 +588,13 @@ body.sb-open .home-hamburger { display: none; }
     <a class="sb-axis" href="planifier.html">Planifier</a>
     <button class="sb-axis" onclick="toggleCats(this)">Décorer</button>
     <div class="sb-cats">
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés & fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles & dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises & bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables & mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches & backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-signaletique.html#panneaux">Panneaux d'accueil</a><a class="sb-subcat" href="cat-signaletique.html#miroirs">Miroirs</a><a class="sb-subcat" href="cat-signaletique.html#petits">Petits panneaux</a><a class="sb-subcat" href="cat-signaletique.html#marque-place">Marque place</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="cat-table.html#vaisselles">Vaisselles</a><a class="sb-subcat" href="cat-table.html#presentoirs">Présentoirs</a><a class="sb-subcat" href="cat-table.html#candy-bar">Candy bar</a><a class="sb-subcat" href="cat-table.html#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="cat-table.html#carafes">Carafes</a><a class="sb-subcat" href="cat-table.html#service">Service</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a><div class="sb-subcats"><a class="sb-subcat" href="cat-textile.html#nappes">Nappes</a><a class="sb-subcat" href="cat-textile.html#chemins">Chemins de table</a><a class="sb-subcat" href="cat-textile.html#serviettes">Serviettes de table</a><a class="sb-subcat" href="cat-textile.html#tapis">Tapis</a><a class="sb-subcat" href="cat-textile.html#coussins">Coussins</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a><div class="sb-subcats"><a class="sb-subcat" href="cat-floral.html#dame-jeanne">Dame jeanne</a><a class="sb-subcat" href="cat-floral.html#vases">Vases</a><a class="sb-subcat" href="cat-floral.html#soliflores">Soliflores</a><a class="sb-subcat" href="cat-floral.html#seches">Fleurs séchées</a><a class="sb-subcat" href="cat-floral.html#fraiches">Fleurs fraîches</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs & chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes & éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs &amp; chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes &amp; éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-details.html">Les détails</a><div class="sb-subcats"><a class="sb-subcat" href="cat-details.html#livre-dor">Livre d'or</a><a class="sb-subcat" href="cat-details.html#disco">Boules disco</a><a class="sb-subcat" href="cat-details.html#zinc">Bassines en zinc</a><a class="sb-subcat" href="cat-details.html#caisses">Caisses en bois</a><a class="sb-subcat" href="cat-details.html#vintage">Objets vintages</a><a class="sb-subcat" href="cat-details.html#accessoires">Accessoires</a><a class="sb-subcat" href="cat-details.html#jeux">Jeux</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-pratique.html#video">Vidéoprojecteur</a><a class="sb-subcat" href="cat-pratique.html#vestiaire">Vestiaire</a><a class="sb-subcat" href="cat-pratique.html#rallonges">Rallonges</a><a class="sb-subcat" href="cat-pratique.html#cuisine">Ustensiles de cuisine</a></div></div>
     </div>
@@ -598,51 +628,62 @@ body.sb-open .home-hamburger { display: none; }
 </div>
 
 <main class="main" id="main" style="margin-left:0">
-  <div class="contact-wrap">
-    <h1>Contact</h1>
-    <p class="contact-sub">Parlons de votre projet</p>
+  <div class="contact-page">
 
-    <form onsubmit="sendForm(event)">
-      <div class="form-group">
-        <label class="form-label">Prénom &amp; Nom *</label>
-        <input type="text" class="form-input" placeholder="Pauline Dupont" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email *</label>
-        <input type="email" class="form-input" id="form-email" placeholder="pauline@email.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Téléphone</label>
-        <input type="tel" class="form-input" placeholder="06 12 34 56 78">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Type d'événement</label>
-        <select class="form-select">
-          <option value="">Sélectionner…</option>
-          <option>Mariage</option>
-          <option>Anniversaire</option>
-          <option>Baptême</option>
-          <option>Baby shower</option>
-          <option>Soirée d'entreprise</option>
-          <option>Autre</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Date envisagée</label>
-        <input type="date" class="form-input">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Votre message *</label>
-        <textarea class="form-textarea" placeholder="Parlez-nous de votre projet…" required></textarea>
-      </div>
-      <button type="submit" class="form-submit" id="form-btn">Envoyer →</button>
-    </form>
+    <!-- Colonne gauche : intro + infos -->
+    <div class="contact-left">
+      <h1>Contact</h1>
+      <p class="contact-intro">Une question, un projet à venir, une bonne nouvelle à célébrer&nbsp;? Nous serions ravies d'échanger avec vous et de vous accompagner dans votre événement.<br><br>Nous avons hâte de vous lire&nbsp;!</p>
 
-    <div class="contact-info">
-      <a id="contact-email-link" href="#">contact&#64;reunisevent.com</a>
-      <a href="https://instagram.com/reunisevent" target="_blank">@reunisevent</a>
-      <p>Épuisay (41) &amp; Épieds-en-Beauce (45)<br>Visites sur rendez-vous</p>
+      <div class="contact-bottom">
+        <p>Pour toute demande d'information ou de rendez-vous, utilisez le formulaire ci-contre — vous pouvez également nous écrire directement à <a id="contact-email" href="#">contact&#64;reunisevent.com</a> et sur Instagram <a href="https://instagram.com/reunisevent" target="_blank">@reunisevent</a>.</p>
+      </div>
     </div>
+
+    <!-- Colonne droite : formulaire -->
+    <div class="contact-right">
+      <form onsubmit="sendForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom &amp; Nom *</label>
+            <input type="text" class="form-input" placeholder="Pauline Dupont" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" placeholder="pauline@email.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" class="form-input" placeholder="06 12 34 56 78">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type d'événement</label>
+          <select class="form-select">
+            <option value="">Sélectionner…</option>
+            <option>Mariage</option>
+            <option>Anniversaire</option>
+            <option>Baptême</option>
+            <option>Baby shower</option>
+            <option>Gender Reveal</option>
+            <option>Soirée d'entreprise</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre message *</label>
+          <textarea class="form-textarea" placeholder="Parlez-nous de votre projet…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="form-btn">Envoyer →</button>
+      </form>
+    </div>
+
   </div>
 </main>
 
@@ -662,14 +703,12 @@ function closeSidebar(){
 }
 function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
 
-// Email protégé
 (function(){
   var e='contact'+String.fromCharCode(64)+'reunisevent.com';
-  var el=document.getElementById('contact-email-link');
+  var el=document.getElementById('contact-email');
   if(el){el.href='mailto:'+e;el.textContent=e;}
 })();
 
-// Sidebar ouverte par défaut sur desktop
 if(window.innerWidth>860){
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('main').style.marginLeft='var(--sb-w)';
