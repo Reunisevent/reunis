@@ -267,7 +267,7 @@ button { cursor:pointer; font-family:inherit; }
   gap: 16px;
   width: 100%;
   max-width: 420px;
-  margin: 0 auto 40px;
+  margin: 0 auto 24px;
 }
 .home-btn {
   background: var(--white);
@@ -307,7 +307,7 @@ button { cursor:pointer; font-family:inherit; }
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .home-links a {
   color: var(--muted);
@@ -446,6 +446,7 @@ button { cursor:pointer; font-family:inherit; }
   transition: color .2s;
 }
 .sb-close:hover { color: var(--noir); }
+body.sb-open .home-hamburger { display: none; }
 
 </style>
 </head>
@@ -535,8 +536,8 @@ button { cursor:pointer; font-family:inherit; }
 </main>
 
 <script>
-function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('on');}
-function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');}
+function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('on');document.body.classList.add('sb-open');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
 function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
 (function(){
   var e='contact'+String.fromCharCode(64)+'reunisevent.com';
