@@ -241,7 +241,6 @@ button { cursor:pointer; font-family:inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   min-height: 100vh;
   padding: 40px 60px 0;
   text-align: center;
@@ -267,7 +266,7 @@ button { cursor:pointer; font-family:inherit; }
   gap: 16px;
   width: 100%;
   max-width: 420px;
-  margin: 0 auto 24px;
+  margin: 0 auto 40px;
 }
 .home-btn {
   background: var(--white);
@@ -307,7 +306,7 @@ button { cursor:pointer; font-family:inherit; }
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .home-links a {
   color: var(--muted);
@@ -320,7 +319,7 @@ button { cursor:pointer; font-family:inherit; }
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--noir);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   transition: color .2s;
 }
 .home-email:hover { color: var(--rose); }
@@ -328,7 +327,7 @@ button { cursor:pointer; font-family:inherit; }
 /* footer home */
 .home-footer {
   width: calc(100% + 120px);
-  margin: 0 -60px;
+  margin: auto -60px 0;
   background: var(--white);
   display: flex;
   align-items: center;
@@ -424,11 +423,16 @@ button { cursor:pointer; font-family:inherit; }
   .main.desktop-shifted { margin-left: 0; }
   #page-home {
     padding: 40px 24px 0;
+    min-height: 100svh;
   }
   .home-footer {
     width: calc(100% + 48px);
-    margin: 0 -24px;
-    padding: 14px 24px;
+    margin: auto -24px 0;
+    padding: 12px 24px;
+  }
+  .sidebar {
+    overflow-y: auto;
+    max-height: 100vh;
   }
 }
 
