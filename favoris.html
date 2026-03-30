@@ -681,7 +681,7 @@ function loadFavoris(){
     return '<div class="fav-card">'
       +'<div class="fav-img" style="background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2rem;">📦</div>'
       +'<button class="fav-remove" onclick="removeFav('+i+')" title="Retirer">✕</button>'
-      +'<div class="fav-overlay">Voir l'article →</div>'
+      +'<div class="fav-overlay">Voir l\'article →</div>'
       +'<div class="fav-info">'
         +'<div class="fav-name">'+f.name+'</div>'
         +'<div class="fav-qty">Qté : <input type="number" value="'+(f.qty||1)+'" min="1" onchange="updateQty('+i+',this.value)"></div>'
