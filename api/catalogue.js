@@ -3,12 +3,12 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      'https://api.notion.com/v1/databases/270688b6-f396-4b7b-b4a0-44d6072c7612/query',
+      'https://api.notion.com/v1/databases/6d80f8aeaa1e45bab692f84f0821737d/query',
       {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
-          'Notion-Version': '2022-06-28',
+          'Notion-Version': '2025-09-03',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ page_size: 3 })
@@ -19,6 +19,6 @@ export default async function handler(req, res) {
     res.status(200).json({ raw: text });
 
   } catch (err) {
-    res.status(500).json({ erreur: err.message });
+    res.status(500).json({ erreur: err.message, stack: err.stack });
   }
 }
