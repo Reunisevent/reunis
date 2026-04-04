@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="La table — Vaisselles, présentoirs, candy bar, fontaines et service à louer pour vos événements. Réunis, Centre-Val de Loire.">
 <title>La table — Réunis</title>
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>:root {
+<style>
+:root {
   --bg:      #FAF1F1;
   --white:   #FFFFFF;
   --noir:    #000000;
@@ -544,155 +546,121 @@ body.sb-open .home-hamburger { display: none; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
 }
 
-/* ── CATALOGUE COMMUN ── */
-.cat-header {
-  padding: 20px 24px 0;
-  border-bottom: 1px solid rgba(0,0,0,.07);
-}
-.cat-back {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--rose); font-weight: 700; text-decoration: none;
-  font-family: 'Abril Fatface', serif; font-size: 1.1rem;
-  margin-bottom: 16px; transition: opacity .2s;
-}
-.cat-back:hover { opacity: .7; }
+
+/* ── TOOLBAR ÉTENDUE ── */
 .cat-toolbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 0; gap: 12px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px; gap: 12px;
+  flex-wrap: wrap;
 }
-.cat-filters {
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  font-weight: 600; color: var(--noir); cursor: pointer;
-  background: none; border: none; font-family: 'Arimo', sans-serif;
-  transition: color .2s;
+.cat-search-wrap {
+  display: flex; align-items: center;
+  gap: 0; flex: 1; max-width: 340px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 8px; overflow: hidden;
+  background: var(--white);
 }
-.cat-filters:hover { color: var(--rose); }
-.cat-config-btn {
-  background: var(--noir); color: white; border: none; border-radius: 8px;
-  padding: 12px 20px; font-family: 'Arimo', sans-serif; font-size: 11px;
-  font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-  cursor: pointer; white-space: nowrap; transition: background .2s;
+.cat-search-input {
+  flex: 1; border: none; outline: none;
+  padding: 10px 14px;
+  font-family: 'Arimo', sans-serif;
+  font-size: 13px; background: transparent;
 }
-.cat-config-btn:hover { background: var(--rose); }
-
-/* Sections */
-.cat-section { padding: 32px 24px 0; }
-.cat-section-title {
-  font-family: 'Abril Fatface', serif;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 400; margin-bottom: 20px;
+.cat-search-clear {
+  background: none; border: none; padding: 0 12px;
+  color: var(--muted); cursor: pointer; font-size: 1rem;
+  display: none;
 }
 
-/* Grille 4 colonnes */
-.items-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  margin-bottom: 40px;
+/* Panneau filtres */
+.cat-filters-panel {
+  display: none;
+  padding: 16px 24px 20px;
+  background: var(--white);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  gap: 24px; flex-wrap: wrap; align-items: flex-start;
 }
-
-/* Carte article */
-.item-card-cat {
-  background: var(--white); position: relative;
-  cursor: pointer; overflow: hidden;
-}
-.item-card-cat:hover .item-cat-overlay { opacity: 1; }
-.item-cat-img {
-  width: 100%; aspect-ratio: 3/4;
-  object-fit: cover; background: #f0ebe8;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; color: var(--muted);
-}
-.item-cat-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: rgba(0,0,0,.5); color: white;
-  padding: 10px 12px; opacity: 0; transition: opacity .22s;
-  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-  font-weight: 600;
-}
-.item-cat-badge {
-  position: absolute; top: 8px; left: 8px;
-  padding: 3px 10px; font-size: 9px; font-weight: 700;
-  letter-spacing: 1px; text-transform: uppercase; border-radius: 2px;
-}
-.badge-new { background: var(--rose); color: white; }
-.badge-perso { background: var(--lavande); color: var(--noir); }
-.item-cat-heart {
-  position: absolute; top: 8px; right: 8px;
-  background: white; border: none; border-radius: 50%;
-  width: 30px; height: 30px; display: flex; align-items: center;
-  justify-content: center; cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,.1); transition: all .2s;
-  color: var(--muted);
-}
-.item-cat-heart:hover { color: var(--rose); }
-.item-cat-heart.active { color: var(--rose); }
-.item-cat-info { padding: 10px 4px 14px; }
-.item-cat-name {
-  font-size: 12px; font-weight: 700; letter-spacing: .5px;
-  text-transform: uppercase; color: var(--noir); margin-bottom: 2px;
-}
-.item-cat-qty { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
-.item-cat-price { font-size: 12px; color: var(--noir); font-weight: 500; }
-
-/* Footer catalogue */
-.cat-footer {
-  background: var(--noir); color: white;
-  padding: 32px 24px; margin-top: 48px;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-}
-.cat-footer-step { }
-.cat-footer-num {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--rose); margin-bottom: 8px;
-}
-.cat-footer-title {
-  font-size: 11px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 8px;
-}
-.cat-footer-text { font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.7; }
-
-/* Page décorer — intro banner */
-.decorer-intro {
-  padding: 28px 24px 20px; border-bottom: 1px solid rgba(0,0,0,.07);
-  max-width: 680px;
-}
-.decorer-intro p { font-size: 13px; line-height: 1.85; color: #555; margin-bottom: 8px; }
-.decorer-intro .tagline { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rose); }
-
-/* Grille catégories */
-.cats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
-  margin-bottom: 48px;
-}
-.cat-tile {
-  position: relative; cursor: pointer; overflow: hidden;
-  aspect-ratio: 1/1; background: var(--bg);
-  display: flex; align-items: flex-end;
-}
-.cat-tile-bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--bg), #e8ddd8);
-  transition: transform .4s ease;
-}
-.cat-tile:hover .cat-tile-bg { transform: scale(1.05); }
-.cat-tile-label {
-  position: relative; z-index: 2;
-  width: 100%; background: rgba(0,0,0,.72); color: white;
-  padding: 12px 14px; font-size: 11px; font-weight: 700;
+.cat-filters-panel.open { display: flex; }
+.filter-group { display: flex; flex-direction: column; gap: 8px; }
+.filter-group-title {
+  font-size: 10px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 2px;
 }
-.cat-tile-emoji { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-70%); font-size: 2.5rem; z-index: 1; }
+.filter-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-chip {
+  padding: 5px 12px; border-radius: 100px;
+  border: 1px solid rgba(0,0,0,.15);
+  font-size: 11px; font-weight: 600;
+  cursor: pointer; background: none;
+  font-family: 'Arimo', sans-serif;
+  transition: all .18s; white-space: nowrap;
+}
+.filter-chip:hover { border-color: var(--rose); color: var(--rose); }
+.filter-chip.active {
+  background: var(--noir); color: var(--white);
+  border-color: var(--noir);
+}
+.filter-reset {
+  font-size: 11px; color: var(--muted);
+  background: none; border: none;
+  cursor: pointer; font-family: 'Arimo', sans-serif;
+  text-decoration: underline; align-self: flex-end;
+  padding: 5px 0; transition: color .2s;
+}
+.filter-reset:hover { color: var(--noir); }
 
-@media(max-width: 860px) {
-  .items-grid-4 { grid-template-columns: repeat(3, 1fr); }
-  .cats-grid { grid-template-columns: repeat(2, 1fr); }
-  .cat-footer { grid-template-columns: repeat(2, 1fr); }
+/* Aucun résultat */
+.cat-no-results {
+  display: none; text-align: center;
+  padding: 60px 24px; color: var(--muted);
+  font-size: 14px;
 }
-@media(max-width: 560px) {
-  .cat-footer { grid-template-columns: 1fr; }
+.cat-no-results strong { display: block; font-size: 1.5rem; margin-bottom: 8px; }
+
+/* Section masquée si vide */
+.cat-section.hidden { display: none; }
+
+/* Badge filtre actif */
+.cat-filter-btn {
+  background: none; border: 1px solid rgba(0,0,0,.15);
+  border-radius: 8px; padding: 10px 16px;
+  font-family: 'Arimo', sans-serif; font-size: 11px;
+  font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all .18s; display: flex;
+  align-items: center; gap: 6px;
 }
+.cat-filter-btn:hover { border-color: var(--noir); }
+.cat-filter-btn.active { background: var(--noir); color: white; border-color: var(--noir); }
+.filter-count {
+  background: var(--rose); color: white;
+  border-radius: 100px; font-size: 9px;
+  padding: 1px 6px; font-weight: 700;
+}
+
+/* ── BADGE FAVORIS ── */
+.heart-badge-wrap { position: relative; display: inline-flex; }
+.heart-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--rose); color: white;
+  border-radius: 100px; font-size: 9px;
+  padding: 1px 5px; font-weight: 700;
+  min-width: 16px; text-align: center;
+  display: none;
+}
+.heart-badge.visible { display: block; }
+
+/* ── PADDING-TOP MOBILE (topbar fixe) ── */
+@media (max-width: 860px) {
+  .main { padding-top: 56px; }
+}
+/* Desktop : topbar n'est pas fixe donc pas besoin de padding */
+@media (min-width: 861px) {
+  .topbar { position: sticky; }
+}
+
 </style>
 </head>
 <body>
@@ -736,442 +704,127 @@ body.sb-open .home-hamburger { display: none; }
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <a class="topbar-logo" href="index.html">Réunis</a>
-  <a class="topbar-icon" href="favoris.html" aria-label="Favoris">
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <span class="heart-badge" id="fav-badge"></span>
   </a>
 </div>
 <main class="main" id="main" style="margin-left:0">
-
   <div class="cat-header">
     <a class="cat-back" href="decorer.html">← La table</a>
     <div class="cat-toolbar">
-      <button class="cat-filters">Filtres | Recherche</button>
+      <div style="display:flex;gap:10px;align-items:center;flex:1;flex-wrap:wrap;">
+        <div class="cat-search-wrap">
+          <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
+          <button class="cat-search-clear" id="cat-search-clear" title="Effacer">✕</button>
+        </div>
+        <button class="cat-filter-btn" id="filter-btn" onclick="toggleFiltersPanel()">
+          Filtres <span class="filter-count" style="display:none">0</span>
+        </button>
+      </div>
       <button class="cat-config-btn" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
     </div>
+    <div class="cat-filters-panel" id="filters-panel">
+      <div class="filter-group">
+        <div class="filter-group-title">Badge</div>
+        <div class="filter-chips">
+          <button class="filter-chip" onclick="toggleFilter('badge','new',this)">Nouveauté</button>
+          <button class="filter-chip" onclick="toggleFilter('badge','perso',this)">Personnalisable</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Catégorie</div>
+        <div class="filter-chips">
+          <button class="filter-chip" onclick="toggleFilter('section','vaisselles',this)">Vaisselles</button>
+          <button class="filter-chip" onclick="toggleFilter('section','presentoirs',this)">Présentoirs</button>
+          <button class="filter-chip" onclick="toggleFilter('section','candy-bar',this)">Candy bar</button>
+          <button class="filter-chip" onclick="toggleFilter('section','fontaines',this)">Fontaines</button>
+          <button class="filter-chip" onclick="toggleFilter('section','carafes',this)">Carafes</button>
+          <button class="filter-chip" onclick="toggleFilter('section','service',this)">Service</button>
+        </div>
+      </div>
+      <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
+    </div>
+  </div>
+  <div class="cat-no-results" id="cat-no-results">
+    <strong>Aucun résultat</strong>
+    Essayez un autre mot-clé ou réinitialisez les filtres.
   </div>
 
   <div id="vaisselles" class="cat-section">
     <div class="cat-section-title">Vaisselles</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍽️</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Assiette Aurore</div>
-    <div class="item-cat-qty">Quantité : 100</div>
-    <div class="item-cat-price">0,50€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍽️</div>
-  <div class="item-cat-badge badge-new">NOUVEAUTÉ</div>
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Assiette Alice</div>
-    <div class="item-cat-qty">Quantité : 50</div>
-    <div class="item-cat-price">0,50€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🥂</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Verre Valentine</div>
-    <div class="item-cat-qty">Quantité : 100</div>
-    <div class="item-cat-price">0,30€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🥂</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Verre Valentia</div>
-    <div class="item-cat-qty">Quantité : 24</div>
-    <div class="item-cat-price">0,60€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🥂</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Flûte Diamant</div>
-    <div class="item-cat-qty">Quantité : 24</div>
-    <div class="item-cat-price">0,60€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🥤</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Eco cup Victor</div>
-    <div class="item-cat-qty">Quantité : 100</div>
-    <div class="item-cat-price">0,20€/pcs</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍴</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Couverts Dorés</div>
-    <div class="item-cat-qty">Quantité : 50 sets</div>
-    <div class="item-cat-price">1,50€/set</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍴</div>
-  <div class="item-cat-badge badge-new">NOUVEAUTÉ</div>
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Couverts Argentés</div>
-    <div class="item-cat-qty">Quantité : 50 sets</div>
-    <div class="item-cat-price">1,20€/set</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍽️</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Assiette Aurore</div><div class="item-cat-qty">Quantité : 100</div><div class="item-cat-price">0,50€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍽️</div><div class="item-cat-badge badge-new">NOUVEAUTÉ</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Assiette Alice</div><div class="item-cat-qty">Quantité : 50</div><div class="item-cat-price">0,50€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🥂</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Verre Valentine</div><div class="item-cat-qty">Quantité : 100</div><div class="item-cat-price">0,30€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🥂</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Verre Valentia</div><div class="item-cat-qty">Quantité : 24</div><div class="item-cat-price">0,60€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🥂</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Flûte Diamant</div><div class="item-cat-qty">Quantité : 24</div><div class="item-cat-price">0,60€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🥤</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Eco cup Victor</div><div class="item-cat-qty">Quantité : 100</div><div class="item-cat-price">0,20€/pcs</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍴</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Couverts Dorés</div><div class="item-cat-qty">Quantité : 50 sets</div><div class="item-cat-price">1,50€/set</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍴</div><div class="item-cat-badge badge-new">NOUVEAUTÉ</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Couverts Argentés</div><div class="item-cat-qty">Quantité : 50 sets</div><div class="item-cat-price">1,20€/set</div></div></div>
     </div>
   </div>
 
   <div id="presentoirs" class="cat-section">
     <div class="cat-section-title">Présentoirs</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🎂</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Présentoir à gâteau doré</div>
-    <div class="item-cat-qty">Quantité : 2</div>
-    <div class="item-cat-price">8,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">✨</div>
-  <div class="item-cat-badge badge-perso">PERSONNALISABLE</div>
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Cake topper personnalisé</div>
-    <div class="item-cat-qty">Quantité : Sur commande</div>
-    <div class="item-cat-price">12,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🪧</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Présentoir ardoise</div>
-    <div class="item-cat-qty">Quantité : 3</div>
-    <div class="item-cat-price">4,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫙</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Cloche à gâteau</div>
-    <div class="item-cat-qty">Quantité : 2</div>
-    <div class="item-cat-price">6,00€</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🎂</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Présentoir à gâteau doré</div><div class="item-cat-qty">Quantité : 2</div><div class="item-cat-price">8,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">✨</div><div class="item-cat-badge badge-perso">PERSONNALISABLE</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Cake topper personnalisé</div><div class="item-cat-qty">Sur commande</div><div class="item-cat-price">12,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🪧</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Présentoir ardoise</div><div class="item-cat-qty">Quantité : 3</div><div class="item-cat-price">4,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫙</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Cloche à gâteau</div><div class="item-cat-qty">Quantité : 2</div><div class="item-cat-price">6,00€</div></div></div>
     </div>
   </div>
 
   <div id="candy-bar" class="cat-section">
     <div class="cat-section-title">Candy bar</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍬</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Bonbonnière Billy 1L</div>
-    <div class="item-cat-qty">Quantité : 3</div>
-    <div class="item-cat-price">2,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍬</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Bonbonnière Billy 3L</div>
-    <div class="item-cat-qty">Quantité : 3</div>
-    <div class="item-cat-price">3,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍬</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Bonbonnière Billy 5L</div>
-    <div class="item-cat-qty">Quantité : 3</div>
-    <div class="item-cat-price">4,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫙</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Bocaux Babeth</div>
-    <div class="item-cat-qty">Quantité : 35</div>
-    <div class="item-cat-price">0,50€/pcs</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍬</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Bonbonnière Billy 1L</div><div class="item-cat-qty">Quantité : 3</div><div class="item-cat-price">2,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍬</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Bonbonnière Billy 3L</div><div class="item-cat-qty">Quantité : 3</div><div class="item-cat-price">3,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍬</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Bonbonnière Billy 5L</div><div class="item-cat-qty">Quantité : 3</div><div class="item-cat-price">4,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫙</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Bocaux Babeth</div><div class="item-cat-qty">Quantité : 35</div><div class="item-cat-price">0,50€/pcs</div></div></div>
     </div>
   </div>
 
   <div id="fontaines" class="cat-section">
     <div class="cat-section-title">Fontaines à boisson</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫗</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Fontaine Peach 12L</div>
-    <div class="item-cat-qty">Quantité : 1</div>
-    <div class="item-cat-price">14,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫗</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Fontaine Cramberry 5,5L</div>
-    <div class="item-cat-qty">Quantité : 2</div>
-    <div class="item-cat-price">6,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫗</div>
-  <div class="item-cat-badge badge-new">NOUVEAUTÉ</div>
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Fontaine Pear 5,5L</div>
-    <div class="item-cat-qty">Quantité : 2</div>
-    <div class="item-cat-price">6,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫗</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Fontaine Cherry 3,5L</div>
-    <div class="item-cat-qty">Quantité : 1</div>
-    <div class="item-cat-price">3,00€</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫗</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Fontaine Peach 12L</div><div class="item-cat-qty">Quantité : 1</div><div class="item-cat-price">14,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫗</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Fontaine Cramberry 5,5L</div><div class="item-cat-qty">Quantité : 2</div><div class="item-cat-price">6,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫗</div><div class="item-cat-badge badge-new">NOUVEAUTÉ</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Fontaine Pear 5,5L</div><div class="item-cat-qty">Quantité : 2</div><div class="item-cat-price">6,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫗</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Fontaine Cherry 3,5L</div><div class="item-cat-qty">Quantité : 1</div><div class="item-cat-price">3,00€</div></div></div>
     </div>
   </div>
 
   <div id="carafes" class="cat-section">
     <div class="cat-section-title">Carafes</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫙</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Carafe en verre 1L</div>
-    <div class="item-cat-qty">Quantité : 8</div>
-    <div class="item-cat-price">2,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫙</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Pichet grès</div>
-    <div class="item-cat-qty">Quantité : 4</div>
-    <div class="item-cat-price">3,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫖</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Théière fleurs</div>
-    <div class="item-cat-qty">Quantité : 3</div>
-    <div class="item-cat-price">1,50€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍶</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Carafe digestif</div>
-    <div class="item-cat-qty">Quantité : 4</div>
-    <div class="item-cat-price">2,00€</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫙</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Carafe en verre 1L</div><div class="item-cat-qty">Quantité : 8</div><div class="item-cat-price">2,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫙</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Pichet grès</div><div class="item-cat-qty">Quantité : 4</div><div class="item-cat-price">3,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫖</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Théière fleurs</div><div class="item-cat-qty">Quantité : 3</div><div class="item-cat-price">1,50€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍶</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Carafe digestif</div><div class="item-cat-qty">Quantité : 4</div><div class="item-cat-price">2,00€</div></div></div>
     </div>
   </div>
 
   <div id="service" class="cat-section">
     <div class="cat-section-title">Service</div>
     <div class="items-grid-4">
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🫳</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Plateau doré</div>
-    <div class="item-cat-qty">Quantité : 4</div>
-    <div class="item-cat-price">4,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🍽️</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Plat ovale</div>
-    <div class="item-cat-qty">Quantité : 6</div>
-    <div class="item-cat-price">3,00€</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">🥄</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Ustensiles de service</div>
-    <div class="item-cat-qty">Quantité : 5 sets</div>
-    <div class="item-cat-price">2,00€/set</div>
-  </div>
-</div>
-      <div class="item-card-cat" onclick="openArticle(this)">
-  <div class="item-cat-img">✨</div>
-  
-  <button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-  </button>
-  <div class="item-cat-overlay">Voir l'article →</div>
-  <div class="item-cat-info">
-    <div class="item-cat-name">Présentoir Margot doré</div>
-    <div class="item-cat-qty">Quantité : 1</div>
-    <div class="item-cat-price">6,00€</div>
-  </div>
-</div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🫳</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Plateau doré</div><div class="item-cat-qty">Quantité : 4</div><div class="item-cat-price">4,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🍽️</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Plat ovale</div><div class="item-cat-qty">Quantité : 6</div><div class="item-cat-price">3,00€</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">🥄</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Ustensiles de service</div><div class="item-cat-qty">Quantité : 5 sets</div><div class="item-cat-price">2,00€/set</div></div></div>
+      <div class="item-card-cat" onclick="openArticle(this)"><div class="item-cat-img">✨</div><button class="item-cat-heart" onclick="event.stopPropagation();toggleHeart(this)" aria-label="Favori"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="item-cat-overlay">Voir l'article →</div><div class="item-cat-info"><div class="item-cat-name">Présentoir Margot doré</div><div class="item-cat-qty">Quantité : 1</div><div class="item-cat-price">6,00€</div></div></div>
     </div>
   </div>
 
-  
-    <div class="cat-footer">
-      <div class="cat-footer-step">
-        <div class="cat-footer-num">1 — Faites votre sélection</div>
-        <div class="cat-footer-text">Ajoutez aux favoris vos articles et les quantités dont vous avez besoin.</div>
-      </div>
-      <div class="cat-footer-step">
-        <div class="cat-footer-num">2 — Envoyez votre demande</div>
-        <div class="cat-footer-text">Validez votre sélection pour nous la transmettre et recevoir votre devis personnalisé.</div>
-      </div>
-      <div class="cat-footer-step">
-        <div class="cat-footer-num">3 — Surveillez votre boîte mail</div>
-        <div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer la disponibilité des articles.</div>
-      </div>
-      <div class="cat-footer-step">
-        <div class="cat-footer-num">4 — Récupérez vos articles</div>
-        <div class="cat-footer-text">Directement dans nos locaux situés à Épuisay (41) et Épieds-en-Beauce (45) ou optez pour la livraison.</div>
-      </div>
-    </div>
+  <div class="cat-footer">
+    <div class="cat-footer-step"><div class="cat-footer-num">1 — Faites votre sélection</div><div class="cat-footer-text">Ajoutez aux favoris vos articles et les quantités dont vous avez besoin.</div></div>
+    <div class="cat-footer-step"><div class="cat-footer-num">2 — Envoyez votre demande</div><div class="cat-footer-text">Validez votre sélection pour nous la transmettre et recevoir votre devis personnalisé.</div></div>
+    <div class="cat-footer-step"><div class="cat-footer-num">3 — Surveillez votre boîte mail</div><div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer la disponibilité.</div></div>
+    <div class="cat-footer-step"><div class="cat-footer-num">4 — Récupérez vos articles</div><div class="cat-footer-text">Directement dans nos locaux à Épuisay (41) et Épieds-en-Beauce (45) ou livraison.</div></div>
+  </div>
 </main>
 
 <script>
+// ── Sidebar ──
 function toggleSidebar(){
   var sb=document.getElementById('sidebar');
   var ov=document.getElementById('sb-overlay');
@@ -1190,19 +843,145 @@ if(window.innerWidth>860){
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('main').style.marginLeft='var(--sb-w)';
 }
+
+// ── Badge favoris ──
+function updateBadge(){
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var badges = document.querySelectorAll('.heart-badge');
+  badges.forEach(function(b){
+    b.textContent = favs.length;
+    b.classList.toggle('visible', favs.length > 0);
+  });
+}
+updateBadge();
+
+// ── Favoris sur les cartes ──
 function toggleHeart(btn){
   btn.classList.toggle('active');
-  var name = btn.closest('.item-card-cat').querySelector('.item-cat-name').textContent;
+  var card = btn.closest('.item-card-cat');
+  var name = card.querySelector('.item-cat-name').textContent;
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   if(btn.classList.contains('active')){
-    favs.push({name:name, qty:1});
+    if(!favs.find(function(f){return f.name===name;})){
+      favs.push({name:name, qty:1});
+    }
+    // Feedback visuel
+    showToast('Ajouté aux favoris ♥');
   } else {
     favs = favs.filter(function(f){return f.name!==name;});
   }
   localStorage.setItem('reunis_favoris', JSON.stringify(favs));
+  updateBadge();
 }
-function openArticle(card){
-  window.location.href='article.html';
+function openArticle(card){window.location.href='article.html';}
+
+// ── Toast ──
+function showToast(msg){
+  var t = document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--noir);color:white;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:1px;z-index:999;transition:opacity .3s;'; document.body.appendChild(t); }
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t=setTimeout(function(){t.style.opacity='0';},2000);
+}
+
+// ── Recherche en temps réel ──
+var searchInput = document.getElementById('cat-search');
+var searchClear = document.getElementById('cat-search-clear');
+if(searchInput){
+  searchInput.addEventListener('input', function(){
+    var q = this.value.trim();
+    searchClear.style.display = q ? 'block' : 'none';
+    applyFilters();
+  });
+}
+if(searchClear){
+  searchClear.addEventListener('click', function(){
+    searchInput.value = '';
+    this.style.display = 'none';
+    applyFilters();
+  });
+}
+
+// ── Filtres ──
+var activeFilters = { badge: null, section: null };
+
+function toggleFiltersPanel(){
+  var panel = document.getElementById('filters-panel');
+  var btn = document.getElementById('filter-btn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function toggleFilter(type, value, el){
+  var chips = el.parentElement.querySelectorAll('.filter-chip');
+  if(activeFilters[type] === value){
+    activeFilters[type] = null;
+    chips.forEach(function(c){c.classList.remove('active');});
+  } else {
+    activeFilters[type] = value;
+    chips.forEach(function(c){c.classList.remove('active');});
+    el.classList.add('active');
+  }
+  updateFilterCount();
+  applyFilters();
+}
+
+function resetFilters(){
+  activeFilters = {badge: null, section: null};
+  document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.remove('active');});
+  if(searchInput) searchInput.value='';
+  if(searchClear) searchClear.style.display='none';
+  updateFilterCount();
+  applyFilters();
+}
+
+function updateFilterCount(){
+  var count = Object.values(activeFilters).filter(Boolean).length;
+  var fc = document.querySelector('.filter-count');
+  var btn = document.getElementById('filter-btn');
+  if(fc){ fc.textContent=count; fc.style.display = count?'inline':'none'; }
+  if(btn) btn.classList.toggle('active', count>0);
+}
+
+function applyFilters(){
+  var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  var badge = activeFilters.badge;
+  var section = activeFilters.section;
+  var totalVisible = 0;
+
+  document.querySelectorAll('.cat-section').forEach(function(sec){
+    var secId = sec.id;
+    var sectionVisible = 0;
+
+    // Filtre section
+    if(section && secId !== section){
+      sec.classList.add('hidden');
+      return;
+    }
+    sec.classList.remove('hidden');
+
+    sec.querySelectorAll('.item-card-cat').forEach(function(card){
+      var name = card.querySelector('.item-cat-name').textContent.toLowerCase();
+      var hasBadgeNew = card.querySelector('.badge-new');
+      var hasBadgePerso = card.querySelector('.badge-perso');
+
+      var matchSearch = !q || name.includes(q);
+      var matchBadge = !badge
+        || (badge==='new' && hasBadgeNew)
+        || (badge==='perso' && hasBadgePerso);
+
+      var visible = matchSearch && matchBadge;
+      card.style.display = visible ? '' : 'none';
+      if(visible){ sectionVisible++; totalVisible++; }
+    });
+
+    // Cacher la section si aucun article visible
+    sec.classList.toggle('hidden', sectionVisible === 0);
+  });
+
+  // Message aucun résultat
+  var noRes = document.getElementById('cat-no-results');
+  if(noRes) noRes.style.display = totalVisible===0 ? 'block' : 'none';
 }
 </script>
 </body>

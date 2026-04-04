@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Catalogue de location décoration Réunis — mobilier, vaisselle, floral, lumière et personnalisation en Centre-Val de Loire.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Décorer — Réunis</title>
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -736,8 +737,9 @@ body.sb-open .home-hamburger { display: none; }
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <a class="topbar-logo" href="index.html">Réunis</a>
-  <a class="topbar-icon" href="favoris.html" aria-label="Favoris">
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <span class="heart-badge" id="fav-badge"></span>
   </a>
 </div>
 <main class="main" id="main" style="margin-left:0">
@@ -912,6 +914,19 @@ function closeSidebar(){
   document.body.classList.remove('sb-open');
 }
 function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
+
+// Badge favoris
+function updateBadge(){
+  try {
+    var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+    var badges = document.querySelectorAll('.heart-badge');
+    badges.forEach(function(b){
+      b.textContent = favs.length;
+      b.classList.toggle('visible', favs.length > 0);
+    });
+  } catch(e){}
+}
+updateBadge();
 if(window.innerWidth>860){
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('main').style.marginLeft='var(--sb-w)';
