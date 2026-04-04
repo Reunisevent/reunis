@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const response = await fetch(
-    `https://api.notion.com/v1/databases/${process.env.NOTION_DB_ID}/query`,
+    `https://api.notion.com/v1/databases/6d80f8aeaa1e45bab692f84f0821737d/query`,
     {
       method: 'POST',
       headers: {
