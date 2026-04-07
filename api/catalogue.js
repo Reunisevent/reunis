@@ -6,14 +6,24 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   try {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_DB_ID,
-      page_size: 3
-    });
+    const { categorie, sous_categorie } = req.query;
 
-    res.status(200).json({ results: response.results.length, raw: response.results[0] });
+    const filters = [
+      {
+        property: 'Visible sur le site',
+        checkbox: { equals: true }
+      }
+    ];
 
-  } catch (err) {
-    res.status(500).json({ erreur: err.message, code: err.code });
-  }
-}
+    if (categorie) {
+      filters.push({
+        property: 'Catégorie',
+        select: { equals: categorie }
+      });
+    }
+
+    if (sous_categorie) {
+      filters.push({
+        property: 'Sous catégorie',
+        select: { equals: sous_categorie }
+      });
