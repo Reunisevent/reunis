@@ -62,7 +62,7 @@ button { cursor:pointer; font-family:inherit; }
 .heart-badge { position:absolute; top:-6px; right:-6px; background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 5px; font-weight:700; min-width:16px; text-align:center; display:none; }
 .heart-badge.visible { display:block; }
 
-/* ── PAGE FAVORIS ── */
+/* ── FAVORIS ── */
 .favoris-wrap { max-width:960px; margin:0 auto; padding:52px 28px 80px; }
 .favoris-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:6px; }
 .favoris-sub { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:36px; }
@@ -70,24 +70,14 @@ button { cursor:pointer; font-family:inherit; }
 .favoris-empty-icon { font-size:3rem; margin-bottom:16px; }
 .favoris-empty p { font-size:14px; color:var(--muted); margin-bottom:24px; }
 
-/* Grille articles normaux — 4 col desktop / 3 col mobile */
-.favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+/* Grille normale — 4 col desktop / 3 col mobile */
+.favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:12px; }
 
 /* Carte normale */
 .fav-card { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; }
 .fav-img { width:100%; aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
 .fav-img img { width:100%; height:100%; object-fit:cover; }
-.fav-remove {
-  position:absolute; top:8px; right:8px;
-  background:white; border:none; border-radius:50%;
-  width:28px; height:28px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; font-size:.9rem;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-  transition:background .2s;
-  z-index:2;
-  color:var(--noir);
-}
+.fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(--noir); }
 .fav-remove:hover { background:var(--rose); color:white; }
 .fav-info { padding:10px 8px 12px; }
 .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; line-height:1.3; }
@@ -99,33 +89,10 @@ button { cursor:pointer; font-family:inherit; }
 .fav-qty-num { min-width:22px; text-align:center; font-size:12px; font-weight:700; }
 .fav-prix { font-size:11px; color:var(--muted); }
 
-/* Carte personnalisable — pleine largeur, layout horizontal */
-.fav-card-perso {
-  background:var(--white);
-  border-radius:4px;
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  margin-bottom:12px;
-}
-.fav-card-perso .fav-img {
-  aspect-ratio:unset;
-  min-height:180px;
-  height:100%;
-}
-.fav-card-perso .fav-remove {
-  position:absolute; top:8px; right:8px;
-  background:white; border:none; border-radius:50%;
-  width:28px; height:28px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; font-size:.9rem;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-  transition:background .2s;
-  z-index:2;
-  color:var(--noir);
-}
+/* Carte personnalisable — horizontale pleine largeur */
+.fav-card-perso { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; display:grid; grid-template-columns:180px 1fr; margin-bottom:12px; }
+.fav-card-perso .fav-img { aspect-ratio:unset; min-height:180px; height:100%; }
+.fav-card-perso .fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(--noir); }
 .fav-card-perso .fav-remove:hover { background:var(--rose); color:white; }
 .fav-card-perso-right { padding:16px; display:flex; flex-direction:column; gap:10px; }
 .fav-card-perso .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; line-height:1.3; }
@@ -133,7 +100,7 @@ button { cursor:pointer; font-family:inherit; }
 .fav-card-perso .fav-qty-label { font-size:10px; color:var(--muted); }
 .fav-card-perso .fav-prix { font-size:11px; color:var(--muted); }
 
-/* Section personnalisation */
+/* Personnalisation */
 .fav-perso { background:var(--bg); border-radius:6px; padding:12px; }
 .fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .fav-perso-field { margin-bottom:8px; }
@@ -144,8 +111,15 @@ button { cursor:pointer; font-family:inherit; }
 .fav-perso-select:focus { border-color:var(--rose); }
 .fav-perso-file { font-size:11px; color:var(--rose); margin-top:4px; }
 
+/* Total */
+.favoris-total { background:var(--white); border-radius:8px; padding:16px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
+.favoris-total-left { display:flex; flex-direction:column; gap:4px; }
+.favoris-total-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
+.favoris-total-note { font-size:10px; color:var(--muted); line-height:1.5; }
+.favoris-total-montant { font-family:'Abril Fatface',serif; font-size:1.8rem; }
+
 /* Actions */
-.favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:24px; }
+.favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 .btn-send-favoris { background:var(--noir); color:white; border:none; border-radius:8px; padding:14px 28px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; }
 .btn-send-favoris:hover { background:var(--rose); }
 .btn-clear-favoris { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:13px 20px; font-family:'Arimo',sans-serif; font-size:11px; color:var(--muted); cursor:pointer; transition:all .2s; }
@@ -157,9 +131,8 @@ button { cursor:pointer; font-family:inherit; }
 .modal { background:var(--white); border-radius:12px; padding:36px; max-width:480px; width:90%; max-height:90vh; overflow-y:auto; position:relative; }
 .modal h2 { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; margin-bottom:8px; }
 .modal-sub { font-size:12px; color:var(--muted); margin-bottom:28px; letter-spacing:.5px; }
-.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(--muted); cursor:pointer; color:var(--noir); }
+.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(--noir); cursor:pointer; }
 .modal-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; margin-top:16px; }
-.modal-label:first-of-type { margin-top:0; }
 .modal-input { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:14px; background:var(--bg); color:var(--noir); outline:none; transition:border-color .2s; }
 .modal-input:focus { border-color:var(--rose); }
 .modal-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--bg); color:var(--noir); outline:none; resize:vertical; min-height:80px; transition:border-color .2s; }
@@ -184,6 +157,7 @@ button { cursor:pointer; font-family:inherit; }
 </style>
 </head>
 <body>
+
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 <aside class="sidebar" id="sidebar">
   <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
@@ -256,6 +230,16 @@ button { cursor:pointer; font-family:inherit; }
       <option>Événement professionnel</option>
       <option>Autre</option>
     </select>
+    <label class="modal-label">Livraison *</label>
+    <select class="modal-select" id="m-livraison" onchange="toggleAdresse(this)">
+      <option value="">Sélectionnez…</option>
+      <option value="Retrait à Épuisay (41)">Retrait à Épuisay (41)</option>
+      <option value="Retrait à Épieds-en-Beauce (45)">Retrait à Épieds-en-Beauce (45)</option>
+      <option value="Livraison et reprise (sur devis)">Livraison et reprise (sur devis)</option>
+    </select>
+    <div id="m-adresse-wrap" style="display:none;margin-top:8px;">
+      <input class="modal-input" id="m-adresse" type="text" placeholder="Adresse de livraison complète">
+    </div>
     <label class="modal-label">Message (optionnel)</label>
     <textarea class="modal-textarea" id="m-message" placeholder="Informations complémentaires, questions…"></textarea>
     <button class="btn-modal-send" onclick="envoyerSelection()">Envoyer ma sélection →</button>
@@ -274,6 +258,13 @@ button { cursor:pointer; font-family:inherit; }
         <a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;margin-top:8px;">Voir le catalogue →</a>
       </div>
       <div id="favoris-content"></div>
+      <div id="favoris-total" class="favoris-total" style="display:none;">
+        <div class="favoris-total-left">
+          <div class="favoris-total-label">Total estimé</div>
+          <div class="favoris-total-note">Hors livraison, articles sur devis<br>et personnalisation</div>
+        </div>
+        <div class="favoris-total-montant" id="favoris-total-montant"></div>
+      </div>
       <div class="favoris-actions" id="favoris-actions" style="display:none">
         <button class="btn-send-favoris" onclick="openModal()">Envoyer ma sélection →</button>
         <button class="btn-clear-favoris" onclick="clearFavoris()">Vider la liste</button>
@@ -299,6 +290,22 @@ function updateBadge(){
 }
 updateBadge();
 
+// ── Total ──
+function updateTotal(){
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var total = 0;
+  favs.forEach(function(f){
+    var prix = parseFloat(f.prix);
+    if(prix && prix > 0) total += prix * (parseInt(f.qty) || 1);
+  });
+  var totalEl = document.getElementById('favoris-total');
+  var montantEl = document.getElementById('favoris-total-montant');
+  if(totalEl && montantEl){
+    totalEl.style.display = favs.length ? 'flex' : 'none';
+    montantEl.textContent = total.toFixed(2) + '€';
+  }
+}
+
 // ── Chargement ──
 function loadFavoris(){
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
@@ -310,6 +317,7 @@ function loadFavoris(){
     empty.style.display = 'block';
     content.innerHTML = '';
     actions.style.display = 'none';
+    updateTotal();
     return;
   }
 
@@ -317,7 +325,7 @@ function loadFavoris(){
   actions.style.display = 'flex';
   content.innerHTML = '';
 
-  // Grouper par catégorie (tri transparent)
+  // Grouper par catégorie (tri transparent, sans titres)
   var categories = {};
   var ordreCategories = [];
   favs.forEach(function(f, i){
@@ -328,26 +336,20 @@ function loadFavoris(){
 
   ordreCategories.forEach(function(cat){
     var items = categories[cat];
-
-    // Séparer perso / non-perso
     var normaux = items.filter(function(item){ return item.article.personnalisable !== 'Oui'; });
     var persos = items.filter(function(item){ return item.article.personnalisable === 'Oui'; });
 
-    // Grille articles normaux
-    if(normaux.length) {
+    if(normaux.length){
       var grid = document.createElement('div');
       grid.className = 'favoris-grid';
-      normaux.forEach(function(item){
-        grid.appendChild(makeCardNormal(item.article, item.index));
-      });
+      normaux.forEach(function(item){ grid.appendChild(makeCardNormal(item.article, item.index)); });
       content.appendChild(grid);
     }
 
-    // Articles personnalisables (1 par ligne)
-    persos.forEach(function(item){
-      content.appendChild(makeCardPerso(item.article, item.index));
-    });
+    persos.forEach(function(item){ content.appendChild(makeCardPerso(item.article, item.index)); });
   });
+
+  updateTotal();
 }
 
 // ── Carte normale ──
@@ -355,7 +357,7 @@ function makeCardNormal(f, i){
   var card = document.createElement('div');
   card.className = 'fav-card';
   card.onclick = function(e){
-    if(e.target.closest('.fav-remove,.fav-qty-control')) return;
+    if(e.target.closest('.fav-remove') || e.target.closest('.fav-qty-control')) return;
     goToArticle(f);
   };
 
@@ -366,7 +368,7 @@ function makeCardNormal(f, i){
   card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
     + '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
     + '<div class="fav-info">'
-    + '<div class="fav-name">'+f.name+'</div>'
+    + '<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     + '<div class="fav-qty-row">'
     + '<span class="fav-qty-label">Qté</span>'
     + '<div class="fav-qty-control">'
@@ -414,13 +416,13 @@ function makeCardPerso(f, i){
     + '</select>'
     + '<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
     + '</div>'
-    + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank">'+fileName+'</a></div>' : '')
+    + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>' : '')
     + '</div>';
 
   card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
     + '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
     + '<div class="fav-card-perso-right">'
-    + '<div class="fav-name">'+f.name+'</div>'
+    + '<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     + '<div class="fav-qty-row">'
     + '<span class="fav-qty-label">Qté</span>'
     + '<div class="fav-qty-control">'
@@ -437,31 +439,36 @@ function makeCardPerso(f, i){
 
 // ── Navigation vers article ──
 function goToArticle(f){
-  // Recharger les données complètes depuis Notion si possible
-  if(f.id) {
-    fetch('/api/catalogue?categorie='+encodeURIComponent(f.categorie||''))
+  if(f.id && f.categorie){
+    fetch('/api/catalogue?categorie='+encodeURIComponent(f.categorie))
       .then(function(r){ return r.json(); })
       .then(function(articles){
         var article = articles.find(function(a){ return a.id === f.id; });
-        if(article) {
-          // Conserver les infos de perso depuis les favoris
-          article.perso = f.perso;
+        if(article){
+          article.perso = f.perso || null;
           localStorage.setItem('reunis_article_courant', JSON.stringify(article));
         } else {
-          localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+          var fallback = Object.assign({}, f);
+          if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+          localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
         }
         window.location.href = 'article.html';
       })
       .catch(function(){
-        localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+        var fallback = Object.assign({}, f);
+        if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+        localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
         window.location.href = 'article.html';
       });
   } else {
-    localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+    var fallback = Object.assign({}, f);
+    if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+    localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
     window.location.href = 'article.html';
   }
 }
 
+// ── Actions ──
 function removeFav(i){
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   favs.splice(i,1);
@@ -472,11 +479,13 @@ function removeFav(i){
 
 function changeQtyFav(i, delta){
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var newQty = Math.max(1, (favs[i].qty||1) + delta);
+  var max = parseInt(favs[i].qtite_en_ligne) || 99;
+  var newQty = Math.min(max, Math.max(1, (favs[i].qty||1) + delta));
   favs[i].qty = newQty;
   localStorage.setItem('reunis_favoris', JSON.stringify(favs));
   var el = document.getElementById('qty-'+i);
   if(el) el.textContent = newQty;
+  updateTotal();
 }
 
 function updatePersoField(i, field, value){
@@ -506,11 +515,19 @@ function openModal(){ document.getElementById('modal-overlay').classList.add('op
 function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
 document.getElementById('modal-overlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
+function toggleAdresse(sel){
+  var wrap = document.getElementById('m-adresse-wrap');
+  wrap.style.display = sel.value === 'Livraison et reprise (sur devis)' ? 'block' : 'none';
+}
+
 // ── Envoi ──
 function envoyerSelection(){
   var nom = document.getElementById('m-nom').value.trim();
   var email = document.getElementById('m-email').value.trim();
+  var livraison = document.getElementById('m-livraison').value;
+
   if(!nom || !email){ alert('Merci de renseigner votre nom et votre email.'); return; }
+  if(!livraison){ alert('Merci de sélectionner une option de livraison.'); return; }
 
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var btn = document.querySelector('.btn-modal-send');
@@ -526,6 +543,8 @@ function envoyerSelection(){
       telephone: document.getElementById('m-tel').value.trim(),
       date_evenement: document.getElementById('m-date').value,
       type_evenement: document.getElementById('m-type').value,
+      livraison: livraison,
+      adresse_livraison: document.getElementById('m-adresse').value.trim(),
       message: document.getElementById('m-message').value.trim(),
       articles: favs
     })
