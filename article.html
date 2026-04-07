@@ -704,7 +704,7 @@ body.sb-open .home-hamburger { display: none; }
       <div style="background:var(--white);padding:0;cursor:pointer;"><div style="aspect-ratio:3/4;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2rem;">🍽️</div><div style="padding:10px 4px;font-size:12px;font-weight:700;text-transform:uppercase;">Assiette Aurore</div></div>
     </div>
   </div>
- <script>
+<script>
 // ── Sidebar ──
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
@@ -726,44 +726,33 @@ var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null')
 
 if(article) {
   // Nom & ref
-  document.querySelector('.article-name').textContent = article.nom;
-  document.querySelector('.article-ref').textContent = article.reference ? 'Réf. ' + article.reference : '';
+  document.getElementById('art-nom').textContent = article.nom || '—';
+  var refEl = document.getElementById('art-ref');
+  if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
 
-  // Breadcrumb sous-catégorie
-  var bcSpan = document.querySelector('.article-breadcrumb span:last-child');
-  if(bcSpan) bcSpan.textContent = article.sous_categorie || '';
+  // Breadcrumb
+  var bcSC = document.getElementById('bc-sous-categorie');
+  if(bcSC) bcSC.textContent = article.sous_categorie || '—';
 
   // Prix
-  var prixEl = document.querySelector('.article-price');
+  var prixEl = document.getElementById('art-prix');
   if(prixEl) prixEl.textContent = article.prix_location ? article.prix_location.toFixed(2) + '€' : 'Sur devis';
 
   // Description
-  var descEl = document.querySelector('.article-desc');
+  var descEl = document.getElementById('art-desc');
   if(descEl) descEl.textContent = article.description || '';
 
   // Specs
-  var specs = document.querySelector('.article-specs');
+  var specs = document.getElementById('art-specs');
   if(specs) {
     specs.innerHTML = '';
+    var couleurs = typeof article.couleurs === 'string'
+      ? article.couleurs.split(',').filter(Boolean).join(', ')
+      : (article.couleurs || []).join(', ');
+    if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
     if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
-    if(article.couleurs) {
-      var couleurs = typeof article.couleurs === 'string' ? article.couleurs : article.couleurs.join(', ');
-      if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
-    }
     if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+article.qtite_en_ligne+' pièces</td></tr>';
-    if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui</td></tr>';
-    specs.innerHTML += '<tr><td>Retrait</td><td>Épuisay (41) ou Épieds (45)</td></tr>';
-  }
-
-  // Stock
-  var stockLabel = document.querySelector('.article-stock-labels span:last-child');
-  if(stockLabel && article.statut_stock) {
-    stockLabel.textContent = article.statut_stock + (article.qtite_en_ligne ? ' — ' + article.qtite_en_ligne + ' pièces' : '');
-  }
-  var stockFill = document.querySelector('.stock-fill');
-  if(stockFill && article.qtite_en_ligne) {
-    var pct = Math.min(100, Math.round((article.qtite_en_ligne / 20) * 100));
-    stockFill.style.width = pct + '%';
+    if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
   }
 
   // Photo principale
@@ -772,11 +761,10 @@ if(article) {
     mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+article.nom+'" style="width:100%;height:100%;object-fit:cover;">';
   }
 
-  // Photos d'ambiance (miniatures)
+  // Miniatures
   var thumbsWrap = document.querySelector('.article-thumbs');
   if(thumbsWrap) {
     thumbsWrap.innerHTML = '';
-    // Miniature photo principale
     if(article.photo) {
       var t0 = document.createElement('div');
       t0.className = 'article-thumb active';
@@ -784,7 +772,6 @@ if(article) {
       t0.onclick = function(){ setMainImg(article.photo); setActiveThumb(this); };
       thumbsWrap.appendChild(t0);
     }
-    // Miniatures photos d'ambiance
     var ambiance = typeof article.photos_ambiance === 'string'
       ? article.photos_ambiance.split('|').filter(Boolean)
       : (article.photos_ambiance || []);
@@ -795,10 +782,10 @@ if(article) {
       t.onclick = function(){ setMainImg(url); setActiveThumb(this); };
       thumbsWrap.appendChild(t);
     });
+    if(!article.photo && ambiance.length === 0) thumbsWrap.style.display = 'none';
   }
 
-  // Titre de la page
-  document.title = article.nom + ' — Réunis';
+  document.title = (article.nom || 'Article') + ' — Réunis';
 }
 
 function setMainImg(url){
@@ -831,7 +818,7 @@ function addToFav(){
   updateBadge();
 }
 </script>
- 
+
 </main>
 </body>
 </html>
