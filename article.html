@@ -315,7 +315,7 @@ var persoFileUrl = null;
 if(article) {
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
 
-  document.getElementById('art-nom').textContent = article.nom || '—';
+document.getElementById('art-nom').textContent = article.nom || article.name || '—';
   var refEl = document.getElementById('art-ref');
   if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
 
