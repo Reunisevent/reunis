@@ -39,7 +39,7 @@ module.exports = async function handler(req, res) {
       const p = page.properties;
       return {
         id: page.id,
-        nom: p['Nom']?.title?.[0]?.plain_text ?? '',
+        nom: page.properties[Object.keys(page.properties).find(k => page.properties[k].type === 'title')]?.title?.[0]?.plain_text ?? '',
         reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
         categorie: p['Catégorie']?.select?.name ?? '',
         sous_categorie: p['Sous catégorie']?.select?.name ?? '',
