@@ -58,7 +58,6 @@ button { cursor:pointer; font-family:inherit; }
 .sb-legal a:hover { color:var(--noir); }
 .sb-close { position:absolute; top:16px; right:14px; background:none; border:none; font-size:1.2rem; color:var(--muted); cursor:pointer; line-height:1; padding:4px; transition:color .2s; }
 .sb-close:hover { color:var(--noir); }
-body.sb-open .home-hamburger { display:none; }
 
 .main { min-height:100vh; display:flex; flex-direction:column; transition:margin-left .3s ease; }
 
@@ -82,12 +81,12 @@ body.sb-open .home-hamburger { display:none; }
 .article-price { font-family:'Abril Fatface',serif; font-size:1.8rem; }
 .article-price-unit { font-size:12px; color:var(--muted); margin-left:4px; }
 .article-desc { font-size:13px; line-height:1.85; color:#444; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid rgba(0,0,0,.07); }
-.article-specs-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:12px; font-weight:600; }
 .article-specs { width:100%; border-collapse:collapse; margin-bottom:24px; }
 .article-specs tr { border-bottom:1px solid rgba(0,0,0,.05); }
 .article-specs td { padding:8px 4px; font-size:12px; }
 .article-specs td:first-child { color:var(--muted); width:45%; }
 .article-specs td:last-child { font-weight:600; }
+
 .qty-row { display:flex; gap:10px; align-items:stretch; margin-bottom:10px; }
 .qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
 .qty-btn { width:40px; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--noir); transition:opacity .2s; }
@@ -102,6 +101,26 @@ body.sb-open .home-hamburger { display:none; }
 .condition-text { font-size:11.5px; color:var(--muted); line-height:1.6; }
 .condition-text strong { color:var(--noir); }
 
+/* ── PERSONNALISATION ── */
+.perso-section { margin-top:28px; padding-top:24px; border-top:1px solid rgba(0,0,0,.07); display:none; }
+.perso-section.visible { display:block; }
+.perso-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; font-weight:600; }
+.perso-label { display:block; font-size:11px; font-weight:600; letter-spacing:.5px; color:var(--noir); margin-bottom:6px; margin-top:16px; }
+.perso-label:first-of-type { margin-top:0; }
+.perso-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; resize:vertical; min-height:90px; transition:border-color .2s; }
+.perso-textarea:focus { border-color:var(--rose); }
+.perso-select { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; appearance:none; cursor:pointer; transition:border-color .2s; }
+.perso-select:focus { border-color:var(--rose); }
+.perso-autre { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; margin-top:8px; transition:border-color .2s; display:none; }
+.perso-autre.visible { display:block; }
+.perso-autre:focus { border-color:var(--rose); }
+.perso-upload { width:100%; border:1px dashed rgba(0,0,0,.2); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--white); }
+.perso-upload:hover { border-color:var(--rose); }
+.perso-upload-label { font-size:12px; color:var(--muted); letter-spacing:.5px; }
+.perso-upload-name { font-size:12px; font-weight:600; color:var(--noir); margin-top:6px; display:none; }
+.perso-note { font-size:11.5px; color:var(--muted); line-height:1.7; margin-top:16px; font-style:italic; }
+
+/* ── SIMILAIRES ── */
 .similar-section { padding:32px 0 60px; border-top:1px solid rgba(0,0,0,.07); }
 .similar-title { font-family:'Abril Fatface',serif; font-size:1.5rem; margin-bottom:16px; padding:0 24px; }
 .similar-track-wrap { position:relative; }
@@ -112,7 +131,7 @@ body.sb-open .home-hamburger { display:none; }
 .similar-card-img img { width:100%; height:100%; object-fit:cover; }
 .similar-card-name { padding:8px 6px 4px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
 .similar-card-price { padding:0 6px 10px; font-size:11px; color:var(--muted); }
-.similar-arrow { position:absolute; top:40%; transform:translateY(-50%); background:var(--white); border:1px solid rgba(0,0,0,.1); border-radius:100px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 8px rgba(0,0,0,.08); transition:all .2s; font-size:1.2rem; }
+.similar-arrow { position:absolute; top:40%; transform:translateY(-50%); background:var(--white); border:1px solid rgba(0,0,0,.1); border-radius:100px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 8px rgba(0,0,0,.08); transition:all .2s; font-size:1.2rem; color:var(--noir); }
 .similar-arrow:hover { background:var(--noir); color:white; }
 .similar-arrow.left { left:8px; }
 .similar-arrow.right { right:8px; }
@@ -196,9 +215,37 @@ body.sb-open .home-hamburger { display:none; }
         <span class="article-price-unit">/ pièce</span>
       </div>
       <p class="article-desc" id="art-desc"></p>
-      <div class="article-specs-title">Caractéristiques</div>
       <table class="article-specs" id="art-specs"></table>
-      <div class="qty-row">
+
+      <!-- PERSONNALISATION -->
+      <div class="perso-section" id="perso-section">
+        <div class="perso-title">Personnalisation</div>
+        <label class="perso-label">Texte ou motif souhaité</label>
+        <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
+        <label class="perso-label">Couleur</label>
+        <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
+          <option value="">Choisissez une couleur</option>
+          <option value="Doré">Doré</option>
+          <option value="Argenté">Argenté</option>
+          <option value="Blanc">Blanc</option>
+          <option value="Noir">Noir</option>
+          <option value="Jaune">Jaune</option>
+          <option value="Bleu">Bleu</option>
+          <option value="Rose">Rose</option>
+          <option value="Vert foncé">Vert foncé</option>
+          <option value="Autre">Autre</option>
+        </select>
+        <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
+        <label class="perso-label">Exemple ou visuel de référence</label>
+        <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
+          <div class="perso-upload-label">+ Ajouter un fichier</div>
+          <div class="perso-upload-name" id="perso-file-name"></div>
+          <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+        </div>
+        <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos locaux. Le tarif, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection.</p>
+      </div>
+
+      <div class="qty-row" style="margin-top:24px;">
         <div class="qty-control">
           <button class="qty-btn" id="btn-moins" onclick="changeQty(-1)">−</button>
           <span class="qty-num" id="art-qty">1</span>
@@ -263,6 +310,7 @@ updateBadge();
 var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
 var qtyMax = 1;
 var qtyCurrent = 1;
+var persoFileUrl = null;
 
 if(article) {
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
@@ -302,6 +350,28 @@ if(article) {
     if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
   }
 
+  // Personnalisation
+  if(article.personnalisable === 'Oui') {
+    document.getElementById('perso-section').classList.add('visible');
+    // Pré-remplir si déjà en favoris
+    var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+    var existant = favs.find(function(f){ return f.name === article.nom; });
+    if(existant && existant.perso) {
+      document.getElementById('perso-texte').value = existant.perso.texte || '';
+      document.getElementById('perso-couleur').value = existant.perso.couleur || '';
+      if(existant.perso.couleur === 'Autre') {
+        document.getElementById('perso-autre').classList.add('visible');
+        document.getElementById('perso-autre').value = existant.perso.couleurAutre || '';
+      }
+      if(existant.perso.fileUrl) {
+        persoFileUrl = existant.perso.fileUrl;
+        var nameEl = document.getElementById('perso-file-name');
+        nameEl.textContent = existant.perso.fileName || 'Fichier joint';
+        nameEl.style.display = 'block';
+      }
+    }
+  }
+
   // Photo principale
   var mainImg = document.getElementById('art-main');
   if(mainImg && article.photo) {
@@ -336,6 +406,42 @@ if(article) {
   chargerSimilaires();
 }
 
+// ── Personnalisation ──
+function toggleAutre(sel){
+  var autreEl = document.getElementById('perso-autre');
+  if(sel.value === 'Autre') {
+    autreEl.classList.add('visible');
+  } else {
+    autreEl.classList.remove('visible');
+    autreEl.value = '';
+  }
+}
+
+function handleFile(input){
+  var file = input.files[0];
+  if(!file) return;
+  var nameEl = document.getElementById('perso-file-name');
+  nameEl.textContent = '⏳ Envoi en cours…';
+  nameEl.style.display = 'block';
+
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'Reunis_personnalisation');
+
+  fetch('https://api.cloudinary.com/v1_1/dhdzcow9l/auto/upload', {
+    method: 'POST',
+    body: formData
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    persoFileUrl = data.secure_url;
+    nameEl.textContent = '✓ ' + file.name;
+  })
+  .catch(function(){
+    nameEl.textContent = '✗ Erreur d\'envoi — réessayez';
+  });
+}
+
 // ── Quantité ──
 function changeQty(delta){
   qtyCurrent = Math.min(qtyMax, Math.max(1, qtyCurrent + delta));
@@ -365,12 +471,37 @@ function addToFav(){
   var btn = document.querySelector('.btn-add-fav');
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var idx = favs.findIndex(function(f){ return f.name === article.nom; });
-  if(idx >= 0){
-    favs[idx].qty = qtyCurrent;
+
+  var perso = null;
+  if(article.personnalisable === 'Oui') {
+    var couleur = document.getElementById('perso-couleur').value;
+    var couleurAutre = document.getElementById('perso-autre').value;
+    perso = {
+      texte: document.getElementById('perso-texte').value,
+      couleur: couleur,
+      couleurAutre: couleur === 'Autre' ? couleurAutre : '',
+      fileUrl: persoFileUrl || '',
+      fileName: persoFileUrl ? document.getElementById('perso-file-name').textContent.replace('✓ ','') : ''
+    };
+  }
+
+  var entry = {
+    name: article.nom,
+    qty: qtyCurrent,
+    prix: parseFloat(article.prix_location),
+    photo: article.photo,
+    reference: article.reference || '',
+    personnalisable: article.personnalisable || 'Non',
+    perso: perso
+  };
+
+  if(idx >= 0) {
+    favs[idx] = entry;
   } else {
-    favs.push({name: article.nom, qty: qtyCurrent, prix: parseFloat(article.prix_location), photo: article.photo});
+    favs.push(entry);
   }
   localStorage.setItem('reunis_favoris', JSON.stringify(favs));
+
   if(btn){
     btn.textContent = '✓ Ajouté — ' + qtyCurrent + ' pièce' + (qtyCurrent > 1 ? 's' : '');
     btn.style.background = '#5A9A60';
@@ -391,42 +522,58 @@ function chargerSimilaires(){
     .then(function(r){ return r.json(); })
     .then(function(articles){
       var filtres = articles.filter(function(a){ return a.id !== article.id; });
-
       var couleursCourantes = typeof article.couleurs === 'string'
         ? article.couleurs.split(',').filter(Boolean)
         : (article.couleurs || []);
 
       filtres.sort(function(a, b){
-        var aCouleurs = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
-        var bCouleurs = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
-        var aMatch = aCouleurs.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        var bMatch = bCouleurs.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        return (bMatch ? 1 : 0) - (aMatch ? 1 : 0);
+        var aC = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
+        var bC = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
+        var aM = aC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+        var bM = bC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+        return (bM ? 1 : 0) - (aM ? 1 : 0);
       });
 
-      filtres.slice(0, 8).forEach(function(a){
-        var prix = parseFloat(a.prix_location);
-        var card = document.createElement('div');
-        card.className = 'similar-card';
-        card.innerHTML =
-          '<div class="similar-card-img">' +
-            (a.photo ? '<img src="'+a.photo+'" alt="'+a.nom+'">' : '✦') +
-          '</div>' +
-          '<div class="similar-card-name">'+a.nom+'</div>' +
-          '<div class="similar-card-price">'+(prix ? prix.toFixed(2)+'€' : 'Sur devis')+'</div>';
-        card.onclick = function(){
-          localStorage.setItem('reunis_article_courant', JSON.stringify(a));
-          window.scrollTo(0,0);
-          location.reload();
-        };
-        track.appendChild(card);
-      });
-
-      if(filtres.length <= 3){
-        document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display='none'; });
+      if(filtres.length < 8) {
+        fetch('/api/catalogue')
+          .then(function(r){ return r.json(); })
+          .then(function(tous){
+            var ids = filtres.map(function(a){ return a.id; });
+            ids.push(article.id);
+            var complement = tous.filter(function(a){ return ids.indexOf(a.id) < 0; });
+            afficherSimilaires(filtres.concat(complement).slice(0, 8));
+          });
+      } else {
+        afficherSimilaires(filtres.slice(0, 8));
       }
     })
     .catch(function(){});
+}
+
+function afficherSimilaires(liste){
+  var track = document.getElementById('similar-track');
+  if(!track) return;
+  track.innerHTML = '';
+  liste.forEach(function(a){
+    var prix = parseFloat(a.prix_location);
+    var card = document.createElement('div');
+    card.className = 'similar-card';
+    card.innerHTML =
+      '<div class="similar-card-img">' +
+        (a.photo ? '<img src="'+a.photo+'" alt="'+a.nom+'">' : '✦') +
+      '</div>' +
+      '<div class="similar-card-name">'+a.nom+'</div>' +
+      '<div class="similar-card-price">'+(prix ? prix.toFixed(2)+'€' : 'Sur devis')+'</div>';
+    card.onclick = function(){
+      localStorage.setItem('reunis_article_courant', JSON.stringify(a));
+      window.scrollTo(0,0);
+      location.reload();
+    };
+    track.appendChild(card);
+  });
+  if(liste.length <= 3){
+    document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display='none'; });
+  }
 }
 
 function scrollSimilar(dir){
