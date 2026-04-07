@@ -723,6 +723,17 @@ updateBadge();
 // ── Chargement de l'article ──
 var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
 
+// DEBUG
+console.log('Article chargé:', article);
+if(article) {
+  console.log('Prix:', article.prix_location);
+  console.log('Photo:', article.photo);
+  console.log('Couleurs:', article.couleurs);
+}
+
+if(article) {
+
+
 if(article) {
   // Nom & ref
   document.getElementById('art-nom').textContent = article.nom || '—';
