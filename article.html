@@ -724,15 +724,7 @@ updateBadge();
 var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
 
 // DEBUG
-console.log('Article chargé:', article);
-if(article) {
-  console.log('Prix:', article.prix_location);
-  console.log('Photo:', article.photo);
-  console.log('Couleurs:', article.couleurs);
-}
-
-if(article) {
-
+alert(JSON.stringify(article));
 
 if(article) {
   // Nom & ref
