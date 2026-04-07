@@ -705,34 +705,134 @@ body.sb-open .home-hamburger { display: none; }
       <div style="background:var(--white);padding:0;cursor:pointer;"><div style="aspect-ratio:3/4;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2rem;">🍽️</div><div style="padding:10px 4px;font-size:12px;font-weight:700;text-transform:uppercase;">Assiette Aurore</div></div>
     </div>
   </div>
-</main>
-<script>
+ <script>
+// ── Sidebar ──
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
 function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
+if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
 
-// Badge favoris
+// ── Badge favoris ──
 function updateBadge(){
-  try {
-    var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-    var badges = document.querySelectorAll('.heart-badge');
-    badges.forEach(function(b){
-      b.textContent = favs.length;
-      b.classList.toggle('visible', favs.length > 0);
-    });
-  } catch(e){}
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  document.querySelectorAll('.heart-badge').forEach(function(b){
+    b.textContent = favs.length;
+    b.classList.toggle('visible', favs.length > 0);
+  });
 }
 updateBadge();
-if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
+
+// ── Chargement de l'article ──
+var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
+
+if(article) {
+  // Nom & ref
+  document.querySelector('.article-name').textContent = article.nom;
+  document.querySelector('.article-ref').textContent = article.reference ? 'Réf. ' + article.reference : '';
+
+  // Breadcrumb sous-catégorie
+  var bcSpan = document.querySelector('.article-breadcrumb span:last-child');
+  if(bcSpan) bcSpan.textContent = article.sous_categorie || '';
+
+  // Prix
+  var prixEl = document.querySelector('.article-price');
+  if(prixEl) prixEl.textContent = article.prix_location ? article.prix_location.toFixed(2) + '€' : 'Sur devis';
+
+  // Description
+  var descEl = document.querySelector('.article-desc');
+  if(descEl) descEl.textContent = article.description || '';
+
+  // Specs
+  var specs = document.querySelector('.article-specs');
+  if(specs) {
+    specs.innerHTML = '';
+    if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
+    if(article.couleurs) {
+      var couleurs = typeof article.couleurs === 'string' ? article.couleurs : article.couleurs.join(', ');
+      if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
+    }
+    if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+article.qtite_en_ligne+' pièces</td></tr>';
+    if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui</td></tr>';
+    specs.innerHTML += '<tr><td>Retrait</td><td>Épuisay (41) ou Épieds (45)</td></tr>';
+  }
+
+  // Stock
+  var stockLabel = document.querySelector('.article-stock-labels span:last-child');
+  if(stockLabel && article.statut_stock) {
+    stockLabel.textContent = article.statut_stock + (article.qtite_en_ligne ? ' — ' + article.qtite_en_ligne + ' pièces' : '');
+  }
+  var stockFill = document.querySelector('.stock-fill');
+  if(stockFill && article.qtite_en_ligne) {
+    var pct = Math.min(100, Math.round((article.qtite_en_ligne / 20) * 100));
+    stockFill.style.width = pct + '%';
+  }
+
+  // Photo principale
+  var mainImg = document.getElementById('art-main');
+  if(mainImg && article.photo) {
+    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+article.nom+'" style="width:100%;height:100%;object-fit:cover;">';
+  }
+
+  // Photos d'ambiance (miniatures)
+  var thumbsWrap = document.querySelector('.article-thumbs');
+  if(thumbsWrap) {
+    thumbsWrap.innerHTML = '';
+    // Miniature photo principale
+    if(article.photo) {
+      var t0 = document.createElement('div');
+      t0.className = 'article-thumb active';
+      t0.innerHTML = '<img src="'+article.photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">';
+      t0.onclick = function(){ setMainImg(article.photo); setActiveThumb(this); };
+      thumbsWrap.appendChild(t0);
+    }
+    // Miniatures photos d'ambiance
+    var ambiance = typeof article.photos_ambiance === 'string'
+      ? article.photos_ambiance.split('|').filter(Boolean)
+      : (article.photos_ambiance || []);
+    ambiance.forEach(function(url){
+      var t = document.createElement('div');
+      t.className = 'article-thumb';
+      t.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">';
+      t.onclick = function(){ setMainImg(url); setActiveThumb(this); };
+      thumbsWrap.appendChild(t);
+    });
+  }
+
+  // Titre de la page
+  document.title = article.nom + ' — Réunis';
+}
+
+function setMainImg(url){
+  var mainImg = document.getElementById('art-main');
+  if(mainImg) mainImg.innerHTML = '<img src="'+url+'" alt="" style="width:100%;height:100%;object-fit:cover;">';
+}
+function setActiveThumb(el){
+  document.querySelectorAll('.article-thumb').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+// ── Ajouter aux favoris ──
 function addToFav(){
-  var btn=event.target.closest('button');
-  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  favs.push({name:'Soliflore Valentin',qty:1});
-  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-  btn.textContent='✓ Ajouté aux favoris';
-  btn.style.background='#5A9A60';
-  setTimeout(function(){btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Ajouter aux favoris';btn.style.background='';},2500);
+  if(!article) return;
+  var btn = document.querySelector('.btn-add-fav');
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var existe = favs.find(function(f){ return f.name === article.nom; });
+  if(!existe) {
+    favs.push({name: article.nom, qty: 1, prix: article.prix_location, photo: article.photo});
+    localStorage.setItem('reunis_favoris', JSON.stringify(favs));
+  }
+  if(btn){
+    btn.textContent = '✓ Ajouté aux favoris';
+    btn.style.background = '#5A9A60';
+    setTimeout(function(){
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Ajouter aux favoris';
+      btn.style.background = '';
+    }, 2500);
+  }
+  updateBadge();
 }
 </script>
+ 
+</main>
 </body>
 </html>
