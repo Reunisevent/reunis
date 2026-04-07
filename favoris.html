@@ -269,6 +269,12 @@ function loadFavoris(){
   favs.forEach(function(f, i){
     var card = document.createElement('div');
     card.className = 'fav-card';
+card.style.cursor = 'pointer';
+card.onclick = function(e) {
+  if(e.target.closest('.fav-remove') || e.target.closest('.fav-qty-control') || e.target.closest('.fav-perso')) return;
+  localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+  window.location.href = 'article.html';
+};
 
     // Image
     var imgHtml = f.photo
