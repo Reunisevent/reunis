@@ -53,7 +53,6 @@ button { cursor:pointer; font-family:inherit; }
 .sb-config { margin-top:10px; background:var(--noir); color:var(--white); border:none; border-radius:100px; padding:12px 14px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; width:100%; transition:background .2s; font-family:'Arimo',sans-serif; }
 .sb-config:hover { background:var(--rose); }
 .sb-footer { margin-top:auto; padding-top:12px; }
-.sb-club-img { height:52px; width:auto; mix-blend-mode:multiply; display:block; margin-bottom:8px; cursor:pointer; }
 .sb-legal { font-size:9px; color:var(--muted); line-height:2; }
 .sb-legal a { display:block; color:var(--muted); transition:color .2s; }
 .sb-legal a:hover { color:var(--noir); }
@@ -89,9 +88,9 @@ body.sb-open .home-hamburger { display:none; }
 .article-specs td { padding:8px 4px; font-size:12px; }
 .article-specs td:first-child { color:var(--muted); width:45%; }
 .article-specs td:last-child { font-weight:600; }
-.qty-row { display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+.qty-row { display:flex; gap:10px; align-items:stretch; margin-bottom:10px; }
 .qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
-.qty-btn { width:40px; height:46px; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--noir); transition:opacity .2s; }
+.qty-btn { width:40px; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--noir); transition:opacity .2s; }
 .qty-num { min-width:32px; text-align:center; font-weight:700; font-size:14px; }
 .btn-add-fav { flex:1; background:var(--noir); color:white; border:none; border-radius:8px; padding:15px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
 .btn-add-fav:hover { background:var(--rose); }
@@ -102,8 +101,21 @@ body.sb-open .home-hamburger { display:none; }
 .condition-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
 .condition-text { font-size:11.5px; color:var(--muted); line-height:1.6; }
 .condition-text strong { color:var(--noir); }
-.similar-section { padding:40px 24px 60px; border-top:1px solid rgba(0,0,0,.07); }
-.similar-title { font-family:'Abril Fatface',serif; font-size:1.5rem; margin-bottom:20px; }
+
+.similar-section { padding:32px 0 60px; border-top:1px solid rgba(0,0,0,.07); }
+.similar-title { font-family:'Abril Fatface',serif; font-size:1.5rem; margin-bottom:16px; padding:0 24px; }
+.similar-track-wrap { position:relative; }
+.similar-track { display:flex; gap:2px; overflow-x:auto; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:0 24px; }
+.similar-track::-webkit-scrollbar { display:none; }
+.similar-card { flex:0 0 160px; cursor:pointer; background:var(--white); }
+.similar-card-img { aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
+.similar-card-img img { width:100%; height:100%; object-fit:cover; }
+.similar-card-name { padding:8px 6px 4px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+.similar-card-price { padding:0 6px 10px; font-size:11px; color:var(--muted); }
+.similar-arrow { position:absolute; top:40%; transform:translateY(-50%); background:var(--white); border:1px solid rgba(0,0,0,.1); border-radius:100px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 8px rgba(0,0,0,.08); transition:all .2s; font-size:1.2rem; }
+.similar-arrow:hover { background:var(--noir); color:white; }
+.similar-arrow.left { left:8px; }
+.similar-arrow.right { right:8px; }
 
 @media (min-width:861px) {
   .sb-overlay { display:none !important; }
@@ -194,7 +206,7 @@ body.sb-open .home-hamburger { display:none; }
         </div>
         <button class="btn-add-fav" onclick="addToFav()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          Ajouter aux favoris
+          Ajouter à ma sélection
         </button>
       </div>
       <button class="btn-configurateur" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
@@ -217,6 +229,15 @@ body.sb-open .home-hamburger { display:none; }
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="similar-section">
+    <div class="similar-title">Vous aimerez aussi</div>
+    <div class="similar-track-wrap">
+      <button class="similar-arrow left" onclick="scrollSimilar(-1)">‹</button>
+      <div class="similar-track" id="similar-track"></div>
+      <button class="similar-arrow right" onclick="scrollSimilar(1)">›</button>
     </div>
   </div>
 </main>
@@ -252,6 +273,15 @@ if(article) {
 
   var bcSC = document.getElementById('bc-sous-categorie');
   if(bcSC) bcSC.textContent = article.sous_categorie || '—';
+
+  var bcCat = document.getElementById('bc-categorie');
+  if(bcCat && article.categorie) {
+    var catSlug = article.categorie.toLowerCase()
+      .replace(/é|è|ê/g,'e').replace(/à|â/g,'a')
+      .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+    bcCat.href = 'cat-' + catSlug + '.html';
+    bcCat.textContent = article.categorie;
+  }
 
   var prix = parseFloat(article.prix_location);
   var prixEl = document.getElementById('art-prix');
@@ -303,6 +333,7 @@ if(article) {
 
   document.title = (article.nom || 'Article') + ' — Réunis';
   updateQtyButtons();
+  chargerSimilaires();
 }
 
 // ── Quantité ──
@@ -328,7 +359,7 @@ function setActiveThumb(el){
   el.classList.add('active');
 }
 
-// ── Ajouter aux favoris ──
+// ── Ajouter à ma sélection ──
 function addToFav(){
   if(!article) return;
   var btn = document.querySelector('.btn-add-fav');
@@ -344,11 +375,63 @@ function addToFav(){
     btn.textContent = '✓ Ajouté — ' + qtyCurrent + ' pièce' + (qtyCurrent > 1 ? 's' : '');
     btn.style.background = '#5A9A60';
     setTimeout(function(){
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Ajouter aux favoris';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Ajouter à ma sélection';
       btn.style.background = '';
     }, 2500);
   }
   updateBadge();
+}
+
+// ── Vous aimerez aussi ──
+function chargerSimilaires(){
+  var track = document.getElementById('similar-track');
+  if(!track || !article) return;
+
+  fetch('/api/catalogue?categorie=' + encodeURIComponent(article.categorie || ''))
+    .then(function(r){ return r.json(); })
+    .then(function(articles){
+      var filtres = articles.filter(function(a){ return a.id !== article.id; });
+
+      var couleursCourantes = typeof article.couleurs === 'string'
+        ? article.couleurs.split(',').filter(Boolean)
+        : (article.couleurs || []);
+
+      filtres.sort(function(a, b){
+        var aCouleurs = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
+        var bCouleurs = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
+        var aMatch = aCouleurs.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+        var bMatch = bCouleurs.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+        return (bMatch ? 1 : 0) - (aMatch ? 1 : 0);
+      });
+
+      filtres.slice(0, 8).forEach(function(a){
+        var prix = parseFloat(a.prix_location);
+        var card = document.createElement('div');
+        card.className = 'similar-card';
+        card.innerHTML =
+          '<div class="similar-card-img">' +
+            (a.photo ? '<img src="'+a.photo+'" alt="'+a.nom+'">' : '✦') +
+          '</div>' +
+          '<div class="similar-card-name">'+a.nom+'</div>' +
+          '<div class="similar-card-price">'+(prix ? prix.toFixed(2)+'€' : 'Sur devis')+'</div>';
+        card.onclick = function(){
+          localStorage.setItem('reunis_article_courant', JSON.stringify(a));
+          window.scrollTo(0,0);
+          location.reload();
+        };
+        track.appendChild(card);
+      });
+
+      if(filtres.length <= 3){
+        document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display='none'; });
+      }
+    })
+    .catch(function(){});
+}
+
+function scrollSimilar(dir){
+  var track = document.getElementById('similar-track');
+  if(track) track.scrollBy({ left: dir * 340, behavior: 'smooth' });
 }
 </script>
 </body>
