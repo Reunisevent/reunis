@@ -652,50 +652,49 @@ body.sb-open .home-hamburger { display: none; }
         <div class="article-thumb">📐</div>
       </div>
     </div>
-    <div class="article-info-col">
-      <div class="article-breadcrumb">
-        <a href="decorer.html">Décorer</a>
-        <span>›</span>
-        <a href="cat-table.html">La table</a>
-        <span>›</span>
-        <span>Vaisselles</span>
-      </div>
-      <h1 class="article-name">Soliflore Valentin</h1>
-      <div class="article-ref">Réf. RN-TABLE-001</div>
-      <div class="article-price-line">
-        <span class="article-price">2,00€</span>
-        <span class="article-price-unit">/ pièce</span>
-        <div class="article-price-note">Tarif à la pièce. Des lots peuvent être constitués sur demande.</div>
-      </div>
-      <p class="article-desc">Petit soliflore en verre transparent, idéal pour une fleur unique. Délicat et polyvalent, il s'intègre à tous les univers — en groupe sur une grande tablée ou posé seul sur un coin de bar. Un indispensable de notre collection.</p>
-      <div class="article-specs-title">Caractéristiques</div>
-      <table class="article-specs">
-        <tr><td>Hauteur</td><td>17 – 31 cm</td></tr>
-        <tr><td>Matière</td><td>Verre transparent</td></tr>
-        <tr><td>Quantité disponible</td><td>12 pièces</td></tr>
-        <tr><td>Usage</td><td>Intérieur &amp; Extérieur</td></tr>
-        <tr><td>Retrait</td><td>Épuisay (41) ou Épieds (45)</td></tr>
-      </table>
-      <div class="article-stock-bar">
-        <div class="article-stock-labels">
-          <span>Disponibilité</span>
-          <span>Disponible — 12 pièces</span>
-        </div>
-        <div class="stock-track"><div class="stock-fill" style="width:80%"></div></div>
-      </div>
-      <button class="btn-add-fav" onclick="addToFav()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        Ajouter aux favoris
-      </button>
-      <button class="btn-configurateur" onclick="location.href='configurateur.html'">Composer mon événement complet →</button>
-      <div class="article-conditions">
-        <div class="condition-row"><div class="condition-icon">📅</div><div class="condition-text"><strong>Enlèvement</strong> à partir du jeudi précédant votre événement. Retour au plus tard le mercredi suivant.</div></div>
-        <div class="condition-row"><div class="condition-icon">🚚</div><div class="condition-text"><strong>Livraison</strong> possible sur demande selon distance.</div></div>
-        <div class="condition-row"><div class="condition-icon">📍</div><div class="condition-text">Retrait à <strong>Épuisay (41)</strong> ou <strong>Épieds-en-Beauce (45)</strong>. Visite sur rendez-vous.</div></div>
-        <div class="condition-row"><div class="condition-icon">💌</div><div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons sous 48h pour confirmer la disponibilité.</div></div>
+<div class="article-info-col">
+  <div class="article-breadcrumb">
+    <a href="decorer.html">Décorer</a>
+    <span>›</span>
+    <a href="cat-table.html" id="bc-categorie">La table</a>
+    <span>›</span>
+    <span id="bc-sous-categorie">—</span>
+  </div>
+  <h1 class="article-name" id="art-nom">—</h1>
+  <div class="article-ref" id="art-ref"></div>
+  <div class="article-price-line">
+    <span class="article-price" id="art-prix">—</span>
+    <span class="article-price-unit">/ pièce</span>
+  </div>
+  <p class="article-desc" id="art-desc"></p>
+  <div class="article-specs-title">Caractéristiques</div>
+  <table class="article-specs" id="art-specs"></table>
+  <button class="btn-add-fav" onclick="addToFav()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    Ajouter aux favoris
+  </button>
+  <button class="btn-configurateur" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
+  <div class="article-conditions">
+    <div class="condition-row">
+      <div class="condition-icon">💌</div>
+      <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons sous 48h pour confirmer la disponibilité.</div>
+    </div>
+    <div class="condition-row">
+      <div class="condition-icon">📅</div>
+      <div class="condition-text">Location du jeudi précédant votre événement au mardi suivant.</div>
+    </div>
+    <div class="condition-row">
+      <div class="condition-icon">📍</div>
+      <div class="condition-text">Livraison sur demande ou retrait à <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>.</div>
+    </div>
+    <div class="condition-row" style="margin-top:4px;">
+      <div class="condition-text" style="font-size:11.5px;color:var(--muted);">
+        Pour plus d'informations, consultez notre <a href="faq.html" style="color:var(--rose);font-weight:600;">FAQ</a> ou <a href="contact.html" style="color:var(--rose);font-weight:600;">contactez-nous</a>.
       </div>
     </div>
   </div>
+</div>
+
   <div class="similar-section">
     <div class="similar-title">Vous aimerez aussi</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;">
