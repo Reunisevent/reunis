@@ -703,8 +703,7 @@ body.sb-open .home-hamburger { display: none; }
       <div style="background:var(--white);padding:0;cursor:pointer;"><div style="aspect-ratio:3/4;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2rem;">🫗</div><div style="padding:10px 4px;font-size:12px;font-weight:700;text-transform:uppercase;">Fontaine Peach</div></div>
       <div style="background:var(--white);padding:0;cursor:pointer;"><div style="aspect-ratio:3/4;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2rem;">🍽️</div><div style="padding:10px 4px;font-size:12px;font-weight:700;text-transform:uppercase;">Assiette Aurore</div></div>
     </div>
-  </div>
-<script>
+  </div><script>
 // ── Sidebar ──
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
@@ -818,6 +817,7 @@ function addToFav(){
   updateBadge();
 }
 </script>
+
 
 </main>
 </body>
