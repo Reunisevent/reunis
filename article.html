@@ -725,9 +725,6 @@ updateBadge();
 // ── Chargement de l'article ──
 var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
 
-// DEBUG
-alert(JSON.stringify(article));
-
 if(article) {
   // Nom & ref
   document.getElementById('art-nom').textContent = article.nom || '—';
@@ -740,7 +737,9 @@ if(article) {
 
   // Prix
   var prixEl = document.getElementById('art-prix');
-  if(prixEl) prixEl.textContent = article.prix_location ? article.prix_location.toFixed(2) + '€' : 'Sur devis';
+  var prix = parseFloat(article.prix_location);
+if(prixEl) prixEl.textContent = prix ? prix.toFixed(2) + '€' : 'Sur devis';
+
 
   // Description
   var descEl = document.getElementById('art-desc');
@@ -755,7 +754,7 @@ if(article) {
       : (article.couleurs || []).join(', ');
     if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
     if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
-    if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+article.qtite_en_ligne+' pièces</td></tr>';
+    if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+parseInt(article.qtite_en_ligne)+' pièces</td></tr>';
     if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
   }
 
