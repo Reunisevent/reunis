@@ -2,7 +2,7 @@ const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   try {
@@ -37,9 +37,10 @@ module.exports = async function handler(req, res) {
 
     const articles = response.results.map(page => {
       const p = page.properties;
+      const titleProp = Object.keys(p).find(k => p[k].type === 'title');
       return {
         id: page.id,
-        nom: page.properties[Object.keys(page.properties).find(k => page.properties[k].type === 'title')]?.title?.[0]?.plain_text ?? '',
+        nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
         reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
         categorie: p['Catégorie']?.select?.name ?? '',
         sous_categorie: p['Sous catégorie']?.select?.name ?? '',
@@ -52,9 +53,11 @@ module.exports = async function handler(req, res) {
         personnalisable: p['Personnalisable']?.select?.name ?? '',
         prix_location: p['Prix location']?.number ?? null,
         photo: p['Photo principale']?.files?.[0]?.file?.url
-    ?? p['Photo principale']?.files?.[0]?.external?.url
-    ?? null,
-
+            ?? p['Photo principale']?.files?.[0]?.external?.url
+            ?? null,
+        photos_ambiance: (p['Photos d\'ambiance']?.files ?? []).map(f =>
+            f?.file?.url ?? f?.external?.url ?? null
+        ).filter(Boolean),
       };
     });
 
@@ -63,4 +66,4 @@ module.exports = async function handler(req, res) {
   } catch (err) {
     res.status(500).json({ erreur: err.message, code: err.code });
   }
-};
+}
