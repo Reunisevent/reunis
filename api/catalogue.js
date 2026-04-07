@@ -51,9 +51,10 @@ module.exports = async function handler(req, res) {
         qtite_en_ligne: p['Qtité en ligne']?.number ?? 0,
         personnalisable: p['Personnalisable']?.select?.name ?? '',
         prix_location: p['Prix location']?.number ?? null,
-        photo: p['Photo']?.files?.[0]?.file?.url
-            ?? p['Photo']?.files?.[0]?.external?.url
-            ?? null,
+        photo: p['Photo principale']?.files?.[0]?.file?.url
+    ?? p['Photo principale']?.files?.[0]?.external?.url
+    ?? null,
+
       };
     });
 
