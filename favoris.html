@@ -70,25 +70,72 @@ button { cursor:pointer; font-family:inherit; }
 .favoris-empty-icon { font-size:3rem; margin-bottom:16px; }
 .favoris-empty p { font-size:14px; color:var(--muted); margin-bottom:24px; }
 
-/* Grille articles */
-.favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:40px; }
-.fav-card { background:var(--white); border-radius:4px; overflow:hidden; position:relative; }
-.fav-img { width:100%; aspect-ratio:3/4; object-fit:cover; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
-.fav-img img { width:100%; height:100%; object-fit:cover; }
-.fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; }
-.fav-remove:hover { background:var(--rose); color:white; }
-.fav-info { padding:12px; }
-.fav-name { font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; }
-.fav-qty-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-.fav-qty-label { font-size:11px; color:var(--muted); }
-.fav-qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:6px; overflow:hidden; }
-.fav-qty-btn { width:28px; height:28px; border:none; background:none; font-size:1rem; cursor:pointer; color:var(--noir); }
-.fav-qty-num { min-width:24px; text-align:center; font-size:12px; font-weight:700; }
-.fav-prix { font-size:12px; color:var(--muted); margin-bottom:8px; }
+/* Grille articles normaux — 4 col desktop / 3 col mobile */
+.favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
 
-/* Personnalisation dans favoris */
-.fav-perso { background:var(--bg); border-radius:6px; padding:10px 12px; margin-top:8px; }
-.fav-perso-title { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+/* Carte normale */
+.fav-card { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; }
+.fav-img { width:100%; aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
+.fav-img img { width:100%; height:100%; object-fit:cover; }
+.fav-remove {
+  position:absolute; top:8px; right:8px;
+  background:white; border:none; border-radius:50%;
+  width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:.9rem;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+  transition:background .2s;
+  z-index:2;
+  color:var(--noir);
+}
+.fav-remove:hover { background:var(--rose); color:white; }
+.fav-info { padding:10px 8px 12px; }
+.fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; line-height:1.3; }
+.fav-qty-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+.fav-qty-label { font-size:10px; color:var(--muted); }
+.fav-qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:6px; overflow:hidden; }
+.fav-qty-btn { width:26px; height:26px; border:none; background:none; font-size:1rem; cursor:pointer; color:var(--noir); transition:background .2s; }
+.fav-qty-btn:hover { background:var(--bg); }
+.fav-qty-num { min-width:22px; text-align:center; font-size:12px; font-weight:700; }
+.fav-prix { font-size:11px; color:var(--muted); }
+
+/* Carte personnalisable — pleine largeur, layout horizontal */
+.fav-card-perso {
+  background:var(--white);
+  border-radius:4px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  margin-bottom:12px;
+}
+.fav-card-perso .fav-img {
+  aspect-ratio:unset;
+  min-height:180px;
+  height:100%;
+}
+.fav-card-perso .fav-remove {
+  position:absolute; top:8px; right:8px;
+  background:white; border:none; border-radius:50%;
+  width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:.9rem;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+  transition:background .2s;
+  z-index:2;
+  color:var(--noir);
+}
+.fav-card-perso .fav-remove:hover { background:var(--rose); color:white; }
+.fav-card-perso-right { padding:16px; display:flex; flex-direction:column; gap:10px; }
+.fav-card-perso .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; line-height:1.3; }
+.fav-card-perso .fav-qty-row { display:flex; align-items:center; gap:6px; }
+.fav-card-perso .fav-qty-label { font-size:10px; color:var(--muted); }
+.fav-card-perso .fav-prix { font-size:11px; color:var(--muted); }
+
+/* Section personnalisation */
+.fav-perso { background:var(--bg); border-radius:6px; padding:12px; }
+.fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .fav-perso-field { margin-bottom:8px; }
 .fav-perso-label { font-size:10px; color:var(--muted); margin-bottom:4px; display:block; }
 .fav-perso-input { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; resize:none; transition:border-color .2s; }
@@ -98,19 +145,19 @@ button { cursor:pointer; font-family:inherit; }
 .fav-perso-file { font-size:11px; color:var(--rose); margin-top:4px; }
 
 /* Actions */
-.favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:40px; }
+.favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:24px; }
 .btn-send-favoris { background:var(--noir); color:white; border:none; border-radius:8px; padding:14px 28px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; }
 .btn-send-favoris:hover { background:var(--rose); }
 .btn-clear-favoris { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:13px 20px; font-family:'Arimo',sans-serif; font-size:11px; color:var(--muted); cursor:pointer; transition:all .2s; }
 .btn-clear-favoris:hover { border-color:var(--noir); color:var(--noir); }
 
-/* Modal envoi */
+/* Modal */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; align-items:center; justify-content:center; }
 .modal-overlay.open { display:flex; }
 .modal { background:var(--white); border-radius:12px; padding:36px; max-width:480px; width:90%; max-height:90vh; overflow-y:auto; position:relative; }
 .modal h2 { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; margin-bottom:8px; }
 .modal-sub { font-size:12px; color:var(--muted); margin-bottom:28px; letter-spacing:.5px; }
-.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(--muted); cursor:pointer; }
+.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(--muted); cursor:pointer; color:var(--noir); }
 .modal-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; margin-top:16px; }
 .modal-label:first-of-type { margin-top:0; }
 .modal-input { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:14px; background:var(--bg); color:var(--noir); outline:none; transition:border-color .2s; }
@@ -127,8 +174,13 @@ button { cursor:pointer; font-family:inherit; }
 @media (max-width:860px) {
   .main { padding-top:56px; }
   .favoris-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
+  .fav-card-perso { grid-template-columns:120px 1fr; }
+  .fav-card-perso .fav-img { min-height:140px; }
 }
-
+@media (max-width:480px) {
+  .favoris-grid { grid-template-columns:repeat(3,1fr); gap:6px; }
+  .fav-card-perso { grid-template-columns:100px 1fr; }
+}
 </style>
 </head>
 <body>
@@ -221,7 +273,7 @@ button { cursor:pointer; font-family:inherit; }
         <p>Vous n'avez pas encore ajouté d'articles.<br>Parcourez le catalogue et ajoutez vos coups de cœur !</p>
         <a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;margin-top:8px;">Voir le catalogue →</a>
       </div>
-      <div id="favoris-grid" class="favoris-grid" style="display:none"></div>
+      <div id="favoris-content"></div>
       <div class="favoris-actions" id="favoris-actions" style="display:none">
         <button class="btn-send-favoris" onclick="openModal()">Envoyer ma sélection →</button>
         <button class="btn-clear-favoris" onclick="clearFavoris()">Vider la liste</button>
@@ -247,86 +299,167 @@ function updateBadge(){
 }
 updateBadge();
 
-// ── Chargement des favoris ──
+// ── Chargement ──
 function loadFavoris(){
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var grid = document.getElementById('favoris-grid');
+  var content = document.getElementById('favoris-content');
   var empty = document.getElementById('favoris-empty');
   var actions = document.getElementById('favoris-actions');
 
   if(!favs.length){
     empty.style.display = 'block';
-    grid.style.display = 'none';
+    content.innerHTML = '';
     actions.style.display = 'none';
     return;
   }
 
   empty.style.display = 'none';
-  grid.style.display = 'grid';
   actions.style.display = 'flex';
-  grid.innerHTML = '';
+  content.innerHTML = '';
 
+  // Grouper par catégorie (tri transparent)
+  var categories = {};
+  var ordreCategories = [];
   favs.forEach(function(f, i){
-    var card = document.createElement('div');
-    card.className = 'fav-card';
-card.style.cursor = 'pointer';
-card.onclick = function(e) {
-  if(e.target.closest('.fav-remove') || e.target.closest('.fav-qty-control') || e.target.closest('.fav-perso')) return;
-  localStorage.setItem('reunis_article_courant', JSON.stringify(f));
-  window.location.href = 'article.html';
-};
+    var cat = f.categorie || 'Autres';
+    if(!categories[cat]){ categories[cat] = []; ordreCategories.push(cat); }
+    categories[cat].push({ article: f, index: i });
+  });
 
-    // Image
-    var imgHtml = f.photo
-      ? '<img src="'+f.photo+'" alt="'+f.name+'" style="width:100%;height:100%;object-fit:cover;">'
-      : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#ccc;">✦</div>';
+  ordreCategories.forEach(function(cat){
+    var items = categories[cat];
 
-    // Personnalisation
-    var persoHtml = '';
-    if(f.personnalisable === 'Oui') {
-      var couleurVal = (f.perso && f.perso.couleur) ? f.perso.couleur : '';
-      var couleurAutreVal = (f.perso && f.perso.couleurAutre) ? f.perso.couleurAutre : '';
-      var texteVal = (f.perso && f.perso.texte) ? f.perso.texte : '';
-      var fileUrl = (f.perso && f.perso.fileUrl) ? f.perso.fileUrl : '';
-      var fileName = (f.perso && f.perso.fileName) ? f.perso.fileName : '';
+    // Séparer perso / non-perso
+    var normaux = items.filter(function(item){ return item.article.personnalisable !== 'Oui'; });
+    var persos = items.filter(function(item){ return item.article.personnalisable === 'Oui'; });
 
-      persoHtml = '<div class="fav-perso">'
-        + '<div class="fav-perso-title">Personnalisation</div>'
-        + '<div class="fav-perso-field">'
-        + '<label class="fav-perso-label">Texte ou motif souhaité</label>'
-        + '<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea>'
-        + '</div>'
-        + '<div class="fav-perso-field">'
-        + '<label class="fav-perso-label">Couleur</label>'
-        + '<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
-        + '<option value="">Choisissez une couleur</option>'
-        + ['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
-            return '<option value="'+c+'"'+(couleurVal===c?' selected':'')+'>'+c+'</option>';
-          }).join('')
-        + '</select>'
-        + (couleurVal === 'Autre' ? '<input class="fav-perso-input" style="margin-top:6px;" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">' : '<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:none;" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">')
-        + '</div>'
-        + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank">'+fileName+'</a></div>' : '')
-        + '</div>';
+    // Grille articles normaux
+    if(normaux.length) {
+      var grid = document.createElement('div');
+      grid.className = 'favoris-grid';
+      normaux.forEach(function(item){
+        grid.appendChild(makeCardNormal(item.article, item.index));
+      });
+      content.appendChild(grid);
     }
 
-    card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
-      + '<button class="fav-remove" onclick="removeFav('+i+')">✕</button>'
-      + '<div class="fav-info">'
-      + '<div class="fav-name">'+f.name+'</div>'
-      + '<div class="fav-qty-row">'
-      + '<span class="fav-qty-label">Quantité</span>'
-      + '<div class="fav-qty-control">'
-      + '<button class="fav-qty-btn" onclick="changeQtyFav('+i+',-1)">−</button>'
-      + '<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
-      + '<button class="fav-qty-btn" onclick="changeQtyFav('+i+',1)">+</button>'
-      + '</div></div>'
-      + (f.prix ? '<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€ / pièce</div>' : '')
-      + persoHtml
-      + '</div>';
-
-    grid.appendChild(card);
+    // Articles personnalisables (1 par ligne)
+    persos.forEach(function(item){
+      content.appendChild(makeCardPerso(item.article, item.index));
+    });
   });
+}
+
+// ── Carte normale ──
+function makeCardNormal(f, i){
+  var card = document.createElement('div');
+  card.className = 'fav-card';
+  card.onclick = function(e){
+    if(e.target.closest('.fav-remove,.fav-qty-control')) return;
+    goToArticle(f);
+  };
+
+  var imgHtml = f.photo
+    ? '<img src="'+f.photo+'" alt="'+f.name+'">'
+    : '<div style="font-size:2rem;color:#ccc;">✦</div>';
+
+  card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
+    + '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
+    + '<div class="fav-info">'
+    + '<div class="fav-name">'+f.name+'</div>'
+    + '<div class="fav-qty-row">'
+    + '<span class="fav-qty-label">Qté</span>'
+    + '<div class="fav-qty-control">'
+    + '<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>'
+    + '<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
+    + '<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
+    + '</div></div>'
+    + (f.prix ? '<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€/pcs</div>' : '')
+    + '</div>';
+  return card;
+}
+
+// ── Carte personnalisable (horizontale) ──
+function makeCardPerso(f, i){
+  var card = document.createElement('div');
+  card.className = 'fav-card-perso';
+  card.onclick = function(e){
+    if(e.target.closest('.fav-remove,.fav-qty-control,.fav-perso')) return;
+    goToArticle(f);
+  };
+
+  var imgHtml = f.photo
+    ? '<img src="'+f.photo+'" alt="'+f.name+'" style="width:100%;height:100%;object-fit:cover;">'
+    : '<div style="font-size:2rem;color:#ccc;display:flex;align-items:center;justify-content:center;height:100%;">✦</div>';
+
+  var couleurVal = (f.perso && f.perso.couleur) ? f.perso.couleur : '';
+  var couleurAutreVal = (f.perso && f.perso.couleurAutre) ? f.perso.couleurAutre : '';
+  var texteVal = (f.perso && f.perso.texte) ? f.perso.texte : '';
+  var fileUrl = (f.perso && f.perso.fileUrl) ? f.perso.fileUrl : '';
+  var fileName = (f.perso && f.perso.fileName) ? f.perso.fileName : '';
+
+  var persoHtml = '<div class="fav-perso">'
+    + '<div class="fav-perso-title">Personnalisation</div>'
+    + '<div class="fav-perso-field">'
+    + '<label class="fav-perso-label">Texte ou motif souhaité</label>'
+    + '<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea>'
+    + '</div>'
+    + '<div class="fav-perso-field">'
+    + '<label class="fav-perso-label">Couleur</label>'
+    + '<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
+    + '<option value="">Choisissez une couleur</option>'
+    + ['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
+        return '<option value="'+c+'"'+(couleurVal===c?' selected':'')+'>'+c+'</option>';
+      }).join('')
+    + '</select>'
+    + '<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
+    + '</div>'
+    + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank">'+fileName+'</a></div>' : '')
+    + '</div>';
+
+  card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
+    + '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
+    + '<div class="fav-card-perso-right">'
+    + '<div class="fav-name">'+f.name+'</div>'
+    + '<div class="fav-qty-row">'
+    + '<span class="fav-qty-label">Qté</span>'
+    + '<div class="fav-qty-control">'
+    + '<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>'
+    + '<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
+    + '<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
+    + '</div></div>'
+    + (f.prix ? '<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€/pcs</div>' : '')
+    + persoHtml
+    + '</div>';
+
+  return card;
+}
+
+// ── Navigation vers article ──
+function goToArticle(f){
+  // Recharger les données complètes depuis Notion si possible
+  if(f.id) {
+    fetch('/api/catalogue?categorie='+encodeURIComponent(f.categorie||''))
+      .then(function(r){ return r.json(); })
+      .then(function(articles){
+        var article = articles.find(function(a){ return a.id === f.id; });
+        if(article) {
+          // Conserver les infos de perso depuis les favoris
+          article.perso = f.perso;
+          localStorage.setItem('reunis_article_courant', JSON.stringify(article));
+        } else {
+          localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+        }
+        window.location.href = 'article.html';
+      })
+      .catch(function(){
+        localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+        window.location.href = 'article.html';
+      });
+  } else {
+    localStorage.setItem('reunis_article_courant', JSON.stringify(f));
+    window.location.href = 'article.html';
+  }
 }
 
 function removeFav(i){
@@ -369,25 +502,15 @@ function clearFavoris(){
 }
 
 // ── Modal ──
-function openModal(){
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeModal(){
-  document.getElementById('modal-overlay').classList.remove('open');
-}
-document.getElementById('modal-overlay').addEventListener('click', function(e){
-  if(e.target === this) closeModal();
-});
+function openModal(){ document.getElementById('modal-overlay').classList.add('open'); }
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
+document.getElementById('modal-overlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
 // ── Envoi ──
 function envoyerSelection(){
   var nom = document.getElementById('m-nom').value.trim();
   var email = document.getElementById('m-email').value.trim();
-
-  if(!nom || !email){
-    alert('Merci de renseigner votre nom et votre email.');
-    return;
-  }
+  if(!nom || !email){ alert('Merci de renseigner votre nom et votre email.'); return; }
 
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var btn = document.querySelector('.btn-modal-send');
@@ -411,7 +534,6 @@ function envoyerSelection(){
   .then(function(data){
     if(data.succes){
       closeModal();
-      // Confirmation
       var wrap = document.querySelector('.favoris-wrap');
       wrap.innerHTML = '<div style="text-align:center;padding:80px 20px;">'
         + '<div style="font-size:3rem;margin-bottom:20px;">✨</div>'
@@ -422,13 +544,13 @@ function envoyerSelection(){
       localStorage.removeItem('reunis_favoris');
       updateBadge();
     } else {
-      alert('Une erreur est survenue. Merci de réessayer ou de nous contacter directement.');
+      alert('Une erreur est survenue. Merci de réessayer.');
       btn.textContent = 'Envoyer ma sélection →';
       btn.disabled = false;
     }
   })
   .catch(function(){
-    alert('Une erreur est survenue. Merci de réessayer ou de nous contacter directement.');
+    alert('Une erreur est survenue. Merci de réessayer.');
     btn.textContent = 'Envoyer ma sélection →';
     btn.disabled = false;
   });
