@@ -60,7 +60,6 @@ button { cursor:pointer; font-family:inherit; }
 .sb-close:hover { color:var(--noir); }
 
 .main { min-height:100vh; display:flex; flex-direction:column; transition:margin-left .3s ease; }
-
 .heart-badge { position:absolute; top:-6px; right:-6px; background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 5px; font-weight:700; min-width:16px; text-align:center; display:none; }
 .heart-badge.visible { display:block; }
 
@@ -104,7 +103,12 @@ button { cursor:pointer; font-family:inherit; }
 /* ── PERSONNALISATION ── */
 .perso-section { margin-top:28px; padding-top:24px; border-top:1px solid rgba(0,0,0,.07); display:none; }
 .perso-section.visible { display:block; }
-.perso-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; font-weight:600; }
+.perso-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.perso-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
+.perso-toggle-label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+.perso-toggle-text { font-size:11px; color:var(--muted); }
+.perso-toggle-input { width:16px; height:16px; cursor:pointer; accent-color:var(--rose); }
+.perso-fields { display:none; }
 .perso-label { display:block; font-size:11px; font-weight:600; letter-spacing:.5px; color:var(--noir); margin-bottom:6px; margin-top:16px; }
 .perso-label:first-of-type { margin-top:0; }
 .perso-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; resize:vertical; min-height:90px; transition:border-color .2s; }
@@ -136,9 +140,7 @@ button { cursor:pointer; font-family:inherit; }
 .similar-arrow.left { left:8px; }
 .similar-arrow.right { right:8px; }
 
-@media (min-width:861px) {
-  .sb-overlay { display:none !important; }
-}
+@media (min-width:861px) { .sb-overlay { display:none !important; } }
 @media (max-width:860px) {
   .main { padding-top:56px; }
   .article-page { grid-template-columns:1fr; }
@@ -219,28 +221,36 @@ button { cursor:pointer; font-family:inherit; }
 
       <!-- PERSONNALISATION -->
       <div class="perso-section" id="perso-section">
-        <div class="perso-title">Personnalisation</div>
-        <label class="perso-label">Texte ou motif souhaité</label>
-        <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
-        <label class="perso-label">Couleur</label>
-        <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
-          <option value="">Choisissez une couleur</option>
-          <option value="Doré">Doré</option>
-          <option value="Argenté">Argenté</option>
-          <option value="Blanc">Blanc</option>
-          <option value="Noir">Noir</option>
-          <option value="Jaune">Jaune</option>
-          <option value="Bleu">Bleu</option>
-          <option value="Rose">Rose</option>
-          <option value="Vert foncé">Vert foncé</option>
-          <option value="Autre">Autre</option>
-        </select>
-        <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
-        <label class="perso-label">Exemple ou visuel de référence</label>
-        <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
-          <div class="perso-upload-label">+ Ajouter un fichier</div>
-          <div class="perso-upload-name" id="perso-file-name"></div>
-          <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+        <div class="perso-header">
+          <div class="perso-title">Personnalisation</div>
+          <label class="perso-toggle-label">
+            <span class="perso-toggle-text">Je souhaite personnaliser</span>
+            <input type="checkbox" id="perso-toggle" class="perso-toggle-input" onchange="togglePerso(this)">
+          </label>
+        </div>
+        <div class="perso-fields" id="perso-fields">
+          <label class="perso-label">Texte ou motif souhaité</label>
+          <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
+          <label class="perso-label">Couleur</label>
+          <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
+            <option value="">Choisissez une couleur</option>
+            <option value="Doré">Doré</option>
+            <option value="Argenté">Argenté</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Noir">Noir</option>
+            <option value="Jaune">Jaune</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Rose">Rose</option>
+            <option value="Vert foncé">Vert foncé</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
+          <label class="perso-label">Exemple ou visuel de référence</label>
+          <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
+            <div class="perso-upload-label">+ Ajouter un fichier</div>
+            <div class="perso-upload-name" id="perso-file-name"></div>
+            <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+          </div>
         </div>
         <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos locaux. Le tarif, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection.</p>
       </div>
@@ -315,7 +325,7 @@ var persoFileUrl = null;
 if(article) {
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
 
-document.getElementById('art-nom').textContent = article.nom || article.name || '—';
+  document.getElementById('art-nom').textContent = article.nom || article.name || '—';
   var refEl = document.getElementById('art-ref');
   if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
 
@@ -353,10 +363,13 @@ document.getElementById('art-nom').textContent = article.nom || article.name || 
   // Personnalisation
   if(article.personnalisable === 'Oui') {
     document.getElementById('perso-section').classList.add('visible');
-    // Pré-remplir si déjà en favoris
+    // Pré-remplir si déjà en favoris avec perso cochée
     var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-    var existant = favs.find(function(f){ return f.name === article.nom; });
+    var existant = favs.find(function(f){ return (f.name === article.nom || f.name === article.name); });
     if(existant && existant.perso) {
+      var toggle = document.getElementById('perso-toggle');
+      toggle.checked = true;
+      document.getElementById('perso-fields').style.display = 'block';
       document.getElementById('perso-texte').value = existant.perso.texte || '';
       document.getElementById('perso-couleur').value = existant.perso.couleur || '';
       if(existant.perso.couleur === 'Autre') {
@@ -375,7 +388,7 @@ document.getElementById('art-nom').textContent = article.nom || article.name || 
   // Photo principale
   var mainImg = document.getElementById('art-main');
   if(mainImg && article.photo) {
-    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+article.nom+'" style="width:100%;height:100%;object-fit:cover;">';
+    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+(article.nom||'')+'" style="width:100%;height:100%;object-fit:cover;">';
   }
 
   // Miniatures
@@ -401,9 +414,14 @@ document.getElementById('art-nom').textContent = article.nom || article.name || 
     });
   }
 
-  document.title = (article.nom || 'Article') + ' — Réunis';
+  document.title = (article.nom || article.name || 'Article') + ' — Réunis';
   updateQtyButtons();
   chargerSimilaires();
+}
+
+// ── Toggle personnalisation ──
+function togglePerso(checkbox){
+  document.getElementById('perso-fields').style.display = checkbox.checked ? 'block' : 'none';
 }
 
 // ── Personnalisation ──
@@ -423,11 +441,9 @@ function handleFile(input){
   var nameEl = document.getElementById('perso-file-name');
   nameEl.textContent = '⏳ Envoi en cours…';
   nameEl.style.display = 'block';
-
   var formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', 'Reunis_personnalisation');
-
   fetch('https://api.cloudinary.com/v1_1/dhdzcow9l/auto/upload', {
     method: 'POST',
     body: formData
@@ -470,10 +486,10 @@ function addToFav(){
   if(!article) return;
   var btn = document.querySelector('.btn-add-fav');
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var idx = favs.findIndex(function(f){ return f.name === article.nom; });
+  var idx = favs.findIndex(function(f){ return f.name === (article.nom || article.name); });
 
   var perso = null;
-  if(article.personnalisable === 'Oui') {
+  if(article.personnalisable === 'Oui' && document.getElementById('perso-toggle').checked) {
     var couleur = document.getElementById('perso-couleur').value;
     var couleurAutre = document.getElementById('perso-autre').value;
     perso = {
@@ -486,17 +502,17 @@ function addToFav(){
   }
 
   var entry = {
-  name: article.nom,
-  qty: qtyCurrent,
-  prix: parseFloat(article.prix_location),
-  photo: article.photo,
-  reference: article.reference || '',
-  categorie: article.categorie || '',
-  id: article.id || '',
-  personnalisable: article.personnalisable || 'Non',
-  qtite_en_ligne: article.qtite_en_ligne || '',
-  perso: perso
-};
+    name: article.nom || article.name,
+    qty: qtyCurrent,
+    prix: parseFloat(article.prix_location),
+    photo: article.photo,
+    reference: article.reference || '',
+    categorie: article.categorie || '',
+    id: article.id || '',
+    personnalisable: article.personnalisable || 'Non',
+    qtite_en_ligne: article.qtite_en_ligne || '',
+    perso: perso
+  };
 
   if(idx >= 0) {
     favs[idx] = entry;
