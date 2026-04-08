@@ -43,6 +43,7 @@ module.exports = async function handler(req, res) {
         id: page.id,
         nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
         reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
+        date_ajout: p['Date d\'ajout']?.date?.start ?? null,
         categorie: p['Catégorie']?.select?.name ?? '',
         sous_categorie: p['Sous catégorie']?.select?.name ?? '',
         sous_sous_categorie: p['Sous-sous catégorie']?.select?.name ?? '',
