@@ -439,9 +439,8 @@ function makeCardPerso(f, i){
 
 // ── Navigation vers article ──
 function goToArticle(f){
-    alert(JSON.stringify(f));
-  if(f.id && f.categorie){
-    fetch('/api/catalogue?categorie='+encodeURIComponent(f.categorie))
+  if(f.id){
+    fetch('/api/catalogue')
       .then(function(r){ return r.json(); })
       .then(function(articles){
         var article = articles.find(function(a){ return a.id === f.id; });
@@ -450,20 +449,20 @@ function goToArticle(f){
           localStorage.setItem('reunis_article_courant', JSON.stringify(article));
         } else {
           var fallback = Object.assign({}, f);
-          if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+          if(!fallback.nom) fallback.nom = fallback.name;
           localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
         }
         window.location.href = 'article.html';
       })
       .catch(function(){
         var fallback = Object.assign({}, f);
-        if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+        if(!fallback.nom) fallback.nom = fallback.name;
         localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
         window.location.href = 'article.html';
       });
   } else {
     var fallback = Object.assign({}, f);
-    if(!fallback.nom && fallback.name) fallback.nom = fallback.name;
+    if(!fallback.nom) fallback.nom = fallback.name;
     localStorage.setItem('reunis_article_courant', JSON.stringify(fallback));
     window.location.href = 'article.html';
   }
