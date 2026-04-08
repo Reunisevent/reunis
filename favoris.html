@@ -439,6 +439,8 @@ function makeCardPerso(f, i){
 
 // ── Navigation vers article ──
 function goToArticle(f){
+   alert('id: ' + f.id + '\ncategorie: ' + f.categorie + '\nnom: ' + (f.nom||f.name));
+  // ... reste du code
   if(f.id && f.categorie){
     fetch('/api/catalogue?categorie='+encodeURIComponent(f.categorie))
       .then(function(r){ return r.json(); })
