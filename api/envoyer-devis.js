@@ -15,6 +15,8 @@ module.exports = async function handler(req, res) {
     var nom = body.nom || '';
     var email = body.email || '';
     var telephone = body.telephone || '';
+    var livraison = body.livraison || '';
+    var adresse_livraison = body.adresse_livraison || '';
     var date_evenement = body.date_evenement || '';
     var type_evenement = body.type_evenement || '';
     var message = body.message || '';
@@ -56,6 +58,8 @@ module.exports = async function handler(req, res) {
       + '<tr><td style="padding:6px 0;color:#888;width:40%;">Nom</td><td style="padding:6px 0;font-weight:600;">' + nom + '</td></tr>'
       + '<tr><td style="padding:6px 0;color:#888;">Email</td><td style="padding:6px 0;font-weight:600;"><a href="mailto:' + email + '">' + email + '</a></td></tr>'
       + (telephone ? '<tr><td style="padding:6px 0;color:#888;">Téléphone</td><td style="padding:6px 0;font-weight:600;">' + telephone + '</td></tr>' : '')
+      + (body.livraison ? '<tr><td style="padding:6px 0;color:#888;">Livraison</td><td style="padding:6px 0;font-weight:600;">' + body.livraison + '</td></tr>' : '')
+      + (body.adresse_livraison ? '<tr><td style="padding:6px 0;color:#888;">Adresse</td><td style="padding:6px 0;font-weight:600;">' + body.adresse_livraison + '</td></tr>' : '')
       + (date_evenement ? '<tr><td style="padding:6px 0;color:#888;">Date événement</td><td style="padding:6px 0;font-weight:600;">' + date_evenement + '</td></tr>' : '')
       + (type_evenement ? '<tr><td style="padding:6px 0;color:#888;">Type événement</td><td style="padding:6px 0;font-weight:600;">' + type_evenement + '</td></tr>' : '')
       + '</table>'
