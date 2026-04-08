@@ -224,7 +224,7 @@ button { cursor:pointer; font-family:inherit; }
         <div class="perso-header">
           <div class="perso-title">Personnalisation</div>
           <label class="perso-toggle-label">
-            <span class="perso-toggle-text">Je souhaite personnaliser</span>
+            <span class="perso-toggle-text">Oui</span>
             <input type="checkbox" id="perso-toggle" class="perso-toggle-input" onchange="togglePerso(this)">
           </label>
         </div>
@@ -357,7 +357,7 @@ if(article) {
     if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
     if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
     if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+parseInt(article.qtite_en_ligne)+' pièces</td></tr>';
-    if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
+    if(article.personnalisable === '') specs.innerHTML += '<tr><td>Personnalisable</td><td>Sur demande</td></tr>';
   }
 
   // Personnalisation
