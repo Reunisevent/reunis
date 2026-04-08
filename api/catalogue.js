@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
         id: page.id,
         nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
         reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
-        date_ajout: p['Date d\'ajout']?.date?.start ?? null,
+        date_ajout: p["Date d'ajout"]?.date?.start ?? null,
         mots_cles: p['Mots clés']?.multi_select?.map(function(m){ return m.name; }).join(' ') ?? '',
         categorie: p['Catégorie']?.select?.name ?? '',
         sous_categorie: p['Sous catégorie']?.select?.name ?? '',
