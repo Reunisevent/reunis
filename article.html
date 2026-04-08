@@ -486,14 +486,17 @@ function addToFav(){
   }
 
   var entry = {
-    name: article.nom,
-    qty: qtyCurrent,
-    prix: parseFloat(article.prix_location),
-    photo: article.photo,
-    reference: article.reference || '',
-    personnalisable: article.personnalisable || 'Non',
-    perso: perso
-  };
+  name: article.nom,
+  qty: qtyCurrent,
+  prix: parseFloat(article.prix_location),
+  photo: article.photo,
+  reference: article.reference || '',
+  categorie: article.categorie || '',
+  id: article.id || '',
+  personnalisable: article.personnalisable || 'Non',
+  qtite_en_ligne: article.qtite_en_ligne || '',
+  perso: perso
+};
 
   if(idx >= 0) {
     favs[idx] = entry;
