@@ -1,9 +1,10 @@
 const { Client } = require('@notionhq/client');
-
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   try {
     const { categorie, sous_categorie } = req.query;
@@ -66,4 +67,4 @@ export default async function handler(req, res) {
   } catch (err) {
     res.status(500).json({ erreur: err.message, code: err.code });
   }
-}
+};
