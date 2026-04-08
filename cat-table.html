@@ -123,7 +123,7 @@ button { cursor:pointer; font-family:inherit; }
 
 /* Badges — taille réduite, pas de débordement */
 .item-badge { position:absolute; top:8px; left:8px; font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 7px; border-radius:100px; z-index:2; max-width:calc(100% - 44px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.badge-new { background:var(--noir); color:white; }
+.badge-new { background:#C1C3E6; color:var(--noir); }
 .badge-perso { background:var(--rose); color:white; }
 
 /* Bouton cœur */
@@ -491,14 +491,17 @@ function makeCard(a, favIds){
 
   // Badge (nouveauté prioritaire)
   if(nouveau){
-    var b = document.createElement('div');
-    b.className='item-badge badge-new'; b.textContent='Nouveauté';
-    card.appendChild(b);
-  } else if(perso){
-    var b = document.createElement('div');
-    b.className='item-badge badge-perso'; b.textContent='Personnalisable';
-    card.appendChild(b);
-  }
+  var b = document.createElement('div');
+  b.className='item-badge badge-new'; b.textContent='Nouveauté';
+  card.appendChild(b);
+}
+if(perso){
+  var b2 = document.createElement('div');
+  b2.className='item-badge badge-perso';
+  b2.textContent='Personnalisable';
+  b2.style.top = nouveau ? '32px' : '8px';
+  card.appendChild(b2);
+}
 
   // Cœur
   var heart = document.createElement('button');
