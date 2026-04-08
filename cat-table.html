@@ -65,19 +65,23 @@ button { cursor:pointer; font-family:inherit; }
 .heart-badge { position:absolute; top:-6px; right:-6px; background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 5px; font-weight:700; min-width:16px; text-align:center; display:none; }
 .heart-badge.visible { display:block; }
 
-/* ── EN-TÊTE CATÉGORIE ── */
-.cat-header { padding:28px 24px 0; }
-.cat-back { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); display:inline-flex; align-items:center; gap:6px; transition:color .2s; margin-bottom:12px; }
+/* ── EN-TÊTE ── */
+.cat-header { padding:16px 24px 0; }
+.cat-back { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); display:inline-flex; align-items:center; gap:6px; transition:color .2s; margin-bottom:8px; }
 .cat-back:hover { color:var(--rose); }
-.cat-title { font-family:'Abril Fatface',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:400; line-height:1; margin-bottom:4px; }
-.cat-subtitle { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+.cat-title { font-family:'Abril Fatface',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:400; line-height:1; margin-bottom:8px; }
+
+/* Ancres sous-catégories clicables */
+.cat-anchors { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+.cat-anchor-link { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); background:none; border:1px solid rgba(0,0,0,.12); border-radius:100px; padding:4px 12px; transition:all .2s; white-space:nowrap; }
+.cat-anchor-link:hover { color:var(--rose); border-color:var(--rose); }
 
 /* ── BARRE OUTILS ── */
-.cat-toolbar { display:flex; align-items:center; gap:10px; padding:0 24px 20px; flex-wrap:wrap; }
-.cat-search-wrap { display:flex; align-items:center; flex:1; min-width:200px; max-width:360px; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
+.cat-toolbar { display:flex; align-items:center; gap:10px; padding:0 24px 16px; flex-wrap:wrap; }
+.cat-search-wrap { display:flex; align-items:center; flex:1; min-width:160px; max-width:360px; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
 .cat-search-input { flex:1; border:none; outline:none; padding:10px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:transparent; }
 .cat-search-clear { background:none; border:none; padding:0 12px; color:var(--muted); cursor:pointer; font-size:1rem; display:none; }
-.cat-filter-btn { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:10px 16px; font-family:'Arimo',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all .18s; display:flex; align-items:center; gap:6px; }
+.cat-filter-btn { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:10px 16px; font-family:'Arimo',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all .18s; display:flex; align-items:center; gap:6px; color:var(--noir); }
 .cat-filter-btn:hover { border-color:var(--noir); }
 .cat-filter-btn.active { background:var(--noir); color:white; border-color:var(--noir); }
 .filter-count { background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 6px; font-weight:700; display:none; }
@@ -90,7 +94,7 @@ button { cursor:pointer; font-family:inherit; }
 .filter-group { display:flex; flex-direction:column; gap:8px; min-width:140px; }
 .filter-group-title { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
 .filter-chips { display:flex; gap:6px; flex-wrap:wrap; }
-.filter-chip { padding:5px 12px; border-radius:100px; border:1px solid rgba(0,0,0,.15); font-size:11px; font-weight:600; cursor:pointer; background:none; font-family:'Arimo',sans-serif; transition:all .18s; white-space:nowrap; }
+.filter-chip { padding:5px 12px; border-radius:100px; border:1px solid rgba(0,0,0,.15); font-size:11px; font-weight:600; cursor:pointer; background:none; font-family:'Arimo',sans-serif; transition:all .18s; white-space:nowrap; color:var(--noir); }
 .filter-chip:hover { border-color:var(--rose); color:var(--rose); }
 .filter-chip.active { background:var(--noir); color:var(--white); border-color:var(--noir); }
 .filter-reset { font-size:11px; color:var(--muted); background:none; border:none; cursor:pointer; font-family:'Arimo',sans-serif; text-decoration:underline; align-self:flex-end; padding:5px 0; transition:color .2s; }
@@ -98,45 +102,47 @@ button { cursor:pointer; font-family:inherit; }
 
 /* ── SECTIONS ── */
 .cat-content { padding:0 24px 60px; }
-.cat-section { margin-bottom:48px; }
+.cat-section { margin-bottom:48px; scroll-margin-top:80px; }
 .cat-section.hidden { display:none; }
 .cat-section-title { font-family:'Abril Fatface',serif; font-size:clamp(1.6rem,3vw,2.2rem); font-weight:400; margin-bottom:20px; }
 
-/* ── GRILLE — 5 col desktop / 3 col mobile ── */
+/* ── GRILLE — 5 col desktop / 2 col mobile ── */
 .items-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
 
-/* ── CARTE ARTICLE ── */
+/* ── CARTE ── */
 .item-card { position:relative; background:var(--white); cursor:pointer; overflow:hidden; }
-.item-card:hover .item-overlay { opacity:1; }
-.item-card:hover .item-img-inner { transform:scale(1.03); }
 .item-img { aspect-ratio:3/4; overflow:hidden; background:var(--bg); position:relative; }
 .item-img-inner { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
-.item-img-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#ddd; transition:transform .4s ease; }
-.item-overlay { position:absolute; inset:0; background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s; }
-.item-overlay-text { color:white; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+.item-img-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#ddd; }
 
-/* Badges */
-.item-badge { position:absolute; top:8px; left:8px; font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:100px; z-index:2; }
+/* Overlay hover — opacité réduite */
+.item-overlay { position:absolute; inset:0; background:rgba(0,0,0,.18); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s; }
+.item-card:hover .item-overlay { opacity:1; }
+.item-card:hover .item-img-inner { transform:scale(1.03); }
+.item-overlay-text { color:white; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-align:center; line-height:1.4; text-shadow:0 1px 4px rgba(0,0,0,.3); }
+
+/* Badges — taille réduite, pas de débordement */
+.item-badge { position:absolute; top:8px; left:8px; font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 7px; border-radius:100px; z-index:2; max-width:calc(100% - 44px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .badge-new { background:var(--noir); color:white; }
 .badge-perso { background:var(--rose); color:white; }
 
 /* Bouton cœur */
-.item-heart { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 6px rgba(0,0,0,.12); transition:all .2s; color:var(--muted); }
+.item-heart { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 6px rgba(0,0,0,.12); transition:all .2s; color:var(--muted); flex-shrink:0; }
 .item-heart:hover { color:var(--rose); transform:scale(1.1); }
 .item-heart.active { color:var(--rose); }
 
-/* Navigation photos ambiance */
+/* Navigation photos */
 .item-nav { position:absolute; bottom:8px; left:0; right:0; display:none; justify-content:space-between; padding:0 6px; z-index:3; }
 .item-card:hover .item-nav { display:flex; }
-.item-nav-btn { background:rgba(255,255,255,.85); border:none; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.75rem; color:var(--noir); transition:background .2s; }
+.item-nav-btn { background:rgba(255,255,255,.9); border:none; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.8rem; color:var(--noir); transition:background .2s; box-shadow:0 1px 4px rgba(0,0,0,.15); }
 .item-nav-btn:hover { background:white; }
 
-/* Indicateurs photos */
-.item-dots { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:3; }
+/* Points */
+.item-dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:3; pointer-events:none; }
 .item-dot { width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,.5); transition:background .2s; }
 .item-dot.active { background:white; }
 
-/* Infos carte */
+/* Infos */
 .item-info { padding:10px 8px 12px; }
 .item-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; line-height:1.3; }
 .item-price { font-size:11px; color:var(--muted); }
@@ -145,24 +151,25 @@ button { cursor:pointer; font-family:inherit; }
 .cat-no-results { display:none; text-align:center; padding:60px 24px; color:var(--muted); font-size:14px; }
 .cat-no-results strong { display:block; font-family:'Abril Fatface',serif; font-size:1.8rem; font-weight:400; margin-bottom:8px; color:var(--noir); }
 
-/* ── FOOTER CATALOGUE ── */
-.cat-footer { background:var(--white); padding:40px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; border-top:1px solid rgba(0,0,0,.07); margin-top:auto; }
-.cat-footer-num { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:6px; }
-.cat-footer-text { font-size:12px; color:var(--muted); line-height:1.7; }
-
-/* ── LOADER ── */
-.cat-loader { text-align:center; padding:80px 24px; color:var(--muted); font-size:13px; letter-spacing:1px; }
+/* ── FOOTER ── */
+.cat-footer { background:var(--white); padding:40px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:28px; border-top:1px solid rgba(0,0,0,.07); margin-top:auto; }
+.cat-footer-step {}
+.cat-footer-num { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--rose); margin-bottom:8px; }
+.cat-footer-text { font-size:13px; color:#444; line-height:1.75; }
 
 /* ── RESPONSIVE ── */
 @media (min-width:861px) { .sb-overlay { display:none !important; } }
 @media (max-width:860px) {
   .main { padding-top:56px; }
-  .items-grid { grid-template-columns:repeat(3,1fr); }
-  .cat-footer { grid-template-columns:repeat(2,1fr); }
+  /* 2 colonnes sur mobile pour éviter les badges coupés */
+  .items-grid { grid-template-columns:repeat(2,1fr); }
+  .cat-footer { grid-template-columns:repeat(2,1fr); gap:20px; }
   .cat-config-btn { display:none; }
+  .cat-header { padding:12px 20px 0; }
+  .cat-toolbar { padding:0 20px 14px; }
+  .cat-content { padding:0 20px 60px; }
 }
-@media (max-width:480px) {
-  .items-grid { grid-template-columns:repeat(3,1fr); }
+@media (max-width:400px) {
   .cat-footer { grid-template-columns:1fr; }
 }
 </style>
@@ -216,14 +223,13 @@ button { cursor:pointer; font-family:inherit; }
 
 <main class="main" id="main" style="margin-left:0">
 
-  <!-- EN-TÊTE -->
   <div class="cat-header">
     <a class="cat-back" href="decorer.html">← Décorer</a>
     <div class="cat-title">La table</div>
-    <div class="cat-subtitle">Vaisselles · Présentoirs · Candy bar · Fontaines · Carafes · Service</div>
+    <!-- Ancres dynamiques générées par JS -->
+    <div class="cat-anchors" id="cat-anchors"></div>
   </div>
 
-  <!-- BARRE OUTILS -->
   <div class="cat-toolbar">
     <div class="cat-search-wrap">
       <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
@@ -237,11 +243,10 @@ button { cursor:pointer; font-family:inherit; }
     <button class="cat-config-btn" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
   </div>
 
-  <!-- PANNEAU FILTRES -->
   <div class="cat-filters-panel" id="filters-panel">
     <div class="filter-group">
       <div class="filter-group-title">Badge</div>
-      <div class="filter-chips" id="chips-badge">
+      <div class="filter-chips">
         <button class="filter-chip" data-type="badge" data-value="new" onclick="toggleChip(this)">Nouveauté</button>
         <button class="filter-chip" data-type="badge" data-value="perso" onclick="toggleChip(this)">Personnalisable</button>
       </div>
@@ -254,12 +259,11 @@ button { cursor:pointer; font-family:inherit; }
       <div class="filter-group-title">Tag</div>
       <div class="filter-chips" id="chips-tag"></div>
     </div>
-    <button class="filter-reset" onclick="resetFilters()">Réinitialiser les filtres</button>
+    <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
   </div>
 
-  <!-- CONTENU CATALOGUE -->
   <div class="cat-content" id="cat-content">
-    <div class="cat-loader" id="cat-loader">Chargement du catalogue…</div>
+    <div class="cat-loader" id="cat-loader" style="text-align:center;padding:80px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;">Chargement du catalogue…</div>
     <div class="cat-no-results" id="cat-no-results">
       <strong>Aucun résultat</strong>
       Essayez un autre mot-clé ou réinitialisez les filtres.
@@ -274,15 +278,15 @@ button { cursor:pointer; font-family:inherit; }
     </div>
     <div class="cat-footer-step">
       <div class="cat-footer-num">2 — Envoyez votre demande</div>
-      <div class="cat-footer-text">Validez votre sélection pour recevoir votre devis personnalisé.</div>
+      <div class="cat-footer-text">Validez votre sélection en un clic pour recevoir votre devis personnalisé.</div>
     </div>
     <div class="cat-footer-step">
       <div class="cat-footer-num">3 — Surveillez votre boîte mail</div>
-      <div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer.</div>
+      <div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer la disponibilité et affiner les derniers détails.</div>
     </div>
     <div class="cat-footer-step">
       <div class="cat-footer-num">4 — Récupérez vos articles</div>
-      <div class="cat-footer-text">Retrait à Épuisay (41) et Épieds-en-Beauce (45) ou livraison.</div>
+      <div class="cat-footer-text">Optez pour la livraison ou venez nous rendre visite. Deux points de retraits sont disponibles : Épuisay (41) — Épieds-en-Beauce (45).</div>
     </div>
   </div>
 
@@ -316,8 +320,16 @@ function showToast(msg){
 
 // ── État global ──
 var allArticles = [];
-var activeFilters = { badge: [], couleur: [], tag: [] };
+var activeFilters = { badge:[], couleur:[], tag:[] };
 var HEART_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
+// ── Détection nouveauté (< 1 mois) ──
+function isNew(article){
+  if(!article.date_ajout) return false;
+  var unmois = new Date();
+  unmois.setMonth(unmois.getMonth()-1);
+  return new Date(article.date_ajout) > unmois;
+}
 
 // ── Chargement Notion ──
 function chargerCatalogue(){
@@ -326,7 +338,7 @@ function chargerCatalogue(){
     .then(function(articles){
       allArticles = articles;
       document.getElementById('cat-loader').style.display = 'none';
-      construireFiltreDynamique(articles);
+      construireFiltresDynamiques(articles);
       afficherArticles(articles);
     })
     .catch(function(){
@@ -334,282 +346,243 @@ function chargerCatalogue(){
     });
 }
 
-// ── Construire filtres couleurs et tags depuis les données ──
-function construireFiltreDynamique(articles){
-  var couleurs = {};
-  var tags = {};
-  var unmois = new Date();
-  unmois.setMonth(unmois.getMonth() - 1);
-
+// ── Filtres dynamiques depuis données Notion ──
+function construireFiltresDynamiques(articles){
+  var couleurs = {}, tags = {};
   articles.forEach(function(a){
-    (a.couleurs || []).forEach(function(c){ if(c) couleurs[c] = true; });
-    if(a.sous_sous_categorie) tags[a.sous_sous_categorie] = true;
+    (a.couleurs||[]).forEach(function(c){ if(c) couleurs[c]=true; });
+    if(a.sous_sous_categorie) tags[a.sous_sous_categorie]=true;
   });
 
   var chipsCouleur = document.getElementById('chips-couleur');
   Object.keys(couleurs).sort().forEach(function(c){
     var btn = document.createElement('button');
-    btn.className = 'filter-chip';
-    btn.dataset.type = 'couleur';
-    btn.dataset.value = c;
-    btn.textContent = c;
-    btn.onclick = function(){ toggleChip(this); };
+    btn.className='filter-chip'; btn.dataset.type='couleur'; btn.dataset.value=c; btn.textContent=c;
+    btn.onclick=function(){ toggleChip(this); };
     chipsCouleur.appendChild(btn);
   });
 
   var chipsTag = document.getElementById('chips-tag');
   Object.keys(tags).sort().forEach(function(t){
     var btn = document.createElement('button');
-    btn.className = 'filter-chip';
-    btn.dataset.type = 'tag';
-    btn.dataset.value = t;
-    btn.textContent = t;
-    btn.onclick = function(){ toggleChip(this); };
+    btn.className='filter-chip'; btn.dataset.type='tag'; btn.dataset.value=t; btn.textContent=t;
+    btn.onclick=function(){ toggleChip(this); };
     chipsTag.appendChild(btn);
   });
 }
 
-// ── Afficher les articles groupés par sous-catégorie ──
+// ── Ancres dynamiques (seulement sous-catégories non vides) ──
+function mettreAJourAncres(sections){
+  var anchorsEl = document.getElementById('cat-anchors');
+  anchorsEl.innerHTML = '';
+  Object.keys(sections).forEach(function(sc){
+    var ancre = toAncre(sc);
+    var a = document.createElement('a');
+    a.className = 'cat-anchor-link';
+    a.href = '#'+ancre;
+    a.textContent = sc;
+    anchorsEl.appendChild(a);
+  });
+}
+
+function toAncre(sc){
+  return sc.toLowerCase().replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u').replace(/[ôö]/g,'o').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+}
+
+// ── Afficher articles ──
 function afficherArticles(articles){
   var content = document.getElementById('cat-content');
-  // Supprimer sections existantes
   content.querySelectorAll('.cat-section').forEach(function(s){ s.remove(); });
 
   if(!articles.length){
-    document.getElementById('cat-no-results').style.display = 'block';
+    document.getElementById('cat-no-results').style.display='block';
+    document.getElementById('cat-anchors').innerHTML='';
     return;
   }
-  document.getElementById('cat-no-results').style.display = 'none';
+  document.getElementById('cat-no-results').style.display='none';
 
   // Grouper par sous-catégorie
-  var sections = {};
-  var ordre = [];
+  var sections = {}, ordre = [];
   articles.forEach(function(a){
     var sc = a.sous_categorie || 'Autres';
     if(!sections[sc]){ sections[sc]=[]; ordre.push(sc); }
     sections[sc].push(a);
   });
 
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var favIds = favs.map(function(f){ return f.id || f.name; });
+  // Mettre à jour les ancres (seulement sections présentes)
+  mettreAJourAncres(sections);
 
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var favIds = favs.map(function(f){ return f.id||f.name; });
   var loader = document.getElementById('cat-loader');
+
   ordre.forEach(function(sc){
-    var ancre = sc.toLowerCase().replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+    var ancre = toAncre(sc);
     var sec = document.createElement('div');
-    sec.className = 'cat-section';
-    sec.id = ancre;
+    sec.className='cat-section'; sec.id=ancre;
 
     var title = document.createElement('div');
-    title.className = 'cat-section-title';
-    title.textContent = sc;
+    title.className='cat-section-title'; title.textContent=sc;
     sec.appendChild(title);
 
     var grid = document.createElement('div');
-    grid.className = 'items-grid';
-
-    sections[sc].forEach(function(a){
-      grid.appendChild(makeCard(a, favIds));
-    });
-
+    grid.className='items-grid';
+    sections[sc].forEach(function(a){ grid.appendChild(makeCard(a,favIds)); });
     sec.appendChild(grid);
     content.insertBefore(sec, loader);
   });
 }
 
-// ── Construire une carte ──
+// ── Construire carte ──
 function makeCard(a, favIds){
-  var unmois = new Date();
-  unmois.setMonth(unmois.getMonth()-1);
-  var isNew = a.date_ajout && new Date(a.date_ajout) > unmois;
-  var isPerso = a.personnalisable === 'Oui';
-  var isFav = favIds && (favIds.indexOf(a.id) >= 0 || favIds.indexOf(a.nom) >= 0);
-
-  var photos = [a.photo].concat(a.photos_ambiance || []).filter(Boolean);
+  var nouveau = isNew(a);
+  var perso = a.personnalisable==='Oui';
+  var isFav = favIds.indexOf(a.id)>=0 || favIds.indexOf(a.nom)>=0;
+  var photos = [a.photo].concat(a.photos_ambiance||[]).filter(Boolean);
   var prix = a.prix_location ? parseFloat(a.prix_location).toFixed(2)+'€' : 'Sur devis';
 
   var card = document.createElement('div');
-  card.className = 'item-card';
-  card.dataset.id = a.id || '';
-  card.dataset.nom = a.nom || '';
-  card.dataset.categorie = a.categorie || '';
-  card.dataset.sousCat = a.sous_categorie || '';
-  card.dataset.soussSousCat = a.sous_sous_categorie || '';
-  card.dataset.couleurs = (a.couleurs||[]).join(',');
-  card.dataset.isNew = isNew ? '1' : '0';
-  card.dataset.isPerso = isPerso ? '1' : '0';
-  card.dataset.photoIndex = '0';
-  card.dataset.photos = photos.join('|');
+  card.className='item-card';
+  card.dataset.photoIndex='0';
+  card.dataset.photos=photos.join('|');
 
   // Image
   var imgDiv = document.createElement('div');
-  imgDiv.className = 'item-img';
+  imgDiv.className='item-img';
 
-  var imgInner;
   if(photos.length){
-    imgInner = document.createElement('img');
-    imgInner.className = 'item-img-inner';
-    imgInner.src = photos[0];
-    imgInner.alt = a.nom;
-    imgInner.loading = 'lazy';
+    var img = document.createElement('img');
+    img.className='item-img-inner'; img.src=photos[0]; img.alt=a.nom; img.loading='lazy';
+    imgDiv.appendChild(img);
   } else {
-    imgInner = document.createElement('div');
-    imgInner.className = 'item-img-placeholder';
-    imgInner.textContent = '✦';
+    var ph = document.createElement('div');
+    ph.className='item-img-placeholder'; ph.textContent='✦';
+    imgDiv.appendChild(ph);
   }
-  imgDiv.appendChild(imgInner);
 
-  // Overlay clic
+  // Overlay
   var overlay = document.createElement('div');
-  overlay.className = 'item-overlay';
-  overlay.innerHTML = '<span class="item-overlay-text">Voir l\'article →</span>';
+  overlay.className='item-overlay';
+  overlay.innerHTML='<span class="item-overlay-text">Voir<br>l\'article →</span>';
   imgDiv.appendChild(overlay);
 
-  // Navigation photos (si plus d'une photo)
-  if(photos.length > 1){
+  // Navigation photos si plusieurs
+  if(photos.length>1){
     var nav = document.createElement('div');
-    nav.className = 'item-nav';
-    var btnLeft = document.createElement('button');
-    btnLeft.className = 'item-nav-btn';
-    btnLeft.innerHTML = '‹';
-    btnLeft.onclick = function(e){ e.stopPropagation(); navigatePhoto(card, -1); };
-    var btnRight = document.createElement('button');
-    btnRight.className = 'item-nav-btn';
-    btnRight.innerHTML = '›';
-    btnRight.onclick = function(e){ e.stopPropagation(); navigatePhoto(card, 1); };
-    nav.appendChild(btnLeft);
-    nav.appendChild(btnRight);
+    nav.className='item-nav';
+    var bl = document.createElement('button'); bl.className='item-nav-btn'; bl.innerHTML='‹';
+    bl.onclick=function(e){ e.stopPropagation(); navigatePhoto(card,-1); };
+    var br = document.createElement('button'); br.className='item-nav-btn'; br.innerHTML='›';
+    br.onclick=function(e){ e.stopPropagation(); navigatePhoto(card,1); };
+    nav.appendChild(bl); nav.appendChild(br);
     imgDiv.appendChild(nav);
 
-    // Points indicateurs
     var dots = document.createElement('div');
-    dots.className = 'item-dots';
-    photos.forEach(function(_, idx){
-      var dot = document.createElement('div');
-      dot.className = 'item-dot' + (idx===0?' active':'');
-      dots.appendChild(dot);
+    dots.className='item-dots';
+    photos.forEach(function(_,i){
+      var d = document.createElement('div');
+      d.className='item-dot'+(i===0?' active':'');
+      dots.appendChild(d);
     });
     imgDiv.appendChild(dots);
   }
 
   card.appendChild(imgDiv);
 
-  // Badge
-  if(isNew){
-    var badge = document.createElement('div');
-    badge.className = 'item-badge badge-new';
-    badge.textContent = 'Nouveauté';
-    card.appendChild(badge);
-  } else if(isPerso){
-    var badge = document.createElement('div');
-    badge.className = 'item-badge badge-perso';
-    badge.textContent = 'Personnalisable';
-    card.appendChild(badge);
+  // Badge (nouveauté prioritaire)
+  if(nouveau){
+    var b = document.createElement('div');
+    b.className='item-badge badge-new'; b.textContent='Nouveauté';
+    card.appendChild(b);
+  } else if(perso){
+    var b = document.createElement('div');
+    b.className='item-badge badge-perso'; b.textContent='Personnalisable';
+    card.appendChild(b);
   }
 
-  // Bouton cœur
+  // Cœur
   var heart = document.createElement('button');
-  heart.className = 'item-heart' + (isFav?' active':'');
-  heart.innerHTML = HEART_SVG;
-  heart.setAttribute('aria-label','Favori');
-  heart.onclick = function(e){ e.stopPropagation(); toggleHeart(this, a); };
+  heart.className='item-heart'+(isFav?' active':'');
+  heart.innerHTML=HEART_SVG; heart.setAttribute('aria-label','Favori');
+  heart.onclick=function(e){ e.stopPropagation(); toggleHeart(this,a); };
   card.appendChild(heart);
 
   // Infos
   var info = document.createElement('div');
-  info.className = 'item-info';
-  info.innerHTML = '<div class="item-name">'+a.nom+'</div><div class="item-price">'+prix+'</div>';
+  info.className='item-info';
+  info.innerHTML='<div class="item-name">'+a.nom+'</div><div class="item-price">'+prix+'</div>';
   card.appendChild(info);
 
   // Clic → article
-  card.onclick = function(){
+  card.onclick=function(){
     localStorage.setItem('reunis_article_courant', JSON.stringify(a));
-    window.location.href = 'article.html';
+    window.location.href='article.html';
   };
 
   return card;
 }
 
 // ── Navigation photos ──
-function navigatePhoto(card, dir){
+function navigatePhoto(card,dir){
   var photos = card.dataset.photos.split('|').filter(Boolean);
-  if(photos.length <= 1) return;
-  var idx = parseInt(card.dataset.photoIndex) || 0;
-  idx = (idx + dir + photos.length) % photos.length;
-  card.dataset.photoIndex = idx;
-
+  if(photos.length<=1) return;
+  var idx = (parseInt(card.dataset.photoIndex)||0+dir+photos.length)%photos.length;
+  idx = ((parseInt(card.dataset.photoIndex)||0)+dir+photos.length)%photos.length;
+  card.dataset.photoIndex=idx;
   var img = card.querySelector('.item-img-inner');
-  if(img) img.src = photos[idx];
-
-  // Mettre à jour les dots
-  var dots = card.querySelectorAll('.item-dot');
-  dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  if(img) img.src=photos[idx];
+  card.querySelectorAll('.item-dot').forEach(function(d,i){ d.classList.toggle('active',i===idx); });
 }
 
 // ── Favoris ──
-function toggleHeart(btn, article){
+function toggleHeart(btn,a){
   btn.classList.toggle('active');
   var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var isFav = btn.classList.contains('active');
-  if(isFav){
-    var existe = favs.find(function(f){ return f.id === article.id || f.name === article.nom; });
-    if(!existe){
-      favs.push({
-        id: article.id || '',
-        name: article.nom,
-        qty: 1,
-        prix: parseFloat(article.prix_location) || 0,
-        photo: article.photo || '',
-        categorie: article.categorie || '',
-        personnalisable: article.personnalisable || 'Non',
-        qtite_en_ligne: article.qtite_en_ligne || '',
-        perso: null
-      });
+  if(btn.classList.contains('active')){
+    if(!favs.find(function(f){ return f.id===a.id||f.name===a.nom; })){
+      favs.push({ id:a.id||'', name:a.nom, qty:1, prix:parseFloat(a.prix_location)||0, photo:a.photo||'', categorie:a.categorie||'', personnalisable:a.personnalisable||'Non', qtite_en_ligne:a.qtite_en_ligne||'', perso:null });
     }
     showToast('Ajouté à la sélection ♥');
   } else {
-    favs = favs.filter(function(f){ return f.id !== article.id && f.name !== article.nom; });
+    favs = favs.filter(function(f){ return f.id!==a.id&&f.name!==a.nom; });
   }
   localStorage.setItem('reunis_favoris', JSON.stringify(favs));
   updateBadge();
 }
 
 // ── Recherche ──
+// La recherche porte sur : nom + couleurs + sous_categorie + sous_sous_categorie + mots_cles
 var searchInput = document.getElementById('cat-search');
 var searchClear = document.getElementById('cat-search-clear');
 if(searchInput){
   searchInput.addEventListener('input', function(){
-    searchClear.style.display = this.value.trim() ? 'block' : 'none';
+    searchClear.style.display = this.value.trim()?'block':'none';
     applyFilters();
   });
 }
 if(searchClear){
   searchClear.addEventListener('click', function(){
-    searchInput.value = '';
-    this.style.display = 'none';
-    applyFilters();
+    searchInput.value=''; this.style.display='none'; applyFilters();
   });
 }
 
 // ── Filtres ──
 function toggleFiltersPanel(){
   document.getElementById('filters-panel').classList.toggle('open');
-  document.getElementById('filter-btn').classList.toggle('active');
 }
 
 function toggleChip(btn){
-  var type = btn.dataset.type;
-  var value = btn.dataset.value;
+  var type=btn.dataset.type, value=btn.dataset.value;
   btn.classList.toggle('active');
-  var idx = activeFilters[type].indexOf(value);
-  if(idx >= 0){ activeFilters[type].splice(idx,1); }
-  else { activeFilters[type].push(value); }
+  var idx=activeFilters[type].indexOf(value);
+  if(idx>=0) activeFilters[type].splice(idx,1);
+  else activeFilters[type].push(value);
   updateFilterCount();
   applyFilters();
 }
 
 function resetFilters(){
-  activeFilters = {badge:[],couleur:[],tag:[]};
+  activeFilters={badge:[],couleur:[],tag:[]};
   document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
   if(searchInput) searchInput.value='';
   if(searchClear) searchClear.style.display='none';
@@ -618,42 +591,47 @@ function resetFilters(){
 }
 
 function updateFilterCount(){
-  var n = activeFilters.badge.length + activeFilters.couleur.length + activeFilters.tag.length;
-  var fc = document.getElementById('filter-count');
+  var n=activeFilters.badge.length+activeFilters.couleur.length+activeFilters.tag.length;
+  var fc=document.getElementById('filter-count');
   if(fc){ fc.textContent=n; fc.style.display=n?'inline':'none'; }
-  document.getElementById('filter-btn').classList.toggle('active', n>0);
+  document.getElementById('filter-btn').classList.toggle('active',n>0);
 }
 
 function applyFilters(){
   var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
-  var unmois = new Date();
-  unmois.setMonth(unmois.getMonth()-1);
 
   var filtered = allArticles.filter(function(a){
-    // Recherche
-    if(q && !(a.nom||'').toLowerCase().includes(q)) return false;
+    // Recherche multi-champs (nom + couleurs + mots_cles)
+    if(q){
+      var haystack = [
+        a.nom||'',
+        (a.couleurs||[]).join(' '),
+        a.sous_categorie||'',
+        a.sous_sous_categorie||'',
+        a.mots_cles||''
+      ].join(' ').toLowerCase();
+      if(!haystack.includes(q)) return false;
+    }
 
-    // Badge (ET)
+    // Badges (ET)
     if(activeFilters.badge.length){
-      var ok = activeFilters.badge.every(function(b){
-        if(b==='new') return a.date_ajout && new Date(a.date_ajout) > unmois;
-        if(b==='perso') return a.personnalisable === 'Oui';
+      var ok=activeFilters.badge.every(function(b){
+        if(b==='new') return isNew(a);
+        if(b==='perso') return a.personnalisable==='Oui';
         return true;
       });
       if(!ok) return false;
     }
 
-    // Couleur (ET)
+    // Couleurs (ET)
     if(activeFilters.couleur.length){
-      var aCouleurs = a.couleurs || [];
-      var ok = activeFilters.couleur.every(function(c){ return aCouleurs.indexOf(c) >= 0; });
-      if(!ok) return false;
+      var ac=a.couleurs||[];
+      if(!activeFilters.couleur.every(function(c){ return ac.indexOf(c)>=0; })) return false;
     }
 
-    // Tag (ET)
+    // Tags (ET)
     if(activeFilters.tag.length){
-      var ok = activeFilters.tag.every(function(t){ return a.sous_sous_categorie === t; });
-      if(!ok) return false;
+      if(!activeFilters.tag.every(function(t){ return a.sous_sous_categorie===t; })) return false;
     }
 
     return true;
@@ -662,7 +640,6 @@ function applyFilters(){
   afficherArticles(filtered);
 }
 
-// ── Init ──
 chargerCatalogue();
 </script>
 </body>
