@@ -337,7 +337,6 @@ function chargerCatalogue(){
     .then(function(r){ return r.json(); })
     .then(function(articles){
       allArticles = articles;
-      console.log('Premier article date_ajout:', articles[0] && articles[0].date_ajout);
       document.getElementById('cat-loader').style.display = 'none';
       construireFiltresDynamiques(articles);
       afficherArticles(articles);
