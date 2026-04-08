@@ -401,8 +401,11 @@ function makeCardPerso(f, i){
   var fileName = (f.perso && f.perso.fileName) ? f.perso.fileName : '';
 
   var persoHtml = '<div class="fav-perso">'
-    + '<div class="fav-perso-title">Personnalisation</div>'
-    + '<div class="fav-perso-field">'
+  + '<div class="fav-perso-title">Personnalisation</div>';
+
+if(f.perso) {
+  // Personnalisation souhaitée — afficher les champs
+  persoHtml += '<div class="fav-perso-field">'
     + '<label class="fav-perso-label">Texte ou motif souhaité</label>'
     + '<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea>'
     + '</div>'
@@ -416,8 +419,14 @@ function makeCardPerso(f, i){
     + '</select>'
     + '<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
     + '</div>'
-    + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>' : '')
-    + '</div>';
+    + (fileUrl ? '<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>' : '');
+} else {
+  // Pas de personnalisation souhaitée
+  persoHtml += '<div style="font-size:11px;color:var(--muted);font-style:italic;">Non souhaitée</div>'
+    + '<button onclick="event.stopPropagation();activerPerso('+i+')" style="margin-top:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:6px;padding:6px 12px;font-family:\'Arimo\',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=\'var(--rose)\';this.style.color=\'var(--rose)\'" onmouseout="this.style.borderColor=\'rgba(0,0,0,.15)\';this.style.color=\'var(--muted)\'">+ Ajouter une personnalisation</button>';
+}
+
+persoHtml += '</div>';
 
   card.innerHTML = '<div class="fav-img">'+imgHtml+'</div>'
     + '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
@@ -500,6 +509,13 @@ function updatePersoSelect(i, sel){
   updatePersoField(i, 'couleur', value);
   var autreInput = document.getElementById('autre-'+i);
   if(autreInput) autreInput.style.display = value === 'Autre' ? 'block' : 'none';
+}
+  
+function activerPerso(i){
+  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  if(!favs[i].perso) favs[i].perso = { texte:'', couleur:'', couleurAutre:'', fileUrl:'', fileName:'' };
+  localStorage.setItem('reunis_favoris', JSON.stringify(favs));
+  loadFavoris();
 }
 
 function clearFavoris(){
