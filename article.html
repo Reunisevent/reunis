@@ -313,11 +313,7 @@ var qtyCurrent = 1;
 var persoFileUrl = null;
 
 if(article) {
-  alert(JSON.stringify({
-  categorie: article.categorie,
-  cat: article.cat,
-  Categorie: article.Categorie
-}));
+ alert(JSON.stringify(Object.keys(article)));
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
 
 document.getElementById('art-nom').textContent = article.nom || article.name || '—';
