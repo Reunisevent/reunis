@@ -30,15 +30,22 @@ module.exports = async function handler(req, res) {
         + '<td style="padding:12px 8px;text-align:right;">' + (a.prix ? parseFloat(a.prix).toFixed(2) + '€' : 'Sur devis') + '</td>'
         + '</tr>';
 
-      if(a.perso && (a.perso.texte || a.perso.couleur || a.perso.fileUrl)) {
-        ligne += '<tr style="background:#faf9f9;">'
-          + '<td colspan="3" style="padding:6px 8px 12px 24px;font-size:12px;color:#888;">'
-          + '✏️ Personnalisation : '
-          + (a.perso.texte ? '<em>' + a.perso.texte + '</em>' : '')
-          + (a.perso.couleur ? ' — Couleur : ' + (a.perso.couleur === 'Autre' ? a.perso.couleurAutre : a.perso.couleur) : '')
-          + (a.perso.fileUrl ? ' — <a href="' + a.perso.fileUrl + '" target="_blank">Voir le fichier joint</a>' : '')
-          + '</td></tr>';
-      }
+      if(a.personnalisable === 'Oui') {
+  if(a.perso && (a.perso.texte || a.perso.couleur || a.perso.fileUrl)) {
+    ligne += '<tr style="background:#faf9f9;">'
+      + '<td colspan="3" style="padding:6px 8px 12px 24px;font-size:12px;color:#888;">'
+      + '✏️ Personnalisation souhaitée : '
+      + (a.perso.texte ? '<em>' + a.perso.texte + '</em>' : '')
+      + (a.perso.couleur ? ' — Couleur : ' + (a.perso.couleur === 'Autre' ? a.perso.couleurAutre : a.perso.couleur) : '')
+      + (a.perso.fileUrl ? ' — <a href="' + a.perso.fileUrl + '" target="_blank">Voir le fichier joint</a>' : '')
+      + '</td></tr>';
+  } else {
+    ligne += '<tr style="background:#faf9f9;">'
+      + '<td colspan="3" style="padding:6px 8px 12px 24px;font-size:12px;color:#888;">'
+      + '📦 Personnalisation : non souhaitée'
+      + '</td></tr>';
+  }
+}
       return ligne;
     }).join('');
 
