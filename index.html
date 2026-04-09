@@ -360,17 +360,21 @@ button { cursor:pointer; font-family:inherit; }
 
 .home-club {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0;
+  gap: 0px;
   cursor: pointer;
   transition: opacity .2s;
 }
+
 .home-club-img {
-  height: 28px;
+  height: 40px;
   width: auto;
   mix-blend-mode: multiply;
-  margin-right: 4px;
+  display: block;
+  margin-right: -4px;
 }
+
 .home-club-text {
   line-height: 1.1;
 }
