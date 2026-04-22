@@ -467,3 +467,10 @@ button { cursor:pointer; font-family:inherit; }
 }
 .sb-close:hover { color: var(--noir); }
 body.sb-open .home-hamburger { display: none; }
+
+input[type="date"].form-input {
+  -webkit-appearance: none;
+  appearance: none;
+  line-height: normal;
+  height: 50px;
+}
