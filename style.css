@@ -162,7 +162,7 @@ button { cursor:pointer; font-family:inherit; }
   width: auto;
 }
 .sb-axis-toggle {
-  color: var(--rose);
+  color: var(--rose) !important;
   font-size: 14px;
   cursor: pointer;
   padding: 4px 2px;
