@@ -152,6 +152,24 @@ button { cursor:pointer; font-family:inherit; }
 }
 .sb-subcat:hover { color: var(--rose); }
 
+.sb-axis-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sb-axis-toggle {
+  background: none;
+  border: none;
+  color: var(--rose);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 0 5px 6px;
+  line-height: 1;
+  transition: transform .2s;
+}
+.sb-axis-toggle:hover { color: var(--corail); }
+
+
 /* ── SÉPARATEUR ── */
 .sb-sep {
   border: none;
