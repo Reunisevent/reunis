@@ -180,16 +180,14 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
 function toggleCats(btn){var c=btn.closest('.sb-axis-wrap').nextElementSibling;if(c)c.classList.toggle('open');}
 
 function updateBadge(){
-try {
 var favs = JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-var badges = document.querySelectorAll(’.heart-badge’);
-badges.forEach(function(b){
+document.querySelectorAll(’.heart-badge’).forEach(function(b){
 b.textContent = favs.length;
 b.classList.toggle(‘visible’, favs.length > 0);
 });
-} catch(e){}
 }
 updateBadge();
+if(window.innerWidth>860){document.getElementById(‘sidebar’).classList.add(‘open’);}
 </script>
 
 </body>
