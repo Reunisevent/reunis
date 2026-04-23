@@ -162,22 +162,17 @@ button { cursor:pointer; font-family:inherit; }
   width: auto;
 }
 .sb-axis-toggle {
-  background: none;
-  border: none;
   color: var(--rose);
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
-  padding: 5px 4px;
+  padding: 4px 2px;
   line-height: 1;
-  flex-shrink: 0;
-  -webkit-appearance: none;
-  appearance: none;
-  transition: color .2s, transform .2s;
+  transition: transform .2s;
+  display: inline-block;
+  user-select: none;
 }
-
 .sb-axis-toggle:hover { color: var(--corail); }
-.sb-axis-toggle.open { transform: rotate(90deg); }
+.sb-axis-toggle.open { transform: rotate(-180deg); }
 
 /* ── SÉPARATEUR ── */
 .sb-sep {
