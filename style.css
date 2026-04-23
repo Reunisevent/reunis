@@ -89,7 +89,6 @@ button { cursor:pointer; font-family:inherit; }
 
 /* ── NAV AXES (PLANIFIER / DÉCORER) ── */
 .sb-axis {
-  display: block;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -100,7 +99,6 @@ button { cursor:pointer; font-family:inherit; }
   background: none;
   border: none;
   text-align: left;
-  width: auto;
   font-family: 'Arimo', sans-serif;
 }
 .sb-axis:hover { color: var(--corail); }
@@ -170,8 +168,9 @@ button { cursor:pointer; font-family:inherit; }
   transition: transform .2s;
   display: inline-block;
   user-select: none;
+  flex-shrink: 0;
 }
-.sb-axis-toggle:hover { color: var(--corail); }
+.sb-axis-toggle:hover { color: var(--corail) !important; }
 .sb-axis-toggle.open { transform: rotate(-180deg); }
 
 /* ── SÉPARATEUR ── */
