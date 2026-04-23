@@ -565,6 +565,7 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
 function toggleCats(btn){
   var c = btn.closest('.sb-axis-wrap').nextElementSibling;
   if(c) c.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 (function(){
   var e='contact'+String.fromCharCode(64)+'reunisevent.com';
