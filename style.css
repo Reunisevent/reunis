@@ -155,20 +155,21 @@ button { cursor:pointer; font-family:inherit; }
 .sb-axis-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 6px;
 }
 .sb-axis-toggle {
   background: none;
   border: none;
   color: var(--rose);
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
-  padding: 5px 0 5px 6px;
+  padding: 0;
   line-height: 1;
-  transition: transform .2s;
+  flex-shrink: 0;
+  transition: color .2s;
 }
 .sb-axis-toggle:hover { color: var(--corail); }
-
 
 /* ── SÉPARATEUR ── */
 .sb-sep {
