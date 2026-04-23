@@ -100,7 +100,7 @@ button { cursor:pointer; font-family:inherit; }
   background: none;
   border: none;
   text-align: left;
-  width: 100%;
+  width: auto;
   font-family: 'Arimo', sans-serif;
 }
 .sb-axis:hover { color: var(--corail); }
@@ -165,14 +165,17 @@ button { cursor:pointer; font-family:inherit; }
   background: none;
   border: none;
   color: var(--rose);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  padding: 5px 0;
+  padding: 5px 4px;
   line-height: 1;
   flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
   transition: color .2s, transform .2s;
 }
+
 .sb-axis-toggle:hover { color: var(--corail); }
 .sb-axis-toggle.open { transform: rotate(90deg); }
 
