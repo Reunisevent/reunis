@@ -476,7 +476,11 @@ body.sb-open .home-hamburger { display: none; }
   <button class="sb-close" onclick="closeSidebar()" aria-label="Fermer">&#x2715;</button>
   <nav>
     <a class="sb-axis" href="planifier.html">Planifier</a>
-    <button class="sb-axis" onclick="toggleCats(this)">Décorer</button>
+<div class="sb-axis-wrap">
+  <a class="sb-axis" href="decorer.html">Décorer</a>
+  <button class="sb-axis-toggle" onclick="toggleCats(this)" aria-label="Déplier">›</button>
+</div>
+
     <div class="sb-cats">
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
@@ -559,7 +563,10 @@ body.sb-open .home-hamburger { display: none; }
 <script>
 function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('on');document.body.classList.add('sb-open');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
+function toggleCats(btn){
+  var c = btn.closest('.sb-axis-wrap').nextElementSibling;
+  if(c) c.classList.toggle('open');
+}
 (function(){
   var e='contact'+String.fromCharCode(64)+'reunisevent.com';
   var el=document.getElementById('home-email');if(el){el.href='mailto:'+e;el.textContent=e;}
