@@ -63,8 +63,8 @@
   <nav>
     <a class="sb-axis" href="planifier.html">Planifier</a>
     <div class="sb-axis-wrap">
-      <button class="sb-axis" onclick="toggleCats(this)">Décorer</button>
-      <span class="sb-axis-toggle" onclick="toggleCats(this.previousElementSibling)">▾</span>
+      <a class="sb-axis" href="decorer.html">Décorer</a>
+      <span class="sb-axis-toggle" onclick="toggleCats(this)">▾</span>
     </div>
     <div class="sb-cats">
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
@@ -176,12 +176,11 @@
 <script>
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn) {
-  var wrap = btn.closest('.sb-axis-wrap');
-  var cats = wrap ? wrap.nextElementSibling : btn.nextElementSibling;
-  if (cats) cats.classList.toggle('open');
-  var toggle = wrap ? wrap.querySelector('.sb-axis-toggle') : null;
-  if (toggle) toggle.classList.toggle('open');
+function toggleCats(btn){
+  var wrap=btn.closest('.sb-axis-wrap');
+  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
+  if(cats)cats.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 
 function updateBadge(){
