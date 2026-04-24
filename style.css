@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Détail article — Réunis location décoration événementielle Centre-Val de Loire.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Article — Réunis</title>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
 :root {
   --bg:      #FAF1F1;
   --white:   #FFFFFF;
@@ -19,556 +8,476 @@
   --muted:   #888080;
   --sb-w:    170px;
 }
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html, body { height:100%; }
-body { font-family: 'Arimo', sans-serif; background: var(--bg); color: var(--noir); }
+body {
+  font-family: 'Arimo', sans-serif;
+  background: var(--bg);
+  color: var(--noir);
+}
 a { text-decoration:none; color:inherit; }
 button { cursor:pointer; font-family:inherit; }
 
-.topbar { display:none; align-items:center; justify-content:space-between; padding:14px 20px; background:var(–bg); border-bottom:1px solid rgba(0,0,0,.07); position:sticky; top:0; z-index:120; }
+/* ── TOPBAR (pages intérieures) ── */
+.topbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  position: sticky;
+  top: 0;
+  z-index: 120;
+}
 .topbar.visible { display:flex; }
-.topbar-logo { font-family:‘Abril Fatface’,serif; font-size:1.5rem; letter-spacing:-.5px; }
-.topbar-icon { background:none; border:none; color:var(–noir); display:flex; align-items:center; padding:4px; transition:color .2s; }
-.topbar-icon:hover { color:var(–rose); }
+.topbar-logo {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  letter-spacing: -.5px;
+}
+.topbar-icon {
+  background: none;
+  border: none;
+  color: var(--noir);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color .2s;
+}
+.topbar-icon:hover { color: var(--rose); }
 
-.sidebar { position:fixed; top:0; left:0; width:var(–sb-w); height:100dvh; background:var(–white); border-right:1px solid rgba(0,0,0,.07); display:flex; flex-direction:column; padding:28px 18px 32px; z-index:160; overflow-y:auto; -webkit-overflow-scrolling:touch; transform:translateX(-100%); transition:transform .3s ease; }
-.sidebar.open { transform:translateX(0); }
-.sb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.25); z-index:155; }
+.heart-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--rose); color: white;
+  border-radius: 100px; font-size: 9px;
+  padding: 1px 5px; font-weight: 700;
+  min-width: 16px; text-align: center;
+  display: none; pointer-events: none;
+}
+.heart-badge.visible { display: block; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sb-w);
+  height: 100dvh;
+  background: var(--white);
+  border-right: 1px solid rgba(0,0,0,.07);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 18px 32px;
+  z-index: 160;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+}
+.sidebar.open { transform: translateX(0); }
+
+/* overlay mobile */
+.sb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.25);
+  z-index: 155;
+}
 .sb-overlay.on { display:block; }
-.sb-axis { display:block; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(–rose); padding:5px 0; transition:color .2s; background:none; border:none; text-align:left; width:100%; font-family:‘Arimo’,sans-serif; }
-.sb-axis:hover { color:var(–corail); }
-.sb-axis-wrap { display:flex; align-items:center; gap:6px; width:100%; }
-.sb-axis-toggle { color:var(–rose); font-size:14px; cursor:pointer; padding:4px 2px; line-height:1; transition:transform .2s; display:inline-block; user-select:none; flex-shrink:0; }
-.sb-axis-toggle:hover { color:var(–corail); }
-.sb-axis-toggle.open { transform:rotate(-180deg); }
-.sb-cats { display:none; padding-left:8px; margin:3px 0 6px; }
+
+/* ── NAV AXES (PLANIFIER / DÉCORER) ── */
+.sb-axis {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--rose);
+  padding: 5px 0;
+  transition: color .2s;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: 'Arimo', sans-serif;
+}
+.sb-axis:hover { color: var(--corail); }
+
+/* ── DÉCORER wrap + toggle ── */
+.sb-axis-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.sb-axis-toggle {
+  color: var(--rose) !important;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 2px;
+  line-height: 1;
+  transition: transform .2s;
+  display: inline-block;
+  user-select: none;
+  flex-shrink: 0;
+}
+.sb-axis-toggle:hover { color: var(--corail) !important; }
+.sb-axis-toggle.open { transform: rotate(-180deg); }
+
+/* ── NAV CATÉGORIES ── */
+.sb-cats {
+  display: none;
+  padding-left: 8px;
+  margin: 3px 0 6px;
+}
 .sb-cats.open { display:block; }
-.sb-cat-wrap { position:relative; }
-.sb-cat { display:block; font-size:11.5px; color:var(–muted); padding:3px 0; transition:color .2s; cursor:pointer; background:none; border:none; text-align:left; width:100%; font-family:‘Arimo’,sans-serif; letter-spacing:.3px; }
-.sb-cat::before { content:”| “; }
-.sb-cat:hover, .sb-cat.active { color:var(–rose); }
-.sb-subcats { display:none; padding-left:12px; margin:2px 0 4px; }
-.sb-cat-wrap:hover .sb-subcats, .sb-cat-wrap.open .sb-subcats { display:block; }
-.sb-subcat { display:block; font-size:10.5px; color:#aaa; padding:2px 0; transition:color .2s; letter-spacing:.2px; }
-.sb-subcat:hover { color:var(–rose); }
-.sb-sep { border:none; border-top:1px solid rgba(0,0,0,.08); margin:14px 0; }
-.sb-secondary a { display:block; font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(–noir); padding:4px 0; transition:color .2s; }
-.sb-secondary a:hover, .sb-secondary a.active { color:var(–rose); }
-.sb-contact { display:block; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(–noir); padding:5px 0; margin-top:4px; transition:color .2s; }
-.sb-contact:hover { color:var(–rose); }
-.sb-config { margin-top:10px; background:var(–noir); color:var(–white); border:none; border-radius:100px; padding:12px 14px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; width:100%; transition:background .2s; font-family:‘Arimo’,sans-serif; }
-.sb-config:hover { background:var(–rose); }
-.sb-footer { margin-top:auto; padding-top:12px; }
-.sb-club-img { height:52px; width:auto; mix-blend-mode:multiply; display:block; margin-bottom:8px; cursor:pointer; }
-.sb-legal { font-size:9px; color:var(–muted); line-height:2; }
-.sb-legal a { display:block; color:var(–muted); transition:color .2s; }
-.sb-legal a:hover { color:var(–noir); }
-.sb-close { position:absolute; top:16px; right:14px; background:none; border:none; font-size:1.2rem; color:var(–muted); cursor:pointer; line-height:1; padding:4px; transition:color .2s; }
-.sb-close:hover { color:var(–noir); }
 
-.main { min-height:100vh; display:flex; flex-direction:column; transition:margin-left .3s ease; }
-.heart-badge { position:absolute; top:-6px; right:-6px; background:var(–rose); color:white; border-radius:100px; font-size:9px; padding:1px 5px; font-weight:700; min-width:16px; text-align:center; display:none; }
-.heart-badge.visible { display:block; }
+.sb-cat-wrap { position: relative; }
 
-.article-page { display:grid; grid-template-columns:1fr 420px; min-height:calc(100vh - 56px); }
-.article-gallery-col { background:var(–bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:56px; height:calc(100vh - 56px); overflow:hidden; }
-.article-main-img { flex:1; background:var(–white); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; min-height:300px; }
-.article-main-img img { width:100%; height:100%; object-fit:cover; display:block; }
-.article-thumbs { display:flex; gap:8px; }
-.article-thumb { width:72px; height:72px; background:var(–white); border-radius:4px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid transparent; transition:border-color .2s; font-size:1.4rem; flex-shrink:0; overflow:hidden; }
-.article-thumb.active, .article-thumb:hover { border-color:var(–noir); }
-.article-info-col { padding:40px 36px; border-left:1px solid rgba(0,0,0,.07); overflow-y:auto; }
-.article-breadcrumb { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(–muted); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-.article-breadcrumb a { color:var(–muted); text-decoration:none; transition:color .2s; }
-.article-breadcrumb a:hover { color:var(–rose); }
-.article-name { font-family:‘Abril Fatface’,serif; font-size:clamp(1.6rem,2.5vw,2.2rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
-.article-ref { font-size:11px; color:var(–muted); margin-bottom:24px; letter-spacing:.5px; }
-.article-price-line { margin-bottom:20px; }
-.article-price { font-family:‘Abril Fatface’,serif; font-size:1.8rem; }
-.article-price-unit { font-size:12px; color:var(–muted); margin-left:4px; }
-.article-desc { font-size:13px; line-height:1.85; color:#444; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid rgba(0,0,0,.07); }
-.article-specs { width:100%; border-collapse:collapse; margin-bottom:24px; }
-.article-specs tr { border-bottom:1px solid rgba(0,0,0,.05); }
-.article-specs td { padding:8px 4px; font-size:12px; }
-.article-specs td:first-child { color:var(–muted); width:45%; }
-.article-specs td:last-child { font-weight:600; }
-.qty-row { display:flex; gap:10px; align-items:stretch; margin-bottom:10px; }
-.qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(–white); }
-.qty-btn { width:40px; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(–noir); transition:opacity .2s; }
-.qty-num { min-width:32px; text-align:center; font-weight:700; font-size:14px; }
-.btn-add-fav { flex:1; background:var(–noir); color:white; border:none; border-radius:8px; padding:15px; font-family:‘Arimo’,sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
-.btn-add-fav:hover { background:var(–rose); }
-.btn-configurateur { width:100%; background:transparent; color:var(–noir); border:1px solid rgba(0,0,0,.2); border-radius:8px; padding:13px; font-family:‘Arimo’,sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all .2s; margin-bottom:24px; margin-top:10px; }
-.btn-configurateur:hover { border-color:var(–noir); }
-.article-conditions { border-top:1px solid rgba(0,0,0,.07); padding-top:20px; }
-.condition-row { display:flex; gap:10px; align-items:flex-start; margin-bottom:12px; }
-.condition-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
-.condition-text { font-size:11.5px; color:var(–muted); line-height:1.6; }
-.condition-text strong { color:var(–noir); }
-.perso-section { margin-top:28px; padding-top:24px; border-top:1px solid rgba(0,0,0,.07); display:none; }
-.perso-section.visible { display:block; }
-.perso-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-.perso-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(–muted); font-weight:600; }
-.perso-toggle-label { display:flex; align-items:center; gap:8px; cursor:pointer; }
-.perso-toggle-text { font-size:11px; color:var(–muted); }
-.perso-toggle-input { width:16px; height:16px; cursor:pointer; accent-color:var(–rose); }
-.perso-fields { display:none; }
-.perso-label { display:block; font-size:11px; font-weight:600; letter-spacing:.5px; color:var(–noir); margin-bottom:6px; margin-top:16px; }
-.perso-label:first-of-type { margin-top:0; }
-.perso-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:13px; background:var(–white); color:var(–noir); outline:none; resize:vertical; min-height:90px; transition:border-color .2s; }
-.perso-textarea:focus { border-color:var(–rose); }
-.perso-select { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:13px; background:var(–white); color:var(–noir); outline:none; appearance:none; cursor:pointer; transition:border-color .2s; }
-.perso-select:focus { border-color:var(–rose); }
-.perso-autre { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:13px; background:var(–white); color:var(–noir); outline:none; margin-top:8px; transition:border-color .2s; display:none; }
-.perso-autre.visible { display:block; }
-.perso-autre:focus { border-color:var(–rose); }
-.perso-upload { width:100%; border:1px dashed rgba(0,0,0,.2); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(–white); }
-.perso-upload:hover { border-color:var(–rose); }
-.perso-upload-label { font-size:12px; color:var(–muted); letter-spacing:.5px; }
-.perso-upload-name { font-size:12px; font-weight:600; color:var(–noir); margin-top:6px; display:none; }
-.perso-note { font-size:11.5px; color:var(–muted); line-height:1.7; margin-top:16px; font-style:italic; }
-.similar-section { padding:32px 0 60px; border-top:1px solid rgba(0,0,0,.07); }
-.similar-title { font-family:‘Abril Fatface’,serif; font-size:1.5rem; margin-bottom:16px; padding:0 24px; }
-.similar-track-wrap { position:relative; }
-.similar-track { display:flex; gap:2px; overflow-x:auto; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:0 24px; }
-.similar-track::-webkit-scrollbar { display:none; }
-.similar-card { flex:0 0 160px; cursor:pointer; background:var(–white); }
-.similar-card-img { aspect-ratio:3/4; background:var(–bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
-.similar-card-img img { width:100%; height:100%; object-fit:cover; }
-.similar-card-name { padding:8px 6px 4px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
-.similar-card-price { padding:0 6px 10px; font-size:11px; color:var(–muted); }
-.similar-arrow { position:absolute; top:40%; transform:translateY(-50%); background:var(–white); border:1px solid rgba(0,0,0,.1); border-radius:100px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 8px rgba(0,0,0,.08); transition:all .2s; font-size:1.2rem; color:var(–noir); }
-.similar-arrow:hover { background:var(–noir); color:white; }
-.similar-arrow.left { left:8px; }
-.similar-arrow.right { right:8px; }
-
-@media (min-width:861px) { .sb-overlay { display:none !important; } }
-@media (max-width:860px) {
-.main { padding-top:56px; }
-.article-page { grid-template-columns:1fr; }
-.article-gallery-col { position:static; height:auto; }
-.article-info-col { border-left:none; border-top:1px solid rgba(0,0,0,.07); padding:28px 20px; }
+.sb-cat {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  padding: 3px 0;
+  transition: color .2s;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: 'Arimo', sans-serif;
+  letter-spacing: .3px;
 }
-</style>
+.sb-cat::before { content: "| "; }
+.sb-cat:hover,
+.sb-cat.active { color: var(--rose); }
 
-</head>
-<body>
-<div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar desktop-open" id="sidebar">
-  <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
-  <nav>
-    <a class="sb-axis" href="planifier.html">Planifier</a>
-    <div class="sb-axis-wrap">
-      <a class="sb-axis" href="decorer.html">Décorer</a>
-      <span class="sb-axis-toggle" onclick="toggleCats(this)">▾</span>
-    </div>
-    <div class="sb-cats">
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-signaletique.html#panneaux">Panneaux d'accueil</a><a class="sb-subcat" href="cat-signaletique.html#miroirs">Miroirs</a><a class="sb-subcat" href="cat-signaletique.html#petits">Petits panneaux</a><a class="sb-subcat" href="cat-signaletique.html#marque-place">Marque place</a></div></div>
-      <div class="sb-cat-wrap open" id="sb-cat-active"><a class="sb-cat active" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="cat-table.html#vaisselles">Vaisselles</a><a class="sb-subcat" href="cat-table.html#presentoirs">Présentoirs</a><a class="sb-subcat" href="cat-table.html#candy-bar">Candy bar</a><a class="sb-subcat" href="cat-table.html#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="cat-table.html#carafes">Carafes</a><a class="sb-subcat" href="cat-table.html#service">Service</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a><div class="sb-subcats"><a class="sb-subcat" href="cat-textile.html#nappes">Nappes</a><a class="sb-subcat" href="cat-textile.html#chemins">Chemins de table</a><a class="sb-subcat" href="cat-textile.html#serviettes">Serviettes de table</a><a class="sb-subcat" href="cat-textile.html#tapis">Tapis</a><a class="sb-subcat" href="cat-textile.html#coussins">Coussins</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a><div class="sb-subcats"><a class="sb-subcat" href="cat-floral.html#dame-jeanne">Dame jeanne</a><a class="sb-subcat" href="cat-floral.html#vases">Vases</a><a class="sb-subcat" href="cat-floral.html#soliflores">Soliflores</a><a class="sb-subcat" href="cat-floral.html#seches">Fleurs séchées</a><a class="sb-subcat" href="cat-floral.html#fraiches">Fleurs fraîches</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs &amp; chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes &amp; éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-details.html">Les détails</a><div class="sb-subcats"><a class="sb-subcat" href="cat-details.html#livre-dor">Livre d'or</a><a class="sb-subcat" href="cat-details.html#disco">Boules disco</a><a class="sb-subcat" href="cat-details.html#zinc">Bassines en zinc</a><a class="sb-subcat" href="cat-details.html#caisses">Caisses en bois</a><a class="sb-subcat" href="cat-details.html#vintage">Objets vintages</a><a class="sb-subcat" href="cat-details.html#accessoires">Accessoires</a><a class="sb-subcat" href="cat-details.html#jeux">Jeux</a></div></div>
-      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-pratique.html#video">Vidéoprojecteur</a><a class="sb-subcat" href="cat-pratique.html#vestiaire">Vestiaire</a><a class="sb-subcat" href="cat-pratique.html#rallonges">Rallonges</a><a class="sb-subcat" href="cat-pratique.html#cuisine">Ustensiles de cuisine</a></div></div>
-    </div>
-    <hr class="sb-sep">
-    <div class="sb-secondary">
-      <a href="index.html">Home</a>
-      <a href="faq.html">FAQ</a>
-      <a href="galerie.html">Galerie</a>
-      <a href="manifest.html">Manifest</a>
-      <a href="le-club.html">Le Club</a>
-    </div>
-    <a class="sb-contact" href="contact.html">Contact</a>
-    <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
-  </nav>
-  <div class="sb-footer">
-    <img class="sb-club-img" src="le-club-logo.jpg" alt="Le Club" onclick="location.href='le-club.html'">
-    <div class="sb-legal">
-      <a href="mentions.html">| Mentions légales</a>
-      <a href="cgv.html">| CGV</a>
-    </div>
-  </div>
-</aside>
-
-<div class="topbar visible">
-  <button class="topbar-icon" onclick="toggleSidebar()" aria-label="Menu">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
-  <a class="topbar-logo" href="index.html">Réunis</a>
-  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-    <span class="heart-badge" id="fav-badge"></span>
-  </a>
-</div>
-
-<main class="main" id="main" style="margin-left:0">
-  <div class="article-page">
-    <div class="article-gallery-col">
-      <div class="article-main-img" id="art-main">✦</div>
-      <div class="article-thumbs" id="art-thumbs"></div>
-    </div>
-    <div class="article-info-col">
-      <div class="article-breadcrumb">
-        <a href="decorer.html">Décorer</a>
-        <span>›</span>
-        <a href="cat-table.html" id="bc-categorie">La table</a>
-        <span>›</span>
-        <span id="bc-sous-categorie">—</span>
-      </div>
-      <h1 class="article-name" id="art-nom">—</h1>
-      <div class="article-ref" id="art-ref"></div>
-      <div class="article-price-line">
-        <span class="article-price" id="art-prix">—</span>
-        <span class="article-price-unit">/ pièce</span>
-      </div>
-      <p class="article-desc" id="art-desc"></p>
-      <table class="article-specs" id="art-specs"></table>
-
-```
-  <div class="perso-section" id="perso-section">
-    <div class="perso-header">
-      <div class="perso-title">Personnalisation</div>
-      <label class="perso-toggle-label">
-        <span class="perso-toggle-text">Oui</span>
-        <input type="checkbox" id="perso-toggle" class="perso-toggle-input" onchange="togglePerso(this)">
-      </label>
-    </div>
-    <div class="perso-fields" id="perso-fields">
-      <label class="perso-label">Texte ou motif souhaité</label>
-      <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
-      <label class="perso-label">Couleur</label>
-      <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
-        <option value="">Choisissez une couleur</option>
-        <option value="Doré">Doré</option>
-        <option value="Argenté">Argenté</option>
-        <option value="Blanc">Blanc</option>
-        <option value="Noir">Noir</option>
-        <option value="Jaune">Jaune</option>
-        <option value="Bleu">Bleu</option>
-        <option value="Rose">Rose</option>
-        <option value="Vert foncé">Vert foncé</option>
-        <option value="Autre">Autre</option>
-      </select>
-      <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
-      <label class="perso-label">Exemple ou visuel de référence</label>
-      <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
-        <div class="perso-upload-label">+ Ajouter un fichier</div>
-        <div class="perso-upload-name" id="perso-file-name"></div>
-        <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
-      </div>
-    </div>
-    <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos locaux. Le tarif, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection.</p>
-  </div>
-
-  <div class="qty-row" style="margin-top:24px;">
-    <div class="qty-control">
-      <button class="qty-btn" id="btn-moins" onclick="changeQty(-1)">−</button>
-      <span class="qty-num" id="art-qty">1</span>
-      <button class="qty-btn" id="btn-plus" onclick="changeQty(1)">+</button>
-    </div>
-    <button class="btn-add-fav" onclick="addToFav()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      Ajouter à ma sélection
-    </button>
-  </div>
-  <button class="btn-configurateur" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
-  <div class="article-conditions">
-    <div class="condition-row">
-      <div class="condition-icon">💌</div>
-      <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons sous 48h pour confirmer la disponibilité.</div>
-    </div>
-    <div class="condition-row">
-      <div class="condition-icon">📅</div>
-      <div class="condition-text">Location du jeudi précédant votre événement au mardi suivant.</div>
-    </div>
-    <div class="condition-row">
-      <div class="condition-icon">📍</div>
-      <div class="condition-text">Livraison sur demande ou retrait à <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>.</div>
-    </div>
-    <div class="condition-row" style="margin-top:4px;">
-      <div class="condition-text" style="font-size:11.5px;color:var(--muted);">
-        Pour plus d'informations, consultez notre <a href="faq.html" style="color:var(--rose);font-weight:600;">FAQ</a> ou <a href="contact.html" style="color:var(--rose);font-weight:600;">contactez-nous</a>.
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-
-  <div class="similar-section">
-    <div class="similar-title">Vous aimerez aussi</div>
-    <div class="similar-track-wrap">
-      <button class="similar-arrow left" onclick="scrollSimilar(-1)">‹</button>
-      <div class="similar-track" id="similar-track"></div>
-      <button class="similar-arrow right" onclick="scrollSimilar(1)">›</button>
-    </div>
-  </div>
-</main>
-
-<script>
-function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
-function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){
-  var wrap=btn.closest('.sb-axis-wrap');
-  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
-  if(cats)cats.classList.toggle('open');
-  btn.classList.toggle('open');
+/* ── SOUS-CATÉGORIES ── */
+.sb-subcats {
+  display: none;
+  padding-left: 12px;
+  margin: 2px 0 4px;
 }
-if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
+.sb-cat-wrap:hover .sb-subcats,
+.sb-cat-wrap.open .sb-subcats { display:block; }
 
-function updateBadge(){
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  document.querySelectorAll('.heart-badge').forEach(function(b){
-    b.textContent = favs.length;
-    b.classList.toggle('visible', favs.length > 0);
-  });
+.sb-subcat {
+  display: block;
+  font-size: 10.5px;
+  color: #aaa;
+  padding: 2px 0;
+  transition: color .2s;
+  letter-spacing: .2px;
 }
-updateBadge();
+.sb-subcat:hover { color: var(--rose); }
 
-var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null');
-var qtyMax = 1;
-var qtyCurrent = 1;
-var persoFileUrl = null;
+/* ── SÉPARATEUR ── */
+.sb-sep {
+  border: none;
+  border-top: 1px solid rgba(0,0,0,.08);
+  margin: 14px 0;
+}
 
-if(article) {
-  qtyMax = parseInt(article.qtite_en_ligne) || 1;
-  document.getElementById('art-nom').textContent = article.nom || article.name || '—';
-  var refEl = document.getElementById('art-ref');
-  if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
-  var bcSC = document.getElementById('bc-sous-categorie');
-  if(bcSC) bcSC.textContent = article.sous_categorie || '—';
-  var bcCat = document.getElementById('bc-categorie');
-  if(bcCat && article.categorie) {
-    var catSlug = article.categorie.toLowerCase()
-      .replace(/é|è|ê/g,'e').replace(/à|â/g,'a')
-      .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-    bcCat.href = 'cat-' + catSlug + '.html';
-    bcCat.textContent = article.categorie;
+/* ── LIENS SECONDAIRES ── */
+.sb-secondary a {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--noir);
+  padding: 4px 0;
+  transition: color .2s;
+}
+.sb-secondary a:hover,
+.sb-secondary a.active { color: var(--rose); }
+
+/* ── CONTACT ── */
+.sb-contact {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--noir);
+  padding: 5px 0;
+  margin-top: 4px;
+  transition: color .2s;
+}
+.sb-contact:hover { color: var(--rose); }
+
+/* ── BOUTON CONFIGURATEUR ── */
+.sb-config {
+  margin-top: 10px;
+  background: var(--noir);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 12px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  width: 100%;
+  transition: background .2s;
+  font-family: 'Arimo', sans-serif;
+}
+.sb-config:hover { background: var(--rose); }
+
+/* ── FOOTER SIDEBAR ── */
+.sb-footer {
+  margin-top: auto;
+  padding-top: 12px;
+}
+.sb-club-img {
+  height: 52px;
+  width: auto;
+  mix-blend-mode: multiply;
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.sb-legal {
+  font-size: 9px;
+  color: var(--muted);
+  line-height: 2;
+}
+.sb-legal a {
+  display: block;
+  color: var(--muted);
+  transition: color .2s;
+}
+.sb-legal a:hover { color: var(--noir); }
+
+/* ── MAIN LAYOUT ── */
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left .3s ease;
+}
+.main.shifted { margin-left: var(--sb-w); }
+
+/* ── HOME SPÉCIFIQUE ── */
+#page-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 60px 0;
+  text-align: center;
+}
+.home-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.home-logo { margin-bottom: 48px; }
+.home-logo-name {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--noir);
+}
+.home-logo-sub {
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--noir);
+  margin-top: 6px;
+}
+.home-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 40px;
+}
+.home-btn {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 14px;
+  padding: 22px 28px;
+  text-align: left;
+  transition: all .22s;
+  display: block;
+}
+.home-btn:hover {
+  background: var(--noir);
+  border-color: var(--noir);
+}
+.home-btn:hover .home-btn-title,
+.home-btn:hover .home-btn-sub {
+  color: var(--white);
+}
+.home-btn-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--noir);
+  margin-bottom: 3px;
+  transition: color .22s;
+}
+.home-btn-sub {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color .22s;
+}
+.home-links {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.home-links a {
+  color: var(--muted);
+  transition: color .2s;
+}
+.home-links a:hover { color: var(--noir); }
+.home-email {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--noir);
+  margin-bottom: 8px;
+  transition: color .2s;
+}
+.home-email:hover { color: var(--rose); }
+
+/* footer home */
+.home-footer {
+  width: calc(100% + 120px);
+  margin: auto -60px 0;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 60px;
+  flex-shrink: 0;
+}
+.home-social {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.home-social a {
+  color: var(--noir);
+  display: flex;
+  align-items: center;
+  transition: color .2s;
+}
+.home-social a:hover { color: var(--rose); }
+
+.home-club {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.home-club:hover { opacity: .7; }
+.home-club-img {
+  height: 40px;
+  width: auto;
+  mix-blend-mode: multiply;
+  display: block;
+}
+.home-club-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-club-sub {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+/* ── HOME hamburger + heart (fixés) ── */
+.home-hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 170;
+  background: none;
+  border: none;
+  color: var(--noir);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+.home-heart {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 200;
+  background: none;
+  border: none;
+  color: var(--noir);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color .2s;
+}
+.home-heart:hover { color: var(--rose); }
+
+/* ── RESPONSIVE ── */
+@media (min-width: 861px) {
+  .sidebar.desktop-open { transform: translateX(0); }
+  .main.desktop-shifted { margin-left: var(--sb-w); }
+  .sb-overlay { display:none !important; }
+}
+
+@media (max-width: 860px) {
+  .main.shifted,
+  .main.desktop-shifted { margin-left: 0; }
+  #page-home {
+    padding: 40px 24px 0;
+    min-height: 100svh;
   }
-  var prix = parseFloat(article.prix_location);
-  var prixEl = document.getElementById('art-prix');
-  if(prixEl) prixEl.textContent = prix ? prix.toFixed(2) + '€' : 'Sur devis';
-  var descEl = document.getElementById('art-desc');
-  if(descEl) descEl.textContent = article.description || '';
-  var specs = document.getElementById('art-specs');
-  if(specs) {
-    specs.innerHTML = '';
-    var couleurs = typeof article.couleurs === 'string'
-      ? article.couleurs.split(',').filter(Boolean).join(', ')
-      : (article.couleurs || []).join(', ');
-    if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
-    if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
-    if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+parseInt(article.qtite_en_ligne)+' pièces</td></tr>';
-    if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
-  }
-  if(article.personnalisable === 'Oui') {
-    document.getElementById('perso-section').classList.add('visible');
-    var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-    var existant = favs.find(function(f){ return (f.name === article.nom || f.name === article.name); });
-    if(existant && existant.perso) {
-      var toggle = document.getElementById('perso-toggle');
-      toggle.checked = true;
-      document.getElementById('perso-fields').style.display = 'block';
-      document.getElementById('perso-texte').value = existant.perso.texte || '';
-      document.getElementById('perso-couleur').value = existant.perso.couleur || '';
-      if(existant.perso.couleur === 'Autre') {
-        document.getElementById('perso-autre').classList.add('visible');
-        document.getElementById('perso-autre').value = existant.perso.couleurAutre || '';
-      }
-      if(existant.perso.fileUrl) {
-        persoFileUrl = existant.perso.fileUrl;
-        var nameEl = document.getElementById('perso-file-name');
-        nameEl.textContent = existant.perso.fileName || 'Fichier joint';
-        nameEl.style.display = 'block';
-      }
-    }
-  }
-  var mainImg = document.getElementById('art-main');
-  if(mainImg && article.photo) {
-    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+(article.nom||'')+'" style="width:100%;height:100%;object-fit:cover;">';
-  }
-  var thumbsWrap = document.getElementById('art-thumbs');
-  if(thumbsWrap) {
-    thumbsWrap.innerHTML = '';
-    if(article.photo) {
-      var t0 = document.createElement('div');
-      t0.className = 'article-thumb active';
-      t0.innerHTML = '<img src="'+article.photo+'" style="width:100%;height:100%;object-fit:cover;">';
-      t0.onclick = function(){ setMainImg(article.photo); setActiveThumb(this); };
-      thumbsWrap.appendChild(t0);
-    }
-    var ambiance = typeof article.photos_ambiance === 'string'
-      ? article.photos_ambiance.split('|').filter(Boolean)
-      : (article.photos_ambiance || []);
-    ambiance.forEach(function(url){
-      var t = document.createElement('div');
-      t.className = 'article-thumb';
-      t.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">';
-      t.onclick = function(){ setMainImg(url); setActiveThumb(this); };
-      thumbsWrap.appendChild(t);
-    });
-  }
-  document.title = (article.nom || article.name || 'Article') + ' — Réunis';
-  updateQtyButtons();
-  chargerSimilaires();
-}
-
-function togglePerso(checkbox){
-  document.getElementById('perso-fields').style.display = checkbox.checked ? 'block' : 'none';
-}
-function toggleAutre(sel){
-  var autreEl = document.getElementById('perso-autre');
-  if(sel.value === 'Autre') { autreEl.classList.add('visible'); }
-  else { autreEl.classList.remove('visible'); autreEl.value = ''; }
-}
-function handleFile(input){
-  var file = input.files[0];
-  if(!file) return;
-  var nameEl = document.getElementById('perso-file-name');
-  nameEl.textContent = '⏳ Envoi en cours…';
-  nameEl.style.display = 'block';
-  var formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', 'Reunis_personnalisation');
-  fetch('https://api.cloudinary.com/v1_1/dhdzcow9l/auto/upload', {
-    method: 'POST',
-    body: formData
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    persoFileUrl = data.secure_url;
-    nameEl.textContent = '✓ ' + file.name;
-  })
-  .catch(function(){
-    nameEl.textContent = '✗ Erreur d\'envoi — réessayez';
-  });
-}
-function changeQty(delta){
-  qtyCurrent = Math.min(qtyMax, Math.max(1, qtyCurrent + delta));
-  document.getElementById('art-qty').textContent = qtyCurrent;
-  updateQtyButtons();
-}
-function updateQtyButtons(){
-  var btnPlus = document.getElementById('btn-plus');
-  var btnMoins = document.getElementById('btn-moins');
-  if(btnPlus) btnPlus.style.opacity = qtyCurrent >= qtyMax ? '.3' : '1';
-  if(btnMoins) btnMoins.style.opacity = qtyCurrent <= 1 ? '.3' : '1';
-}
-function setMainImg(url){
-  var mainImg = document.getElementById('art-main');
-  if(mainImg) mainImg.innerHTML = '<img src="'+url+'" alt="" style="width:100%;height:100%;object-fit:cover;">';
-}
-function setActiveThumb(el){
-  document.querySelectorAll('.article-thumb').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-}
-function addToFav(){
-  if(!article) return;
-  var btn = document.querySelector('.btn-add-fav');
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var idx = favs.findIndex(function(f){ return f.name === (article.nom || article.name); });
-  var perso = null;
-  if(article.personnalisable === 'Oui' && document.getElementById('perso-toggle').checked) {
-    var couleur = document.getElementById('perso-couleur').value;
-    var couleurAutre = document.getElementById('perso-autre').value;
-    perso = {
-      texte: document.getElementById('perso-texte').value,
-      couleur: couleur,
-      couleurAutre: couleur === 'Autre' ? couleurAutre : '',
-      fileUrl: persoFileUrl || '',
-      fileName: persoFileUrl ? document.getElementById('perso-file-name').textContent.replace('✓ ','') : ''
-    };
-  }
-  var entry = {
-    name: article.nom || article.name,
-    qty: qtyCurrent,
-    prix: parseFloat(article.prix_location),
-    photo: article.photo,
-    reference: article.reference || '',
-    categorie: article.categorie || '',
-    id: article.id || '',
-    personnalisable: article.personnalisable || 'Non',
-    qtite_en_ligne: article.qtite_en_ligne || '',
-    perso: perso
-  };
-  if(idx >= 0) { favs[idx] = entry; } else { favs.push(entry); }
-  localStorage.setItem('reunis_favoris', JSON.stringify(favs));
-  if(btn){
-    btn.textContent = '✓ Ajouté — ' + qtyCurrent + ' pièce' + (qtyCurrent > 1 ? 's' : '');
-    btn.style.background = '#5A9A60';
-    setTimeout(function(){
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Ajouter à ma sélection';
-      btn.style.background = '';
-    }, 2500);
-  }
-  updateBadge();
-}
-function chargerSimilaires(){
-  var track = document.getElementById('similar-track');
-  if(!track || !article) return;
-  fetch('/api/catalogue?categorie=' + encodeURIComponent(article.categorie || ''))
-    .then(function(r){ return r.json(); })
-    .then(function(articles){
-      var filtres = articles.filter(function(a){ return a.id !== article.id; });
-      var couleursCourantes = typeof article.couleurs === 'string'
-        ? article.couleurs.split(',').filter(Boolean)
-        : (article.couleurs || []);
-      filtres.sort(function(a, b){
-        var aC = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
-        var bC = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
-        var aM = aC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        var bM = bC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        return (bM ? 1 : 0) - (aM ? 1 : 0);
-      });
-      if(filtres.length < 8) {
-        fetch('/api/catalogue')
-          .then(function(r){ return r.json(); })
-          .then(function(tous){
-            var ids = filtres.map(function(a){ return a.id; });
-            ids.push(article.id);
-            var complement = tous.filter(function(a){ return ids.indexOf(a.id) < 0; });
-            afficherSimilaires(filtres.concat(complement).slice(0, 8));
-          });
-      } else {
-        afficherSimilaires(filtres.slice(0, 8));
-      }
-    })
-    .catch(function(){});
-}
-function afficherSimilaires(liste){
-  var track = document.getElementById('similar-track');
-  if(!track) return;
-  track.innerHTML = '';
-  liste.forEach(function(a){
-    var prix = parseFloat(a.prix_location);
-    var card = document.createElement('div');
-    card.className = 'similar-card';
-    card.innerHTML =
-      '<div class="similar-card-img">' +
-        (a.photo ? '<img src="'+a.photo+'" alt="'+a.nom+'">' : '✦') +
-      '</div>' +
-      '<div class="similar-card-name">'+a.nom+'</div>' +
-      '<div class="similar-card-price">'+(prix ? prix.toFixed(2)+'€' : 'Sur devis')+'</div>';
-    card.onclick = function(){
-      localStorage.setItem('reunis_article_courant', JSON.stringify(a));
-      window.scrollTo(0,0);
-      location.reload();
-    };
-    track.appendChild(card);
-  });
-  if(liste.length <= 3){
-    document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display='none'; });
+  .home-footer {
+    width: calc(100% + 48px);
+    margin: auto -24px 0;
+    padding: 12px 24px;
   }
 }
-function scrollSimilar(dir){
-  var track = document.getElementById('similar-track');
-  if(track) track.scrollBy({ left: dir * 340, behavior: 'smooth' });
-}
-</script>
 
-</body>
-</html>
+.sb-close {
+  position: absolute;
+  top: 16px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color .2s;
+}
+.sb-close:hover { color: var(--noir); }
+body.sb-open .home-hamburger { display: none; }
+
+/* ── DATE INPUT (contact.html) ── */
+input[type="date"].form-input {
+  -webkit-appearance: none;
+  appearance: none;
+  line-height: normal;
+  height: 50px;
+}
