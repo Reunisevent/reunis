@@ -6,43 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Configurateur — Réunis</title>
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-:root{--bg:#FAF1F1;--white:#FFFFFF;--noir:#000000;--rose:#D65B80;--corail:#F86A6A;--lavande:#C1C3E6;--muted:#888080;--sb-w:170px;}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{font-family:'Arimo',sans-serif;background:var(--bg);color:var(--noir);}
-a{text-decoration:none;color:inherit;}
-button{cursor:pointer;font-family:inherit;color:var(--noir);}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg);border-bottom:1px solid rgba(0,0,0,.07);position:sticky;top:0;z-index:120;}
-.topbar-logo{font-family:'Abril Fatface',serif;font-size:1.5rem;letter-spacing:-.5px;}
-.topbar-icon{background:none;border:none;color:var(--noir);display:flex;align-items:center;padding:4px;transition:color .2s;}
-.topbar-icon:hover{color:var(--rose);}
-.heart-badge{position:absolute;top:-6px;right:-6px;background:var(--rose);color:white;border-radius:100px;font-size:9px;padding:1px 5px;font-weight:700;min-width:16px;text-align:center;display:none;}
-.heart-badge.visible{display:block;}
-.sidebar{position:fixed;top:0;left:0;width:var(--sb-w);height:100dvh;background:var(--white);border-right:1px solid rgba(0,0,0,.07);display:flex;flex-direction:column;padding:28px 18px 32px;z-index:160;overflow-y:auto;transform:translateX(-100%);transition:transform .3s ease;}
-.sidebar.open{transform:translateX(0);}
-.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:155;}
-.sb-overlay.on{display:block;}
-.sb-axis{display:block;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rose);padding:5px 0;transition:color .2s;background:none;border:none;text-align:left;width:100%;font-family:'Arimo',sans-serif;}
-.sb-axis:hover{color:var(--corail);}
-.sb-cats{display:none;padding-left:8px;margin:3px 0 6px;}
-.sb-cats.open{display:block;}
-.sb-cat{display:block;font-size:11.5px;color:var(--muted);padding:3px 0;transition:color .2s;background:none;border:none;text-align:left;width:100%;font-family:'Arimo',sans-serif;}
-.sb-cat::before{content:"| ";}
-.sb-cat:hover{color:var(--rose);}
-.sb-sep{border:none;border-top:1px solid rgba(0,0,0,.08);margin:14px 0;}
-.sb-secondary a{display:block;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--noir);padding:4px 0;transition:color .2s;}
-.sb-secondary a:hover{color:var(--rose);}
-.sb-contact{display:block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--noir);padding:5px 0;margin-top:4px;transition:color .2s;}
-.sb-contact:hover{color:var(--rose);}
-.sb-config{margin-top:10px;background:var(--rose);color:var(--white);border:none;border-radius:100px;padding:12px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:100%;transition:background .2s;font-family:'Arimo',sans-serif;cursor:pointer;}
-.sb-config:hover{background:var(--noir);}
-.sb-footer{margin-top:auto;padding-top:12px;}
-.sb-legal{font-size:9px;color:var(--muted);line-height:2;}
-.sb-legal a{display:block;color:var(--muted);transition:color .2s;}
-.sb-legal a:hover{color:var(--noir);}
-.sb-close{position:absolute;top:16px;right:14px;background:none;border:none;font-size:1.2rem;color:var(--muted);cursor:pointer;padding:4px;transition:color .2s;}
-.sb-close:hover{color:var(--noir);}
 .config-wrap{max-width:700px;margin:0 auto;padding:48px 28px 80px;}
 .config-progress{margin-bottom:40px;}
 .config-progress-bar{height:3px;background:rgba(0,0,0,.08);border-radius:100px;overflow:hidden;margin-bottom:10px;}
@@ -154,27 +119,31 @@ button{cursor:pointer;font-family:inherit;color:var(--noir);}
 .cat-link-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--noir);}
 .info-box{background:rgba(193,195,230,.2);border-left:3px solid var(--lavande);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#555;line-height:1.7;}
 .question-label{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--noir);}
-@media(min-width:861px){.sb-overlay{display:none !important;}}
-@media(max-width:860px){body{padding-top:56px;}.choice-grid{grid-template-columns:repeat(2,1fr);}.mini-catalogue{grid-template-columns:repeat(2,1fr);}.config-wrap{padding:32px 20px 60px;}}
+.sb-config{background:var(--rose)!important;}
+.sb-config:hover{background:var(--noir)!important;}
+@media(max-width:860px){.choice-grid{grid-template-columns:repeat(2,1fr);}.mini-catalogue{grid-template-columns:repeat(2,1fr);}.config-wrap{padding:32px 20px 60px;}}
 </style>
 </head>
 <body>
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar desktop-open" id="sidebar">
   <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
   <nav>
     <a class="sb-axis" href="planifier.html">Planifier</a>
-    <button class="sb-axis" onclick="toggleCats(this)">Décorer</button>
+    <div class="sb-axis-wrap">
+      <a class="sb-axis" href="decorer.html">Décorer</a>
+      <span class="sb-axis-toggle" onclick="toggleCats(this)">▾</span>
+    </div>
     <div class="sb-cats">
-      <div><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a></div>
-      <div><a class="sb-cat" href="cat-decors.html">Les décors</a></div>
-      <div><a class="sb-cat" href="cat-signaletique.html">La signalétique</a></div>
-      <div><a class="sb-cat" href="cat-table.html">La table</a></div>
-      <div><a class="sb-cat" href="cat-textile.html">Le textile</a></div>
-      <div><a class="sb-cat" href="cat-floral.html">Le floral</a></div>
-      <div><a class="sb-cat" href="cat-lumiere.html">La lumière</a></div>
-      <div><a class="sb-cat" href="cat-details.html">Les détails</a></div>
-      <div><a class="sb-cat" href="cat-pratique.html">Le pratique</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-table.html">La table</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-details.html">Les détails</a></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a></div>
     </div>
     <hr class="sb-sep">
     <div class="sb-secondary">
@@ -182,18 +151,20 @@ button{cursor:pointer;font-family:inherit;color:var(--noir);}
       <a href="faq.html">FAQ</a>
       <a href="galerie.html">Galerie</a>
       <a href="manifest.html">Manifest</a>
+      <a href="le-club.html">Le Club</a>
     </div>
     <a class="sb-contact" href="contact.html">Contact</a>
     <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
   </nav>
   <div class="sb-footer">
+    <img class="sb-club-img" src="le-club-logo.jpg" alt="Le Club" onclick="location.href='le-club.html'">
     <div class="sb-legal">
       <a href="mentions.html">| Mentions légales</a>
       <a href="cgv.html">| CGV</a>
     </div>
   </div>
 </aside>
-<div class="topbar">
+<div class="topbar visible">
   <button class="topbar-icon" onclick="toggleSidebar()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   <a class="topbar-logo" href="index.html">Réunis</a>
   <a class="topbar-icon" href="favoris.html" style="position:relative;">
@@ -520,7 +491,7 @@ button{cursor:pointer;font-family:inherit;color:var(--noir);}
 <script>
 function toggleSidebar(){var sb=document.getElementById('sidebar'),ov=document.getElementById('sb-overlay'),isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
 function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]'),b=document.getElementById('fav-badge');if(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);}}
 updateBadge();
