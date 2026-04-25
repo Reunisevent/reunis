@@ -285,6 +285,27 @@ function loadFavoris(){
     persos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
   });
   updateTotal();
+  // Rafraîchir les photos en arrière-plan
+  favs.forEach(function(f,i){
+    if(!f.id)return;
+    fetch('/api/article?id='+encodeURIComponent(f.id))
+      .then(function(r){return r.json();})
+      .then(function(fresh){
+        if(!fresh||fresh.erreur)return;
+        var changed=false;
+        if(fresh.photo&&fresh.photo!==f.photo){f.photo=fresh.photo;changed=true;}
+        if(fresh.prix_location&&parseFloat(fresh.prix_location)!==f.prix){f.prix=parseFloat(fresh.prix_location);changed=true;}
+        if(fresh.qtite_en_ligne!==undefined&&fresh.qtite_en_ligne!==f.qtite_en_ligne){f.qtite_en_ligne=fresh.qtite_en_ligne;changed=true;}
+        if(changed){
+          favs[i]=f;
+          localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+          // Mettre à jour la photo affichée si elle est cassée
+          var imgs=document.querySelectorAll('[data-fav-id="'+f.id+'"] img');
+          imgs.forEach(function(img){if(fresh.photo)img.src=fresh.photo;});
+        }
+      })
+      .catch(function(){});
+  });
 }
 function makeCardNormal{
           var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
@@ -299,6 +320,7 @@ function makeCardNormal{
 function makeCardNormalfunction makeCardNormal(f,i){
   var card=document.createElement('div');
   card.className='fav-card';
+  if(f.id)card.dataset.favId=f.id;
   card.onclick=function(e){
     if(e.target.closest('.fav-remove')||e.target.closest('.fav-qty-control'))return;
     goToArticle(f);
