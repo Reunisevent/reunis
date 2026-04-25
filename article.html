@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
 .article-page { display:grid; grid-template-columns:1fr 420px; min-height:calc(100vh - 56px); }
-.article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:56px; height:calc(100vh - 56px); overflow:hidden; }
+.article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:0; height:100vh; overflow:hidden; }
 .article-main-img { flex:1; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; min-height:300px; }
 .article-main-img img { width:100%; height:100%; object-fit:cover; display:block; }
 .article-thumbs { display:flex; gap:8px; }
@@ -162,6 +162,7 @@
       <p class="article-desc" id="art-desc"></p>
       <table class="article-specs" id="art-specs"></table>
 
+```
   <div class="perso-section" id="perso-section">
     <div class="perso-header">
       <div class="perso-title">Personnalisation</div>
@@ -212,7 +213,7 @@
   <div class="article-conditions">
     <div class="condition-row">
       <div class="condition-icon">💌</div>
-      <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons sous 48h pour confirmer la disponibilité.</div>
+      <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons dès que possible pour confirmer la disponibilité.</div>
     </div>
     <div class="condition-row">
       <div class="condition-icon">📅</div>
@@ -229,6 +230,7 @@
     </div>
   </div>
 </div>
+```
 
   </div>
 
@@ -293,9 +295,9 @@ if(article) {
     var couleurs = typeof article.couleurs === 'string'
       ? article.couleurs.split(',').filter(Boolean).join(', ')
       : (article.couleurs || []).join(', ');
-    if(couleurs) specs.innerHTML += '<tr><td>Couleurs</td><td>'+couleurs+'</td></tr>';
+    if(couleurs) specs.innerHTML += '<tr><td>'+(couleurs.indexOf(',')>=0?'Couleurs':'Couleur')+'</td><td>'+couleurs+'</td></tr>';
     if(article.dimensions) specs.innerHTML += '<tr><td>Dimensions</td><td>'+article.dimensions+'</td></tr>';
-    if(article.qtite_en_ligne) specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+parseInt(article.qtite_en_ligne)+' pièces</td></tr>';
+    if(article.qtite_en_ligne){var qte=parseInt(article.qtite_en_ligne);specs.innerHTML += '<tr><td>Quantité disponible</td><td>'+qte+(qte>1?' pièces':' pièce')+'</td></tr>';}
     if(article.personnalisable === 'Oui') specs.innerHTML += '<tr><td>Personnalisable</td><td>Oui — sur demande</td></tr>';
   }
   if(article.personnalisable === 'Oui') {
