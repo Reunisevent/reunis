@@ -162,6 +162,7 @@
       <p class="article-desc" id="art-desc"></p>
       <table class="article-specs" id="art-specs"></table>
 
+```
   <div class="perso-section" id="perso-section">
     <div class="perso-header">
       <div class="perso-title">Personnalisation</div>
@@ -229,6 +230,7 @@
     </div>
   </div>
 </div>
+```
 
   </div>
 
@@ -273,10 +275,33 @@ if(article) {
   var refEl = document.getElementById('art-ref');
   if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
   var bcSC = document.getElementById('bc-sous-categorie');
-  if(bcSC) bcSC.textContent = article.sous_categorie || '—';
+  if(bcSC) {
+    bcSC.textContent = article.sous_categorie || '—';
+    if(article.sous_categorie && bcCat && bcCat.href) {
+      var ancre = article.sous_categorie.toLowerCase()
+        .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u')
+        .replace(/[ôö]/g,'o').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+      bcSC.style.cursor = 'pointer';
+      bcSC.style.transition = 'color .2s';
+      bcSC.onclick = function(){ window.location.href = bcCat.href + '#' + ancre; };
+      bcSC.onmouseover = function(){ this.style.color = 'var(--rose)'; };
+      bcSC.onmouseout = function(){ this.style.color = ''; };
+    }
+  }
   var bcCat = document.getElementById('bc-categorie');
   if(bcCat && article.categorie) {
-    var catSlug = article.categorie.toLowerCase()
+    var catMap = {
+      'Le mobilier': 'mobilier',
+      'Les décors': 'decors',
+      'La signalétique': 'signaletique',
+      'La table': 'table',
+      'Le textile': 'textile',
+      'Le floral': 'floral',
+      'La lumière': 'lumiere',
+      'Les détails': 'details',
+      'Le pratique': 'pratique'
+    };
+    var catSlug = catMap[article.categorie] || article.categorie.toLowerCase()
       .replace(/é|è|ê/g,'e').replace(/à|â/g,'a')
       .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
     bcCat.href = 'cat-' + catSlug + '.html';
