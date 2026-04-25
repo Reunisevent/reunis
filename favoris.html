@@ -285,35 +285,6 @@ function loadFavoris(){
     persos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
   });
   updateTotal();
-  // Rafraîchir les photos expirées en arrière-plan
-  rafraichirPhotos(favs);
-}
-function rafraichirPhotos(favs){
-  if(!favs.length)return;
-  fetch('/api/catalogue')
-    .then(function(r){return r.json();})
-    .then(function(articles){
-      var updated=false;
-      favs=favs.map(function(f){
-        var fresh=articles.find(function(a){return a.id&&a.id===f.id;});
-        if(fresh&&fresh.photo&&fresh.photo!==f.photo){
-          f.photo=fresh.photo;
-          updated=true;
-        }
-        return f;
-      });
-      if(updated){
-        localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-        // Mettre à jour les images déjà affichées sans recharger la page
-        favs.forEach(function(f,i){
-          var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
-          imgs.forEach(function(img){
-            if(img.alt===f.name&&img.src!==f.photo)img.src=f.photo;
-          });
-        });
-      }
-    })
-    .catch(function(){});
 }
 function makeCardNormal{
           var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
