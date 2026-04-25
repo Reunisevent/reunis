@@ -252,34 +252,16 @@ function updateTotal(){
 
 function loadFavoris(){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  if(!favs.length){
-    document.getElementById('favoris-empty').style.display='block';
-    document.getElementById('favoris-content').innerHTML='';
-    document.getElementById('favoris-actions').style.display='none';
-    updateTotal();
-    return;
-  }
-  fetch('/api/catalogue')
-    .then(function(r){return r.json();})
-    .then(function(articles){
-      favs=favs.map(function(f){
-        var fresh=articles.find(function(a){return a.id&&a.id===f.id;});
-        if(fresh){
-          f.photo=fresh.photo||f.photo;
-          f.prix=parseFloat(fresh.prix_location)||f.prix;
-          f.qtite_en_ligne=fresh.qtite_en_ligne||f.qtite_en_ligne;
-        }
-        return f;
-      });
-      localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-      renderFavoris(favs);
-    })
-    .catch(function(){renderFavoris(favs);});
-}
-function renderFavoris(favs){
   var content=document.getElementById('favoris-content');
   var empty=document.getElementById('favoris-empty');
   var actions=document.getElementById('favoris-actions');
+  if(!favs.length){
+    empty.style.display='block';
+    content.innerHTML='';
+    actions.style.display='none';
+    updateTotal();
+    return;
+  }
   empty.style.display='none';
   actions.style.display='flex';
   content.innerHTML='';
@@ -303,8 +285,47 @@ function renderFavoris(favs){
     persos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
   });
   updateTotal();
+  // Rafraîchir les photos expirées en arrière-plan
+  rafraichirPhotos(favs);
 }
-function makeCardNormal(f,i){
+function rafraichirPhotos(favs){
+  if(!favs.length)return;
+  fetch('/api/catalogue')
+    .then(function(r){return r.json();})
+    .then(function(articles){
+      var updated=false;
+      favs=favs.map(function(f){
+        var fresh=articles.find(function(a){return a.id&&a.id===f.id;});
+        if(fresh&&fresh.photo&&fresh.photo!==f.photo){
+          f.photo=fresh.photo;
+          updated=true;
+        }
+        return f;
+      });
+      if(updated){
+        localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+        // Mettre à jour les images déjà affichées sans recharger la page
+        favs.forEach(function(f,i){
+          var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
+          imgs.forEach(function(img){
+            if(img.alt===f.name&&img.src!==f.photo)img.src=f.photo;
+          });
+        });
+      }
+    })
+    .catch(function(){});
+}
+function makeCardNormal{
+          var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
+          imgs.forEach(function(img){
+            if(img.alt===f.name&&img.src!==f.photo)img.src=f.photo;
+          });
+        });
+      }
+    })
+    .catch(function(){});
+}
+function makeCardNormalfunction makeCardNormal(f,i){
   var card=document.createElement('div');
   card.className='fav-card';
   card.onclick=function(e){
