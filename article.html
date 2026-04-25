@@ -275,19 +275,7 @@ if(article) {
   var refEl = document.getElementById('art-ref');
   if(refEl) refEl.textContent = article.reference ? 'Réf. ' + article.reference : '';
   var bcSC = document.getElementById('bc-sous-categorie');
-  if(bcSC) {
-    bcSC.textContent = article.sous_categorie || '—';
-    if(article.sous_categorie && bcCat && bcCat.href) {
-      var ancre = article.sous_categorie.toLowerCase()
-        .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u')
-        .replace(/[ôö]/g,'o').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-      bcSC.style.cursor = 'pointer';
-      bcSC.style.transition = 'color .2s';
-      bcSC.onclick = function(){ window.location.href = bcCat.href + '#' + ancre; };
-      bcSC.onmouseover = function(){ this.style.color = 'var(--rose)'; };
-      bcSC.onmouseout = function(){ this.style.color = ''; };
-    }
-  }
+  if(bcSC) bcSC.textContent = article.sous_categorie || '—';
   var bcCat = document.getElementById('bc-categorie');
   if(bcCat && article.categorie) {
     var catMap = {
@@ -306,6 +294,17 @@ if(article) {
       .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
     bcCat.href = 'cat-' + catSlug + '.html';
     bcCat.textContent = article.categorie;
+    // Rendre la sous-catégorie cliquable avec ancre
+    if(bcSC && article.sous_categorie) {
+      var ancre = article.sous_categorie.toLowerCase()
+        .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u')
+        .replace(/[ôö]/g,'o').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+      bcSC.style.cursor = 'pointer';
+      bcSC.style.transition = 'color .2s';
+      bcSC.onclick = function(){ window.location.href = bcCat.href + '#' + ancre; };
+      bcSC.onmouseover = function(){ this.style.color = 'var(--rose)'; };
+      bcSC.onmouseout = function(){ this.style.color = ''; };
+    }
   }
   var prix = parseFloat(article.prix_location);
   var prixEl = document.getElementById('art-prix');
