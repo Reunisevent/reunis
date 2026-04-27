@@ -14,9 +14,7 @@
 .favoris-empty { text-align:center; padding:80px 20px; }
 .favoris-empty-icon { font-size:3rem; margin-bottom:16px; }
 .favoris-empty p { font-size:14px; color:var(--muted); margin-bottom:24px; }
-
 .favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:12px; }
-
 .fav-card { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; }
 .fav-img { width:100%; aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
 .fav-img img { width:100%; height:100%; object-fit:cover; }
@@ -31,7 +29,6 @@
 .fav-qty-btn:hover { background:var(--bg); }
 .fav-qty-num { min-width:22px; text-align:center; font-size:12px; font-weight:700; }
 .fav-prix { font-size:11px; color:var(--muted); }
-
 .fav-card-perso { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; display:grid; grid-template-columns:180px 1fr; margin-bottom:12px; }
 .fav-card-perso .fav-img { aspect-ratio:unset; min-height:180px; height:100%; }
 .fav-card-perso .fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(--noir); }
@@ -41,7 +38,6 @@
 .fav-card-perso .fav-qty-row { display:flex; align-items:center; gap:6px; }
 .fav-card-perso .fav-qty-label { font-size:10px; color:var(--muted); }
 .fav-card-perso .fav-prix { font-size:11px; color:var(--muted); }
-
 .fav-perso { background:var(--bg); border-radius:6px; padding:12px; }
 .fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .fav-perso-field { margin-bottom:8px; }
@@ -51,19 +47,16 @@
 .fav-perso-select { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; appearance:none; transition:border-color .2s; }
 .fav-perso-select:focus { border-color:var(--rose); }
 .fav-perso-file { font-size:11px; color:var(--rose); margin-top:4px; }
-
 .favoris-total { background:var(--white); border-radius:8px; padding:16px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
 .favoris-total-left { display:flex; flex-direction:column; gap:4px; }
 .favoris-total-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
 .favoris-total-note { font-size:10px; color:var(--muted); line-height:1.5; }
 .favoris-total-montant { font-family:'Abril Fatface',serif; font-size:1.8rem; }
-
 .favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 .btn-send-favoris { background:var(--noir); color:white; border:none; border-radius:8px; padding:14px 28px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; }
 .btn-send-favoris:hover { background:var(--rose); }
 .btn-clear-favoris { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:13px 20px; font-family:'Arimo',sans-serif; font-size:11px; color:var(--muted); cursor:pointer; transition:all .2s; }
 .btn-clear-favoris:hover { border-color:var(--noir); color:var(--noir); }
-
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; align-items:center; justify-content:center; }
 .modal-overlay.open { display:flex; }
 .modal { background:var(--white); border-radius:12px; padding:36px; max-width:480px; width:90%; max-height:90vh; overflow-y:auto; position:relative; }
@@ -80,7 +73,6 @@
 .btn-modal-send { width:100%; background:var(--noir); color:white; border:none; border-radius:8px; padding:15px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-top:24px; }
 .btn-modal-send:hover { background:var(--rose); }
 .modal-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.6; }
-
 @media (max-width:860px) {
   .favoris-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
   .fav-card-perso { grid-template-columns:120px 1fr; }
@@ -93,7 +85,6 @@
 </style>
 </head>
 <body>
-
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 <aside class="sidebar desktop-open" id="sidebar">
   <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
@@ -133,7 +124,6 @@
     </div>
   </div>
 </aside>
-
 <div class="topbar visible">
   <button class="topbar-icon" onclick="toggleSidebar()" aria-label="Menu">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -144,10 +134,9 @@
     <span class="heart-badge" id="fav-badge"></span>
   </a>
 </div>
-
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
     <h2>Votre sélection</h2>
     <p class="modal-sub">Quelques informations pour préparer votre devis</p>
     <label class="modal-label">Nom complet *</label>
@@ -182,20 +171,19 @@
     </div>
     <label class="modal-label">Message (optionnel)</label>
     <textarea class="modal-textarea" id="m-message" placeholder="Informations complémentaires, questions…"></textarea>
-    <button class="btn-modal-send" onclick="envoyerSelection()">Envoyer ma sélection →</button>
-    <p class="modal-note">Nous vous répondons sous 48h pour confirmer la disponibilité et vous transmettre votre devis.</p>
+    <button class="btn-modal-send" onclick="envoyerSelection()">Envoyer ma sélection &#x2192;</button>
+    <p class="modal-note">Nous vous répondons dans les meilleurs délais pour confirmer la disponibilité et vous transmettre votre devis.</p>
   </div>
 </div>
-
 <main class="main desktop-shifted" id="main">
   <div class="favoris-wrap">
     <h1>Ma sélection</h1>
     <p class="favoris-sub">Articles choisis</p>
     <div id="favoris-container">
       <div class="favoris-empty" id="favoris-empty">
-        <div class="favoris-empty-icon">♡</div>
+        <div class="favoris-empty-icon">&#x2661;</div>
         <p>Vous n'avez pas encore ajouté d'articles.<br>Parcourez le catalogue et ajoutez vos coups de cœur !</p>
-        <a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;margin-top:8px;">Voir le catalogue →</a>
+        <a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;margin-top:8px;">Voir le catalogue &#x2192;</a>
       </div>
       <div id="favoris-content"></div>
       <div id="favoris-total" class="favoris-total" style="display:none;">
@@ -206,60 +194,36 @@
         <div class="favoris-total-montant" id="favoris-total-montant"></div>
       </div>
       <div class="favoris-actions" id="favoris-actions" style="display:none">
-        <button class="btn-send-favoris" onclick="openModal()">Envoyer ma sélection →</button>
+        <button class="btn-send-favoris" onclick="openModal()">Envoyer ma sélection &#x2192;</button>
         <button class="btn-clear-favoris" onclick="clearFavoris()">Vider la liste</button>
       </div>
     </div>
   </div>
 </main>
-
 <script>
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){
-  var wrap=btn.closest('.sb-axis-wrap');
-  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
-  if(cats)cats.classList.toggle('open');
-  btn.classList.toggle('open');
-}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');}
-
 function updateBadge(){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  document.querySelectorAll('.heart-badge').forEach(function(b){
-    b.textContent=favs.length;
-    b.classList.toggle('visible',favs.length>0);
-  });
+  document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});
 }
 updateBadge();
-
 function updateTotal(){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var total=0;
-  favs.forEach(function(f){
-    var prix=parseFloat(f.prix);
-    if(prix&&prix>0) total+=prix*(parseInt(f.qty)||1);
-  });
+  favs.forEach(function(f){var prix=parseFloat(f.prix);if(prix&&prix>0)total+=prix*(parseInt(f.qty)||1);});
   var totalEl=document.getElementById('favoris-total');
   var montantEl=document.getElementById('favoris-total-montant');
-  if(totalEl&&montantEl){
-    totalEl.style.display=favs.length?'flex':'none';
-    montantEl.textContent=total.toFixed(2)+'€';
-  }
+  if(totalEl&&montantEl){totalEl.style.display=favs.length?'flex':'none';montantEl.textContent=total.toFixed(2)+'€';}
 }
-
 function loadFavoris(){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var content=document.getElementById('favoris-content');
   var empty=document.getElementById('favoris-empty');
   var actions=document.getElementById('favoris-actions');
-  if(!favs.length){
-    empty.style.display='block';
-    content.innerHTML='';
-    actions.style.display='none';
-    updateTotal();
-    return;
-  }
+  if(!favs.length){empty.style.display='block';content.innerHTML='';actions.style.display='none';updateTotal();return;}
   empty.style.display='none';
   actions.style.display='flex';
   content.innerHTML='';
@@ -275,15 +239,16 @@ function loadFavoris(){
     var normaux=items.filter(function(item){return item.article.personnalisable!=='Oui';});
     var persos=items.filter(function(item){return item.article.personnalisable==='Oui';});
     if(normaux.length){
-      var grid=document.createElement('div');
-      grid.className='favoris-grid';
+      var grid=document.createElement('div');grid.className='favoris-grid';
       normaux.forEach(function(item){grid.appendChild(makeCardNormal(item.article,item.index));});
       content.appendChild(grid);
     }
     persos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
   });
   updateTotal();
-  // Rafraîchir les photos en arrière-plan
+  rafraichirPhotos(favs);
+}
+function rafraichirPhotos(favs){
   favs.forEach(function(f,i){
     if(!f.id)return;
     fetch('/api/article?id='+encodeURIComponent(f.id))
@@ -292,64 +257,48 @@ function loadFavoris(){
         if(!fresh||fresh.erreur)return;
         var changed=false;
         if(fresh.photo&&fresh.photo!==f.photo){f.photo=fresh.photo;changed=true;}
-        if(fresh.prix_location&&parseFloat(fresh.prix_location)!==f.prix){f.prix=parseFloat(fresh.prix_location);changed=true;}
-        if(fresh.qtite_en_ligne!==undefined&&fresh.qtite_en_ligne!==f.qtite_en_ligne){f.qtite_en_ligne=fresh.qtite_en_ligne;changed=true;}
+        if(fresh.prix_location!=null&&parseFloat(fresh.prix_location)!==f.prix){f.prix=parseFloat(fresh.prix_location);changed=true;}
+        if(fresh.qtite_en_ligne!=null&&fresh.qtite_en_ligne!==f.qtite_en_ligne){f.qtite_en_ligne=fresh.qtite_en_ligne;changed=true;}
         if(changed){
           favs[i]=f;
           localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-          // Mettre à jour la photo affichée si elle est cassée
-          var imgs=document.querySelectorAll('[data-fav-id="'+f.id+'"] img');
-          imgs.forEach(function(img){if(fresh.photo)img.src=fresh.photo;});
+          if(fresh.photo){
+            document.querySelectorAll('.fav-card[data-fav-id="'+f.id+'"] img, .fav-card-perso[data-fav-id="'+f.id+'"] img').forEach(function(img){img.src=fresh.photo;});
+          }
         }
       })
       .catch(function(){});
   });
 }
-function makeCardNormal{
-          var imgs=document.querySelectorAll('.fav-card img, .fav-card-perso img');
-          imgs.forEach(function(img){
-            if(img.alt===f.name&&img.src!==f.photo)img.src=f.photo;
-          });
-        });
-      }
-    })
-    .catch(function(){});
-}
 function makeCardNormal(f,i){
   var card=document.createElement('div');
   card.className='fav-card';
   if(f.id)card.dataset.favId=f.id;
-  card.onclick=function(e){
-    if(e.target.closest('.fav-remove')||e.target.closest('.fav-qty-control'))return;
-    goToArticle(f);
-  };
+  card.onclick=function(e){if(e.target.closest('.fav-remove')||e.target.closest('.fav-qty-control'))return;goToArticle(f);};
   var imgHtml=f.photo?'<img src="'+f.photo+'" alt="'+f.name+'">'
-    :'<div style="font-size:2rem;color:#ccc;">✦</div>';
+    :'<div style="font-size:2rem;color:#ccc;">&#x2726;</div>';
   card.innerHTML='<div class="fav-img">'+imgHtml+'</div>'
-    +'<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
+    +'<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">&#x2715;</button>'
     +'<div class="fav-info">'
     +'<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     +'<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>'
     +'<div class="fav-qty-control">'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>'
+    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">&#x2212;</button>'
     +'<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
     +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
     +'</div></div>'
-    +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€/pcs</div>':'')
+    +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'&#x20AC;/pcs</div>':'')
     +'</div>';
   return card;
 }
-
 function makeCardPerso(f,i){
   var card=document.createElement('div');
   card.className='fav-card-perso';
-  card.onclick=function(e){
-    if(e.target.closest('.fav-remove,.fav-qty-control,.fav-perso'))return;
-    goToArticle(f);
-  };
+  if(f.id)card.dataset.favId=f.id;
+  card.onclick=function(e){if(e.target.closest('.fav-remove,.fav-qty-control,.fav-perso'))return;goToArticle(f);};
   var imgHtml=f.photo
     ?'<img src="'+f.photo+'" alt="'+f.name+'" style="width:100%;height:100%;object-fit:cover;">'
-    :'<div style="font-size:2rem;color:#ccc;display:flex;align-items:center;justify-content:center;height:100%;">✦</div>';
+    :'<div style="font-size:2rem;color:#ccc;display:flex;align-items:center;justify-content:center;height:100%;">&#x2726;</div>';
   var couleurVal=(f.perso&&f.perso.couleur)?f.perso.couleur:'';
   var couleurAutreVal=(f.perso&&f.perso.couleurAutre)?f.perso.couleurAutre:'';
   var texteVal=(f.perso&&f.perso.texte)?f.perso.texte:'';
@@ -357,12 +306,9 @@ function makeCardPerso(f,i){
   var fileName=(f.perso&&f.perso.fileName)?f.perso.fileName:'';
   var persoHtml='<div class="fav-perso"><div class="fav-perso-title">Personnalisation</div>';
   if(f.perso){
-    persoHtml+='<div class="fav-perso-field">'
-      +'<label class="fav-perso-label">Texte ou motif souhaité</label>'
-      +'<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea>'
-      +'</div>'
-      +'<div class="fav-perso-field">'
-      +'<label class="fav-perso-label">Couleur</label>'
+    persoHtml+='<div class="fav-perso-field"><label class="fav-perso-label">Texte ou motif souhaité</label>'
+      +'<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea></div>'
+      +'<div class="fav-perso-field"><label class="fav-perso-label">Couleur</label>'
       +'<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
       +'<option value="">Choisissez une couleur</option>'
       +['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
@@ -371,35 +317,38 @@ function makeCardPerso(f,i){
       +'</select>'
       +'<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
       +'</div>'
-      +(fileUrl?'<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>':'');
+      +(fileUrl?'<div class="fav-perso-file">&#x1F4CE; <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>':'');
   } else {
     persoHtml+='<div style="font-size:11px;color:var(--muted);font-style:italic;">Non souhaitée</div>'
-      +'<button onclick="event.stopPropagation();activerPerso('+i+')" style="margin-top:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:6px;padding:6px 12px;font-family:\'Arimo\',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=\'var(--rose)\';this.style.color=\'var(--rose)\'" onmouseout="this.style.borderColor=\'rgba(0,0,0,.15)\';this.style.color=\'var(--muted)\'">+ Ajouter une personnalisation</button>';
+      +'<button onclick="event.stopPropagation();activerPerso('+i+')" style="margin-top:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:6px;padding:6px 12px;font-family:\'Arimo\',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;">+ Ajouter une personnalisation</button>';
   }
   persoHtml+='</div>';
   card.innerHTML='<div class="fav-img">'+imgHtml+'</div>'
-    +'<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
+    +'<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">&#x2715;</button>'
     +'<div class="fav-card-perso-right">'
     +'<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     +'<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>'
     +'<div class="fav-qty-control">'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>'
+    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">&#x2212;</button>'
     +'<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
     +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
     +'</div></div>'
-    +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€/pcs</div>':'')
+    +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'&#x20AC;/pcs</div>':'')
     +persoHtml+'</div>';
   return card;
 }
-
 function goToArticle(f){
   if(f.id){
-    fetch('/api/catalogue')
+    fetch('/api/article?id='+encodeURIComponent(f.id))
       .then(function(r){return r.json();})
-      .then(function(articles){
-        var article=articles.find(function(a){return a.id===f.id;});
-        if(article){article.perso=f.perso||null;localStorage.setItem('reunis_article_courant',JSON.stringify(article));}
-        else{var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;localStorage.setItem('reunis_article_courant',JSON.stringify(fb));}
+      .then(function(article){
+        if(article&&!article.erreur){
+          article.perso=f.perso||null;
+          localStorage.setItem('reunis_article_courant',JSON.stringify(article));
+        } else {
+          var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;
+          localStorage.setItem('reunis_article_courant',JSON.stringify(fb));
+        }
         window.location.href='article.html';
       })
       .catch(function(){
@@ -413,45 +362,37 @@ function goToArticle(f){
     window.location.href='article.html';
   }
 }
-
 function removeFav(i){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  favs.splice(i,1);
-  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  favs.splice(i,1);localStorage.setItem('reunis_favoris',JSON.stringify(favs));
   loadFavoris();updateBadge();
 }
 function changeQtyFav(i,delta){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var max=parseInt(favs[i].qtite_en_ligne)||99;
   var newQty=Math.min(max,Math.max(1,(favs[i].qty||1)+delta));
-  favs[i].qty=newQty;
-  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-  var el=document.getElementById('qty-'+i);
-  if(el)el.textContent=newQty;
+  favs[i].qty=newQty;localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  var el=document.getElementById('qty-'+i);if(el)el.textContent=newQty;
   updateTotal();
 }
 function updatePersoField(i,field,value){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   if(!favs[i].perso)favs[i].perso={};
-  favs[i].perso[field]=value;
-  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  favs[i].perso[field]=value;localStorage.setItem('reunis_favoris',JSON.stringify(favs));
 }
 function updatePersoSelect(i,sel){
-  var value=sel.value;
-  updatePersoField(i,'couleur',value);
+  var value=sel.value;updatePersoField(i,'couleur',value);
   var autreInput=document.getElementById('autre-'+i);
   if(autreInput)autreInput.style.display=value==='Autre'?'block':'none';
 }
 function activerPerso(i){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   if(!favs[i].perso)favs[i].perso={texte:'',couleur:'',couleurAutre:'',fileUrl:'',fileName:''};
-  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-  loadFavoris();
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));loadFavoris();
 }
 function clearFavoris(){
   if(confirm('Vider toute la sélection ?')){
-    localStorage.removeItem('reunis_favoris');
-    loadFavoris();updateBadge();
+    localStorage.removeItem('reunis_favoris');loadFavoris();updateBadge();
   }
 }
 function openModal(){document.getElementById('modal-overlay').classList.add('open');}
@@ -469,29 +410,24 @@ function envoyerSelection(){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var btn=document.querySelector('.btn-modal-send');
   btn.textContent='Envoi en cours…';btn.disabled=true;
-  fetch('/api/envoyer-devis',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      nom:nom,email:email,
+  fetch('/api/envoyer-devis',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({nom:nom,email:email,
       telephone:document.getElementById('m-tel').value.trim(),
       date_evenement:document.getElementById('m-date').value,
       type_evenement:document.getElementById('m-type').value,
       livraison:livraison,
       adresse_livraison:document.getElementById('m-adresse').value.trim(),
       message:document.getElementById('m-message').value.trim(),
-      articles:favs
-    })
-  })
+      articles:favs})})
   .then(function(r){return r.json();})
   .then(function(data){
     if(data.succes){
       closeModal();
       document.querySelector('.favoris-wrap').innerHTML='<div style="text-align:center;padding:80px 20px;">'
-        +'<div style="font-size:3rem;margin-bottom:20px;">✨</div>'
+        +'<div style="font-size:3rem;margin-bottom:20px;">&#x2728;</div>'
         +'<h2 style="font-family:\'Abril Fatface\',serif;font-size:2rem;font-weight:400;margin-bottom:12px;">Merci '+nom.split(' ')[0]+' !</h2>'
-        +'<p style="font-size:14px;color:var(--muted);line-height:1.85;max-width:400px;margin:0 auto 28px;">Votre sélection a bien été envoyée. Nous revenons vers vous dans les 48h pour confirmer la disponibilité et vous transmettre votre devis.</p>'
-        +'<a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;">Continuer à explorer →</a>'
+        +'<p style="font-size:14px;color:var(--muted);line-height:1.85;max-width:400px;margin:0 auto 28px;">Votre sélection a bien été envoyée. Nous revenons vers vous dans les meilleurs délais.</p>'
+        +'<a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;">Continuer à explorer &#x2192;</a>'
         +'</div>';
       localStorage.removeItem('reunis_favoris');updateBadge();
     } else {
