@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -252,7 +253,7 @@ function rafraichirPhotos(favs){
   favs.forEach(function(f,i){
     if(!f.id)return;
     fetch('/api/article?id='+encodeURIComponent(f.id))
-      .then(function(r){return r.json();})
+      .then(function(r){if(!r.ok)return null;return r.json();})
       .then(function(fresh){
         if(!fresh||fresh.erreur)return;
         var changed=false;
@@ -340,7 +341,7 @@ function makeCardPerso(f,i){
 function goToArticle(f){
   if(f.id){
     fetch('/api/article?id='+encodeURIComponent(f.id))
-      .then(function(r){return r.json();})
+      .then(function(r){if(!r.ok)return null;return r.json();})
       .then(function(article){
         if(article&&!article.erreur){
           article.perso=f.perso||null;
