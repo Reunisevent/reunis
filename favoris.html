@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -18,81 +17,80 @@
 
 .favoris-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:12px; }
 
-.fav-card { background:var(–white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; }
-.fav-img { width:100%; aspect-ratio:3/4; background:var(–bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
+.fav-card { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; }
+.fav-img { width:100%; aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
 .fav-img img { width:100%; height:100%; object-fit:cover; }
-.fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(–noir); }
-.fav-remove:hover { background:var(–rose); color:white; }
+.fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(--noir); }
+.fav-remove:hover { background:var(--rose); color:white; }
 .fav-info { padding:10px 8px 12px; }
 .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; line-height:1.3; }
 .fav-qty-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
-.fav-qty-label { font-size:10px; color:var(–muted); }
+.fav-qty-label { font-size:10px; color:var(--muted); }
 .fav-qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:6px; overflow:hidden; }
-.fav-qty-btn { width:26px; height:26px; border:none; background:none; font-size:1rem; cursor:pointer; color:var(–noir); transition:background .2s; }
-.fav-qty-btn:hover { background:var(–bg); }
+.fav-qty-btn { width:26px; height:26px; border:none; background:none; font-size:1rem; cursor:pointer; color:var(--noir); transition:background .2s; }
+.fav-qty-btn:hover { background:var(--bg); }
 .fav-qty-num { min-width:22px; text-align:center; font-size:12px; font-weight:700; }
-.fav-prix { font-size:11px; color:var(–muted); }
+.fav-prix { font-size:11px; color:var(--muted); }
 
-.fav-card-perso { background:var(–white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; display:grid; grid-template-columns:180px 1fr; margin-bottom:12px; }
+.fav-card-perso { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; display:grid; grid-template-columns:180px 1fr; margin-bottom:12px; }
 .fav-card-perso .fav-img { aspect-ratio:unset; min-height:180px; height:100%; }
-.fav-card-perso .fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(–noir); }
-.fav-card-perso .fav-remove:hover { background:var(–rose); color:white; }
+.fav-card-perso .fav-remove { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.9rem; box-shadow:0 2px 6px rgba(0,0,0,.1); transition:background .2s; z-index:2; color:var(--noir); }
+.fav-card-perso .fav-remove:hover { background:var(--rose); color:white; }
 .fav-card-perso-right { padding:16px; display:flex; flex-direction:column; gap:10px; }
 .fav-card-perso .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; line-height:1.3; }
 .fav-card-perso .fav-qty-row { display:flex; align-items:center; gap:6px; }
-.fav-card-perso .fav-qty-label { font-size:10px; color:var(–muted); }
-.fav-card-perso .fav-prix { font-size:11px; color:var(–muted); }
+.fav-card-perso .fav-qty-label { font-size:10px; color:var(--muted); }
+.fav-card-perso .fav-prix { font-size:11px; color:var(--muted); }
 
-.fav-perso { background:var(–bg); border-radius:6px; padding:12px; }
-.fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(–muted); margin-bottom:10px; }
+.fav-perso { background:var(--bg); border-radius:6px; padding:12px; }
+.fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .fav-perso-field { margin-bottom:8px; }
-.fav-perso-label { font-size:10px; color:var(–muted); margin-bottom:4px; display:block; }
-.fav-perso-input { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:‘Arimo’,sans-serif; font-size:12px; background:var(–white); color:var(–noir); outline:none; resize:none; transition:border-color .2s; }
-.fav-perso-input:focus { border-color:var(–rose); }
-.fav-perso-select { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:‘Arimo’,sans-serif; font-size:12px; background:var(–white); color:var(–noir); outline:none; appearance:none; transition:border-color .2s; }
-.fav-perso-select:focus { border-color:var(–rose); }
-.fav-perso-file { font-size:11px; color:var(–rose); margin-top:4px; }
+.fav-perso-label { font-size:10px; color:var(--muted); margin-bottom:4px; display:block; }
+.fav-perso-input { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; resize:none; transition:border-color .2s; }
+.fav-perso-input:focus { border-color:var(--rose); }
+.fav-perso-select { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; appearance:none; transition:border-color .2s; }
+.fav-perso-select:focus { border-color:var(--rose); }
+.fav-perso-file { font-size:11px; color:var(--rose); margin-top:4px; }
 
-.favoris-total { background:var(–white); border-radius:8px; padding:16px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
+.favoris-total { background:var(--white); border-radius:8px; padding:16px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
 .favoris-total-left { display:flex; flex-direction:column; gap:4px; }
-.favoris-total-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(–muted); font-weight:600; }
-.favoris-total-note { font-size:10px; color:var(–muted); line-height:1.5; }
-.favoris-total-montant { font-family:‘Abril Fatface’,serif; font-size:1.8rem; }
+.favoris-total-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
+.favoris-total-note { font-size:10px; color:var(--muted); line-height:1.5; }
+.favoris-total-montant { font-family:'Abril Fatface',serif; font-size:1.8rem; }
 
 .favoris-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-.btn-send-favoris { background:var(–noir); color:white; border:none; border-radius:8px; padding:14px 28px; font-family:‘Arimo’,sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; }
-.btn-send-favoris:hover { background:var(–rose); }
-.btn-clear-favoris { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:13px 20px; font-family:‘Arimo’,sans-serif; font-size:11px; color:var(–muted); cursor:pointer; transition:all .2s; }
-.btn-clear-favoris:hover { border-color:var(–noir); color:var(–noir); }
+.btn-send-favoris { background:var(--noir); color:white; border:none; border-radius:8px; padding:14px 28px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; }
+.btn-send-favoris:hover { background:var(--rose); }
+.btn-clear-favoris { background:none; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:13px 20px; font-family:'Arimo',sans-serif; font-size:11px; color:var(--muted); cursor:pointer; transition:all .2s; }
+.btn-clear-favoris:hover { border-color:var(--noir); color:var(--noir); }
 
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; align-items:center; justify-content:center; }
 .modal-overlay.open { display:flex; }
-.modal { background:var(–white); border-radius:12px; padding:36px; max-width:480px; width:90%; max-height:90vh; overflow-y:auto; position:relative; }
-.modal h2 { font-family:‘Abril Fatface’,serif; font-size:1.6rem; font-weight:400; margin-bottom:8px; }
-.modal-sub { font-size:12px; color:var(–muted); margin-bottom:28px; letter-spacing:.5px; }
-.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(–noir); cursor:pointer; }
-.modal-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(–muted); margin-bottom:6px; margin-top:16px; }
-.modal-input { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:14px; background:var(–bg); color:var(–noir); outline:none; transition:border-color .2s; }
-.modal-input:focus { border-color:var(–rose); }
-.modal-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:13px; background:var(–bg); color:var(–noir); outline:none; resize:vertical; min-height:80px; transition:border-color .2s; }
-.modal-textarea:focus { border-color:var(–rose); }
-.modal-select { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:‘Arimo’,sans-serif; font-size:14px; background:var(–bg); color:var(–noir); outline:none; appearance:none; transition:border-color .2s; }
-.modal-select:focus { border-color:var(–rose); }
-.btn-modal-send { width:100%; background:var(–noir); color:white; border:none; border-radius:8px; padding:15px; font-family:‘Arimo’,sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-top:24px; }
-.btn-modal-send:hover { background:var(–rose); }
-.modal-note { font-size:11px; color:var(–muted); text-align:center; margin-top:12px; line-height:1.6; }
+.modal { background:var(--white); border-radius:12px; padding:36px; max-width:480px; width:90%; max-height:90vh; overflow-y:auto; position:relative; }
+.modal h2 { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; margin-bottom:8px; }
+.modal-sub { font-size:12px; color:var(--muted); margin-bottom:28px; letter-spacing:.5px; }
+.modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.2rem; color:var(--noir); cursor:pointer; }
+.modal-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; margin-top:16px; }
+.modal-input { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:14px; background:var(--bg); color:var(--noir); outline:none; transition:border-color .2s; }
+.modal-input:focus { border-color:var(--rose); }
+.modal-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--bg); color:var(--noir); outline:none; resize:vertical; min-height:80px; transition:border-color .2s; }
+.modal-textarea:focus { border-color:var(--rose); }
+.modal-select { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:14px; background:var(--bg); color:var(--noir); outline:none; appearance:none; transition:border-color .2s; }
+.modal-select:focus { border-color:var(--rose); }
+.btn-modal-send { width:100%; background:var(--noir); color:white; border:none; border-radius:8px; padding:15px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-top:24px; }
+.btn-modal-send:hover { background:var(--rose); }
+.modal-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.6; }
 
 @media (max-width:860px) {
-.favoris-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
-.fav-card-perso { grid-template-columns:120px 1fr; }
-.fav-card-perso .fav-img { min-height:140px; }
+  .favoris-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
+  .fav-card-perso { grid-template-columns:120px 1fr; }
+  .fav-card-perso .fav-img { min-height:140px; }
 }
 @media (max-width:480px) {
-.favoris-grid { grid-template-columns:repeat(3,1fr); gap:6px; }
-.fav-card-perso { grid-template-columns:100px 1fr; }
+  .favoris-grid { grid-template-columns:repeat(3,1fr); gap:6px; }
+  .fav-card-perso { grid-template-columns:100px 1fr; }
 }
 </style>
-
 </head>
 <body>
 
@@ -317,7 +315,7 @@ function makeCardNormal{
     })
     .catch(function(){});
 }
-function makeCardNormalfunction makeCardNormal(f,i){
+function makeCardNormal(f,i){
   var card=document.createElement('div');
   card.className='fav-card';
   if(f.id)card.dataset.favId=f.id;
@@ -362,156 +360,151 @@ function makeCardPerso(f,i){
     persoHtml+='<div class="fav-perso-field">'
       +'<label class="fav-perso-label">Texte ou motif souhaité</label>'
       +'<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea>'
-
-```
-  +'</div>'
-  +'<div class="fav-perso-field">'
-  +'<label class="fav-perso-label">Couleur</label>'
-  +'<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
-  +'<option value="">Choisissez une couleur</option>'
-  +['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
-    return '<option value="'+c+'"'+(couleurVal===c?' selected':'')+'>'+c+'</option>';
-  }).join('')
-  +'</select>'
-  +'<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
-  +'</div>'
-  +(fileUrl?'<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>':'');
-```
-
-} else {
-persoHtml+=’<div style="font-size:11px;color:var(--muted);font-style:italic;">Non souhaitée</div>’
-+’<button onclick="event.stopPropagation();activerPerso('+i+')" style="margin-top:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:6px;padding:6px 12px;font-family:\'Arimo\',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=\'var(--rose)\';this.style.color=\'var(--rose)\'" onmouseout="this.style.borderColor=\'rgba(0,0,0,.15)\';this.style.color=\'var(--muted)\'">+ Ajouter une personnalisation</button>’;
-}
-persoHtml+=’</div>’;
-card.innerHTML=’<div class="fav-img">’+imgHtml+’</div>’
-+’<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>’
-+’<div class="fav-card-perso-right">’
-+’<div class="fav-name">’+(f.nom||f.name||’’)+’</div>’
-+’<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>’
-+’<div class="fav-qty-control">’
-+’<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>’
-+’<span class="fav-qty-num" id="qty-'+i+'">’+(f.qty||1)+’</span>’
-+’<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>’
-+’</div></div>’
-+(f.prix?’<div class="fav-prix">’+(parseFloat(f.prix)||0).toFixed(2)+‘€/pcs</div>’:’’)
-+persoHtml+’</div>’;
-return card;
+      +'</div>'
+      +'<div class="fav-perso-field">'
+      +'<label class="fav-perso-label">Couleur</label>'
+      +'<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
+      +'<option value="">Choisissez une couleur</option>'
+      +['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
+        return '<option value="'+c+'"'+(couleurVal===c?' selected':'')+'>'+c+'</option>';
+      }).join('')
+      +'</select>'
+      +'<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
+      +'</div>'
+      +(fileUrl?'<div class="fav-perso-file">📎 <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>':'');
+  } else {
+    persoHtml+='<div style="font-size:11px;color:var(--muted);font-style:italic;">Non souhaitée</div>'
+      +'<button onclick="event.stopPropagation();activerPerso('+i+')" style="margin-top:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:6px;padding:6px 12px;font-family:\'Arimo\',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=\'var(--rose)\';this.style.color=\'var(--rose)\'" onmouseout="this.style.borderColor=\'rgba(0,0,0,.15)\';this.style.color=\'var(--muted)\'">+ Ajouter une personnalisation</button>';
+  }
+  persoHtml+='</div>';
+  card.innerHTML='<div class="fav-img">'+imgHtml+'</div>'
+    +'<button class="fav-remove" onclick="event.stopPropagation();removeFav('+i+')">✕</button>'
+    +'<div class="fav-card-perso-right">'
+    +'<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
+    +'<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>'
+    +'<div class="fav-qty-control">'
+    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">−</button>'
+    +'<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
+    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
+    +'</div></div>'
+    +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'€/pcs</div>':'')
+    +persoHtml+'</div>';
+  return card;
 }
 
 function goToArticle(f){
-if(f.id){
-fetch(’/api/catalogue’)
-.then(function(r){return r.json();})
-.then(function(articles){
-var article=articles.find(function(a){return a.id===f.id;});
-if(article){article.perso=f.perso||null;localStorage.setItem(‘reunis_article_courant’,JSON.stringify(article));}
-else{var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;localStorage.setItem(‘reunis_article_courant’,JSON.stringify(fb));}
-window.location.href=‘article.html’;
-})
-.catch(function(){
-var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;
-localStorage.setItem(‘reunis_article_courant’,JSON.stringify(fb));
-window.location.href=‘article.html’;
-});
-} else {
-var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;
-localStorage.setItem(‘reunis_article_courant’,JSON.stringify(fb));
-window.location.href=‘article.html’;
-}
+  if(f.id){
+    fetch('/api/catalogue')
+      .then(function(r){return r.json();})
+      .then(function(articles){
+        var article=articles.find(function(a){return a.id===f.id;});
+        if(article){article.perso=f.perso||null;localStorage.setItem('reunis_article_courant',JSON.stringify(article));}
+        else{var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;localStorage.setItem('reunis_article_courant',JSON.stringify(fb));}
+        window.location.href='article.html';
+      })
+      .catch(function(){
+        var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;
+        localStorage.setItem('reunis_article_courant',JSON.stringify(fb));
+        window.location.href='article.html';
+      });
+  } else {
+    var fb=Object.assign({},f);if(!fb.nom)fb.nom=fb.name;
+    localStorage.setItem('reunis_article_courant',JSON.stringify(fb));
+    window.location.href='article.html';
+  }
 }
 
 function removeFav(i){
-var favs=JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-favs.splice(i,1);
-localStorage.setItem(‘reunis_favoris’,JSON.stringify(favs));
-loadFavoris();updateBadge();
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  favs.splice(i,1);
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  loadFavoris();updateBadge();
 }
 function changeQtyFav(i,delta){
-var favs=JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-var max=parseInt(favs[i].qtite_en_ligne)||99;
-var newQty=Math.min(max,Math.max(1,(favs[i].qty||1)+delta));
-favs[i].qty=newQty;
-localStorage.setItem(‘reunis_favoris’,JSON.stringify(favs));
-var el=document.getElementById(‘qty-’+i);
-if(el)el.textContent=newQty;
-updateTotal();
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var max=parseInt(favs[i].qtite_en_ligne)||99;
+  var newQty=Math.min(max,Math.max(1,(favs[i].qty||1)+delta));
+  favs[i].qty=newQty;
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  var el=document.getElementById('qty-'+i);
+  if(el)el.textContent=newQty;
+  updateTotal();
 }
 function updatePersoField(i,field,value){
-var favs=JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-if(!favs[i].perso)favs[i].perso={};
-favs[i].perso[field]=value;
-localStorage.setItem(‘reunis_favoris’,JSON.stringify(favs));
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  if(!favs[i].perso)favs[i].perso={};
+  favs[i].perso[field]=value;
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
 }
 function updatePersoSelect(i,sel){
-var value=sel.value;
-updatePersoField(i,‘couleur’,value);
-var autreInput=document.getElementById(‘autre-’+i);
-if(autreInput)autreInput.style.display=value===‘Autre’?‘block’:‘none’;
+  var value=sel.value;
+  updatePersoField(i,'couleur',value);
+  var autreInput=document.getElementById('autre-'+i);
+  if(autreInput)autreInput.style.display=value==='Autre'?'block':'none';
 }
 function activerPerso(i){
-var favs=JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-if(!favs[i].perso)favs[i].perso={texte:’’,couleur:’’,couleurAutre:’’,fileUrl:’’,fileName:’’};
-localStorage.setItem(‘reunis_favoris’,JSON.stringify(favs));
-loadFavoris();
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  if(!favs[i].perso)favs[i].perso={texte:'',couleur:'',couleurAutre:'',fileUrl:'',fileName:''};
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
+  loadFavoris();
 }
 function clearFavoris(){
-if(confirm(‘Vider toute la sélection ?’)){
-localStorage.removeItem(‘reunis_favoris’);
-loadFavoris();updateBadge();
+  if(confirm('Vider toute la sélection ?')){
+    localStorage.removeItem('reunis_favoris');
+    loadFavoris();updateBadge();
+  }
 }
-}
-function openModal(){document.getElementById(‘modal-overlay’).classList.add(‘open’);}
-function closeModal(){document.getElementById(‘modal-overlay’).classList.remove(‘open’);}
-document.getElementById(‘modal-overlay’).addEventListener(‘click’,function(e){if(e.target===this)closeModal();});
+function openModal(){document.getElementById('modal-overlay').classList.add('open');}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 function toggleAdresse(sel){
-document.getElementById(‘m-adresse-wrap’).style.display=sel.value===‘Livraison et reprise (sur devis)’?‘block’:‘none’;
+  document.getElementById('m-adresse-wrap').style.display=sel.value==='Livraison et reprise (sur devis)'?'block':'none';
 }
 function envoyerSelection(){
-var nom=document.getElementById(‘m-nom’).value.trim();
-var email=document.getElementById(‘m-email’).value.trim();
-var livraison=document.getElementById(‘m-livraison’).value;
-if(!nom||!email){alert(‘Merci de renseigner votre nom et votre email.’);return;}
-if(!livraison){alert(‘Merci de sélectionner une option de livraison.’);return;}
-var favs=JSON.parse(localStorage.getItem(‘reunis_favoris’)||’[]’);
-var btn=document.querySelector(’.btn-modal-send’);
-btn.textContent=‘Envoi en cours…’;btn.disabled=true;
-fetch(’/api/envoyer-devis’,{
-method:‘POST’,
-headers:{‘Content-Type’:‘application/json’},
-body:JSON.stringify({
-nom:nom,email:email,
-telephone:document.getElementById(‘m-tel’).value.trim(),
-date_evenement:document.getElementById(‘m-date’).value,
-type_evenement:document.getElementById(‘m-type’).value,
-livraison:livraison,
-adresse_livraison:document.getElementById(‘m-adresse’).value.trim(),
-message:document.getElementById(‘m-message’).value.trim(),
-articles:favs
-})
-})
-.then(function(r){return r.json();})
-.then(function(data){
-if(data.succes){
-closeModal();
-document.querySelector(’.favoris-wrap’).innerHTML=’<div style="text-align:center;padding:80px 20px;">’
-+’<div style="font-size:3rem;margin-bottom:20px;">✨</div>’
-+’<h2 style="font-family:\'Abril Fatface\',serif;font-size:2rem;font-weight:400;margin-bottom:12px;">Merci ‘+nom.split(’ ‘)[0]+’ !</h2>’
-+’<p style="font-size:14px;color:var(--muted);line-height:1.85;max-width:400px;margin:0 auto 28px;">Votre sélection a bien été envoyée. Nous revenons vers vous dans les 48h pour confirmer la disponibilité et vous transmettre votre devis.</p>’
-+’<a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;">Continuer à explorer →</a>’
-+’</div>’;
-localStorage.removeItem(‘reunis_favoris’);updateBadge();
-} else {
-alert(‘Une erreur est survenue. Merci de réessayer.’);
-btn.textContent=‘Envoyer ma sélection →’;btn.disabled=false;
-}
-})
-.catch(function(){
-alert(‘Une erreur est survenue. Merci de réessayer.’);
-btn.textContent=‘Envoyer ma sélection →’;btn.disabled=false;
-});
+  var nom=document.getElementById('m-nom').value.trim();
+  var email=document.getElementById('m-email').value.trim();
+  var livraison=document.getElementById('m-livraison').value;
+  if(!nom||!email){alert('Merci de renseigner votre nom et votre email.');return;}
+  if(!livraison){alert('Merci de sélectionner une option de livraison.');return;}
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var btn=document.querySelector('.btn-modal-send');
+  btn.textContent='Envoi en cours…';btn.disabled=true;
+  fetch('/api/envoyer-devis',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      nom:nom,email:email,
+      telephone:document.getElementById('m-tel').value.trim(),
+      date_evenement:document.getElementById('m-date').value,
+      type_evenement:document.getElementById('m-type').value,
+      livraison:livraison,
+      adresse_livraison:document.getElementById('m-adresse').value.trim(),
+      message:document.getElementById('m-message').value.trim(),
+      articles:favs
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.succes){
+      closeModal();
+      document.querySelector('.favoris-wrap').innerHTML='<div style="text-align:center;padding:80px 20px;">'
+        +'<div style="font-size:3rem;margin-bottom:20px;">✨</div>'
+        +'<h2 style="font-family:\'Abril Fatface\',serif;font-size:2rem;font-weight:400;margin-bottom:12px;">Merci '+nom.split(' ')[0]+' !</h2>'
+        +'<p style="font-size:14px;color:var(--muted);line-height:1.85;max-width:400px;margin:0 auto 28px;">Votre sélection a bien été envoyée. Nous revenons vers vous dans les 48h pour confirmer la disponibilité et vous transmettre votre devis.</p>'
+        +'<a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;">Continuer à explorer →</a>'
+        +'</div>';
+      localStorage.removeItem('reunis_favoris');updateBadge();
+    } else {
+      alert('Une erreur est survenue. Merci de réessayer.');
+      btn.textContent='Envoyer ma sélection →';btn.disabled=false;
+    }
+  })
+  .catch(function(){
+    alert('Une erreur est survenue. Merci de réessayer.');
+    btn.textContent='Envoyer ma sélection →';btn.disabled=false;
+  });
 }
 loadFavoris();
 </script>
-
 </body>
 </html>
