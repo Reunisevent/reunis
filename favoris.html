@@ -75,12 +75,12 @@
 .btn-modal-send:hover { background:var(--rose); }
 .modal-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.6; }
 @media (max-width:860px) {
-  .favoris-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
+  .favoris-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
   .fav-card-perso { grid-template-columns:120px 1fr; }
   .fav-card-perso .fav-img { min-height:140px; }
 }
 @media (max-width:480px) {
-  .favoris-grid { grid-template-columns:repeat(3,1fr); gap:6px; }
+  .favoris-grid { grid-template-columns:repeat(2,1fr); gap:6px; }
   .fav-card-perso { grid-template-columns:100px 1fr; }
 }
 </style>
@@ -196,6 +196,7 @@
       </div>
       <div class="favoris-actions" id="favoris-actions" style="display:none">
         <button class="btn-send-favoris" onclick="openModal()">Envoyer ma sélection &#x2192;</button>
+        <a class="btn-clear-favoris" href="decorer.html">Continuer ma sélection</a>
         <button class="btn-clear-favoris" onclick="clearFavoris()">Vider la liste</button>
       </div>
     </div>
@@ -235,17 +236,24 @@ function loadFavoris(){
     if(!categories[cat]){categories[cat]=[];ordreCategories.push(cat);}
     categories[cat].push({article:f,index:i});
   });
+  // Une seule grille, articles normaux triés par catégorie
+  var tousPersos=[];
+  var grid=document.createElement('div');grid.className='favoris-grid';
+  var hasNormaux=false;
   ordreCategories.forEach(function(cat){
     var items=categories[cat];
-    var normaux=items.filter(function(item){return item.article.personnalisable!=='Oui';});
-    var persos=items.filter(function(item){return item.article.personnalisable==='Oui';});
-    if(normaux.length){
-      var grid=document.createElement('div');grid.className='favoris-grid';
-      normaux.forEach(function(item){grid.appendChild(makeCardNormal(item.article,item.index));});
-      content.appendChild(grid);
-    }
-    persos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
+    items.forEach(function(item){
+      if(item.article.personnalisable==='Oui'){
+        tousPersos.push(item);
+      } else {
+        grid.appendChild(makeCardNormal(item.article,item.index));
+        hasNormaux=true;
+      }
+    });
   });
+  if(hasNormaux) content.appendChild(grid);
+  // Articles personnalisables en dessous, un par ligne
+  tousPersos.forEach(function(item){content.appendChild(makeCardPerso(item.article,item.index));});
   updateTotal();
   rafraichirPhotos(favs);
 }
