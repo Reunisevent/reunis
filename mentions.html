@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -8,11 +7,21 @@
 <title>Mentions légales — Réunis</title>
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+.page-wrap { max-width:780px; margin:0 auto; padding:52px 28px 80px; }
+.page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
+.page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
+.page-wrap h2 { font-family:'Abril Fatface',serif; font-size:1.4rem; font-weight:400; margin:36px 0 12px; }
+.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:16px; }
+.page-wrap strong { color:var(--noir); }
+.page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
+.page-wrap a:hover { opacity:.7; }
+@media(max-width:680px){ .page-wrap{ padding:32px 20px 60px; } }
+</style>
 </head>
 <body>
-
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar desktop-open" id="sidebar">
   <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
   <nav>
     <a class="sb-axis" href="planifier.html">Planifier</a>
@@ -37,6 +46,7 @@
       <a href="faq.html">FAQ</a>
       <a href="galerie.html">Galerie</a>
       <a href="manifest.html">Manifest</a>
+      <a href="le-club.html">Le Club</a>
     </div>
     <a class="sb-contact" href="contact.html">Contact</a>
     <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
@@ -49,7 +59,6 @@
     </div>
   </div>
 </aside>
-
 <div class="topbar visible">
   <button class="topbar-icon" onclick="toggleSidebar()" aria-label="Menu">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -60,75 +69,40 @@
     <span class="heart-badge" id="fav-badge"></span>
   </a>
 </div>
-
-<main class="main" id="main">
+<main class="main desktop-shifted" id="main">
   <div class="page-wrap">
     <h1>Mentions légales</h1>
+    <p class="page-eyebrow">Informations légales</p>
 
-```
-<h2>Éditeur du site</h2>
-<p>Réunis — Association de loi 1901<br>
-Centre-Val de Loire, France<br>
-Email : <a id="mentions-email" href="#">contact&#64;reunisevent.com</a></p>
+    <h2>Éditeur du site</h2>
+    <p>Réunis — Association de loi 1901<br>
+    Centre-Val de Loire, France<br>
+    Email : <a id="mentions-email" href="#">contact&#64;reunisevent.com</a></p>
 
-<h2>Hébergement</h2>
-<p>Ce site est hébergé par <strong>Vercel Inc.</strong>, 340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis.</p>
+    <h2>Hébergement</h2>
+    <p>Ce site est hébergé par <strong>Vercel Inc.</strong>, 340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis.</p>
 
-<h2>Propriété intellectuelle</h2>
-<p>L'ensemble des contenus présents sur ce site (textes, images, visuels, logos) sont la propriété exclusive de l'association Réunis ou de leurs auteurs respectifs. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble des contenus présents sur ce site (textes, images, visuels, logos) sont la propriété exclusive de l'association Réunis ou de leurs auteurs respectifs. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
 
-<h2>Données personnelles</h2>
-<p>Les informations collectées via le formulaire de contact sont utilisées uniquement pour répondre à vos demandes. Elles ne sont pas cédées à des tiers. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>
+    <h2>Données personnelles</h2>
+    <p>Les informations collectées via le formulaire de contact sont utilisées uniquement pour répondre à vos demandes. Elles ne sont pas cédées à des tiers. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>
 
-<h2>Cookies</h2>
-<p>Ce site utilise le stockage local (localStorage) uniquement pour mémoriser vos articles favoris. Aucun cookie de traçage n'est utilisé.</p>
+    <h2>Cookies</h2>
+    <p>Ce site utilise le stockage local (localStorage) uniquement pour mémoriser vos articles favoris. Aucun cookie de traçage n'est utilisé.</p>
 
-<h2>Contact</h2>
-<p>Pour toute question relative à ces mentions légales : <a href="contact.html">formulaire de contact</a>.</p>
-```
-
+    <h2>Contact</h2>
+    <p>Pour toute question relative à ces mentions légales : <a href="contact.html">formulaire de contact</a>.</p>
   </div>
 </main>
-
 <script>
-function toggleSidebar(){
-  var sb = document.getElementById('sidebar');
-  var ov = document.getElementById('sb-overlay');
-  var isOpen = sb.classList.contains('open');
-  sb.classList.toggle('open');
-  ov.classList.toggle('on');
-  document.body.classList.toggle('sb-open', !isOpen);
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sb-overlay').classList.remove('on');
-  document.body.classList.remove('sb-open');
-}
-function toggleCats(btn){
-  var c = btn.closest('.sb-axis-wrap').nextElementSibling;
-  if(c) c.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-function updateBadge(){
-  try {
-    var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-    document.querySelectorAll('.heart-badge').forEach(function(b){
-      b.textContent = favs.length;
-      b.classList.toggle('visible', favs.length > 0);
-    });
-  } catch(e){}
-}
+function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
+function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});}
 updateBadge();
-(function(){
-  var e = 'contact' + String.fromCharCode(64) + 'reunisevent.com';
-  var el = document.getElementById('mentions-email');
-  if(el){ el.href = 'mailto:' + e; }
-})();
-if(window.innerWidth > 860){
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('main').style.marginLeft = 'var(--sb-w)';
-}
+(function(){var e='contact'+String.fromCharCode(64)+'reunisevent.com';var el=document.getElementById('mentions-email');if(el){el.href='mailto:'+e;}})();
+if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');}
 </script>
-
 </body>
 </html>
