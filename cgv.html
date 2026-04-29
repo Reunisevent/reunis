@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -11,11 +12,16 @@
 .page-wrap { max-width:780px; margin:0 auto; padding:52px 28px 80px; }
 .page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
 .page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
-.page-wrap h2 { font-family:'Abril Fatface',serif; font-size:1.4rem; font-weight:400; margin:36px 0 12px; }
-.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:16px; }
+.page-section { margin-bottom:52px; }
+.page-section-title { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:24px; padding-bottom:10px; border-bottom:1px solid rgba(0,0,0,.07); }
+.page-wrap h2 { font-family:'Abril Fatface',serif; font-size:1.3rem; font-weight:400; margin:32px 0 10px; color:var(--noir); }
+.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
 .page-wrap strong { color:var(--noir); }
 .page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
 .page-wrap a:hover { opacity:.7; }
+.page-wrap ul { margin:0 0 14px 0; padding-left:0; list-style:none; }
+.page-wrap ul li { font-size:14px; line-height:1.85; color:#444; padding:4px 0 4px 18px; position:relative; }
+.page-wrap ul li::before { content:"—"; position:absolute; left:0; color:var(--rose); font-weight:700; }
 @media(max-width:680px){ .page-wrap{ padding:32px 20px 60px; } }
 </style>
 </head>
@@ -74,55 +80,78 @@
     <h1>CGV</h1>
     <p class="page-eyebrow">Conditions Générales de Vente</p>
 
-    <h2>Commandes &amp; Réservation</h2>
-    <p>Pour toute commande supérieure à 100 €, un acompte de <strong>50 %</strong> est demandé afin de valider définitivement la réservation du matériel.</p>
-    <p>Les fleurs fraîches, ballons et éléments personnalisés sont offerts à l'issue de l'événement et restent sur place.</p>
-    <p>Des frais de livraison (sur demande) et/ou de déplacement peuvent s'appliquer en fonction de la distance.</p>
-    <p><strong>Aucune caution n'est demandée</strong>, nos objets sont choisis avec amour, et nous comptons sur votre vigilance. En cas d'utilisation de bougies, merci d'être particulièrement attentif aux coulures de cire. Les articles rétro et la vaisselle ancienne peuvent présenter de légères marques du temps — c'est aussi ce qui fait leur charme unique.</p>
+<!-- LOCATION -->
+<div class="page-section">
+  <div class="page-section-title">Location &amp; Réservation de matériel</div>
 
-    <h2>Conditions de location</h2>
-    <p>Enlèvement du matériel : à partir du jeudi précédant votre événement.<br>
-    Retour du matériel : au plus tard le mercredi suivant.</p>
-    <p><strong>La vaisselle doit être rendue propre et sèche.</strong><br>
-    Les planches et plateaux ne passent pas au lave-vaisselle.<br>
-    Les fontaines à boisson ne sont pas adaptées aux boissons chaudes.</p>
-    <p>Les articles de décoration, meubles et textiles peuvent être rendus en état d'usage normal.</p>
+  <h2>1 — Sélection &amp; Demande de devis</h2>
+  <p>Toute demande de location est à adresser par le biais du catalogue en ligne, du formulaire de contact ou par email à <a href="mailto:contact@reunisevent.com">contact@reunisevent.com</a>, en précisant la date et le lieu de l'événement ainsi que la liste des articles souhaités et les quantités correspondantes.</p>
+  <p>Un devis personnalisé vous sera transmis par email dans les plus brefs délais, sous réserve de disponibilité des articles à la date souhaitée.</p>
+  <p>Vous souhaitez être accompagné dans votre sélection ? N'hésitez pas à nous contacter directement via le <a href="contact.html">formulaire de contact</a> ou notre <a href="configurateur.html">configurateur</a> — nous serons ravies de vous guider.</p>
 
-    <h2>Photos &amp; Communication</h2>
-    <p>Réunis se réserve le droit de photographier les objets, décors et installations réalisés lors de l'événement, et de les publier sur ses réseaux sociaux. Aucune photo de personnes ne sera prise ni diffusée. Si vous êtes opposé(e) à cette utilisation, merci de nous en informer.</p>
+  <h2>2 — Commande &amp; Confirmation</h2>
+  <p>Tout devis est considéré comme validé uniquement à réception des deux éléments suivants :</p>
+  <ul>
+    <li>une confirmation écrite par email</li>
+    <li>le versement d'un acompte équivalent à <strong>50 %</strong> du montant total de la commande</li>
+  </ul>
+  <p>Le solde est à régler au retour du matériel.</p>
+  <p>Toute commande reste modifiable, sous réserve de disponibilité, jusqu'à 5 jours avant la date de l'événement. Passé ce délai, la commande est considérée comme ferme et définitive.</p>
 
-    <h2>Installation / Désinstallation (en option)</h2>
-    <p>Le jour de l'installation : merci de prévoir un accès à une prise électrique et à un point d'eau (notamment pour les fleurs).</p>
-    <p>Le jour du démontage : merci de ne pas démonter vous-même les supports et de ne pas jeter les mousses florales. Les lieux sont rendus en l'état, le nettoyage des sols ne fait pas partie de notre prestation.</p>
+  <h2>3 — Retrait &amp; Livraison</h2>
+  <p>Le matériel est disponible à l'enlèvement à partir du <strong>jeudi précédant votre événement</strong> et doit être retourné au plus tard le <strong>mardi suivant</strong>.</p>
+  <p>Deux points de retrait sont à votre disposition : <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>. Le jour et l'horaire de retrait sont convenus ensemble lors de la confirmation de commande et peuvent varier selon nos disponibilités. Merci de prendre note des horaires, lieux et jours convenus et de les respecter. Vos articles vous seront remis propres et soigneusement emballés.</p>
+  <p>Le retour du matériel s'effectue au même endroit, sur rendez-vous, avec les articles lavés et soigneusement remballés par vos soins. Un supplément pourra être facturé en cas de matériel rendu non nettoyé ou restitué hors délai.</p>
+  <p>La livraison est possible sur demande, moyennant un supplément calculé selon la distance.</p>
+
+  <h2>4 — Annulation</h2>
+  <p>Toute annulation doit nous être communiquée par écrit dans les meilleurs délais. En cas d'annulation moins de <strong>5 jours avant l'événement</strong>, l'acompte versé reste acquis. Pour toute annulation anticipée, l'acompte pourra être remboursé ou reporté sur une prochaine réservation, selon les circonstances et après échange avec notre équipe.</p>
+
+  <h2>5 — Responsabilité</h2>
+  <p>Nos articles sont soigneusement sélectionnés et bichonnés avec soin — nous comptons sur votre vigilance pour en prendre soin durant toute la durée de la location. Tout article perdu, cassé ou endommagé au-delà de l'usure normale fera l'objet d'une facturation au prix de remplacement.</p>
+  <p>En cas d'utilisation de bougies, merci d'être particulièrement attentif aux coulures de cire sur les surfaces et textiles.</p>
+  <p>Veuillez noter que certains articles rétro et pièces de vaisselle ancienne peuvent présenter de légères marques du temps — c'est précisément ce qui fait leur charme et leur caractère uniques.</p>
+
+  <h2>6 — Usage &amp; Entretien</h2>
+  <p>L'ensemble des articles de location doit être rendu propre, sec et en bon état. La vaisselle doit impérativement être lavée avant restitution.</p>
+  <p>Les planches et plateaux en bois ne passent pas au lave-vaisselle.</p>
+  <p>Les fontaines à boisson ne sont pas adaptées aux boissons chaudes ni à l'adjonction de fruits entiers — les pépins risquent d'obstruer les robinets et de les rendre inutilisables.</p>
+
+  <h2>7 — Articles spécifiques</h2>
+  <p><strong>Personnalisation</strong></p>
+  <p>Les articles personnalisés (panneaux, signalétique, miroirs…) restent la propriété de Réunis et sont soumis aux mêmes conditions de location que l'ensemble du catalogue, sauf exception expressément mentionnée et clairement identifiée sur le devis.</p>
+  <p>Avant toute réalisation, un bon à tirer (BAT) vous sera transmis par email pour validation. Aucune exécution ne sera lancée sans votre confirmation écrite. Toute modification demandée après validation du BAT pourra entraîner un délai supplémentaire et/ou une facturation additionnelle.</p>
+  <p><strong>Fleurs fraîches &amp; Ballons</strong></p>
+  <p>Les compositions florales fraîches et les ballons sont des articles périssables réalisés spécifiquement pour votre événement. Ils sont offerts à l'issue de la prestation et restent sur place — aucun retour n'est attendu ni possible pour ces éléments. Ces articles ne sont pas soumis aux conditions de retour et d'entretien applicables aux autres articles de location.</p>
+</div>
+
+<!-- PLANIFICATION -->
+<div class="page-section">
+  <div class="page-section-title">Planification &amp; Coordination <span style="font-size:9px;letter-spacing:1px;">(en option)</span></div>
+  <p>Si vous nous avez confié l'organisation et/ou la scénographie de votre événement, un document de prestation détaillé vous sera remis avant le début de notre collaboration. Ce document précise le périmètre d'intervention de Réunis, les rôles et responsabilités de chacune des parties, ainsi que le calendrier des étapes clés.</p>
+  <p>Chaque accompagnement étant unique, notre offre de planification est entièrement modulable et s'adapte à vos besoins — de l'accompagnement créatif jusqu'à la coordination complète le jour J. Les modalités spécifiques à votre projet (contenu de la prestation, tarifs, conditions d'annulation) seront définies ensemble et formalisées dans ce document, qui fera foi en cas de litige.</p>
+</div>
+
+<!-- INSTALLATION -->
+<div class="page-section">
+  <div class="page-section-title">Installation &amp; Désinstallation <span style="font-size:9px;letter-spacing:1px;">(en option)</span></div>
+  <p>Le jour de l'installation, merci de prévoir un accès à une prise électrique et à un point d'eau.</p>
+  <p>Le jour de la désinstallation, si vous avez opté pour ce service, merci de ne pas démonter vous-même les supports et compositions florales. Les lieux sont rendus en l'état à l'issue de notre intervention — le nettoyage des sols ne fait pas partie de notre prestation.</p>
+</div>
+
+<!-- PHOTOS -->
+<div class="page-section">
+  <div class="page-section-title">Photos &amp; Communication</div>
+  <p>Réunis se réserve le droit de photographier les objets, décors et installations réalisés lors de l'événement afin de les publier sur ses réseaux sociaux et supports de communication. Aucune photo de personnes ne sera prise ni diffusée sans accord préalable. Si vous vous opposez à cette utilisation, merci de nous en informer par écrit avant le début de la prestation.</p>
+</div>
+
   </div>
 </main>
 <script>
-function toggleSidebar(){
-  var sb=document.getElementById('sidebar');
-  var ov=document.getElementById('sb-overlay');
-  var isOpen=sb.classList.contains('open');
-  sb.classList.toggle('open');
-  ov.classList.toggle('on');
-  document.body.classList.toggle('sb-open',!isOpen);
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sb-overlay').classList.remove('on');
-  document.body.classList.remove('sb-open');
-}
-function toggleCats(btn){
-  var wrap=btn.closest('.sb-axis-wrap');
-  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
-  if(cats)cats.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-function updateBadge(){
-  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  document.querySelectorAll('.heart-badge').forEach(function(b){
-    b.textContent=favs.length;
-    b.classList.toggle('visible',favs.length>0);
-  });
-}
+function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
+function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});}
 updateBadge();
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');}
 </script>
