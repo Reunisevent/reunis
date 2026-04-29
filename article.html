@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +9,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
 .article-page { display:grid; grid-template-columns:1fr 420px; min-height:calc(100vh - 56px); }
-.article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:0; height:100vh; overflow:hidden; }
+.article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:56px; height:calc(100vh - 56px); overflow:hidden; }
 .article-main-img { flex:1; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; min-height:300px; }
 .article-main-img img { width:100%; height:100%; object-fit:cover; display:block; }
 .article-thumbs { display:flex; gap:8px; }
@@ -161,75 +160,74 @@
       </div>
       <p class="article-desc" id="art-desc"></p>
       <table class="article-specs" id="art-specs"></table>
-      
-  <div class="perso-section" id="perso-section">
-    <div class="perso-header">
-      <div class="perso-title">Personnalisation</div>
-      <label class="perso-toggle-label">
-        <span class="perso-toggle-text">Oui</span>
-        <input type="checkbox" id="perso-toggle" class="perso-toggle-input" onchange="togglePerso(this)">
-      </label>
-    </div>
-    <div class="perso-fields" id="perso-fields">
-      <label class="perso-label">Texte ou motif souhaité</label>
-      <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
-      <label class="perso-label">Couleur</label>
-      <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
-        <option value="">Choisissez une couleur</option>
-        <option value="Doré">Doré</option>
-        <option value="Argenté">Argenté</option>
-        <option value="Blanc">Blanc</option>
-        <option value="Noir">Noir</option>
-        <option value="Jaune">Jaune</option>
-        <option value="Bleu">Bleu</option>
-        <option value="Rose">Rose</option>
-        <option value="Vert foncé">Vert foncé</option>
-        <option value="Autre">Autre</option>
-      </select>
-      <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
-      <label class="perso-label">Exemple ou visuel de référence</label>
-      <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
-        <div class="perso-upload-label">+ Ajouter un fichier</div>
-        <div class="perso-upload-name" id="perso-file-name"></div>
-        <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+
+      <div class="perso-section" id="perso-section">
+        <div class="perso-header">
+          <div class="perso-title">Personnalisation</div>
+          <label class="perso-toggle-label">
+            <span class="perso-toggle-text">Oui</span>
+            <input type="checkbox" id="perso-toggle" class="perso-toggle-input" onchange="togglePerso(this)">
+          </label>
+        </div>
+        <div class="perso-fields" id="perso-fields">
+          <label class="perso-label">Texte ou motif souhaité</label>
+          <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
+          <label class="perso-label">Couleur</label>
+          <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
+            <option value="">Choisissez une couleur</option>
+            <option value="Doré">Doré</option>
+            <option value="Argenté">Argenté</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Noir">Noir</option>
+            <option value="Jaune">Jaune</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Rose">Rose</option>
+            <option value="Vert foncé">Vert foncé</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
+          <label class="perso-label">Exemple ou visuel de référence</label>
+          <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
+            <div class="perso-upload-label">+ Ajouter un fichier</div>
+            <div class="perso-upload-name" id="perso-file-name"></div>
+            <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+          </div>
+        </div>
+        <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos locaux. Le tarif, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection.</p>
+      </div>
+
+      <div class="qty-row" style="margin-top:24px;">
+        <div class="qty-control">
+          <button class="qty-btn" id="btn-moins" onclick="changeQty(-1)">−</button>
+          <span class="qty-num" id="art-qty">1</span>
+          <button class="qty-btn" id="btn-plus" onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-add-fav" onclick="addToFav()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Ajouter à ma sélection
+        </button>
+      </div>
+      <button class="btn-configurateur" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
+      <div class="article-conditions">
+        <div class="condition-row">
+          <div class="condition-icon">💌</div>
+          <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons dans les meilleurs délais pour confirmer la disponibilité.</div>
+        </div>
+        <div class="condition-row">
+          <div class="condition-icon">📅</div>
+          <div class="condition-text">Location du jeudi précédant votre événement au mardi suivant.</div>
+        </div>
+        <div class="condition-row">
+          <div class="condition-icon">📍</div>
+          <div class="condition-text">Livraison sur demande ou retrait à <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>.</div>
+        </div>
+        <div class="condition-row" style="margin-top:4px;">
+          <div class="condition-text" style="font-size:11.5px;color:var(--muted);">
+            Pour plus d'informations, consultez notre <a href="faq.html" style="color:var(--rose);font-weight:600;">FAQ</a> ou <a href="contact.html" style="color:var(--rose);font-weight:600;">contactez-nous</a>.
+          </div>
+        </div>
       </div>
     </div>
-    <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos locaux. Le tarif, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection.</p>
-  </div>
-
-  <div class="qty-row" style="margin-top:24px;">
-    <div class="qty-control">
-      <button class="qty-btn" id="btn-moins" onclick="changeQty(-1)">−</button>
-      <span class="qty-num" id="art-qty">1</span>
-      <button class="qty-btn" id="btn-plus" onclick="changeQty(1)">+</button>
-    </div>
-    <button class="btn-add-fav" onclick="addToFav()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      Ajouter à ma sélection
-    </button>
-  </div>
-  <button class="btn-configurateur" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
-  <div class="article-conditions">
-    <div class="condition-row">
-      <div class="condition-icon">💌</div>
-      <div class="condition-text">Une fois votre sélection envoyée, nous vous recontactons dans les meilleurs délais pour confirmer la disponibilité.</div>
-    </div>
-    <div class="condition-row">
-      <div class="condition-icon">📅</div>
-      <div class="condition-text">Location du jeudi précédant votre événement au mardi suivant.</div>
-    </div>
-    <div class="condition-row">
-      <div class="condition-icon">📍</div>
-      <div class="condition-text">Livraison sur demande ou retrait à <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>.</div>
-    </div>
-    <div class="condition-row" style="margin-top:4px;">
-      <div class="condition-text" style="font-size:11.5px;color:var(--muted);">
-        Pour plus d'informations, consultez notre <a href="faq.html" style="color:var(--rose);font-weight:600;">FAQ</a> ou <a href="contact.html" style="color:var(--rose);font-weight:600;">contactez-nous</a>.
-      </div>
-    </div>
-  </div>
-</div>
-
   </div>
 
   <div class="similar-section">
@@ -524,6 +522,5 @@ function scrollSimilar(dir){
   if(track) track.scrollBy({ left: dir * 340, behavior: 'smooth' });
 }
 </script>
-
 </body>
 </html>
