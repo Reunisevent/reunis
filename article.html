@@ -11,7 +11,7 @@
 .article-page { display:grid; grid-template-columns:1fr 420px; min-height:calc(100vh - 56px); }
 .article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:0; height:100vh; overflow:hidden; }
 .article-main-img { flex:1; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; min-height:300px; }
-.article-main-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.article-main-img img { width:100%; height:100%; object-fit:contain; display:block; }
 .article-thumbs { display:flex; gap:8px; }
 .article-thumb { width:72px; height:72px; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid transparent; transition:border-color .2s; font-size:1.4rem; flex-shrink:0; overflow:hidden; }
 .article-thumb.active, .article-thumb:hover { border-color:var(--noir); }
