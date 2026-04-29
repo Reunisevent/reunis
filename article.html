@@ -342,7 +342,7 @@ if(article) {
   }
   var mainImg = document.getElementById('art-main');
   if(mainImg && article.photo) {
-    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+(article.nom||'')+'" style="width:100%;height:100%;object-fit:cover;">';
+    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+(article.nom||'')+'" style="width:100%;height:100%;object-fit:contain;">';
   }
   var thumbsWrap = document.getElementById('art-thumbs');
   if(thumbsWrap) {
@@ -413,7 +413,7 @@ function updateQtyButtons(){
 }
 function setMainImg(url){
   var mainImg = document.getElementById('art-main');
-  if(mainImg) mainImg.innerHTML = '<img src="'+url+'" alt="" style="width:100%;height:100%;object-fit:cover;">';
+  if(mainImg) mainImg.innerHTML = '<img src="'+url+'" alt="" style="width:100%;height:100%;object-fit:contain;">';
 }
 function setActiveThumb(el){
   document.querySelectorAll('.article-thumb').forEach(function(t){ t.classList.remove('active'); });
