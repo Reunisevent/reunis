@@ -9,12 +9,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
+/* ── Styles communs pages contenu ── */
+.page-wrap { max-width:780px; margin:0 auto; padding:52px 28px 80px; }
+.page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
+.page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
+.page-section { margin-bottom:52px; }
+.page-section-title { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; color:var(--noir); margin-bottom:24px; }
+.page-wrap h2 { font-family:'Arimo',sans-serif; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--rose); margin:28px 0 10px; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.07); }
+.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
+.page-wrap strong { color:var(--noir); }
+.page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
+.page-wrap a:hover { opacity:.7; }
+.page-wrap ul { margin:0 0 14px 0; padding-left:0; list-style:none; }
+.page-wrap ul li { font-size:14px; line-height:1.85; color:#444; padding:4px 0 4px 18px; position:relative; }
+.page-wrap ul li::before { content:"—"; position:absolute; left:0; color:var(--rose); font-weight:700; }
+.page-option-badge { display:inline-block; margin-left:8px; font-family:'Arimo',sans-serif; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--white); background:var(--rose); border-radius:100px; padding:2px 10px; vertical-align:middle; }
+@media(max-width:680px){ .page-wrap{ padding:32px 20px 60px; } }
+
+/* ── Spécifique FAQ ── */
 /* ── HERO CARROUSEL ── */
 .faq-hero {
-  position: relative;
-  height: 420px;
-  overflow: hidden;
-  background: var(--bg);
+position: relative;
+height: 420px;
+overflow: hidden;
+background: var(–bg);
 }
 @media(max-width:860px){ .faq-hero { height: 260px; } }
 
@@ -129,43 +147,6 @@ opacity: .85;
 max-width: 780px;
 margin: 0 auto;
 padding: 52px 28px 80px;
-}
-.faq-wrap h1 {
-font-family: ‘Abril Fatface’, serif;
-font-size: clamp(2rem, 4vw, 3rem);
-font-weight: 400;
-margin-bottom: 8px;
-}
-.faq-eyebrow {
-font-size: 10px;
-letter-spacing: 3px;
-text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 40px;
-}
-.faq-intro-text {
-font-size: 14px;
-color: #444;
-line-height: 1.85;
-margin-bottom: 48px;
-}
-.faq-intro-text a { color: var(–rose); font-weight: 600; text-decoration: none; }
-.faq-intro-text a:hover { opacity: .7; }
-
-/* Sections */
-.faq-section {
-margin-bottom: 52px;
-}
-.faq-section-title {
-font-family: ‘Arimo’, sans-serif;
-font-size: 10px;
-font-weight: 700;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: var(–rose);
-margin: 0 0 20px 0;
-padding-bottom: 8px;
-border-bottom: 1px solid rgba(0,0,0,.07);
 }
 
 /* Accordéon */
@@ -410,14 +391,14 @@ transition: all .2s;
 
   <!-- FAQ -->
 
-  <div class="faq-wrap">
+  <div class="faq-wrap page-wrap">
     <h1>FAQ</h1>
-    <p class="faq-eyebrow">Questions fréquentes</p>
+    <p class="page-eyebrow">Questions fréquentes</p>
     <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
 
 <!-- LOCATION -->
 <div class="faq-section">
-  <div class="faq-section-title">📦 Location de matériel</div>
+  <div class="page-section-title">📦 Location de matériel</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
@@ -481,7 +462,7 @@ transition: all .2s;
 
 <!-- ARTICLES SPÉCIFIQUES -->
 <div class="faq-section">
-  <div class="faq-section-title">✨ Articles spécifiques</div>
+  <div class="page-section-title">✨ Articles spécifiques</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
@@ -530,7 +511,7 @@ transition: all .2s;
 
 <!-- RETRAIT & RETOUR -->
 <div class="faq-section">
-  <div class="faq-section-title">📍 Retrait &amp; Retour</div>
+  <div class="page-section-title">📍 Retrait &amp; Retour</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
@@ -566,7 +547,7 @@ transition: all .2s;
 
 <!-- RÉSERVATION & PAIEMENT -->
 <div class="faq-section">
-  <div class="faq-section-title">💳 Réservation &amp; Paiement</div>
+  <div class="page-section-title">💳 Réservation &amp; Paiement</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
@@ -612,7 +593,7 @@ transition: all .2s;
 
 <!-- SERVICES -->
 <div class="faq-section">
-  <div class="faq-section-title">🌸 Services &amp; Accompagnement</div>
+  <div class="page-section-title">🌸 Services &amp; Accompagnement</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
@@ -652,7 +633,7 @@ transition: all .2s;
 
 <!-- DIVERS -->
 <div class="faq-section">
-  <div class="faq-section-title">🎉 Divers</div>
+  <div class="page-section-title">🎉 Divers</div>
 
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
