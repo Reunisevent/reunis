@@ -14,6 +14,774 @@
 .page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
 .page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
 .page-section { margin-bottom:52px; }
+.page-section-title { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; color:var(--noir); margin-bottom:12px; }
+.page-wrap h2 { font-family:'Arimo',sans-serif; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--rose); margin:28px 0 10px; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.07); }
+.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
+.page-wrap strong { color:var(--noir); }
+.page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
+.page-wrap a:hover { opacity:.7; }
+.page-wrap ul { margin:0 0 14px 0; padding-left:0; list-style:none; }
+.page-wrap ul li { font-size:14px; line-height:1.85; color:#444; padding:4px 0 4px 18px; position:relative; }
+.page-wrap ul li::before { content:"—"; position:absolute; left:0; color:var(--rose); font-weight:700; }
+.page-option-badge { display:inline-block; margin-left:8px; font-family:'Arimo',sans-serif; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--white); background:var(--rose); border-radius:100px; padding:2px 10px; vertical-align:middle; }
+@media(max-width:680px){ .page-wrap{ padding:32px 20px 60px; } }
+
+/* ── Spécifique FAQ ── */
+/* ── HERO CARROUSEL ── */
+.faq-hero {
+position: relative;
+height: 420px;
+overflow: hidden;
+background: var(–bg);
+}
+@media(max-width:860px){ .faq-hero { height: 260px; } }
+
+.faq-hero-track {
+display: flex;
+height: 100%;
+transition: transform .7s cubic-bezier(.4,0,.2,1);
+}
+.faq-hero-slide {
+flex: 0 0 100%;
+height: 100%;
+background: var(–bg);
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.faq-hero-slide img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+.faq-hero-placeholder {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 12px;
+color: var(–muted);
+}
+.faq-hero-placeholder-emoji { font-size: 3rem; }
+.faq-hero-placeholder-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* Dots */
+.faq-hero-dots {
+position: absolute;
+bottom: 16px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 6px;
+z-index: 2;
+}
+.faq-hero-dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+background: rgba(255,255,255,.5);
+cursor: pointer;
+transition: all .3s;
+border: none;
+padding: 0;
+color: transparent;
+font-size: 0;
+-webkit-appearance: none;
+}
+.faq-hero-dot.active {
+background: white;
+width: 20px;
+border-radius: 3px;
+}
+
+/* Flèches */
+.faq-hero-arrow {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(255,255,255,.85);
+border: none;
+border-radius: 50%;
+width: 36px; height: 36px;
+display: flex; align-items: center; justify-content: center;
+cursor: pointer;
+z-index: 2;
+font-size: 1rem;
+color: var(–noir);
+box-shadow: 0 2px 8px rgba(0,0,0,.1);
+transition: all .2s;
+text-decoration: none;
+-webkit-appearance: none;
+}
+.faq-hero-arrow:hover { background: white; transform: translateY(-50%) scale(1.05); }
+.faq-hero-arrow.left { left: 16px; }
+.faq-hero-arrow.right { right: 16px; }
+
+/* Overlay texte sur le carrousel */
+.faq-hero-overlay {
+position: absolute;
+inset: 0;
+background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.35) 100%);
+display: flex;
+align-items: flex-end;
+padding: 28px 36px;
+pointer-events: none;
+z-index: 1;
+}
+.faq-hero-caption {
+color: white;
+font-size: 11px;
+letter-spacing: 2px;
+text-transform: uppercase;
+opacity: .85;
+}
+@media(max-width:860px){
+.faq-hero-overlay { padding: 16px 20px; }
+}
+
+/* ── CONTENU FAQ ── */
+.faq-wrap {
+max-width: 780px;
+margin: 0 auto;
+padding: 52px 28px 80px;
+}
+
+/* Accordéon */
+.faq-item {
+border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.faq-question {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 16px;
+padding: 12px 0;
+cursor: pointer;
+font-family: ‘Arimo’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+color: var(–noir);
+line-height: 1.4;
+background: none;
+border: none;
+width: 100%;
+text-align: left;
+transition: color .2s;
+text-decoration: none;
+-webkit-appearance: none;
+}
+.faq-question:hover { color: var(–rose); }
+.faq-question.open { color: var(–rose); }
+.faq-toggle {
+flex-shrink: 0;
+width: 24px; height: 24px;
+border-radius: 50%;
+background: var(–bg);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: .8rem;
+color: var(–muted);
+transition: all .3s;
+margin-top: 4px;
+}
+.faq-question.open .faq-toggle {
+background: var(–rose);
+color: white;
+transform: rotate(45deg);
+}
+.faq-answer {
+display: none;
+padding: 4px 0 24px 0;
+font-size: 14px;
+line-height: 1.85;
+color: #444;
+}
+.faq-answer.open { display: block; }
+.faq-answer p { margin-bottom: 12px; }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer strong { color: var(–noir); }
+.faq-answer a { color: var(–rose); font-weight: 700; text-decoration: none; }
+.faq-answer a:hover { opacity: .7; }
+.faq-cta {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+margin-top: 8px;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(–rose);
+text-decoration: none;
+transition: opacity .2s;
+}
+.faq-cta:hover { opacity: .7; }
+.faq-cta-sep {
+color: rgba(0,0,0,.2);
+margin: 0 4px;
+}
+
+/* ── CTA BAS DE PAGE ── */
+.faq-bottom {
+background: var(–white);
+border-radius: 12px;
+padding: 36px 32px;
+text-align: center;
+margin-top: 48px;
+}
+.faq-bottom-title {
+font-family: ‘Abril Fatface’, serif;
+font-size: 1.5rem;
+font-weight: 400;
+margin-bottom: 10px;
+}
+.faq-bottom-text {
+font-size: 13px;
+color: var(–muted);
+margin-bottom: 24px;
+line-height: 1.7;
+}
+.faq-bottom-btns {
+display: flex;
+gap: 12px;
+justify-content: center;
+flex-wrap: wrap;
+}
+.btn-faq-primary {
+background: var(–noir);
+color: white;
+border: none;
+border-radius: 8px;
+padding: 13px 24px;
+font-family: ‘Arimo’, sans-serif;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+text-decoration: none;
+display: inline-block;
+transition: background .2s;
+}
+.btn-faq-primary:hover { background: var(–rose); }
+.btn-faq-secondary {
+background: none;
+color: var(–noir);
+border: 1px solid rgba(0,0,0,.2);
+border-radius: 8px;
+padding: 13px 24px;
+font-family: ‘Arimo’, sans-serif;
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+text-decoration: none;
+display: inline-block;
+transition: all .2s;
+}
+.btn-faq-secondary:hover { border-color: var(–noir); }
+
+@media(max-width:680px){
+.faq-wrap { padding: 32px 20px 60px; }
+.faq-bottom { padding: 28px 20px; }
+}
+</style>
+
+</head>
+<body>
+<div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar desktop-open" id="sidebar">
+  <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
+  <nav>
+    <a class="sb-axis" href="planifier.html">Planifier</a>
+    <div class="sb-axis-wrap">
+      <a class="sb-axis" href="decorer.html">Décorer</a>
+      <span class="sb-axis-toggle" onclick="toggleCats(this)">▾</span>
+    </div>
+    <div class="sb-cats">
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-signaletique.html#panneaux">Panneaux d'accueil</a><a class="sb-subcat" href="cat-signaletique.html#miroirs">Miroirs</a><a class="sb-subcat" href="cat-signaletique.html#petits">Petits panneaux</a><a class="sb-subcat" href="cat-signaletique.html#marque-place">Marque place</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="cat-table.html#vaisselles">Vaisselles</a><a class="sb-subcat" href="cat-table.html#presentoirs">Présentoirs</a><a class="sb-subcat" href="cat-table.html#candy-bar">Candy bar</a><a class="sb-subcat" href="cat-table.html#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="cat-table.html#carafes">Carafes</a><a class="sb-subcat" href="cat-table.html#service">Service</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a><div class="sb-subcats"><a class="sb-subcat" href="cat-textile.html#nappes">Nappes</a><a class="sb-subcat" href="cat-textile.html#chemins">Chemins de table</a><a class="sb-subcat" href="cat-textile.html#serviettes">Serviettes de table</a><a class="sb-subcat" href="cat-textile.html#tapis">Tapis</a><a class="sb-subcat" href="cat-textile.html#coussins">Coussins</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a><div class="sb-subcats"><a class="sb-subcat" href="cat-floral.html#dame-jeanne">Dame jeanne</a><a class="sb-subcat" href="cat-floral.html#vases">Vases</a><a class="sb-subcat" href="cat-floral.html#soliflores">Soliflores</a><a class="sb-subcat" href="cat-floral.html#seches">Fleurs séchées</a><a class="sb-subcat" href="cat-floral.html#fraiches">Fleurs fraîches</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs &amp; chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes &amp; éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-details.html">Les détails</a><div class="sb-subcats"><a class="sb-subcat" href="cat-details.html#livre-dor">Livre d'or</a><a class="sb-subcat" href="cat-details.html#disco">Boules disco</a><a class="sb-subcat" href="cat-details.html#zinc">Bassines en zinc</a><a class="sb-subcat" href="cat-details.html#caisses">Caisses en bois</a><a class="sb-subcat" href="cat-details.html#vintage">Objets vintages</a><a class="sb-subcat" href="cat-details.html#accessoires">Accessoires</a><a class="sb-subcat" href="cat-details.html#jeux">Jeux</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-pratique.html#video">Vidéoprojecteur</a><a class="sb-subcat" href="cat-pratique.html#vestiaire">Vestiaire</a><a class="sb-subcat" href="cat-pratique.html#rallonges">Rallonges</a><a class="sb-subcat" href="cat-pratique.html#cuisine">Ustensiles de cuisine</a></div></div>
+    </div>
+    <hr class="sb-sep">
+    <div class="sb-secondary">
+      <a href="index.html">Home</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="manifest.html">Manifest</a>
+      <a href="le-club.html">Le Club</a>
+    </div>
+    <a class="sb-contact" href="contact.html">Contact</a>
+    <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
+  </nav>
+  <div class="sb-footer">
+    <img class="sb-club-img" src="le-club-logo.jpg" alt="Le Club" onclick="location.href='le-club.html'">
+    <div class="sb-legal">
+      <a href="mentions.html">| Mentions légales</a>
+      <a href="cgv.html">| CGV</a>
+    </div>
+  </div>
+</aside>
+
+<div class="topbar visible">
+  <button class="topbar-icon" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="topbar-logo" href="index.html">Réunis</a>
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <span class="heart-badge" id="fav-badge"></span>
+  </a>
+</div>
+
+<main class="main desktop-shifted" id="main">
+
+  <!-- CARROUSEL -->
+
+  <div class="faq-hero" id="faq-hero">
+    <div class="faq-hero-track" id="faq-track">
+      <!-- Les slides sont générées en JS depuis galerie Notion ou en placeholder -->
+      <div class="faq-hero-slide">
+        <div class="faq-hero-placeholder">
+          <div class="faq-hero-placeholder-emoji">✨</div>
+          <div class="faq-hero-placeholder-label">Nos réalisations</div>
+        </div>
+      </div>
+      <div class="faq-hero-slide">
+        <div class="faq-hero-placeholder">
+          <div class="faq-hero-placeholder-emoji">🌸</div>
+          <div class="faq-hero-placeholder-label">Nos réalisations</div>
+        </div>
+      </div>
+      <div class="faq-hero-slide">
+        <div class="faq-hero-placeholder">
+          <div class="faq-hero-placeholder-emoji">🕯️</div>
+          <div class="faq-hero-placeholder-label">Nos réalisations</div>
+        </div>
+      </div>
+      <div class="faq-hero-slide">
+        <div class="faq-hero-placeholder">
+          <div class="faq-hero-placeholder-emoji">🎉</div>
+          <div class="faq-hero-placeholder-label">Nos réalisations</div>
+        </div>
+      </div>
+      <div class="faq-hero-slide">
+        <div class="faq-hero-placeholder">
+          <div class="faq-hero-placeholder-emoji">🍽️</div>
+          <div class="faq-hero-placeholder-label">Nos réalisations</div>
+        </div>
+      </div>
+    </div>
+    <div class="faq-hero-overlay">
+      <span class="faq-hero-caption">Nos réalisations</span>
+    </div>
+    <div class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</div>
+    <div class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</div>
+    <div class="faq-hero-dots" id="faq-dots"></div>
+  </div>
+
+  <!-- FAQ -->
+
+  <div class="faq-wrap page-wrap">
+    <h1>FAQ</h1>
+    <p class="page-eyebrow">Questions fréquentes</p>
+    <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
+
+<!-- LOCATION -->
+<div class="faq-section">
+  <div class="page-section-title">📦 Location de matériel</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Comment fonctionne la location d'articles ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Rien de plus simple ! Parcourez notre catalogue, ajoutez vos coups de cœur aux favoris et envoyez-nous votre sélection. Nous revenons vers vous rapidement avec un devis personnalisé. Vous pouvez également passer par notre configurateur pour être accompagné(e) pas à pas dans votre projet.</p>
+      <a href="decorer.html" class="faq-cta">Voir le catalogue</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="configurateur.html" class="faq-cta">Utiliser le configurateur</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Est-il possible de venir voir les articles en vrai avant de se décider ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Absolument ! Notre local vous est ouvert sur rendez-vous — c'est toujours plus parlant de voir les pièces en vrai. Et puis c'est aussi l'occasion d'échanger directement sur votre projet autour d'un café ☕</p>
+      <a href="contact.html" class="faq-cta">Nous contacter pour prendre rendez-vous</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Je ne trouve pas mon bonheur dans le catalogue… que faire ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Notre catalogue évolue régulièrement et ne reflète pas toujours l'intégralité de nos pépites ! Décrivez-nous ce dont vous avez besoin — nous faisons notre maximum pour trouver une solution adaptée à votre projet. Et si vous avez besoin d'un accompagnement plus poussé, notre équipe est là pour vous aider à composer votre décoration de A à Z.</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="configurateur.html" class="faq-cta">Utiliser le configurateur</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Livrez-vous directement sur le lieu de l'événement ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Oui, la livraison est possible sur demande, moyennant un supplément calculé selon la distance. Nous disposons également de deux points de retrait : <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>. On convient ensemble du créneau qui vous arrange le mieux !</p>
+      <a href="contact.html" class="faq-cta">Nous contacter pour en savoir plus</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Est-il possible de modifier sa commande après validation ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Oui, toute commande reste modifiable jusqu'à <strong>5 jours avant votre événement</strong>, sous réserve de disponibilité. Passé ce délai, la commande est considérée comme ferme et définitive. En cas de doute, n'hésitez pas à nous contacter rapidement !</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLES SPÉCIFIQUES -->
+<div class="faq-section">
+  <div class="page-section-title">✨ Articles spécifiques</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Que faire des fleurs fraîches et des ballons après la fête ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Bonne nouvelle — ils sont à vous ! Les compositions florales fraîches et les ballons sont offerts à l'issue de l'événement et restent sur place. Aucun retour n'est nécessaire pour ces éléments 🌸</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Quels articles peut-on personnaliser ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Panneaux d'accueil, signalétique, miroirs… beaucoup de nos articles peuvent être personnalisés selon vos envies — texte, police et coloris au choix. Les articles personnalisés restent la propriété de Réunis et sont soumis aux mêmes conditions de location que le reste du catalogue, sauf exception clairement mentionnée sur votre devis.</p>
+      <a href="cat-signaletique.html" class="faq-cta">Voir la signalétique</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Comment se passe concrètement la personnalisation d'un article ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Une fois votre commande confirmée, nous vous transmettons un <strong>bon à tirer (BAT)</strong> par email pour validation. Rien n'est lancé sans votre accord écrit — vous validez, on s'occupe du reste ! Toute modification demandée après validation du BAT pourra entraîner un délai supplémentaire.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Personnalisez-vous aussi la papeterie et les cadeaux de bienvenue ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Oui, tout à fait ! Sur demande, nous pouvons réaliser des éléments de papeterie et des cadeaux de bienvenue personnalisés pour compléter votre décoration. Chaque projet est unique — contactez-nous pour en discuter et nous trouverons ensemble la solution qui vous correspond.</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+</div>
+
+<!-- RETRAIT & RETOUR -->
+<div class="faq-section">
+  <div class="page-section-title">📍 Retrait &amp; Retour</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      À partir de quand puis-je récupérer mon matériel ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Le matériel est disponible à l'enlèvement à partir du <strong>jeudi précédant votre événement</strong>. Le jour et l'horaire sont convenus ensemble lors de la confirmation de commande — on trouve toujours le créneau qui convient à tout le monde !</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Où êtes-vous situées ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Nous disposons de deux points de retrait : <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>. Le point de retrait est défini ensemble selon votre localisation et nos disponibilités. La livraison reste également possible sur demande.</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Dans quel état faut-il rendre les articles ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Propres, secs et soigneusement remballés ! La vaisselle doit être lavée avant restitution — les planches et plateaux en bois ne passent pas au lave-vaisselle. Les fontaines à boisson ne sont pas adaptées aux boissons chaudes. Un supplément pourra être facturé en cas de matériel rendu non nettoyé ou hors délai. Les articles de décoration, meubles et textiles peuvent être rendus en état d'usage normal.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RÉSERVATION & PAIEMENT -->
+<div class="faq-section">
+  <div class="page-section-title">💳 Réservation &amp; Paiement</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Comment être sûre que ma réservation est bien confirmée ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Votre réservation est confirmée dès réception de deux éléments : votre <strong>confirmation écrite par email</strong> et le <strong>versement de l'acompte</strong>. Sans ces deux éléments, les articles ne peuvent pas être considérés comme réservés à votre date. Vous recevrez un email de confirmation de notre part dès que tout est en ordre !</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Comment se passe le paiement ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Un acompte de <strong>50 %</strong> du montant total est demandé à la confirmation de commande. Le solde est à régler au moment du retour du matériel. Le règlement s'effectue par <strong>virement bancaire</strong> — les coordonnées vous sont transmises avec votre devis.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Y a-t-il une caution ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Une caution pourra être demandée selon le montant et la nature des articles réservés. Nos articles sont soigneusement sélectionnés et bichonnés avec soin — nous comptons sur votre vigilance pour en prendre soin durant toute la durée de la location 🤍</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Que se passe-t-il en cas d'annulation ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Toute annulation doit nous être communiquée par écrit dans les meilleurs délais. En cas d'annulation moins de <strong>5 jours avant l'événement</strong>, l'acompte versé reste acquis. Pour toute annulation anticipée, nous étudions ensemble la possibilité d'un remboursement ou d'un report sur une prochaine réservation. On fait toujours notre maximum pour trouver une solution !</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="faq-section">
+  <div class="page-section-title">🌸 Services &amp; Accompagnement</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Proposez-vous l'installation de la décoration sur place ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Oui ! Nous pouvons prendre en charge l'installation et la désinstallation de votre décoration. Le jour de l'installation, merci de prévoir un accès à une prise électrique et à un point d'eau. Ce service est disponible en option — à mentionner lors de votre demande de devis.</p>
+      <a href="contact.html" class="faq-cta">Nous contacter pour un devis</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Je ne sais pas encore par où commencer… pouvez-vous m'aider ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>C'est souvent par là que ça commence, et c'est exactement pour ça qu'on est là ! 😊 Commencez par notre configurateur pour structurer vos envies et votre budget. Nous vous recontactons ensuite pour affiner votre sélection gratuitement. Si vous souhaitez aller plus loin, nous pouvons également créer votre moodboard, réaliser des maquettes et scénographier votre événement de A à Z.</p>
+      <a href="configurateur.html" class="faq-cta">Utiliser le configurateur</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Pouvez-vous gérer l'organisation complète de mon événement ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Absolument ! En plus de la location, nous proposons un accompagnement sur mesure — de la conception visuelle jusqu'à la coordination complète le jour J. Chaque projet est unique, nous construisons ensemble la formule qui vous correspond et vous remettons un document détaillant les rôles et responsabilités de chacun.</p>
+      <a href="contact.html" class="faq-cta">Nous contacter</a>
+    </div>
+  </div>
+</div>
+
+<!-- DIVERS -->
+<div class="faq-section">
+  <div class="page-section-title">🎉 Divers</div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Où retrouver vos précédentes réalisations ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Sur notre Instagram et dans notre galerie ! On y partage régulièrement nos coups de cœur, nos réalisations et les coulisses de nos événements. De quoi vous donner plein d'idées 🎉</p>
+      <a href="galerie.html" class="faq-cta">Voir la galerie</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="https://instagram.com/reunisevent" target="_blank" class="faq-cta">@reunisevent</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      C'est quoi Le Club Réunis ?
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Le Club Réunis, c'est notre façon de signer nos propres événements — des moments festifs et conviviaux, ouverts à tous, organisés tout au long de l'année. Soirées, ateliers, olympiades… on aime réunir les gens et créer des souvenirs inoubliables. Restez connectés pour ne rien rater !</p>
+      <a href="le-club.html" class="faq-cta">Découvrir Le Club</a>
+      <span class="faq-cta-sep">/</span>
+      <a href="https://instagram.com/reunisevent" target="_blank" class="faq-cta">@reunisevent</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
+      Mais qui êtes-vous exactement ? 😊
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      <p>Deux amies passionnées par la fête, les fleurs et les belles choses ! Réunis est une <strong>association loi 1901</strong> — les fonds récoltés nous permettent d'investir dans de nouveaux matériels et d'organiser nos propres événements. Tout ce qu'on fait, on le fait avec le cœur.</p>
+      <a href="manifest.html" class="faq-cta">En savoir plus sur Réunis</a>
+    </div>
+  </div>
+</div>
+
+<!-- CTA bas de page -->
+<div class="faq-bottom">
+  <div class="faq-bottom-title">Vous n'avez pas trouvé votre réponse ?</div>
+  <p class="faq-bottom-text">On est là pour vous — écrivez-nous ou passez par le configurateur, on adore échanger sur vos projets ✨</p>
+  <div class="faq-bottom-btns">
+    <a href="contact.html" class="page-option-badge">Nous contacter</a>
+    <a href="configurateur.html" class="page-option-badge">Le configurateur</a>
+    <a href="decorer.html" class="page-option-badge">Le catalogue</a>
+  </div>
+</div>
+
+  </div>
+</main>
+
+<script>
+function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
+if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');}
+function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});}
+updateBadge();
+
+// ── FAQ accordéon ──
+function toggleFaq(btn){
+  var answer=btn.nextElementSibling;
+  var isOpen=btn.classList.contains('open');
+  // Fermer tous les autres
+  document.querySelectorAll('.faq-question.open').forEach(function(q){
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+
+// ── Carrousel hero ──
+var heroIndex=0;
+var heroSlides=document.querySelectorAll('.faq-hero-slide');
+var dotsContainer=document.getElementById('faq-dots');
+var autoplayTimer;
+
+// Créer les dots
+heroSlides.forEach(function(_,i){
+  var dot=document.createElement('button');
+  dot.className='faq-hero-dot'+(i===0?' active':'');
+  dot.onclick=function(){heroGoTo(i);};
+  dotsContainer.appendChild(dot);
+});
+
+function heroGoTo(n){
+  heroIndex=(n+heroSlides.length)%heroSlides.length;
+  document.getElementById('faq-track').style.transform='translateX(-'+heroIndex*100+'%)';
+  document.querySelectorAll('.faq-hero-dot').forEach(function(d,i){
+    d.classList.toggle('active',i===heroIndex);
+  });
+  clearInterval(autoplayTimer);
+  startAutoplay();
+}
+
+function heroSlide(dir){heroGoTo(heroIndex+dir);}
+
+function startAutoplay(){
+  autoplayTimer=setInterval(function(){heroGoTo(heroIndex+1);},4000);
+}
+startAutoplay();
+
+// Charger les photos depuis le catalogue Notion (photos ambiance)
+fetch('/api/catalogue')
+  .then(function(r){return r.json();})
+  .then(function(articles){
+    var photos=[];
+    articles.forEach(function(a){
+      if(a.photos_ambiance&&a.photos_ambiance.length){
+        a.photos_ambiance.forEach(function(url){if(url)photos.push(url);});
+      }
+    });
+    // Mélanger et prendre 5 photos
+    photos.sort(function(){return Math.random()-.5;});
+    photos=photos.slice(0,5);
+    if(!photos.length)return;
+    var slides=document.querySelectorAll('.faq-hero-slide');
+    slides.forEach(function(slide,i){
+      if(photos[i]){
+        slide.innerHTML='<img src="'+photos[i]+'" alt="Réalisation Réunis">';
+      }
+    });
+  })
+  .catch(function(){});
+</script>
+
+</body>
+</html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="FAQ Réunis — toutes les réponses à vos questions sur la location de décoration événementielle.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Réunis</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── Styles communs pages contenu ── */
+.page-wrap { max-width:780px; margin:0 auto; padding:52px 28px 80px; }
+.page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
+.page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
+.page-section { margin-bottom:52px; }
 .page-section-title { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; color:var(--noir); margin-bottom:24px; }
 .page-wrap h2 { font-family:'Arimo',sans-serif; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--rose); margin:28px 0 10px; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.07); }
 .page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
