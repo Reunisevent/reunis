@@ -301,6 +301,10 @@ display: inline-block;
 transition: all .2s;
 }
 .btn-faq-secondary:hover { border-color: var(–noir); }
+.faq-link { color:var(–rose); font-weight:600; text-decoration:none; }
+.faq-link:hover { opacity:.7; }
+.faq-link { color:var(–rose); font-weight:600; text-decoration:none; transition:opacity .2s; }
+.faq-link:hover { opacity:.7; }
 
 @media(max-width:680px){
 .faq-wrap { padding: 32px 20px 60px; }
@@ -356,7 +360,7 @@ transition: all .2s;
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <a class="topbar-logo" href="index.html">Réunis</a>
-  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
     <span class="heart-badge" id="fav-badge"></span>
   </a>
@@ -414,7 +418,7 @@ transition: all .2s;
     <div class="faq-intro">
       <h1>FAQ</h1>
       <p class="faq-intro-sub">Questions fréquentes</p>
-      <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html" style="color:var(--rose);font-weight:600;">nous contacter</a>.</p>
+      <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html" class="faq-link">nous contacter</a>.</p>
     </div>
 
 ```
