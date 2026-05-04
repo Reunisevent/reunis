@@ -141,7 +141,7 @@ font-size: 10px;
 letter-spacing: 3px;
 text-transform: uppercase;
 color: var(–muted);
-margin-bottom: 16px;
+margin-bottom: 40px;
 }
 .faq-intro-text {
 font-size: 14px;
@@ -157,11 +157,15 @@ margin-bottom: 48px;
 margin-bottom: 52px;
 }
 .faq-section-title {
-font-family: ‘Abril Fatface’, serif;
-font-size: 1.6rem;
-font-weight: 400;
-color: var(–noir);
-margin-bottom: 20px;
+font-family: ‘Arimo’, sans-serif;
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–rose);
+margin: 0 0 20px 0;
+padding-bottom: 8px;
+border-bottom: 1px solid rgba(0,0,0,.07);
 }
 
 /* Accordéon */
@@ -173,18 +177,17 @@ display: flex;
 align-items: flex-start;
 justify-content: space-between;
 gap: 16px;
-padding: 18px 0;
+padding: 16px 0;
 cursor: pointer;
+font-family: ‘Arimo’, sans-serif;
 font-size: 14px;
-font-weight: 600;
+font-weight: 700;
 color: var(–noir);
-letter-spacing: .2px;
 line-height: 1.4;
 background: none;
 border: none;
 width: 100%;
 text-align: left;
-font-family: ‘Arimo’, sans-serif;
 transition: color .2s;
 text-decoration: none;
 -webkit-appearance: none;
@@ -193,16 +196,16 @@ text-decoration: none;
 .faq-question.open { color: var(–rose); }
 .faq-toggle {
 flex-shrink: 0;
-width: 22px; height: 22px;
+width: 24px; height: 24px;
 border-radius: 50%;
 background: var(–bg);
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: .75rem;
+font-size: .8rem;
 color: var(–muted);
 transition: all .3s;
-margin-top: 1px;
+margin-top: 4px;
 }
 .faq-question.open .faq-toggle {
 background: var(–rose);
@@ -211,19 +214,22 @@ transform: rotate(45deg);
 }
 .faq-answer {
 display: none;
-padding: 0 24px 20px 0;
+padding: 4px 0 24px 0;
 font-size: 14px;
 line-height: 1.85;
-color: #555;
+color: #444;
 }
 .faq-answer.open { display: block; }
-.faq-answer p { margin-bottom: 10px; }
+.faq-answer p { margin-bottom: 12px; }
 .faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer strong { color: var(–noir); }
+.faq-answer a { color: var(–rose); font-weight: 600; text-decoration: none; }
+.faq-answer a:hover { opacity: .7; }
 .faq-cta {
 display: inline-flex;
 align-items: center;
 gap: 6px;
-margin-top: 10px;
+margin-top: 8px;
 font-size: 11px;
 font-weight: 700;
 letter-spacing: 1.5px;
@@ -409,7 +415,6 @@ transition: all .2s;
     <p class="faq-eyebrow">Questions fréquentes</p>
     <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
 
-```
 <!-- LOCATION -->
 <div class="faq-section">
   <div class="faq-section-title">📦 Location de matériel</div>
@@ -696,7 +701,6 @@ transition: all .2s;
     <a href="configurateur.html" class="btn-faq-secondary">Utiliser le configurateur</a>
   </div>
 </div>
-```
 
   </div>
 </main>
