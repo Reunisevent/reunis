@@ -69,6 +69,9 @@ cursor: pointer;
 transition: all .3s;
 border: none;
 padding: 0;
+color: transparent;
+font-size: 0;
+-webkit-appearance: none;
 }
 .faq-hero-dot.active {
 background: white;
@@ -92,6 +95,8 @@ font-size: 1rem;
 color: var(–noir);
 box-shadow: 0 2px 8px rgba(0,0,0,.1);
 transition: all .2s;
+text-decoration: none;
+-webkit-appearance: none;
 }
 .faq-hero-arrow:hover { background: white; transform: translateY(-50%) scale(1.05); }
 .faq-hero-arrow.left { left: 16px; }
@@ -125,50 +130,38 @@ max-width: 780px;
 margin: 0 auto;
 padding: 52px 28px 80px;
 }
-.faq-intro {
-margin-bottom: 48px;
-}
-.faq-intro h1 {
+.faq-wrap h1 {
 font-family: ‘Abril Fatface’, serif;
 font-size: clamp(2rem, 4vw, 3rem);
 font-weight: 400;
 margin-bottom: 8px;
 }
-.faq-intro-sub {
-font-size: 11px;
-letter-spacing: 2px;
+.faq-eyebrow {
+font-size: 10px;
+letter-spacing: 3px;
 text-transform: uppercase;
 color: var(–muted);
 margin-bottom: 16px;
 }
 .faq-intro-text {
 font-size: 14px;
-color: #666;
-line-height: 1.75;
-max-width: 520px;
+color: #444;
+line-height: 1.85;
+margin-bottom: 48px;
 }
+.faq-intro-text a { color: var(–rose); font-weight: 600; text-decoration: none; }
+.faq-intro-text a:hover { opacity: .7; }
 
 /* Sections */
 .faq-section {
-margin-bottom: 48px;
-}
-.faq-section-header {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-bottom: 20px;
-padding-bottom: 12px;
-border-bottom: 2px solid var(–noir);
-}
-.faq-section-emoji {
-font-size: 1.3rem;
-flex-shrink: 0;
+margin-bottom: 52px;
 }
 .faq-section-title {
 font-family: ‘Abril Fatface’, serif;
-font-size: 1.4rem;
+font-size: 1.6rem;
 font-weight: 400;
 color: var(–noir);
+margin-bottom: 20px;
 }
 
 /* Accordéon */
@@ -183,7 +176,7 @@ gap: 16px;
 padding: 18px 0;
 cursor: pointer;
 font-size: 14px;
-font-weight: 700;
+font-weight: 600;
 color: var(–noir);
 letter-spacing: .2px;
 line-height: 1.4;
@@ -193,6 +186,8 @@ width: 100%;
 text-align: left;
 font-family: ‘Arimo’, sans-serif;
 transition: color .2s;
+text-decoration: none;
+-webkit-appearance: none;
 }
 .faq-question:hover { color: var(–rose); }
 .faq-question.open { color: var(–rose); }
@@ -301,15 +296,10 @@ display: inline-block;
 transition: all .2s;
 }
 .btn-faq-secondary:hover { border-color: var(–noir); }
-.faq-link { color:var(–rose); font-weight:600; text-decoration:none; }
-.faq-link:hover { opacity:.7; }
-.faq-link { color:var(–rose); font-weight:600; text-decoration:none; transition:opacity .2s; }
-.faq-link:hover { opacity:.7; }
 
 @media(max-width:680px){
 .faq-wrap { padding: 32px 20px 60px; }
 .faq-bottom { padding: 28px 20px; }
-.faq-section-header { gap: 8px; }
 }
 </style>
 
@@ -415,19 +405,14 @@ transition: all .2s;
   <!-- FAQ -->
 
   <div class="faq-wrap">
-    <div class="faq-intro">
-      <h1>FAQ</h1>
-      <p class="faq-intro-sub">Questions fréquentes</p>
-      <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html" class="faq-link">nous contacter</a>.</p>
-    </div>
+    <h1>FAQ</h1>
+    <p class="faq-eyebrow">Questions fréquentes</p>
+    <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
 
 ```
 <!-- LOCATION -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">📦</span>
-    <div class="faq-section-title">Location de matériel</div>
-  </div>
+  <div class="faq-section-title">📦 Location de matériel</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
@@ -491,10 +476,7 @@ transition: all .2s;
 
 <!-- ARTICLES SPÉCIFIQUES -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">✨</span>
-    <div class="faq-section-title">Articles spécifiques</div>
-  </div>
+  <div class="faq-section-title">✨ Articles spécifiques</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
@@ -543,10 +525,7 @@ transition: all .2s;
 
 <!-- RETRAIT & RETOUR -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">📍</span>
-    <div class="faq-section-title">Retrait &amp; Retour</div>
-  </div>
+  <div class="faq-section-title">📍 Retrait &amp; Retour</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
@@ -582,10 +561,7 @@ transition: all .2s;
 
 <!-- RÉSERVATION & PAIEMENT -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">💳</span>
-    <div class="faq-section-title">Réservation &amp; Paiement</div>
-  </div>
+  <div class="faq-section-title">💳 Réservation &amp; Paiement</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
@@ -631,10 +607,7 @@ transition: all .2s;
 
 <!-- SERVICES -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">🌸</span>
-    <div class="faq-section-title">Services &amp; Accompagnement</div>
-  </div>
+  <div class="faq-section-title">🌸 Services &amp; Accompagnement</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
@@ -674,10 +647,7 @@ transition: all .2s;
 
 <!-- DIVERS -->
 <div class="faq-section">
-  <div class="faq-section-header">
-    <span class="faq-section-emoji">🎉</span>
-    <div class="faq-section-title">Divers</div>
-  </div>
+  <div class="faq-section-title">🎉 Divers</div>
 
   <div class="faq-item">
     <button class="faq-question" onclick="toggleFaq(this)">
