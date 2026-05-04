@@ -350,7 +350,7 @@ transition: all .2s;
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <a class="topbar-logo" href="index.html">Réunis</a>
-  <a class="topbar-icon" href="favoris.html" aria-label="Favoris">
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
     <span class="heart-badge" id="fav-badge"></span>
   </a>
@@ -397,8 +397,8 @@ transition: all .2s;
     <div class="faq-hero-overlay">
       <span class="faq-hero-caption">Nos réalisations</span>
     </div>
-    <button class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</button>
-    <button class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</button>
+    <div class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</div>
+    <div class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</div>
     <div class="faq-hero-dots" id="faq-dots"></div>
   </div>
 
@@ -409,15 +409,16 @@ transition: all .2s;
     <p class="faq-eyebrow">Questions fréquentes</p>
     <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
 
+```
 <!-- LOCATION -->
 <div class="faq-section">
   <div class="faq-section-title">📦 Location de matériel</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Comment fonctionne la location d'articles ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Rien de plus simple ! Parcourez notre catalogue, ajoutez vos coups de cœur aux favoris et envoyez-nous votre sélection. Nous revenons vers vous rapidement avec un devis personnalisé. Vous pouvez également passer par notre configurateur pour être accompagné(e) pas à pas dans votre projet.</p>
       <a href="decorer.html" class="faq-cta">Voir le catalogue</a>
@@ -427,10 +428,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Est-il possible de venir voir les articles en vrai avant de se décider ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Absolument ! Notre local vous est ouvert sur rendez-vous — c'est toujours plus parlant de voir les pièces en vrai. Et puis c'est aussi l'occasion d'échanger directement sur votre projet autour d'un café ☕</p>
       <a href="contact.html" class="faq-cta">Nous contacter pour prendre rendez-vous</a>
@@ -438,10 +439,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Je ne trouve pas mon bonheur dans le catalogue… que faire ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Notre catalogue évolue régulièrement et ne reflète pas toujours l'intégralité de nos pépites ! Décrivez-nous ce dont vous avez besoin — nous faisons notre maximum pour trouver une solution adaptée à votre projet. Et si vous avez besoin d'un accompagnement plus poussé, notre équipe est là pour vous aider à composer votre décoration de A à Z.</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -451,10 +452,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Livrez-vous directement sur le lieu de l'événement ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Oui, la livraison est possible sur demande, moyennant un supplément calculé selon la distance. Nous disposons également de deux points de retrait : <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>. On convient ensemble du créneau qui vous arrange le mieux !</p>
       <a href="contact.html" class="faq-cta">Nous contacter pour en savoir plus</a>
@@ -462,10 +463,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Est-il possible de modifier sa commande après validation ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Oui, toute commande reste modifiable jusqu'à <strong>5 jours avant votre événement</strong>, sous réserve de disponibilité. Passé ce délai, la commande est considérée comme ferme et définitive. En cas de doute, n'hésitez pas à nous contacter rapidement !</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -478,20 +479,20 @@ transition: all .2s;
   <div class="faq-section-title">✨ Articles spécifiques</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Que faire des fleurs fraîches et des ballons après la fête ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Bonne nouvelle — ils sont à vous ! Les compositions florales fraîches et les ballons sont offerts à l'issue de l'événement et restent sur place. Aucun retour n'est nécessaire pour ces éléments 🌸</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Quels articles peut-on personnaliser ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Panneaux d'accueil, signalétique, miroirs… beaucoup de nos articles peuvent être personnalisés selon vos envies — texte, police et coloris au choix. Les articles personnalisés restent la propriété de Réunis et sont soumis aux mêmes conditions de location que le reste du catalogue, sauf exception clairement mentionnée sur votre devis.</p>
       <a href="cat-signaletique.html" class="faq-cta">Voir la signalétique</a>
@@ -501,20 +502,20 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Comment se passe concrètement la personnalisation d'un article ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Une fois votre commande confirmée, nous vous transmettons un <strong>bon à tirer (BAT)</strong> par email pour validation. Rien n'est lancé sans votre accord écrit — vous validez, on s'occupe du reste ! Toute modification demandée après validation du BAT pourra entraîner un délai supplémentaire.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Personnalisez-vous aussi la papeterie et les cadeaux de bienvenue ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Oui, tout à fait ! Sur demande, nous pouvons réaliser des éléments de papeterie et des cadeaux de bienvenue personnalisés pour compléter votre décoration. Chaque projet est unique — contactez-nous pour en discuter et nous trouverons ensemble la solution qui vous correspond.</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -527,20 +528,20 @@ transition: all .2s;
   <div class="faq-section-title">📍 Retrait &amp; Retour</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       À partir de quand puis-je récupérer mon matériel ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Le matériel est disponible à l'enlèvement à partir du <strong>jeudi précédant votre événement</strong>. Le jour et l'horaire sont convenus ensemble lors de la confirmation de commande — on trouve toujours le créneau qui convient à tout le monde !</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Où êtes-vous situées ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Nous disposons de deux points de retrait : <strong>Épuisay (41)</strong> et <strong>Épieds-en-Beauce (45)</strong>. Le point de retrait est défini ensemble selon votre localisation et nos disponibilités. La livraison reste également possible sur demande.</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -548,10 +549,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Dans quel état faut-il rendre les articles ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Propres, secs et soigneusement remballés ! La vaisselle doit être lavée avant restitution — les planches et plateaux en bois ne passent pas au lave-vaisselle. Les fontaines à boisson ne sont pas adaptées aux boissons chaudes. Un supplément pourra être facturé en cas de matériel rendu non nettoyé ou hors délai. Les articles de décoration, meubles et textiles peuvent être rendus en état d'usage normal.</p>
     </div>
@@ -563,40 +564,40 @@ transition: all .2s;
   <div class="faq-section-title">💳 Réservation &amp; Paiement</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Comment être sûre que ma réservation est bien confirmée ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Votre réservation est confirmée dès réception de deux éléments : votre <strong>confirmation écrite par email</strong> et le <strong>versement de l'acompte</strong>. Sans ces deux éléments, les articles ne peuvent pas être considérés comme réservés à votre date. Vous recevrez un email de confirmation de notre part dès que tout est en ordre !</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Comment se passe le paiement ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Un acompte de <strong>50 %</strong> du montant total est demandé à la confirmation de commande. Le solde est à régler au moment du retour du matériel. Le règlement s'effectue par <strong>virement bancaire</strong> — les coordonnées vous sont transmises avec votre devis.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Y a-t-il une caution ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Une caution pourra être demandée selon le montant et la nature des articles réservés. Nos articles sont soigneusement sélectionnés et bichonnés avec soin — nous comptons sur votre vigilance pour en prendre soin durant toute la durée de la location 🤍</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Que se passe-t-il en cas d'annulation ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Toute annulation doit nous être communiquée par écrit dans les meilleurs délais. En cas d'annulation moins de <strong>5 jours avant l'événement</strong>, l'acompte versé reste acquis. Pour toute annulation anticipée, nous étudions ensemble la possibilité d'un remboursement ou d'un report sur une prochaine réservation. On fait toujours notre maximum pour trouver une solution !</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -609,10 +610,10 @@ transition: all .2s;
   <div class="faq-section-title">🌸 Services &amp; Accompagnement</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Proposez-vous l'installation de la décoration sur place ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Oui ! Nous pouvons prendre en charge l'installation et la désinstallation de votre décoration. Le jour de l'installation, merci de prévoir un accès à une prise électrique et à un point d'eau. Ce service est disponible en option — à mentionner lors de votre demande de devis.</p>
       <a href="contact.html" class="faq-cta">Nous contacter pour un devis</a>
@@ -620,10 +621,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Je ne sais pas encore par où commencer… pouvez-vous m'aider ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>C'est souvent par là que ça commence, et c'est exactement pour ça qu'on est là ! 😊 Commencez par notre configurateur pour structurer vos envies et votre budget. Nous vous recontactons ensuite pour affiner votre sélection gratuitement. Si vous souhaitez aller plus loin, nous pouvons également créer votre moodboard, réaliser des maquettes et scénographier votre événement de A à Z.</p>
       <a href="configurateur.html" class="faq-cta">Utiliser le configurateur</a>
@@ -633,10 +634,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Pouvez-vous gérer l'organisation complète de mon événement ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Absolument ! En plus de la location, nous proposons un accompagnement sur mesure — de la conception visuelle jusqu'à la coordination complète le jour J. Chaque projet est unique, nous construisons ensemble la formule qui vous correspond et vous remettons un document détaillant les rôles et responsabilités de chacun.</p>
       <a href="contact.html" class="faq-cta">Nous contacter</a>
@@ -649,10 +650,10 @@ transition: all .2s;
   <div class="faq-section-title">🎉 Divers</div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Où retrouver vos précédentes réalisations ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Sur notre Instagram et dans notre galerie ! On y partage régulièrement nos coups de cœur, nos réalisations et les coulisses de nos événements. De quoi vous donner plein d'idées 🎉</p>
       <a href="galerie.html" class="faq-cta">Voir la galerie</a>
@@ -662,10 +663,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       C'est quoi Le Club Réunis ?
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Le Club Réunis, c'est notre façon de signer nos propres événements — des moments festifs et conviviaux, ouverts à tous, organisés tout au long de l'année. Soirées, ateliers, olympiades… on aime réunir les gens et créer des souvenirs inoubliables. Restez connectés pour ne rien rater !</p>
       <a href="le-club.html" class="faq-cta">Découvrir Le Club</a>
@@ -675,10 +676,10 @@ transition: all .2s;
   </div>
 
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
+    <div class="faq-question" onclick="toggleFaq(this)" role="button" tabindex="0">
       Mais qui êtes-vous exactement ? 😊
       <span class="faq-toggle">+</span>
-    </button>
+    </div>
     <div class="faq-answer">
       <p>Deux amies passionnées par la fête, les fleurs et les belles choses ! Réunis est une <strong>association loi 1901</strong> — les fonds récoltés nous permettent d'investir dans de nouveaux matériels et d'organiser nos propres événements. Tout ce qu'on fait, on le fait avec le cœur.</p>
       <a href="manifest.html" class="faq-cta">En savoir plus sur Réunis</a>
@@ -695,6 +696,7 @@ transition: all .2s;
     <a href="configurateur.html" class="btn-faq-secondary">Utiliser le configurateur</a>
   </div>
 </div>
+```
 
   </div>
 </main>
