@@ -15,11 +15,10 @@
 .page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
 .page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
 .page-wrap strong { color:var(--noir); }
-.page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
-.page-wrap a:hover { opacity:.7; }
+
 .faq-section { margin-bottom:44px; }
-.page-section-title { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; color:var(--noir); margin-bottom:12px; }
-.page-option-badge, a.page-option-badge { display:inline-block; margin:4px 4px; font-family:'Arimo',sans-serif; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#fff !important; background:var(--rose); border-radius:100px; padding:10px 20px; text-decoration:none; transition:opacity .2s; }
+.page-section-title { font-family:‘Abril Fatface’,serif; font-size:1.6rem; font-weight:400; color:var(–noir); margin-bottom:12px; }
+.page-option-badge, a.page-option-badge { display:inline-block; margin:4px 4px; font-family:‘Arimo’,sans-serif; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#fff !important; background:var(–rose); border-radius:100px; padding:10px 20px; text-decoration:none; transition:opacity .2s; }
 .page-option-badge:hover { opacity:.8; }
 
 /* ── Carrousel hero ── */
@@ -47,11 +46,17 @@
 .faq-intro-text a { color:var(–rose); font-weight:600; text-decoration:none; }
 .faq-intro-text a:hover { opacity:.7; }
 .faq-item { border-bottom:1px solid rgba(0,0,0,.07); }
-.faq-wrap .faq-question { color:var(–noir); }
-.faq-wrap .faq-question.open, .faq-wrap .faq-question:hover { color:var(–rose); }
+
 .faq-question { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:14px 0; cursor:pointer; font-family:‘Arimo’,sans-serif; font-size:14px; font-weight:700; color:var(–noir); line-height:1.4; background:none; border:none; width:100%; text-align:left; transition:color .2s; text-decoration:none; }
 .faq-question:hover { color:var(–rose); }
 .faq-question.open { color:var(–rose); }
+/* liens dans page-wrap general */
+.page-wrap a { color:var(–rose); text-decoration:none; font-weight:600; }
+.page-wrap a:hover { opacity:.7; }
+/* liens dans les reponses FAQ - spécificité haute pour ne pas être écrasés */
+.faq-answer a { color:var(–rose); font-weight:700; text-decoration:none; }
+.faq-answer a:hover { opacity:.7; }
+
 .faq-toggle { flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(–bg); display:flex; align-items:center; justify-content:center; font-size:.8rem; color:var(–muted); transition:all .3s; margin-top:2px; }
 .faq-question.open .faq-toggle { background:var(–rose); color:white; transform:rotate(45deg); }
 .faq-answer { display:none; padding:4px 0 20px 0; font-size:14px; line-height:1.85; color:#444; }
@@ -59,8 +64,7 @@
 .faq-answer p { margin-bottom:12px; }
 .faq-answer p:last-child { margin-bottom:0; }
 .faq-answer strong { color:var(–noir); }
-.faq-answer a, .page-wrap .faq-answer a { color:var(–rose) !important; font-weight:700 !important; text-decoration:none; }
-.faq-answer a:hover { opacity:.7; }
+
 .faq-cta { display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(–rose); text-decoration:none; transition:opacity .2s; }
 .faq-cta:hover { opacity:.7; }
 .faq-cta-sep { color:rgba(0,0,0,.2); margin:0 4px; }
@@ -180,7 +184,6 @@
     <p class="page-eyebrow">Questions fréquentes</p>
     <p class="faq-intro-text">Tout ce que vous souhaitez savoir avant de vous lancer. Une question sans réponse ici ? On est là &#x2192; <a href="contact.html">nous contacter</a>.</p>
 
-```
 <!-- LOCATION -->
 <div class="faq-section">
   <div class="page-section-title">📦 Location de matériel</div>
@@ -468,7 +471,6 @@
     <a href="decorer.html" class="page-option-badge">Le catalogue</a>
   </div>
 </div>
-```
 
   </div>
 </main>
