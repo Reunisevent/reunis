@@ -28,8 +28,6 @@
 .faq-hero-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--muted); width:100%; height:100%; }
 .faq-hero-placeholder-emoji { font-size:3rem; }
 .faq-hero-placeholder-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; }
-.faq-hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.32) 100%); pointer-events:none; display:flex; align-items:flex-end; padding:24px 28px; }
-.faq-hero-caption { color:white; font-size:11px; letter-spacing:2px; text-transform:uppercase; opacity:.8; }
 .faq-hero-dots { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
 .faq-hero-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.45); cursor:pointer; transition:all .3s; }
 .faq-hero-dot.active { background:white; width:20px; border-radius:3px; }
@@ -121,13 +119,12 @@
   <!-- CARROUSEL -->
   <div class="faq-hero" id="faq-hero">
     <div class="faq-hero-track" id="faq-track">
-      <div class="faq-hero-slide"><div class="faq-hero-placeholder"><div class="faq-hero-placeholder-emoji">✨</div><div class="faq-hero-placeholder-label">Nos réalisations</div></div></div>
-      <div class="faq-hero-slide"><div class="faq-hero-placeholder"><div class="faq-hero-placeholder-emoji">🌸</div><div class="faq-hero-placeholder-label">Nos réalisations</div></div></div>
-      <div class="faq-hero-slide"><div class="faq-hero-placeholder"><div class="faq-hero-placeholder-emoji">🕯️</div><div class="faq-hero-placeholder-label">Nos réalisations</div></div></div>
-      <div class="faq-hero-slide"><div class="faq-hero-placeholder"><div class="faq-hero-placeholder-emoji">🎉</div><div class="faq-hero-placeholder-label">Nos réalisations</div></div></div>
-      <div class="faq-hero-slide"><div class="faq-hero-placeholder"><div class="faq-hero-placeholder-emoji">🍽️</div><div class="faq-hero-placeholder-label">Nos réalisations</div></div></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086525/Reunisevent_carrousel_mariage_panneau_tkfjaj.jpg" alt="Mariage"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_bapteme_table_tjpkvm.jpg" alt="Baptême"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086527/Reunisevent_carrousel_fleurs_ur15if.jpg" alt="Fleurs"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_details_omxw8o.jpg" alt="Détails"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_anniversaire_backdrops_dbarei.jpg" alt="Anniversaire"></div>
     </div>
-    <div class="faq-hero-overlay"><span class="faq-hero-caption">Nos réalisations</span></div>
     <div class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</div>
     <div class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</div>
     <div class="faq-hero-dots" id="faq-dots"></div>
@@ -379,16 +376,7 @@ var autoplay;
     dotsEl.appendChild(d);
   }
   startAutoplay();
-  fetch('/api/catalogue').then(function(r){return r.json();}).then(function(articles){
-    var photos=[];
-    articles.forEach(function(a){(a.photos_ambiance||[]).forEach(function(u){if(u)photos.push(u);});});
-    photos.sort(function(){return Math.random()-.5;});
-    photos=photos.slice(0,5);
-    if(!photos.length)return;
-    document.querySelectorAll('.faq-hero-slide').forEach(function(s,i){
-      if(photos[i])s.innerHTML='<img src="'+photos[i]+'" alt="Réalisation Réunis">';
-    });
-  }).catch(function(){});
+
 })();
 function heroGoTo(n){
   heroIndex=(n+heroTotal)%heroTotal;
