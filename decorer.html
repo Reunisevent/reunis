@@ -95,6 +95,7 @@
 }
 @media(max-width:400px){.cat-footer{grid-template-columns:1fr;}}
 #cats-section{margin:0;padding:0;}
+@media(max-width:860px){.cat-section .items-grid{grid-template-columns:repeat(2,1fr) !important;}}
 </style>
 </head>
 <body>
@@ -257,9 +258,7 @@ var HEART_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColo
 var allArticles=[];
 var activeFilters={badge:[],couleur:[],tag:[]};
 function isNew(a){
-  if(!a.date_ajout)return false;
-  var d=new Date();d.setMonth(d.getMonth()-1);
-  return new Date(a.date_ajout)>d;
+  return !!a.date_ajout;
 }
 function chargerCatalogue(){
   fetch('/api/catalogue')
@@ -295,9 +294,9 @@ function afficherModeNormal(){
   document.getElementById('cat-no-results').style.display='none';
   var favIds=getFavIds();
   var loader=document.getElementById('cat-loader');
-  var nouveaux=allArticles.filter(function(a){return isNew(a);});
-  if(nouveaux.length){
-    var secCats=document.createElement('div');secCats.className='cat-section';
+  var nouveaux=allArticles.filter(function(a){return isNew(a);}).sort(function(a,b){return new Date(b.date_ajout)-new Date(a.date_ajout);});
+  // Carrousel catégories - toujours affiché
+  var secCats=document.createElement('div');secCats.className='cat-section';
   secCats.innerHTML='<div class="cat-section-title">Parcourir les catégories</div>'+
     '<div class="cats-carousel-wrap">'+
     '<div class="cats-arrow left" onclick="catsScroll(-1)">&#8249;</div>'+
@@ -307,7 +306,8 @@ function afficherModeNormal(){
     '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
   var catsSection=document.getElementById('cats-section');if(catsSection)catsSection.innerHTML='';if(catsSection)catsSection.appendChild(secCats);
-  var secNouv=document.createElement('div');secNouv.className='cat-section';
+  if(nouveaux.length){
+    var secNouv=document.createElement('div');secNouv.className='cat-section';
     secNouv.innerHTML='<div class="cat-section-title">Nouveautés</div>';
     var gridNouv=document.createElement('div');gridNouv.className='items-grid';
     var limit=Math.min(nouveaux.length,10);
