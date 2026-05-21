@@ -34,12 +34,18 @@
 .cat-content{padding:0 24px 60px;}
 .cat-section{margin-bottom:48px;scroll-margin-top:80px;}
 .cat-section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;margin-bottom:20px;}
-.cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:8px;}
-.cat-tile{position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1/1;background:var(--bg);display:flex;align-items:flex-end;text-decoration:none;}
-.cat-tile-bg{position:absolute;inset:0;background:var(--white);transition:transform .4s ease;}
-.cat-tile:hover .cat-tile-bg{transform:scale(1.05);}
-.cat-tile-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-65%);font-size:2.2rem;z-index:1;}
-.cat-tile-label{position:relative;z-index:2;width:100%;background:rgba(0,0,0,.72);color:white;padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.cats-carousel-wrap{position:relative;margin-bottom:8px;}
+.cats-carousel{display:flex;gap:2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.cats-carousel::-webkit-scrollbar{display:none;}
+.cat-tile{position:relative;cursor:pointer;overflow:hidden;flex:0 0 180px;aspect-ratio:3/4;background:var(--bg);display:flex;align-items:flex-end;text-decoration:none;}
+@media(max-width:860px){.cat-tile{flex:0 0 140px;}}
+.cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.cat-tile:hover img{transform:scale(1.05);}
+.cat-tile-label{position:relative;z-index:2;width:100%;background:rgba(0,0,0,.55);color:white;padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.cats-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;font-size:1.1rem;color:var(--noir);box-shadow:0 2px 8px rgba(0,0,0,.12);transition:background .2s;}
+.cats-arrow:hover{background:white;}
+.cats-arrow.left{left:8px;}
+.cats-arrow.right{right:8px;}
 .items-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;}
 .item-card{position:relative;background:var(--white);cursor:pointer;overflow:hidden;}
 .item-img{aspect-ratio:3/4;overflow:hidden;background:var(--bg);position:relative;}
@@ -288,16 +294,12 @@ function afficherModeNormal(){
   }
   var secCats=document.createElement('div');secCats.className='cat-section';
   secCats.innerHTML='<div class="cat-section-title">Parcourir les catégories</div>'+
-    '<div class="cats-grid">'+
-    '<a class="cat-tile" href="cat-mobilier.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🛋️</div><div class="cat-tile-label">Le mobilier</div></a>'+
-    '<a class="cat-tile" href="cat-decors.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🌿</div><div class="cat-tile-label">Les décors</div></a>'+
-    '<a class="cat-tile" href="cat-signaletique.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🪞</div><div class="cat-tile-label">La signalétique</div></a>'+
-    '<a class="cat-tile" href="cat-table.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🍽️</div><div class="cat-tile-label">La table</div></a>'+
-    '<a class="cat-tile" href="cat-textile.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🧵</div><div class="cat-tile-label">Le textile</div></a>'+
-    '<a class="cat-tile" href="cat-floral.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🌸</div><div class="cat-tile-label">Le floral</div></a>'+
-    '<a class="cat-tile" href="cat-lumiere.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🕯️</div><div class="cat-tile-label">La lumière</div></a>'+
-    '<a class="cat-tile" href="cat-details.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">✨</div><div class="cat-tile-label">Les détails</div></a>'+
-    '<a class="cat-tile" href="cat-pratique.html"><div class="cat-tile-bg"></div><div class="cat-tile-emoji">🔌</div><div class="cat-tile-label">Le pratique</div></a>'+
+    '<div class="cats-carousel-wrap">'+
+    '<div class="cats-arrow left" onclick="catsScroll(-1)">&#8249;</div>'+
+    '<div class="cats-carousel" id="cats-carousel">'+
+    '<a class=\"cat-tile\" href=\"cat-mobilier.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380876/Reunisevent_decorer_mobilier_h55fb3.jpg\" alt=\"Le mobilier\" loading=\"lazy\"><div class=\"cat-tile-label\">Le mobilier</div></a><a class=\"cat-tile\" href=\"cat-decors.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380874/Reunisevent_decorer_decors_esxuuk.jpg\" alt=\"Les décors\" loading=\"lazy\"><div class=\"cat-tile-label\">Les décors</div></a><a class=\"cat-tile\" href=\"cat-signaletique.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380874/Reunisevent_decorer_signaletique_eicsea.jpg\" alt=\"La signalétique\" loading=\"lazy\"><div class=\"cat-tile-label\">La signalétique</div></a><a class=\"cat-tile\" href=\"cat-table.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380879/Reunisevent_decorer_table_la2hu0.jpg\" alt=\"La table\" loading=\"lazy\"><div class=\"cat-tile-label\">La table</div></a><a class=\"cat-tile\" href=\"cat-textile.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380875/Reunisevent_decorer_textile_zjzloy.jpg\" alt=\"Le textile\" loading=\"lazy\"><div class=\"cat-tile-label\">Le textile</div></a><a class=\"cat-tile\" href=\"cat-floral.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380874/Reunisevent_decorer_floral_me5x0t.jpg\" alt=\"Le floral\" loading=\"lazy\"><div class=\"cat-tile-label\">Le floral</div></a><a class=\"cat-tile\" href=\"cat-lumiere.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380875/Reunisevent_decorer_lumieres_gautes.jpg\" alt=\"La lumière\" loading=\"lazy\"><div class=\"cat-tile-label\">La lumière</div></a><a class=\"cat-tile\" href=\"cat-details.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380874/Reunisevent_decorer_details_tmgvg6.jpg\" alt=\"Les détails\" loading=\"lazy\"><div class=\"cat-tile-label\">Les détails</div></a><a class=\"cat-tile\" href=\"cat-pratique.html\"><img src=\"https://res.cloudinary.com/dhdzcow9l/image/upload/v1779380873/Reunisevent_decorer_pratique_zz9zd9.jpg\" alt=\"Le pratique\" loading=\"lazy\"><div class=\"cat-tile-label\">Le pratique</div></a>'+
+    '</div>'+
+    '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
   content.insertBefore(secCats,loader);
 }
@@ -415,6 +417,7 @@ function applyFilters(){
   });
   afficherModeRecherche(filtered);
 }
+function catsScroll(dir){var el=document.getElementById('cats-carousel');if(el)el.scrollBy({left:dir*300,behavior:'smooth'});}
 chargerCatalogue();
 </script>
 </body>
