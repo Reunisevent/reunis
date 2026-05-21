@@ -37,8 +37,8 @@
 .cats-carousel-wrap{position:relative;margin-bottom:8px;}
 .cats-carousel{display:flex;gap:2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cats-carousel::-webkit-scrollbar{display:none;}
-.cat-tile{position:relative;cursor:pointer;overflow:hidden;flex:0 0 180px;aspect-ratio:3/4;background:var(--bg);display:flex;align-items:flex-end;text-decoration:none;}
-@media(max-width:860px){.cat-tile{flex:0 0 140px;}}
+.cat-tile{position:relative;cursor:pointer;overflow:hidden;flex:0 0 calc(20% - 2px);min-width:120px;aspect-ratio:3/4;background:var(--bg);display:flex;align-items:flex-end;text-decoration:none;}
+@media(max-width:860px){.cat-tile{flex:0 0 calc(33.33% - 2px);min-width:100px;}}
 .cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
 .cat-tile:hover img{transform:scale(1.05);}
 .cat-tile-label{position:relative;z-index:2;width:100%;background:rgba(0,0,0,.55);color:white;padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
@@ -284,15 +284,7 @@ function afficherModeNormal(){
   var loader=document.getElementById('cat-loader');
   var nouveaux=allArticles.filter(function(a){return isNew(a);});
   if(nouveaux.length){
-    var secNouv=document.createElement('div');secNouv.className='cat-section';
-    secNouv.innerHTML='<div class="cat-section-title">Nouveautés</div>';
-    var gridNouv=document.createElement('div');gridNouv.className='items-grid';
-    var limit=Math.min(nouveaux.length,10);
-    for(var i=0;i<limit;i++)gridNouv.appendChild(makeCard(nouveaux[i],favIds));
-    secNouv.appendChild(gridNouv);
-    content.insertBefore(secNouv,loader);
-  }
-  var secCats=document.createElement('div');secCats.className='cat-section';
+    var secCats=document.createElement('div');secCats.className='cat-section';
   secCats.innerHTML='<div class="cat-section-title">Parcourir les catégories</div>'+
     '<div class="cats-carousel-wrap">'+
     '<div class="cats-arrow left" onclick="catsScroll(-1)">&#8249;</div>'+
@@ -302,6 +294,14 @@ function afficherModeNormal(){
     '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
   content.insertBefore(secCats,loader);
+  var secNouv=document.createElement('div');secNouv.className='cat-section';
+    secNouv.innerHTML='<div class="cat-section-title">Nouveautés</div>';
+    var gridNouv=document.createElement('div');gridNouv.className='items-grid';
+    var limit=Math.min(nouveaux.length,10);
+    for(var i=0;i<limit;i++)gridNouv.appendChild(makeCard(nouveaux[i],favIds));
+    secNouv.appendChild(gridNouv);
+    content.insertBefore(secNouv,loader);
+  }
 }
 function afficherModeRecherche(articles){
   var content=document.getElementById('cat-content');
