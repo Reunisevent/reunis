@@ -38,7 +38,7 @@
 .cats-carousel{display:flex;gap:2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cats-carousel::-webkit-scrollbar{display:none;}
 .cat-tile{position:relative;cursor:pointer;overflow:hidden;flex:0 0 calc(20% - 2px);min-width:120px;aspect-ratio:3/4;background:var(--bg);display:flex;align-items:flex-end;text-decoration:none;}
-@media(max-width:860px){.cat-tile{flex:0 0 calc(33.33% - 2px);min-width:100px;}}
+@media(max-width:860px){.cat-tile{flex:0 0 calc(50% - 1px);min-width:0;}}
 .cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
 .cat-tile:hover img{transform:scale(1.05);}
 .cat-tile-label{position:relative;z-index:2;width:100%;background:rgba(0,0,0,.55);color:white;padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
@@ -144,6 +144,25 @@
     <div class="cat-title">Décorer</div>
     <p class="cat-intro">Des pièces chinées, bichonnées et créées avec amour pour donner vie à vos plus beaux moments. Parcourez notre sélection, ajoutez vos coups de cœur et laissez-nous faire le reste. ✨</p>
   </div>
+  <div id="cats-section"></div>
+  <div class="cat-footer">
+    <div class="cat-footer-step">
+      <div class="cat-footer-num">1 — Faites votre sélection</div>
+      <div class="cat-footer-text">Ajoutez aux favoris les articles et quantités dont vous avez besoin.</div>
+    </div>
+    <div class="cat-footer-step">
+      <div class="cat-footer-num">2 — Envoyez votre demande</div>
+      <div class="cat-footer-text">Validez votre sélection en un clic pour recevoir votre devis personnalisé.</div>
+    </div>
+    <div class="cat-footer-step">
+      <div class="cat-footer-num">3 — Surveillez votre boîte mail</div>
+      <div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer la disponibilité et affiner les derniers détails.</div>
+    </div>
+    <div class="cat-footer-step">
+      <div class="cat-footer-num">4 — Récupérez vos articles</div>
+      <div class="cat-footer-text">Optez pour la livraison ou venez nous rendre visite. Deux points de retrait : Épuisay (41) — Épieds-en-Beauce (45).</div>
+    </div>
+  </div>
   <div class="cat-toolbar">
     <div class="cat-search-wrap">
       <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
@@ -179,24 +198,6 @@
     <div class="cat-no-results" id="cat-no-results">
       <strong>Aucun résultat</strong>
       Essayez un autre mot-clé ou réinitialisez les filtres.
-    </div>
-  </div>
-  <div class="cat-footer">
-    <div class="cat-footer-step">
-      <div class="cat-footer-num">1 — Faites votre sélection</div>
-      <div class="cat-footer-text">Ajoutez aux favoris les articles et quantités dont vous avez besoin.</div>
-    </div>
-    <div class="cat-footer-step">
-      <div class="cat-footer-num">2 — Envoyez votre demande</div>
-      <div class="cat-footer-text">Validez votre sélection en un clic pour recevoir votre devis personnalisé.</div>
-    </div>
-    <div class="cat-footer-step">
-      <div class="cat-footer-num">3 — Surveillez votre boîte mail</div>
-      <div class="cat-footer-text">Nous vous recontactons dans les plus brefs délais pour confirmer la disponibilité et affiner les derniers détails.</div>
-    </div>
-    <div class="cat-footer-step">
-      <div class="cat-footer-num">4 — Récupérez vos articles</div>
-      <div class="cat-footer-text">Optez pour la livraison ou venez nous rendre visite. Deux points de retrait : Épuisay (41) — Épieds-en-Beauce (45).</div>
     </div>
   </div>
 </main>
@@ -293,7 +294,7 @@ function afficherModeNormal(){
     '</div>'+
     '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
-  content.insertBefore(secCats,loader);
+  var catsSection=document.getElementById('cats-section');if(catsSection)catsSection.innerHTML='';if(catsSection)catsSection.appendChild(secCats);
   var secNouv=document.createElement('div');secNouv.className='cat-section';
     secNouv.innerHTML='<div class="cat-section-title">Nouveautés</div>';
     var gridNouv=document.createElement('div');gridNouv.className='items-grid';
