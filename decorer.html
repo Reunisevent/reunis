@@ -11,10 +11,10 @@
 body{overflow-x:hidden;}
 .main{overflow-x:hidden;max-width:100%;}
 
-.cat-header{padding:16px 24px 0;}
+.cat-header{padding:8px 24px 0;}
 .cat-title{font-family:'Abril Fatface',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1;margin-bottom:8px;}
 .cat-intro{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:16px;max-width:600px;}
-.cat-toolbar{display:flex;align-items:center;gap:10px;padding:0 24px 16px;flex-wrap:wrap;}
+.cat-toolbar{display:flex;align-items:center;gap:10px;padding:16px 24px;flex-wrap:wrap;}
 .cat-search-wrap{display:flex;align-items:center;flex:1;min-width:160px;max-width:360px;border:1px solid rgba(0,0,0,.15);border-radius:8px;overflow:hidden;background:var(--white);}
 .cat-search-input{flex:1;border:none;outline:none;padding:10px 14px;font-family:'Arimo',sans-serif;font-size:13px;background:transparent;color:var(--noir);}
 .cat-search-clear{background:none;border:none;padding:0 12px;color:var(--muted);cursor:pointer;font-size:1rem;display:none;}
@@ -36,7 +36,7 @@ body{overflow-x:hidden;}
 .filter-reset:hover{color:var(--noir);}
 .cat-content{padding:0 24px 60px;}
 .cat-section{margin-bottom:48px;scroll-margin-top:80px;}
-.cat-section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;margin-bottom:20px;}
+.cat-section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;margin-bottom:20px;padding:0 24px;}
 .cats-carousel-wrap{position:relative;margin-bottom:8px;overflow:hidden;}
 .cats-carousel{display:flex;gap:2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cats-carousel::-webkit-scrollbar{display:none;}
@@ -76,13 +76,14 @@ body{overflow-x:hidden;}
 .item-price{font-size:11px;color:var(--muted);}
 .cat-no-results{display:none;text-align:center;padding:60px 24px;color:var(--muted);font-size:14px;}
 .cat-no-results strong{display:block;font-family:'Abril Fatface',serif;font-size:1.8rem;font-weight:400;margin-bottom:8px;color:var(--noir);}
-.cat-footer{background:var(--white);padding:40px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:1px solid rgba(0,0,0,.07);margin-top:auto;margin-bottom:24px;}
+.cat-footer{background:var(--white);padding:32px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:24px;margin-bottom:24px;}
 .cat-footer-num{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;}
 .cat-footer-text{font-size:13px;color:#444;line-height:1.75;}
 .decorer-cta-footer{background:var(--rose);padding:48px 28px;text-align:center;}
+.decorer-cta-btn{display:inline-block;background:white;color:var(--rose);border-radius:100px;padding:14px 28px;font-family:'Arimo',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:opacity .2s;margin-top:8px;}
+.decorer-cta-btn:hover{opacity:.85;}
 .decorer-cta-text{font-size:14px;color:white;line-height:1.75;margin-bottom:20px;}
-.decorer-cta-footer .page-option-badge{background:white;color:var(--rose);}
-.decorer-cta-footer .page-option-badge:hover{opacity:.85;}
+.decorer-cta-footer 
 @media(max-width:860px){
 .main{padding-top:56px;}
 .items-grid{grid-template-columns:repeat(2,1fr);}
@@ -209,7 +210,7 @@ body{overflow-x:hidden;}
   </div>
   <div class="decorer-cta-footer">
     <p class="decorer-cta-text">Vous ne savez pas par où commencer ?<br>Notre configurateur vous guide pas à pas.</p>
-    <a href="configurateur.html" class="page-option-badge">Démarrer mon projet &#x2192;</a>
+    <a href="configurateur.html" class="decorer-cta-btn">Démarrer mon projet &#x2192;</a>
   </div>
 </main>
 <script>
