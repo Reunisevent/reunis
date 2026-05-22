@@ -132,7 +132,7 @@ module.exports = async function handler(req, res) {
 
       // Phrase de remerciement
       + '<p style="font-size:14px;line-height:1.85;color:#D65B80;margin:0 0 28px;font-style:italic;">'
-      + 'Nous sommes ravies de l\'intérêt que vous portez à Réunis et avons hâte de donner vie à votre événement 🌸'
+      + 'Nous avons hâte de donner vie à votre événement 🪩'
       + '</p>'
 
       // Récapitulatif
