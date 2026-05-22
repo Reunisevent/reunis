@@ -23,6 +23,15 @@ module.exports = async function handler(req, res) {
     var articles = body.articles || [];
     var prenom = nom.split(' ')[0];
 
+    // Formater la date JJ/MM/AAAA
+    function formatDate(d) {
+      if(!d) return '';
+      var parts = d.split('-');
+      if(parts.length === 3) return parts[2] + '/' + parts[1] + '/' + parts[0];
+      return d;
+    }
+    var date_evenement_fmt = formatDate(date_evenement);
+
     // ── Lignes articles ──
     var lignesArticles = articles.map(function(a){
       var ligne = '<tr style="border-bottom:1px solid #ede8e8;">'
@@ -57,7 +66,7 @@ module.exports = async function handler(req, res) {
     // ── Email à Réunis ──
     var htmlReunis = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#FAF1F1;">'
       + '<div style="background:#FAF1F1;padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(0,0,0,.1);">'
-      + '<img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779474856/Reunisevent_logo_mail_kjkdbc.png" alt="Réunis" style="height:48px;width:auto;">'
+      + '<img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779474856/Reunisevent_logo_mail_kjkdbc.png" alt="Réunis" style="height:80px;width:auto;display:block;margin:0 auto;">'
       + '<p style="color:#D65B80;font-size:11px;letter-spacing:3px;margin:8px 0 0;text-transform:uppercase;">Nouvelle demande de devis</p>'
       + '</div>'
       + '<div style="padding:32px;background:#FAF1F1;">'
@@ -68,7 +77,7 @@ module.exports = async function handler(req, res) {
       + (telephone ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Téléphone</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + telephone + '</td></tr>' : '')
       + (livraison ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Livraison</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + livraison + '</td></tr>' : '')
       + (adresse_livraison ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Adresse</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + adresse_livraison + '</td></tr>' : '')
-      + (date_evenement ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Date événement</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + date_evenement + '</td></tr>' : '')
+      + (date_evenement ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Date événement</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + date_evenement_fmt + '</td></tr>' : '')
       + (type_evenement ? '<tr><td style="padding:6px 0;color:#888;font-size:13px;">Type événement</td><td style="padding:6px 0;font-weight:600;font-size:13px;">' + type_evenement + '</td></tr>' : '')
       + '</table>'
       + '<h2 style="font-size:16px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;color:#222;">Sélection</h2>'
@@ -99,7 +108,7 @@ module.exports = async function handler(req, res) {
 
     // ── Email de confirmation au client ──
     var recapRows = '';
-    if(date_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;width:45%;">Date de l\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + date_evenement + '</td></tr>';
+    if(date_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;width:45%;">Date de l\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + date_evenement_fmt + '</td></tr>';
     if(type_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Type d\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + type_evenement + '</td></tr>';
     if(livraison) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Mode de livraison</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + livraison + '</td></tr>';
     if(totalArticles > 0) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Montant estimé</td><td style="padding:7px 0;font-size:13px;font-weight:700;color:#D65B80;">' + totalArticles.toFixed(2) + '€</td></tr>';
@@ -109,7 +118,7 @@ module.exports = async function handler(req, res) {
 
       // Header
       + '<div style="background:#FAF1F1;padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(0,0,0,.1);">'
-      + '<img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779474856/Reunisevent_logo_mail_kjkdbc.png" alt="Réunis" style="height:48px;width:auto;">'
+      + '<img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779474856/Reunisevent_logo_mail_kjkdbc.png" alt="Réunis" style="height:80px;width:auto;display:block;margin:0 auto;">'
       + '</div>'
 
       // Corps
