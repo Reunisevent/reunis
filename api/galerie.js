@@ -23,14 +23,16 @@ module.exports = async function handler(req, res) {
   try {
     // 1. Récupérer les événements publiés
     const response = await notion.databases.query({
-      database_id: GALERIE_DB,
-      filter: {
-        property: 'Publié @',
-        checkbox: { equals: true }
-      }
+      database_id: GALERIE_DB
     });
 
     const evenements = [];
+
+    // DEBUG : retourner les noms des propriétés du premier résultat
+    if (response.results.length > 0) {
+      const debugProps = Object.keys(response.results[0].properties);
+      console.log('Propriétés disponibles:', debugProps);
+    }
 
     for (const page of response.results) {
       const props = page.properties;
@@ -63,9 +65,8 @@ module.exports = async function handler(req, res) {
         } catch(e) {}
       }
 
-      if (titre && cover) {
-        evenements.push({ id: page.id, titre, cover, photos, description, articles });
-      }
+      // Debug : pousser même sans cover
+      evenements.push({ id: page.id, titre: titre||'(sans titre)', cover: cover||'', photos, description, articles, debug_publié: props['Publié @']?.checkbox });
     }
 
     res.status(200).json(evenements);
