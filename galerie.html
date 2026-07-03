@@ -340,59 +340,37 @@
 .modal-articles-arrow.left { left: -12px; }
 .modal-articles-arrow.right { right: -12px; }
 
-/* Carrousel photos */
-.modal-photos-wrap {
-  position: relative;
-  overflow: hidden;
-}
-.modal-photos-track {
-  display: flex;
+/* Grille photos */
+.modal-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 3px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.modal-photos-track::-webkit-scrollbar { display: none; }
-.modal-photo-slide {
-  flex: 0 0 calc(50% - 2px);
-  aspect-ratio: 3/4;
+@media(min-width:860px){
+  .modal-photos-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.modal-photo-item {
+  aspect-ratio: 1/1;
   overflow: hidden;
   cursor: pointer;
 }
-@media(min-width:860px){
-  .modal-photo-slide { flex: 0 0 calc(25% - 3px); }
-}
-.modal-photo-slide img {
+.modal-photo-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform .4s ease;
 }
-.modal-photo-slide:hover img { transform: scale(1.04); }
-
-.modal-photos-arrows {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 12px;
+.modal-photo-item:hover img { transform: scale(1.04); }
+.modal-photo-item.centered {
+  grid-column: 1 / -1;
+  max-width: 50%;
+  margin: 0 auto;
+  width: 100%;
 }
-.modal-photos-arrow {
-  background: var(--white);
-  border: 1px solid rgba(0,0,0,.12);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1rem;
-  color: var(--noir);
-  transition: all .2s;
+@media(min-width:860px){
+  .modal-photo-item.centered { max-width: 33.33%; }
 }
-.modal-photos-arrow:hover { background: var(--noir); color: white; }
 
 /* Lightbox */
 .galerie-lightbox {
@@ -518,14 +496,7 @@
 
       <!-- Toutes les photos -->
       <div id="modal-photos-wrap">
-        <div class="modal-section-title">Toutes les photos</div>
-        <div class="modal-photos-wrap">
-          <div class="modal-photos-track" id="modal-photos-track"></div>
-        </div>
-        <div class="modal-photos-arrows">
-          <div class="modal-photos-arrow" onclick="photosScroll(-1)">&#8249;</div>
-          <div class="modal-photos-arrow" onclick="photosScroll(1)">&#8250;</div>
-        </div>
+        <div class="modal-photos-grid" id="modal-photos-track"></div>
       </div>
     </div>
   </div>
@@ -685,10 +656,6 @@ function closeModal(){
 
 function articlesScroll(dir){
   var track = document.getElementById('modal-articles-grid');
-  track.scrollBy({ left: dir * 300, behavior: 'smooth' });
-}
-function photosScroll(dir){
-  var track = document.getElementById('modal-photos-track');
   track.scrollBy({ left: dir * 300, behavior: 'smooth' });
 }
 
