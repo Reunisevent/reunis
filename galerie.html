@@ -43,15 +43,16 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-end;
+  padding: 0 0 40px;
   pointer-events: none;
 }
 .galerie-slide-bandeau {
   background: rgba(0,0,0,.52);
-  padding: 28px 24px 32px;
+  padding: 20px 24px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 .galerie-slide-title {
@@ -215,13 +216,14 @@
   color: var(--noir);
   margin-bottom: 12px;
   line-height: 1.1;
+  text-align: center;
 }
 .modal-description {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.85;
   margin-bottom: 32px;
-  max-width: 600px;
+  text-align: center;
 }
 
 /* 2 photos fixes */
@@ -249,13 +251,93 @@
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(0,0,0,.07);
 }
-.modal-articles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  margin-bottom: 40px;
+.modal-articles-wrap-inner {
+  position: relative;
 }
-@media(max-width:600px){ .modal-articles-grid { grid-template-columns: repeat(2, 1fr); } }
+.modal-articles-track {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0;
+}
+.modal-articles-track::-webkit-scrollbar { display: none; }
+.modal-article-card {
+  flex: 0 0 160px;
+  cursor: pointer;
+  background: var(--white);
+  position: relative;
+}
+.modal-article-img {
+  aspect-ratio: 3/4;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-article-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.modal-article-card:hover .modal-article-img img { transform: scale(1.04); }
+.modal-article-heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  color: var(--muted);
+  transition: all .2s;
+}
+.modal-article-heart:hover, .modal-article-heart.active { color: var(--rose); }
+.modal-article-name {
+  padding: 8px 6px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--noir);
+}
+.modal-article-price {
+  padding: 0 6px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.modal-articles-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 100px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  font-size: 1.1rem;
+  color: var(--noir);
+  transition: all .2s;
+}
+.modal-articles-arrow:hover { background: var(--noir); color: white; }
+.modal-articles-arrow.left { left: -12px; }
+.modal-articles-arrow.right { right: -12px; }
 
 /* Carrousel photos */
 .modal-photos-wrap {
@@ -430,7 +512,7 @@
       <!-- Articles liés -->
       <div id="modal-articles-wrap" style="margin-bottom:40px;">
         <div class="modal-section-title">Articles utilisés lors de cet événement</div>
-        <div class="modal-articles-grid" id="modal-articles-grid"></div>
+        <div class="modal-articles-wrap-inner"><div class="modal-articles-arrow left" onclick="articlesScroll(-1)">&#8249;</div><div class="modal-articles-track" id="modal-articles-grid"></div><div class="modal-articles-arrow right" onclick="articlesScroll(1)">&#8250;</div></div>
       </div>
 
       <!-- Toutes les photos -->
@@ -600,6 +682,10 @@ function closeModal(){
   startAutoplay();
 }
 
+function articlesScroll(dir){
+  var track = document.getElementById('modal-articles-grid');
+  track.scrollBy({ left: dir * 300, behavior: 'smooth' });
+}
 function photosScroll(dir){
   var track = document.getElementById('modal-photos-track');
   track.scrollBy({ left: dir * 300, behavior: 'smooth' });
