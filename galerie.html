@@ -637,14 +637,14 @@ function openModal(idx){
       var isFav = favIds.indexOf(a.id)>=0 || favIds.indexOf(a.nom)>=0;
       var prix = a.prix ? parseFloat(a.prix).toFixed(2)+'€' : 'Sur devis';
       var card = document.createElement('div');
-      card.className = 'item-card';
-      card.innerHTML = '<div class="item-img">'
-        + (a.photo ? '<img class="item-img-inner" src="'+a.photo+'" alt="'+a.nom+'" loading="lazy">' : '<div class="item-img-placeholder">✦</div>')
-        + '<div class="item-overlay"><span class="item-overlay-text">Voir l\'article →</span></div>'
+      card.className = 'modal-article-card';
+      card.innerHTML = '<div class="modal-article-img">'
+        + (a.photo ? '<img src="'+a.photo+'" alt="'+a.nom+'" loading="lazy">' : '<div style="font-size:2rem;color:#ddd;">✦</div>')
         + '</div>'
-        + '<button class="item-heart'+(isFav?' active':'')+'" aria-label="Favori" onclick="toggleHeart(this,'+JSON.stringify(a)+')">'+HEART_SVG+'</button>'
-        + '<div class="item-info"><div class="item-name">'+a.nom+'</div><div class="item-price">'+prix+'</div></div>';
-      card.querySelector('.item-img').onclick = function(){
+        + '<button class="modal-article-heart'+(isFav?' active':'')+'" aria-label="Favori" onclick="event.stopPropagation();toggleHeart(this,'+JSON.stringify(a)+')">'+HEART_SVG+'</button>'
+        + '<div class="modal-article-name">'+a.nom+'</div>'
+        + '<div class="modal-article-price">'+prix+'</div>';
+      card.onclick = function(){
         localStorage.setItem('reunis_article_courant', JSON.stringify(a));
         window.location.href = 'article.html';
       };
