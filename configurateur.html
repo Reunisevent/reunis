@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -17,11 +16,11 @@
 .config-step.active{display:block;}
 @keyframes fadeSlide{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
 .step-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:10px;font-weight:600;}
-.step-title{font-family:'Abril Fatface',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:400;line-height:1.15;margin-bottom:8px;color:var(--noir);}
+.step-title{font-family:'Abril Fatface',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:400;line-height:1.2;margin-bottom:8px;color:var(--noir);}
 .step-subtitle{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:32px;}
 .intro-wrap{text-align:center;padding:20px 0 40px;}
 .intro-emoji{font-size:3.5rem;margin-bottom:20px;}
-.intro-title{font-family:'Abril Fatface',serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;margin-bottom:16px;line-height:1.1;color:var(--noir);}
+.intro-title{font-family:'Abril Fatface',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:400;margin-bottom:16px;line-height:1.15;color:var(--noir);}
 .intro-text{font-size:15px;color:var(--muted);line-height:1.85;max-width:500px;margin:0 auto 36px;}
 .btn-start{background:var(--rose);color:white;border:none;border-radius:100px;padding:16px 40px;font-family:'Arimo',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
 .btn-start:hover{background:var(--noir);transform:translateY(-2px);}
@@ -72,6 +71,7 @@
 .formule-icon{font-size:1.6rem;flex-shrink:0;}
 .formule-body{flex:1;}
 .formule-title{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;color:var(--noir);}
+.formule-sub{font-size:11px;color:var(--rose);font-weight:600;margin-bottom:6px;}
 .formule-desc{font-size:12px;color:var(--muted);line-height:1.6;}
 .formule-card .fcheck{width:20px;height:20px;border-radius:50%;background:var(--rose);display:none;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0;}
 .formule-card.selected .fcheck{display:flex;}
@@ -109,7 +109,7 @@
 .success-wrap{text-align:center;padding:60px 20px;display:none;max-width:700px;margin:0 auto;}
 .success-wrap.show{display:block;}
 .success-icon{font-size:4rem;margin-bottom:20px;}
-.success-title{font-family:'Abril Fatface',serif;font-size:2.2rem;font-weight:400;margin-bottom:12px;color:var(--noir);}
+.success-title{font-family:'Abril Fatface',serif;font-size:2rem;font-weight:400;margin-bottom:12px;color:var(--noir);}
 .success-sub{font-size:14px;color:var(--muted);line-height:1.85;max-width:440px;margin:0 auto 32px;}
 .cat-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:20px;}
 .cat-link-btn{background:var(--white);border:2px solid transparent;border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;color:var(--noir);}
@@ -118,6 +118,7 @@
 .cat-link-emoji{font-size:1.4rem;display:block;margin-bottom:4px;}
 .cat-link-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--noir);}
 .info-box{background:rgba(193,195,230,.2);border-left:3px solid var(--lavande);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#555;line-height:1.7;}
+.info-box a{color:var(--rose);font-weight:700;text-decoration:none;}
 .question-label{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--noir);}
 .sb-config{background:var(--rose)!important;}
 .sb-config:hover{background:var(--noir)!important;}
@@ -172,7 +173,6 @@
     <span class="heart-badge" id="fav-badge"></span>
   </a>
 </div>
-
 <main style="min-height:100vh;transition:margin-left .3s ease;" id="main">
 <div class="config-wrap" id="config-wrap">
   <div class="config-progress" id="config-progress" style="display:none;">
@@ -185,8 +185,8 @@
     <div class="intro-wrap">
       <div class="intro-emoji">✨</div>
       <div class="intro-title">Bienvenue sur le configurateur Réunis</div>
-      <div class="intro-text">Laissez-vous guider pas à pas et parlez-nous de vos envies. À partir de vos réponses, nous reviendrons vers vous avec une proposition au plus proche de votre besoin.<br><br>Les premiers échanges sont <strong>gratuits et sans engagement</strong>.</div>
-      <button class="btn-start" onclick="startConfig()">On commence →</button>
+      <div class="intro-text">Laissez-vous guider pas à pas et parlez-nous de vos envies. À partir de vos réponses, nous reviendrons vers vous avec une proposition au plus proche de votre besoin.<br><br>Les premiers échanges sont gratuits et sans engagement.</div>
+      <button class="btn-start" onclick="startConfig()">On commence &#8594;</button>
     </div>
   </div>
 
@@ -206,7 +206,7 @@
     </div>
     <div class="input-group">
       <label class="input-label">Des précisions à ajouter ?</label>
-      <textarea class="config-textarea" id="type_event_details" placeholder="Ex : anniversaire surprise, demande en mariage, fête de fin d'études…" rows="3" oninput="data.type_event_details=this.value;saveProgress()"></textarea>
+      <textarea class="config-textarea" id="type_event_details" placeholder="Ex : anniversaire surprise, demande en mariage, fête de fin d&#39;études, soirée d&#39;entreprise…" rows="3" oninput="setField('type_event_details',this.value)"></textarea>
     </div>
   </div>
 
@@ -216,15 +216,15 @@
     <div class="step-title">À quelle date ?</div>
     <div class="step-subtitle">Contactez-nous le plus tôt possible pour assurer la disponibilité du matériel et prendre le temps de tout préparer dans les moindres détails.</div>
     <div class="input-group">
-      <label class="input-label">Date de l'événement</label>
-      <input class="config-input" type="date" id="date_event" oninput="data.date_event=this.value;saveProgress()">
+      <label class="input-label">Date de l&#39;événement</label>
+      <input class="config-input" type="date" id="date_event" oninput="setField('date_event',this.value)">
     </div>
-    <div class="input-group"><label class="input-label">Durée de l'événement <span style="color:var(--muted);font-weight:400;">(plusieurs choix possibles)</span></label></div>
-    <div class="toggle-group" style="flex-wrap:wrap;">
-      <button class="toggle-btn" onclick="toggleDuree(this,'Midi')">Midi</button>
-      <button class="toggle-btn" onclick="toggleDuree(this,'Après-midi')">Après-midi</button>
-      <button class="toggle-btn" onclick="toggleDuree(this,'Soir')">Soir</button>
-      <button class="toggle-btn" onclick="toggleDuree(this,'Week-end')">Week-end</button>
+    <div class="input-group"><label class="input-label">Durée de l&#39;événement <span style="color:var(--muted);font-weight:400;">(plusieurs choix possibles)</span></label></div>
+    <div class="toggle-group">
+      <button class="toggle-btn" onclick="toggleMulti(this,'duree','Midi')">☀️ Midi</button>
+      <button class="toggle-btn" onclick="toggleMulti(this,'duree','Après-midi')">🌤️ Après-midi</button>
+      <button class="toggle-btn" onclick="toggleMulti(this,'duree','Soir')">🌙 Soir</button>
+      <button class="toggle-btn" onclick="toggleMulti(this,'duree','Week-end')">🗓️ Week-end</button>
     </div>
   </div>
 
@@ -235,16 +235,16 @@
     <div class="step-subtitle">Un château, une grange, un jardin… ou encore à trouver ? Dites-nous tout 📍</div>
     <div class="input-group">
       <label class="input-label">Adresse ou secteur souhaité</label>
-      <input class="config-input" type="text" id="lieu_adresse" placeholder="Commune, département…" oninput="data.lieu_adresse=this.value;saveProgress()">
+      <input class="config-input" type="text" id="lieu_adresse" placeholder="Adresse, commune ou département…" oninput="setField('lieu_adresse',this.value)">
     </div>
     <div class="input-group">
       <label class="input-label">Nom du lieu (si connu)</label>
-      <input class="config-input" type="text" id="lieu_nom" placeholder="À domicile, salle de…" oninput="data.lieu_nom=this.value;saveProgress()">
+      <input class="config-input" type="text" id="lieu_nom" placeholder="À domicile, salle de…" oninput="setField('lieu_nom',this.value)">
     </div>
-    <div class="input-group"><label class="input-label">Vous n'avez pas encore de lieu ?</label></div>
+    <div class="input-group"><label class="input-label">Vous n&#39;avez pas encore de lieu ?</label></div>
     <div class="toggle-group">
-      <button class="toggle-btn" onclick="selectToggle(this,'recherche_lieu','Oui et j’aimerais de l’aide')">Oui et j'aimerais de l'aide</button>
-      <button class="toggle-btn" onclick="selectToggle(this,'recherche_lieu','Je m’en occupe de mon côté')">Je m'en occupe de mon côté</button>
+      <button class="toggle-btn" onclick="selectToggle(this,'recherche_lieu','Oui et j&#39;aimerais de l&#39;aide')">Oui et j&#39;aimerais de l&#39;aide</button>
+      <button class="toggle-btn" onclick="selectToggle(this,'recherche_lieu','Je m&#39;en occupe de mon côté')">Je m&#39;en occupe de mon côté</button>
     </div>
   </div>
 
@@ -260,8 +260,8 @@
       <div class="budget-labels"><span>2</span><span>100</span><span>250</span><span>500+</span></div>
     </div>
     <div class="input-group">
-      <label class="input-label">Des précisions ?</label>
-      <textarea class="config-textarea" id="invites_details" placeholder="Nombre d'enfants, âges…" rows="3" oninput="data.invites_details=this.value;saveProgress()"></textarea>
+      <label class="input-label">Des précisions à ajouter ?</label>
+      <textarea class="config-textarea" id="invites_details" placeholder="Nombre et âges des enfants…" rows="3" oninput="setField('invites_details',this.value)"></textarea>
     </div>
   </div>
 
@@ -272,81 +272,78 @@
     <div class="step-subtitle">DJ, photographe, animations… Avez-vous déjà votre équipe de choc ? 🎵</div>
     <div class="input-group"><label class="input-label">Prestataires déjà réservés ou en cours de recherche</label></div>
     <div class="checkbox-grid">
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','DJ / Musique')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎵 DJ / Musique</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Photographe')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">📸 Photographe</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Vidéaste')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎬 Vidéaste</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Photobooth')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🤳 Photobooth</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Food truck')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🚐 Food truck</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Animations')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎪 Animations</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Papeterie')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🖊️ Papeterie</span></div>
-      <div class="checkbox-item" onclick="toggleCheckbox(this,'prestataires','Cadeaux invités')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎁 Cadeaux invités</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','DJ / Musique')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎵 DJ / Musique</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Photographe')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">📸 Photographe</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Vidéaste')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎬 Vidéaste</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Photobooth')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🤳 Photobooth</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Animations')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎪 Animations</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Papeterie')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🖊️ Papeterie</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'prestataires','Cadeaux invités')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎁 Cadeaux invités</span></div>
     </div>
     <div class="input-group">
       <label class="input-label">Autres prestataires</label>
-      <input class="config-input" type="text" id="prestataires_autres" placeholder="Transport, coiffeur, maquilleur…" oninput="data.prestataires_autres=this.value;saveProgress()">
+      <input class="config-input" type="text" id="prestataires_autres" placeholder="Transport, coiffeur, maquilleur…" oninput="setField('prestataires_autres',this.value)">
     </div>
   </div>
 
-  <!-- ÉTAPE 6 — Organisation formule -->
+  <!-- ÉTAPE 6 — Repas -->
   <div class="config-step" id="step-6">
     <div class="step-eyebrow">Planifier</div>
-    <div class="step-title">Organisation : quelle formule est faite pour vous ?</div>
-    <div class="step-subtitle">De l'accompagnement complet à la totale autonomie — choisissez ce qui vous correspond.</div>
-    <div style="margin-bottom:32px;">
-      <div class="question-label">Souhaitez-vous être accompagné dans l'organisation de votre événement — recherche, réservations et coordination des prestataires en amont ?</div>
-      <div class="formule-grid" id="grid-aide">
-        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','Oui avec plaisir','grid-aide')"><div class="formule-icon">🙌</div><div class="formule-body"><div class="formule-title">Oui avec plaisir !</div><div class="formule-desc">Réunis s'occupe de tout : on trouve, on sélectionne et on coordonne vos prestataires pour que vous n'ayez qu'à dire oui.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','J’aimerais en savoir plus','grid-aide')"><div class="formule-icon">💬</div><div class="formule-body"><div class="formule-title">J'aimerais en savoir plus</div><div class="formule-desc">On vous explique comment ça fonctionne et on voit ensemble ce qui vous convient.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','Non merci','grid-aide')"><div class="formule-icon">✅</div><div class="formule-body"><div class="formule-title">Non merci, j'ai tout ce qu'il me faut</div><div class="formule-desc">Vos prestataires sont déjà en place — parfait, on s'occupe du reste !</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="question-label">Souhaitez-vous une coordination le jour J — pour garder l'esprit libre et profiter pleinement ?</div>
-      <div class="formule-grid" id="grid-coord">
-        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','Oui exactement','grid-coord')"><div class="formule-icon">🌸</div><div class="formule-body"><div class="formule-title">Oui, exactement !</div><div class="formule-desc">Une coordinatrice Réunis est présente le jour J pour que tout se passe à la perfection, sans stress.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','J’aimerais en savoir plus','grid-coord')"><div class="formule-icon">💬</div><div class="formule-body"><div class="formule-title">J'aimerais en savoir plus</div><div class="formule-desc">On vous dit tout sur ce service — vous décidez en toute connaissance de cause.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','Non merci','grid-coord')"><div class="formule-icon">👍</div><div class="formule-body"><div class="formule-title">Non merci</div><div class="formule-desc">Vous gérez votre journée comme vous l'entendez — et on vous souhaite le plus beau des jours.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ÉTAPE 7 — Repas (nouvelle) -->
-  <div class="config-step" id="step-7">
-    <div class="step-eyebrow">Planifier</div>
     <div class="step-title">Et le repas, comment ça se passe ?</div>
-    <div class="step-subtitle">Pour qu'on puisse tout coordonner au mieux 🍽️</div>
+    <div class="step-subtitle">Pour qu&#39;on puisse tout coordonner au mieux 🍽️</div>
     <div style="margin-bottom:28px;">
-      <div class="question-label">Qui s'occupe du repas ?</div>
-      <div class="formule-grid" id="grid-repas-qui">
-        <div class="formule-card" onclick="selectFormuleGroup(this,'repas_qui','Moi-même','grid-repas-qui')"><div class="formule-icon">🙋</div><div class="formule-body"><div class="formule-title">Moi-même</div><div class="formule-desc">Vous préparez le repas en autonomie.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'repas_qui','Traiteur','grid-repas-qui')"><div class="formule-icon">🍽️</div><div class="formule-body"><div class="formule-title">Traiteur</div><div class="formule-desc">Un traiteur professionnel prend en charge le repas.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-        <div class="formule-card" onclick="selectFormuleGroup(this,'repas_qui','Food truck','grid-repas-qui')"><div class="formule-icon">🚐</div><div class="formule-body"><div class="formule-title">Food truck</div><div class="formule-desc">Un ou plusieurs food trucks pour une ambiance conviviale.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+      <div class="question-label">Qui s&#39;occupe du repas ?</div>
+      <div class="toggle-group">
+        <button class="toggle-btn" onclick="selectToggle(this,'repas_qui','Moi-même')">Moi-même</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'repas_qui','Traiteur')">Traiteur</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'repas_qui','Food truck')">Food truck</button>
       </div>
     </div>
     <div style="margin-bottom:28px;">
-      <div class="question-label">Déjà réservé ?</div>
+      <div class="question-label">Est-ce déjà réservé ?</div>
       <div class="toggle-group">
         <button class="toggle-btn" onclick="selectToggle(this,'repas_reserve','Oui')">Oui</button>
         <button class="toggle-btn" onclick="selectToggle(this,'repas_reserve','Non')">Non</button>
       </div>
     </div>
     <div style="margin-bottom:28px;">
-      <div class="question-label">Si non, avez-vous besoin d'aide pour trouver un prestataire ?</div>
+      <div class="question-label">Si non, souhaitez-vous de l&#39;aide pour trouver un prestataire ?</div>
       <div class="toggle-group">
-        <button class="toggle-btn" onclick="selectToggle(this,'repas_aide','Oui, j’aimerais de l’aide')">Oui, j'aimerais de l'aide</button>
-        <button class="toggle-btn" onclick="selectToggle(this,'repas_aide','Je m’en occupe')">Je m'en occupe</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'repas_aide','Oui et j&#39;aimerais de l&#39;aide')">Oui et j&#39;aimerais de l&#39;aide</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'repas_aide','Je m&#39;en occupe de mon côté')">Je m&#39;en occupe de mon côté</button>
       </div>
     </div>
     <div class="input-group">
-      <label class="input-label">Formule repas souhaitée</label>
-      <input class="config-input" type="text" id="repas_formule" placeholder="Repas assis, cocktail, banquet, buffet…" oninput="data.repas_formule=this.value;saveProgress()">
+      <label class="input-label">Quelle formule ?</label>
+      <input class="config-input" type="text" id="repas_formule" placeholder="Repas assis, cocktail uniquement, banquet, buffet…" oninput="setField('repas_formule',this.value)">
     </div>
-    <div style="margin-bottom:8px;">
-      <div class="question-label">Avez-vous besoin de location pour le repas ? <span style="color:var(--muted);font-weight:400;">(plusieurs choix possibles)</span></div>
-      <div class="checkbox-grid">
-        <div class="checkbox-item" onclick="toggleCheckbox(this,'repas_vaisselle','Vaisselle')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🍽️ Vaisselle</span></div>
-        <div class="checkbox-item" onclick="toggleCheckbox(this,'repas_vaisselle','Tables')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🪑 Tables</span></div>
-        <div class="checkbox-item" onclick="toggleCheckbox(this,'repas_vaisselle','Nappes & textiles')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🧺 Nappes & textiles</span></div>
+    <div class="input-group"><label class="input-label">Besoin de location pour le repas ?</label></div>
+    <div class="checkbox-grid">
+      <div class="checkbox-item" onclick="toggleMulti(this,'repas_location','Vaisselle')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🍽️ Vaisselle</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'repas_location','Tables')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🪑 Tables</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'repas_location','Nappes')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🧺 Nappes</span></div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 7 — Formule organisation -->
+  <div class="config-step" id="step-7">
+    <div class="step-eyebrow">Planifier</div>
+    <div class="step-title">Organisation : quelle formule est faite pour vous ?</div>
+    <div class="step-subtitle">De l&#39;accompagnement complet à la totale autonomie — choisissez ce qui vous correspond.</div>
+    <div style="margin-bottom:32px;">
+      <div class="question-label">Souhaitez-vous être accompagné dans l&#39;organisation — recherche, réservations et coordination des prestataires en amont ?</div>
+      <div class="formule-grid" id="grid-aide">
+        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','Oui avec plaisir','grid-aide')"><div class="formule-icon">🙌</div><div class="formule-body"><div class="formule-title">Oui avec plaisir !</div><div class="formule-desc">Réunis s&#39;occupe de tout : on trouve, on sélectionne et on coordonne vos prestataires pour que vous n&#39;ayez qu&#39;à dire oui.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','En savoir plus','grid-aide')"><div class="formule-icon">💬</div><div class="formule-body"><div class="formule-title">J&#39;aimerais en savoir plus</div><div class="formule-desc">On vous explique comment ça fonctionne et on voit ensemble ce qui vous convient.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+        <div class="formule-card" onclick="selectFormuleGroup(this,'aide_prestataires','Non merci','grid-aide')"><div class="formule-icon">✅</div><div class="formule-body"><div class="formule-title">Non merci</div><div class="formule-desc">Vos prestataires sont déjà en place — parfait, on s&#39;occupe du reste !</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="question-label">Souhaitez-vous une coordination le jour J — pour garder l&#39;esprit libre et profiter pleinement ?</div>
+      <div class="formule-grid" id="grid-coord">
+        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','Oui exactement','grid-coord')"><div class="formule-icon">🌸</div><div class="formule-body"><div class="formule-title">Oui, exactement !</div><div class="formule-desc">Une coordinatrice Réunis est présente le jour J pour que tout se passe à la perfection, sans stress.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','En savoir plus','grid-coord')"><div class="formule-icon">💬</div><div class="formule-body"><div class="formule-title">J&#39;aimerais en savoir plus</div><div class="formule-desc">On vous dit tout sur ce service — vous décidez en toute connaissance de cause.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+        <div class="formule-card" onclick="selectFormuleGroup(this,'coordination_j','Non merci','grid-coord')"><div class="formule-icon">👍</div><div class="formule-body"><div class="formule-title">Non merci</div><div class="formule-desc">Vous gérez votre journée comme vous l&#39;entendez — et on vous souhaite le plus beau des jours.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
       </div>
     </div>
   </div>
@@ -358,7 +355,7 @@
     <div class="step-subtitle">Imaginez votre événement. Décrivez-nous votre univers 🎨</div>
     <div class="input-group">
       <label class="input-label">Thème</label>
-      <input class="config-input" type="text" id="theme" placeholder="Ex : disco, Riviera, jungle, bohème, années folles…" oninput="data.theme=this.value;saveProgress()">
+      <input class="config-input" type="text" id="theme" placeholder="Ex : disco, Riviera, jungle, bohème, années folles…" oninput="setField('theme',this.value)">
     </div>
     <div class="input-group"><label class="input-label">Couleurs souhaitées <span style="color:var(--muted);font-weight:400;">(sélectionnez une ou plusieurs teintes)</span></label></div>
     <div class="color-palette">
@@ -392,85 +389,85 @@
     </div>
   </div>
 
-  <!-- ÉTAPE 9 — Éléments de décoration -->
+  <!-- ÉTAPE 9 — Éléments de décor -->
   <div class="config-step" id="step-9">
     <div class="step-eyebrow">Décorer</div>
     <div class="step-title">De quels éléments de décor avez-vous envie ?</div>
-    <div class="step-subtitle">Cochez tout ce qui vous fait envie — on affinera ensemble 👀✨</div>
+    <div class="step-subtitle">Cochez tout ce qui fait briller vos yeux 👀 Nous affinerons ensemble votre sélection.</div>
     <div class="checkbox-grid">
-      <div class="checkbox-item" onclick="toggleDecor(this,'Photo call / Backdrop')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🖼️ Photo call / Backdrop</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Arche florale')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🌸 Arche florale</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Ballons')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎈 Ballons</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Lumières & guirlandes')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">✨ Lumières & guirlandes</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Fleurs')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">💐 Fleurs</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Panneau de bienvenue')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🪞 Panneau de bienvenue</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Zone de détente')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🛋️ Zone de détente</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Buffet / Candy bar')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🍬 Buffet / Candy bar</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Coin enfants')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🧸 Coin enfants</span></div>
-      <div class="checkbox-item" onclick="toggleDecor(this,'Coin livre d’or')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">📖 Coin livre d'or</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Photo call')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🖼️ Photo call</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Ballons')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🎈 Ballons</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Arches')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🌿 Arches</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Lumières')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🕯️ Lumières</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Fleurs')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🌸 Fleurs</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Panneau de bienvenue')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🪧 Panneau de bienvenue</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Zone de détente')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🛋️ Zone de détente</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Tables')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🪑 Tables</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Buffet')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🍽️ Buffet</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Candy bar')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🍬 Candy bar</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Coin enfant')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">🧸 Coin enfant</span></div>
+      <div class="checkbox-item" onclick="toggleMulti(this,'elements_deco','Coin livre d&#39;or')"><div class="checkbox-box"><span class="checkbox-tick">✓</span></div><span class="checkbox-text">📖 Coin livre d&#39;or</span></div>
     </div>
     <div class="input-group">
       <label class="input-label">Autres envies ou questions</label>
-      <textarea class="config-textarea" id="autres_besoins" placeholder="N'hésitez pas à tout nous dire — aucune idée n'est trop grande ou trop petite !" oninput="data.autres_besoins=this.value;saveProgress()"></textarea>
+      <textarea class="config-textarea" id="autres_besoins" placeholder="N&#39;hésitez pas à tout nous dire — aucune idée n&#39;est trop grande ou trop petite !" oninput="setField('autres_besoins',this.value)"></textarea>
     </div>
   </div>
 
-  <!-- ÉTAPE 11 — Formule décoration -->
+  <!-- ÉTAPE 10 — Formule décoration -->
   <div class="config-step" id="step-10">
     <div class="step-eyebrow">Décorer</div>
     <div class="step-title">Décoration : quelle formule vous ressemble ?</div>
-    <div class="step-subtitle">De l'accompagnement total à la location en autonomie — il y a forcément une formule faite pour vous.</div>
+    <div class="step-subtitle">De l&#39;accompagnement total à la location en autonomie — il y a forcément une formule faite pour vous.</div>
     <div class="formule-grid" id="grid-deco">
-      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Accompagnement A à Z','grid-deco')"><div class="formule-icon">✨</div><div class="formule-body"><div class="formule-title">Accompagnement de A à Z</div><div class="formule-desc" style="font-size:11px;color:var(--muted);margin-bottom:6px;">Maquette + Location + Livraison & Reprise avec Installation et Désinstallation</div><div class="formule-desc">On co-crée votre univers ensemble : moodboard, maquette, sélection sur mesure et personnalisations. On livre, on installe, on désinstalle.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Je fais ma sélection — livraison','grid-deco')"><div class="formule-icon">🚐</div><div class="formule-body"><div class="formule-title">Je fais ma sélection seule</div><div class="formule-desc" style="font-size:11px;color:var(--muted);margin-bottom:6px;">Location + Livraison & Reprise</div><div class="formule-desc">Vous choisissez vos articles, on vous livre et on reprend — vous vous occupez de l'installation.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
-      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Je fais ma sélection — retrait dépôt','grid-deco')"><div class="formule-icon">📦</div><div class="formule-body"><div class="formule-title">Je fais ma sélection seule</div><div class="formule-desc" style="font-size:11px;color:var(--muted);margin-bottom:6px;">Location + Retrait au dépôt</div><div class="formule-desc">Vous venez chercher et rapporter les articles dans l'un de nos dépôts à Épuisay (41) ou Épieds-en-Beauce (45).</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Accompagnement A à Z','grid-deco')"><div class="formule-icon">✨</div><div class="formule-body"><div class="formule-title">Accompagnement de A à Z</div><div class="formule-sub">Maquette + Location + Livraison &amp; Reprise avec Installation et Désinstallation</div><div class="formule-desc">On co-crée votre univers ensemble : moodboard, maquette, sélection sur mesure, personnalisations. On livre, on installe, on désinstalle. Vous profitez de votre fête sans vous soucier de rien.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Sélection seule + livraison','grid-deco')"><div class="formule-icon">🚐</div><div class="formule-body"><div class="formule-title">Je fais ma sélection seule</div><div class="formule-sub">Location + Livraison &amp; Reprise</div><div class="formule-desc">On vous livre et reprend les articles — vous vous occupez de l&#39;installation à votre rythme.</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
+      <div class="formule-card" onclick="selectFormuleGroup(this,'formule_deco','Sélection seule + retrait','grid-deco')"><div class="formule-icon">📦</div><div class="formule-body"><div class="formule-title">Je fais ma sélection seule</div><div class="formule-sub">Location + Retrait au dépôt</div><div class="formule-desc">Vous venez chercher et rapporter les articles dans l&#39;un de nos dépôts à Épuisay (41) ou Épieds-en-Beauce (45).</div></div><div class="fcheck"><span style="color:white;font-size:11px;">✓</span></div></div>
     </div>
   </div>
 
-  <!-- ÉTAPE 12 — Budget (conditionnelle si A à Z) -->
+  <!-- ÉTAPE 11 — Budget (conditionnelle) -->
   <div class="config-step" id="step-11">
     <div class="step-eyebrow">Décorer</div>
-    <div class="step-title">Quel est votre budget décoration ?</div>
+    <div class="step-title">Votre budget décoration ?</div>
     <div class="step-subtitle">Cette information nous aide à vous proposer la meilleure sélection possible.</div>
     <div class="budget-wrap">
-      <div class="budget-display" id="budget-display-2">500€</div>
+      <div class="budget-display" id="budget-display">500€</div>
       <div class="budget-sub">Budget alloué à la décoration</div>
-      <input class="config-range" type="range" min="100" max="8000" step="100" value="500" id="budget-range-2" oninput="updateBudget2(this.value)">
+      <input class="config-range" type="range" min="100" max="8000" step="100" value="500" id="budget-range" oninput="updateBudget(this.value)">
       <div class="budget-labels"><span>100€</span><span>1 000€</span><span>3 000€</span><span>8 000€+</span></div>
     </div>
   </div>
 
-  <!-- ÉTAPE 13 — Qui êtes-vous -->
+  <!-- ÉTAPE 12 — Contact + Récap -->
   <div class="config-step" id="step-12">
     <div class="step-eyebrow">On y est presque !</div>
     <div class="step-title">Qui êtes-vous ?</div>
     <div class="step-subtitle">Pour pouvoir vous recontacter et commencer à imaginer votre événement ensemble 💌</div>
-    <div class="info-box" style="margin-bottom:24px;">
-      💡 Avant d'envoyer, avez-vous ajouté des articles à votre sélection ? Rendez-vous dans le <a href="decorer.html" style="color:var(--rose);font-weight:700;">catalogue</a> pour parcourir nos pièces et ajouter vos coups de cœur aux favoris — ils nous seront envoyés avec votre demande et nous aideront à mieux cerner vos goûts. Vos réponses sont sauvegardées, vous pouvez y revenir !
-    </div>
+    <div class="info-box">💡 Un dernier conseil : parcourez notre <a href="decorer.html">catalogue</a> et ajoutez vos coups de cœur aux favoris. Ils nous seront envoyés avec votre demande et nous aideront à mieux cerner vos goûts. Vos réponses sont enregistrées, vous pouvez revenir quand vous voulez.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div class="input-group"><label class="input-label">Prénom *</label><input class="config-input" type="text" id="prenom" placeholder="Votre prénom" oninput="data.prenom=this.value;saveProgress()"></div>
-      <div class="input-group"><label class="input-label">Nom *</label><input class="config-input" type="text" id="nom" placeholder="Votre nom" oninput="data.nom=this.value;saveProgress()"></div>
+      <div class="input-group"><label class="input-label">Prénom *</label><input class="config-input" type="text" id="prenom" placeholder="Votre prénom" oninput="setField('prenom',this.value)"></div>
+      <div class="input-group"><label class="input-label">Nom *</label><input class="config-input" type="text" id="nom" placeholder="Votre nom" oninput="setField('nom',this.value)"></div>
     </div>
-    <div class="input-group"><label class="input-label">Email *</label><input class="config-input" type="email" id="email" placeholder="votre@email.com" oninput="data.email=this.value;saveProgress()"></div>
-    <div class="input-group"><label class="input-label">Téléphone</label><input class="config-input" type="tel" id="telephone" placeholder="06 00 00 00 00" oninput="data.telephone=this.value;saveProgress()"></div>
+    <div class="input-group"><label class="input-label">Email *</label><input class="config-input" type="email" id="email" placeholder="votre@email.com" oninput="setField('email',this.value)"></div>
+    <div class="input-group"><label class="input-label">Téléphone</label><input class="config-input" type="tel" id="telephone" placeholder="06 00 00 00 00" oninput="setField('telephone',this.value)"></div>
     <div style="margin-top:32px;">
-      <div style="font-family:'Abril Fatface',serif;font-size:1.4rem;margin-bottom:20px;color:var(--noir);">Votre projet en un coup d'œil</div>
+      <div style="font-family:'Abril Fatface',serif;font-size:1.3rem;margin-bottom:20px;color:var(--noir);">Votre projet en un coup d&#39;œil</div>
       <div id="recap-content"></div>
     </div>
   </div>
 
   <div class="config-nav" id="config-nav" style="display:none;">
-    <button class="btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden">← Précédent</button>
-    <button class="btn-next" id="btn-next" onclick="nextStep()">Suivant →</button>
+    <button class="btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden">&#8592; Précédent</button>
+    <button class="btn-next" id="btn-next" onclick="nextStep()">Suivant &#8594;</button>
   </div>
 </div>
 
 <div class="success-wrap" id="success-wrap">
   <div class="success-icon">💫</div>
-  <div class="success-title">C'est envoyé !</div>
+  <div class="success-title">C&#39;est envoyé !</div>
   <div class="success-sub">Merci pour votre confiance. Nous avons bien reçu votre projet et nous vous recontacterons dans les meilleurs délais pour commencer à imaginer votre événement ensemble.</div>
-  <a href="index.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;margin-top:8px;">Retour à l'accueil →</a>
+  <a href="index.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;margin-top:8px;text-decoration:none;">Retour à l&#39;accueil &#8594;</a>
 </div>
 </main>
 <script>
@@ -480,77 +477,132 @@ function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wra
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
 function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]'),b=document.getElementById('fav-badge');if(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);}}
 updateBadge();
-var currentStep=0,totalSteps=12;
-var data={type_event:'',type_event_details:'',date_event:'',duree:[],lieu_nom:'',lieu_adresse:'',recherche_lieu:'',nb_invites:20,invites_details:'',prestataires:[],prestataires_autres:'',aide_prestataires:'',coordination_j:'',repas_qui:'',repas_reserve:'',repas_aide:'',repas_formule:'',repas_vaisselle:[],theme:'',couleurs:[],inspi_files:[],elements_deco:[],autres_besoins:'',formule_deco:'',budget_deco:'500',prenom:'',nom:'',email:'',telephone:'',articles_selectionnes:[]};
 
-// Restaurer depuis localStorage si disponible
-var savedData = localStorage.getItem('reunis_config_data');
-if(savedData){try{var parsed=JSON.parse(savedData);Object.assign(data,parsed);}catch(e){}}
-var savedStep = parseInt(localStorage.getItem('reunis_config_step')||'0');
+var currentStep=0,totalSteps=12;
+var STORE_KEY='reunis_config_data';
+
+var data={type_event:'',type_event_details:'',date_event:'',duree:[],lieu_nom:'',lieu_adresse:'',recherche_lieu:'',nb_invites:20,invites_details:'',prestataires:[],prestataires_autres:'',repas_qui:'',repas_reserve:'',repas_aide:'',repas_formule:'',repas_location:[],aide_prestataires:'',coordination_j:'',theme:'',couleurs:[],inspi_files:[],elements_deco:[],autres_besoins:'',formule_deco:'',budget_deco:'500',prenom:'',nom:'',email:'',telephone:'',articles_selectionnes:[]};
+
+try{
+  var saved=localStorage.getItem(STORE_KEY);
+  if(saved){var p=JSON.parse(saved);for(var k in p){if(data.hasOwnProperty(k))data[k]=p[k];}}
+}catch(e){}
 
 var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
 if(favs.length){data.articles_selectionnes=favs.map(function(f){return f.name||f.nom;});}
 
-function saveProgress(){
-  localStorage.setItem('reunis_config_data',JSON.stringify(data));
-  localStorage.setItem('reunis_config_step',currentStep);
-}
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(data));}catch(e){}}
+function setField(key,val){data[key]=val;save();}
 
 function startConfig(){
   document.getElementById('step-0').classList.remove('active');
   document.getElementById('config-progress').style.display='block';
   document.getElementById('config-nav').style.display='flex';
-  var startAt = savedStep > 0 ? savedStep : 1;
-  currentStep = startAt;
-  document.getElementById('step-'+startAt).classList.add('active');
+  currentStep=1;
+  document.getElementById('step-1').classList.add('active');
+  restoreUI();
   updateProgress();updateNav();
-  restoreInputs();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function restoreInputs(){
-  // Restaurer les champs texte
-  var fields=['date_event','lieu_nom','lieu_adresse','theme','invites_details','prestataires_autres','repas_formule','autres_besoins','prenom','nom','email','telephone'];
-  fields.forEach(function(id){var el=document.getElementById(id);if(el&&data[id])el.value=data[id];});
-  if(data.nb_invites){var r=document.getElementById('invites-range');if(r){r.value=data.nb_invites;updateInvites(data.nb_invites);}}
-  if(data.budget_deco){var b=document.getElementById('budget-range');if(b){b.value=data.budget_deco;updateBudget(data.budget_deco);}}
+function restoreUI(){
+  var texts=['type_event_details','date_event','lieu_nom','lieu_adresse','invites_details','prestataires_autres','repas_formule','theme','autres_besoins','prenom','nom','email','telephone'];
+  texts.forEach(function(id){var el=document.getElementById(id);if(el&&data[id])el.value=data[id];});
+  if(data.nb_invites){var r=document.getElementById('invites-range');if(r){r.value=data.nb_invites;document.getElementById('invites-display').textContent=parseInt(data.nb_invites)>=500?'500+':data.nb_invites;}}
+  if(data.budget_deco){var b=document.getElementById('budget-range');if(b){b.value=data.budget_deco;var v=parseInt(data.budget_deco);document.getElementById('budget-display').textContent=v>=8000?'8 000€ et plus':v.toLocaleString('fr-FR')+'€';}}
+  document.querySelectorAll('.choice-card').forEach(function(el){
+    var m=el.getAttribute('onclick').match(/selectChoice\(this,'([^']+)','([^']+)'\)/);
+    if(m&&data[m[1]]===m[2])el.classList.add('selected');
+  });
+  document.querySelectorAll('.toggle-btn').forEach(function(el){
+    var oc=el.getAttribute('onclick')||'';
+    var m1=oc.match(/selectToggle\(this,'([^']+)','(.+)'\)/);
+    if(m1&&data[m1[1]]===m1[2]){el.classList.add('selected');return;}
+    var m2=oc.match(/toggleMulti\(this,'([^']+)','(.+)'\)/);
+    if(m2&&Array.isArray(data[m2[1]])&&data[m2[1]].indexOf(m2[2])>=0)el.classList.add('selected');
+  });
+  document.querySelectorAll('.checkbox-item').forEach(function(el){
+    var m=(el.getAttribute('onclick')||'').match(/toggleMulti\(this,'([^']+)','(.+)'\)/);
+    if(m&&Array.isArray(data[m[1]])&&data[m[1]].indexOf(m[2])>=0)el.classList.add('selected');
+  });
+  document.querySelectorAll('.formule-card').forEach(function(el){
+    var m=(el.getAttribute('onclick')||'').match(/selectFormuleGroup\(this,'([^']+)','([^']+)'/);
+    if(m&&data[m[1]]===m[2])el.classList.add('selected');
+  });
+  document.querySelectorAll('.color-swatch').forEach(function(el){
+    if(data.couleurs.indexOf(el.dataset.color)>=0)el.classList.add('selected');
+  });
+  updateColorPreview();
 }
 
-function nextStep(){if(currentStep===totalSteps){envoyerConfig();return;}
-  if(currentStep===10&&data.formule_deco!=='Accompagnement A à Z'){goToStep(12);return;}
-  goToStep(currentStep+1);
+function skipBudget(){return data.formule_deco!=='Accompagnement A à Z';}
+
+function nextStep(){
+  if(currentStep===totalSteps){envoyerConfig();return;}
+  var n=currentStep+1;
+  if(n===11&&skipBudget())n=12;
+  goToStep(n);
 }
 function prevStep(){
-  if(currentStep===12&&data.formule_deco!=='Accompagnement A à Z'){goToStep(10);return;}
-  if(currentStep>1)goToStep(currentStep-1);
+  if(currentStep<=1)return;
+  var n=currentStep-1;
+  if(n===11&&skipBudget())n=10;
+  goToStep(n);
 }
-function goToStep(n){document.getElementById('step-'+currentStep).classList.remove('active');currentStep=n;document.getElementById('step-'+n).classList.add('active');updateProgress();updateNav();if(n===totalSteps||n===12)buildRecap();saveProgress();window.scrollTo({top:0,behavior:'smooth'});}
+function goToStep(n){
+  document.getElementById('step-'+currentStep).classList.remove('active');
+  currentStep=n;
+  document.getElementById('step-'+n).classList.add('active');
+  updateProgress();updateNav();save();
+  if(n===totalSteps)buildRecap();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function updateProgress(){var pct=Math.round((currentStep/totalSteps)*100);document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-text').textContent='Étape '+currentStep+' sur '+totalSteps;document.getElementById('progress-pct').textContent=pct+'%';}
-function updateNav(){var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next');prev.style.visibility=currentStep>1?'visible':'hidden';if(currentStep===totalSteps){next.textContent='Envoyer ma demande ✨';next.style.background='var(--rose)';}else{next.textContent='Suivant →';next.style.background='';}}
-function selectChoice(el,key,value){el.closest('.choice-grid').querySelectorAll('.choice-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');data[key]=value;saveProgress();}
-function selectToggle(el,key,value){el.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(function(b){b.classList.remove('selected');});el.classList.add('selected');data[key]=value;saveProgress();}
-function selectFormuleGroup(el,key,value,gridId){document.getElementById(gridId).querySelectorAll('.formule-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');data[key]=value;saveProgress();}
-function toggleCheckbox(el,key,value){el.classList.toggle('selected');var arr=data[key],idx=arr.indexOf(value);if(idx>=0)arr.splice(idx,1);else arr.push(value);saveProgress();}
-function toggleDuree(el,value){el.classList.toggle('selected');var idx=data.duree.indexOf(value);if(idx>=0)data.duree.splice(idx,1);else data.duree.push(value);saveProgress();}
-function toggleDecor(el,value){el.classList.toggle('selected');var idx=data.elements_deco.indexOf(value);if(idx>=0)data.elements_deco.splice(idx,1);else data.elements_deco.push(value);saveProgress();}
-function toggleColor(el){el.classList.toggle('selected');var c=el.dataset.color,idx=data.couleurs.indexOf(c);if(idx>=0)data.couleurs.splice(idx,1);else data.couleurs.push(c);updateColorPreview();saveProgress();}
-function updateColorPreview(){var preview=document.getElementById('color-preview'),swatches=document.getElementById('color-preview-swatches');if(!data.couleurs.length){preview.style.display='none';return;}preview.style.display='block';swatches.innerHTML='';document.querySelectorAll('.color-swatch.selected').forEach(function(s){var d=document.createElement('div');d.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px;';d.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:'+s.style.background+';border:2px solid rgba(0,0,0,.1);"></div><div style="font-size:9px;color:var(--muted);letter-spacing:.5px;">'+s.dataset.color+'</div>';swatches.appendChild(d);});}
-function updateBudget2(val){var v=parseInt(val);document.getElementById("budget-display-2").textContent=v>=8000?"8 000€ et plus":v.toLocaleString("fr-FR")+"€";data.budget_deco=val;saveProgress();}
-function updateBudget(val){var v=parseInt(val);document.getElementById('budget-display').textContent=v>=8000?'8 000€ et plus':v.toLocaleString('fr-FR')+'€';data.budget_deco=val;saveProgress();}
-function updateInvites(val){var v=parseInt(val);document.getElementById('invites-display').textContent=v>=500?'500+':v;data.nb_invites=val;saveProgress();}
-function handleInspiFile(input){var names=Array.from(input.files).map(function(f){return f.name;});document.getElementById('inspi-file-name').textContent=names.length+' fichier(s) : '+names.join(', ');data.inspi_files=names;saveProgress();}
-var miniCatalogueCache={};
-function loadMiniCatalogue(containerId,categorie,gridId){var wrap=document.getElementById(containerId);if(!wrap)return;wrap.style.display='block';var grid=document.getElementById(gridId);if(!grid)return;if(miniCatalogueCache[categorie]){renderMiniCards(grid,miniCatalogueCache[categorie]);return;}grid.innerHTML='<div class="mini-card-loader">Chargement…</div>';fetch('/api/catalogue?categorie='+encodeURIComponent(categorie)).then(function(r){return r.json();}).then(function(articles){miniCatalogueCache[categorie]=articles;renderMiniCards(grid,articles);}).catch(function(){grid.innerHTML='<div class="mini-card-loader">Erreur de chargement</div>';});}
-function renderMiniCards(grid,articles){grid.innerHTML='';var limit=Math.min(articles.length,9);for(var i=0;i<limit;i++)grid.appendChild(makeMiniCard(articles[i]));if(!limit)grid.innerHTML='<div class="mini-card-loader">Aucun article disponible</div>';}
-function makeMiniCard(a){var isSelected=data.articles_selectionnes.indexOf(a.nom)>=0,prix=a.prix_location?parseFloat(a.prix_location).toFixed(2)+'€':'Sur devis',card=document.createElement('div');card.className='mini-card'+(isSelected?' selected':'');var imgHtml=a.photo?'<img src="'+a.photo+'" alt="'+a.nom+'" style="width:100%;height:100%;object-fit:cover;">':'<div style="font-size:1.5rem;color:#ddd;">✦</div>';card.innerHTML='<div class="mini-card-img">'+imgHtml+'</div><div class="mini-card-info"><div class="mini-card-name">'+a.nom+'</div><div class="mini-card-price">'+prix+'</div></div><div class="mini-card-check"><span style="color:white;font-size:10px;">✓</span></div>';card.onclick=function(){card.classList.toggle('selected');var idx=data.articles_selectionnes.indexOf(a.nom);if(idx>=0)data.articles_selectionnes.splice(idx,1);else data.articles_selectionnes.push(a.nom);saveProgress();};return card;}
-function hideMiniCatalogue(containerId){var wrap=document.getElementById(containerId);if(wrap)wrap.style.display='none';}
-function buildRecap(){var html='',sections=[{title:'L'événement',rows:[{k:'Type',v:data.type_event},{k:'Précisions',v:data.type_event_details},{k:'Date',v:data.date_event?new Date(data.date_event).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):''},{k:'Durée',v:data.duree.join(', ')}]},{title:'Le lieu & les convives',rows:[{k:'Lieu',v:data.lieu_nom},{k:'Adresse',v:data.lieu_adresse},{k:'Recherche lieu',v:data.recherche_lieu},{k:'Convives',v:parseInt(data.nb_invites)>=500?'500+':data.nb_invites+' personnes'}]},{title:'Les prestataires',rows:[{k:'Besoin de',v:data.prestataires.join(', ')},{k:'Autres',v:data.prestataires_autres},{k:'Accompagnement',v:data.aide_prestataires},{k:'Coordination J',v:data.coordination_j}]},{title:'Le repas',rows:[{k:'Qui s'en occupe',v:data.repas_qui},{k:'Déjà réservé',v:data.repas_reserve},{k:'Aide souhaitée',v:data.repas_aide},{k:'Formule',v:data.repas_formule},{k:'Location',v:data.repas_vaisselle.join(', ')}]},{title:'La décoration',rows:[{k:'Thème',v:data.theme},{k:'Éléments souhaités',v:data.elements_deco.join(', ')},{k:'Formule',v:data.formule_deco},{k:'Budget',v:parseInt(data.budget_deco)>=8000?'8 000€+':parseInt(data.budget_deco).toLocaleString('fr-FR')+'€'}]}];
-sections.forEach(function(s){var rowsHtml=s.rows.filter(function(r){return r.v&&r.v.toString().trim();}).map(function(r){return'<div class="recap-row"><span class="recap-key">'+r.k+'</span><span class="recap-val">'+r.v+'</span></div>';}).join('');if(rowsHtml)html+='<div class="recap-section"><div class="recap-section-title">'+s.title+'</div>'+rowsHtml+'</div>';});
-if(data.couleurs.length){var dots=data.couleurs.map(function(c){var s=document.querySelector('.color-swatch[data-color="'+c+'"]'),bg=s?s.style.background:'#ccc';return'<div class="recap-color-dot" style="background:'+bg+';border:1px solid rgba(0,0,0,.1);" title="'+c+'"></div>';}).join('');html+='<div class="recap-section"><div class="recap-section-title">Palette couleurs</div><div class="recap-row"><span class="recap-key">Teintes</span><div class="recap-colors">'+dots+'</div></div></div>';}
-if(data.articles_selectionnes.length){var chips=data.articles_selectionnes.map(function(n){return'<span class="recap-article-chip">'+n+'</span>';}).join('');html+='<div class="recap-section"><div class="recap-section-title">Articles sélectionnés ('+data.articles_selectionnes.length+')</div><div class="recap-row"><div class="recap-articles">'+chips+'</div></div></div>';}
-if(data.autres_besoins){html+='<div class="recap-section"><div class="recap-section-title">Message</div><div class="recap-row"><span class="recap-val">'+data.autres_besoins+'</span></div></div>';}
-document.getElementById('recap-content').innerHTML=html||'<div style="color:var(--muted);font-size:13px;">Complétez les étapes précédentes pour voir votre récapitulatif.</div>';}
-function envoyerConfig(){var prenom=document.getElementById('prenom').value.trim(),email=document.getElementById('email').value.trim();if(!prenom||!email){alert('Merci de renseigner votre prénom et votre email pour finaliser votre demande.');return;}data.prenom=prenom;data.nom=document.getElementById('nom').value.trim();data.email=email;data.telephone=document.getElementById('telephone').value.trim();var btn=document.getElementById('btn-next');btn.textContent='Envoi en cours…';btn.disabled=true;fetch('/api/envoyer-config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){return r.json();}).then(function(){showSuccess();localStorage.removeItem('reunis_config_data');localStorage.removeItem('reunis_config_step');}).catch(function(){showSuccess();});}
+function updateNav(){var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next');prev.style.visibility=currentStep>1?'visible':'hidden';if(currentStep===totalSteps){next.innerHTML='Envoyer ma demande ✨';next.style.background='var(--rose)';}else{next.innerHTML='Suivant &#8594;';next.style.background='';}}
+
+function selectChoice(el,key,value){el.closest('.choice-grid').querySelectorAll('.choice-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');data[key]=value;save();}
+function selectToggle(el,key,value){el.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(function(b){b.classList.remove('selected');});el.classList.add('selected');data[key]=value;save();}
+function selectFormuleGroup(el,key,value,gridId){document.getElementById(gridId).querySelectorAll('.formule-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');data[key]=value;save();}
+function toggleMulti(el,key,value){el.classList.toggle('selected');if(!Array.isArray(data[key]))data[key]=[];var i=data[key].indexOf(value);if(i>=0)data[key].splice(i,1);else data[key].push(value);save();}
+function toggleColor(el){el.classList.toggle('selected');var c=el.dataset.color,i=data.couleurs.indexOf(c);if(i>=0)data.couleurs.splice(i,1);else data.couleurs.push(c);updateColorPreview();save();}
+function updateColorPreview(){var preview=document.getElementById('color-preview'),sw=document.getElementById('color-preview-swatches');if(!preview)return;if(!data.couleurs.length){preview.style.display='none';return;}preview.style.display='block';sw.innerHTML='';document.querySelectorAll('.color-swatch.selected').forEach(function(s){var d=document.createElement('div');d.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px;';d.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:'+s.style.background+';border:2px solid rgba(0,0,0,.1);"></div><div style="font-size:9px;color:var(--muted);letter-spacing:.5px;">'+s.dataset.color+'</div>';sw.appendChild(d);});}
+function updateBudget(val){var v=parseInt(val);document.getElementById('budget-display').textContent=v>=8000?'8 000€ et plus':v.toLocaleString('fr-FR')+'€';data.budget_deco=val;save();}
+function updateInvites(val){var v=parseInt(val);document.getElementById('invites-display').textContent=v>=500?'500+':v;data.nb_invites=val;save();}
+function handleInspiFile(input){var names=Array.prototype.slice.call(input.files).map(function(f){return f.name;});document.getElementById('inspi-file-name').textContent=names.length+' fichier(s) : '+names.join(', ');data.inspi_files=names;save();}
+
+function buildRecap(){
+  var html='';
+  var sections=[
+    {title:'L\u2019événement',rows:[{k:'Type',v:data.type_event},{k:'Précisions',v:data.type_event_details},{k:'Date',v:data.date_event?new Date(data.date_event).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):''},{k:'Durée',v:data.duree.join(', ')}]},
+    {title:'Le lieu & les convives',rows:[{k:'Adresse',v:data.lieu_adresse},{k:'Lieu',v:data.lieu_nom},{k:'Recherche lieu',v:data.recherche_lieu},{k:'Convives',v:parseInt(data.nb_invites)>=500?'500+':data.nb_invites+' personnes'},{k:'Précisions',v:data.invites_details}]},
+    {title:'Les prestations',rows:[{k:'Besoin de',v:data.prestataires.join(', ')},{k:'Autres',v:data.prestataires_autres},{k:'Accompagnement',v:data.aide_prestataires},{k:'Coordination J',v:data.coordination_j}]},
+    {title:'Le repas',rows:[{k:'Qui',v:data.repas_qui},{k:'Réservé',v:data.repas_reserve},{k:'Aide',v:data.repas_aide},{k:'Formule',v:data.repas_formule},{k:'Location',v:data.repas_location.join(', ')}]},
+    {title:'La décoration',rows:[{k:'Thème',v:data.theme},{k:'Éléments',v:data.elements_deco.join(', ')},{k:'Formule',v:data.formule_deco},{k:'Budget',v:skipBudget()?'':(parseInt(data.budget_deco)>=8000?'8 000€+':parseInt(data.budget_deco).toLocaleString('fr-FR')+'€')},{k:'Autres envies',v:data.autres_besoins}]}
+  ];
+  sections.forEach(function(s){
+    var rows=s.rows.filter(function(r){return r.v&&r.v.toString().trim();}).map(function(r){return'<div class="recap-row"><span class="recap-key">'+r.k+'</span><span class="recap-val">'+r.v+'</span></div>';}).join('');
+    if(rows)html+='<div class="recap-section"><div class="recap-section-title">'+s.title+'</div>'+rows+'</div>';
+  });
+  if(data.couleurs.length){
+    var dots=data.couleurs.map(function(c){var s=document.querySelector('.color-swatch[data-color="'+c+'"]');var bg=s?s.style.background:'#ccc';return'<div class="recap-color-dot" style="background:'+bg+';border:1px solid rgba(0,0,0,.1);" title="'+c+'"></div>';}).join('');
+    html+='<div class="recap-section"><div class="recap-section-title">Palette couleurs</div><div class="recap-row"><span class="recap-key">Teintes</span><div class="recap-colors">'+dots+'</div></div></div>';
+  }
+  if(data.articles_selectionnes.length){
+    var chips=data.articles_selectionnes.map(function(n){return'<span class="recap-article-chip">'+n+'</span>';}).join('');
+    html+='<div class="recap-section"><div class="recap-section-title">Articles sélectionnés ('+data.articles_selectionnes.length+')</div><div class="recap-row"><div class="recap-articles">'+chips+'</div></div></div>';
+  }
+  document.getElementById('recap-content').innerHTML=html||'<div style="color:var(--muted);font-size:13px;">Complétez les étapes précédentes pour voir votre récapitulatif.</div>';
+}
+
+function envoyerConfig(){
+  var prenom=document.getElementById('prenom').value.trim(),email=document.getElementById('email').value.trim();
+  if(!prenom||!email){alert('Merci de renseigner votre prénom et votre email pour finaliser votre demande.');return;}
+  data.prenom=prenom;data.nom=document.getElementById('nom').value.trim();data.email=email;data.telephone=document.getElementById('telephone').value.trim();
+  var btn=document.getElementById('btn-next');btn.innerHTML='Envoi en cours…';btn.disabled=true;
+  fetch('/api/envoyer-config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    .then(function(r){return r.json();}).then(function(){finish();}).catch(function(){finish();});
+}
+function finish(){try{localStorage.removeItem(STORE_KEY);}catch(e){}showSuccess();}
 function showSuccess(){document.getElementById('config-wrap').style.display='none';document.getElementById('success-wrap').classList.add('show');window.scrollTo({top:0,behavior:'smooth'});}
 </script>
 </body>
