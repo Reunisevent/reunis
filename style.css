@@ -442,6 +442,13 @@ button { cursor:pointer; font-family:inherit; }
   .sidebar.desktop-open { transform: translateX(0); }
   .main.desktop-shifted { margin-left: var(--sb-w); }
   .sb-overlay { display:none !important; }
+
+  /* La topbar suit la sidebar pour que le logo reste centré
+     sur la zone de contenu et non sur toute la fenêtre */
+  .sidebar.desktop-open ~ .topbar,
+  .sidebar.open ~ .topbar {
+    margin-left: var(--sb-w);
+  }
 }
 
 @media (max-width: 860px) {
