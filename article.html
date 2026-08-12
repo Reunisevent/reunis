@@ -55,11 +55,11 @@
 .perso-label:first-of-type { margin-top:0; }
 .perso-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; resize:vertical; min-height:90px; transition:border-color .2s; }
 .perso-textarea:focus { border-color:var(--rose); }
-.perso-select { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; appearance:none; cursor:pointer; transition:border-color .2s; }
-.perso-select:focus { border-color:var(--rose); }
-.perso-autre { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; margin-top:8px; transition:border-color .2s; display:none; }
-.perso-autre.visible { display:block; }
-.perso-autre:focus { border-color:var(--rose); }
+.perso-color-palette { display:flex; flex-wrap:wrap; gap:10px; }
+.perso-color-swatch { width:36px; height:36px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:all .2s; position:relative; flex-shrink:0; }
+.perso-color-swatch:hover { transform:scale(1.15); }
+.perso-color-swatch.selected { border-color:var(--noir); transform:scale(1.15); }
+.perso-color-swatch.selected::after { content:'✓'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:white; text-shadow:0 1px 3px rgba(0,0,0,.5); }
 .perso-upload { width:100%; border:1px dashed rgba(0,0,0,.2); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--white); }
 .perso-upload:hover { border-color:var(--rose); }
 .perso-upload-label { font-size:12px; color:var(--muted); letter-spacing:.5px; }
@@ -179,19 +179,24 @@
           <label class="perso-label">Texte ou motif souhaité</label>
           <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
           <label class="perso-label">Couleur</label>
-          <select class="perso-select" id="perso-couleur" onchange="toggleAutre(this)">
-            <option value="">Choisissez une couleur</option>
-            <option value="Doré">Doré</option>
-            <option value="Argenté">Argenté</option>
-            <option value="Blanc">Blanc</option>
-            <option value="Noir">Noir</option>
-            <option value="Jaune">Jaune</option>
-            <option value="Bleu">Bleu</option>
-            <option value="Rose">Rose</option>
-            <option value="Vert foncé">Vert foncé</option>
-            <option value="Autre">Autre</option>
-          </select>
-          <input class="perso-autre" id="perso-autre" type="text" placeholder="Précisez la couleur…">
+          <div class="perso-color-palette" id="perso-couleur-palette">
+            <div class="perso-color-swatch" style="background:#FFFFFF;border:2px solid #eee;" data-color="Blanc" onclick="selectPersoColor(this)" title="Blanc"></div>
+            <div class="perso-color-swatch" style="background:#F5E6CA;" data-color="Crème" onclick="selectPersoColor(this)" title="Crème"></div>
+            <div class="perso-color-swatch" style="background:#F9E04B;" data-color="Jaune poussin" onclick="selectPersoColor(this)" title="Jaune poussin"></div>
+            <div class="perso-color-swatch" style="background:#C9A96E;" data-color="Doré" onclick="selectPersoColor(this)" title="Doré"></div>
+            <div class="perso-color-swatch" style="background:#E07B54;" data-color="Terracotta" onclick="selectPersoColor(this)" title="Terracotta"></div>
+            <div class="perso-color-swatch" style="background:#8B5E3C;" data-color="Marron" onclick="selectPersoColor(this)" title="Marron"></div>
+            <div class="perso-color-swatch" style="background:#F4C2C2;" data-color="Rose poudré" onclick="selectPersoColor(this)" title="Rose poudré"></div>
+            <div class="perso-color-swatch" style="background:#D65B80;" data-color="Rose" onclick="selectPersoColor(this)" title="Rose"></div>
+            <div class="perso-color-swatch" style="background:#6B4C82;" data-color="Violet" onclick="selectPersoColor(this)" title="Violet"></div>
+            <div class="perso-color-swatch" style="background:#C1C3E6;" data-color="Lavande" onclick="selectPersoColor(this)" title="Lavande"></div>
+            <div class="perso-color-swatch" style="background:#1C3A5E;" data-color="Bleu marine" onclick="selectPersoColor(this)" title="Bleu marine"></div>
+            <div class="perso-color-swatch" style="background:#4A7C59;" data-color="Vert sauge" onclick="selectPersoColor(this)" title="Vert sauge"></div>
+            <div class="perso-color-swatch" style="background:#B8D8B0;" data-color="Vert pâle" onclick="selectPersoColor(this)" title="Vert pâle"></div>
+            <div class="perso-color-swatch" style="background:#C0C0C0;" data-color="Argenté" onclick="selectPersoColor(this)" title="Argenté"></div>
+            <div class="perso-color-swatch" style="background:#1a1a1a;" data-color="Noir" onclick="selectPersoColor(this)" title="Noir"></div>
+          </div>
+          <input type="hidden" id="perso-couleur" value="">
           <label class="perso-label">Exemple ou visuel de référence</label>
           <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
             <div class="perso-upload-label">+ Ajouter un fichier</div>
@@ -333,10 +338,9 @@ if(article) {
       toggle.checked = true;
       document.getElementById('perso-fields').style.display = 'block';
       document.getElementById('perso-texte').value = existant.perso.texte || '';
-      document.getElementById('perso-couleur').value = existant.perso.couleur || '';
-      if(existant.perso.couleur === 'Autre') {
-        document.getElementById('perso-autre').classList.add('visible');
-        document.getElementById('perso-autre').value = existant.perso.couleurAutre || '';
+      if(existant.perso.couleur) {
+        var swatch = document.querySelector('.perso-color-swatch[data-color="'+existant.perso.couleur+'"]');
+        if(swatch) selectPersoColor(swatch);
       }
       if(existant.perso.fileUrl) {
         persoFileUrl = existant.perso.fileUrl;
@@ -379,10 +383,10 @@ if(article) {
 function togglePerso(checkbox){
   document.getElementById('perso-fields').style.display = checkbox.checked ? 'block' : 'none';
 }
-function toggleAutre(sel){
-  var autreEl = document.getElementById('perso-autre');
-  if(sel.value === 'Autre') { autreEl.classList.add('visible'); }
-  else { autreEl.classList.remove('visible'); autreEl.value = ''; }
+function selectPersoColor(el){
+  document.querySelectorAll('.perso-color-swatch').forEach(function(s){ s.classList.remove('selected'); });
+  el.classList.add('selected');
+  document.getElementById('perso-couleur').value = el.dataset.color;
 }
 function handleFile(input){
   var file = input.files[0];
@@ -432,12 +436,10 @@ function addToFav(){
   var idx = favs.findIndex(function(f){ return f.name === (article.nom || article.name); });
   var perso = null;
   if(article.personnalisable === 'Oui' && document.getElementById('perso-toggle').checked) {
-    var couleur = document.getElementById('perso-couleur').value;
-    var couleurAutre = document.getElementById('perso-autre').value;
     perso = {
       texte: document.getElementById('perso-texte').value,
-      couleur: couleur,
-      couleurAutre: couleur === 'Autre' ? couleurAutre : '',
+      couleur: document.getElementById('perso-couleur').value,
+      couleurAutre: '',
       fileUrl: persoFileUrl || '',
       fileName: persoFileUrl ? document.getElementById('perso-file-name').textContent.replace('✓ ','') : ''
     };

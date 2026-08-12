@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
             + '<td colspan="3" style="padding:6px 8px 12px 24px;font-size:12px;color:#888;">'
             + '✏️ Personnalisation souhaitée : '
             + (a.perso.texte ? '<em>' + a.perso.texte + '</em>' : '')
-            + (a.perso.couleur ? ' — Couleur : ' + (a.perso.couleur === 'Autre' ? a.perso.couleurAutre : a.perso.couleur) : '')
+            + (a.perso.couleur ? ' — Couleur : ' + a.perso.couleur : '')
             + (a.perso.fileUrl ? ' — <a href="' + a.perso.fileUrl + '" target="_blank" style="color:#D65B80;">Voir le fichier joint</a>' : '')
             + '</td></tr>';
         } else {
