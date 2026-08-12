@@ -17,11 +17,30 @@
 .step-num { font-family:'Abril Fatface',serif; font-size:2rem; color:var(--rose); line-height:1; margin-bottom:12px; }
 .step-title { font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
 .step-text { font-size:13px; line-height:1.75; color:var(--muted); }
+.planifier-cta-wrap { text-align:center; margin-bottom:20px; }
+.planifier-cta-eyebrow { font-size:13px; color:var(--muted); margin-bottom:14px; }
 .planifier-cta { background:var(--noir); color:var(--white); border:none; border-radius:8px; padding:16px 32px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; display:inline-block; text-decoration:none; }
 .planifier-cta:hover { background:var(--rose); }
+.planifier-cta-secondary { display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+.planifier-cta-secondary a { font-family:'Arimo',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--noir); text-decoration:none; border:1px solid rgba(0,0,0,.15); border-radius:100px; padding:10px 20px; transition:border-color .2s,color .2s; }
+.planifier-cta-secondary a:hover { border-color:var(--rose); color:var(--rose); }
 .planifier-note { margin-top:48px; padding:24px; background:var(--white); border-radius:12px; border-left:3px solid var(--rose); }
 .planifier-note p { font-size:13px; color:var(--muted); line-height:1.75; margin:0; }
 @media(max-width:680px){ .planifier-wrap{ padding:32px 20px 60px; } .planifier-steps{ grid-template-columns:1fr; } }
+
+/* ── Carrousel ── */
+.faq-hero { position:relative; height:380px; overflow:hidden; background:var(--bg); }
+.faq-hero-track { display:flex; height:100%; transition:transform .7s cubic-bezier(.4,0,.2,1); }
+.faq-hero-slide { flex:0 0 100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--bg); }
+.faq-hero-slide img { width:100%; height:100%; object-fit:cover; }
+.faq-hero-dots { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+.faq-hero-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.45); cursor:pointer; transition:all .3s; }
+.faq-hero-dot.active { background:white; width:20px; border-radius:3px; }
+.faq-hero-arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.85); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; color:var(--noir); box-shadow:0 2px 8px rgba(0,0,0,.1); transition:background .2s; }
+.faq-hero-arrow:hover { background:white; }
+.faq-hero-arrow.left { left:14px; }
+.faq-hero-arrow.right { right:14px; }
+@media(max-width:860px){ .faq-hero { height:240px; } }
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,37 +102,59 @@
 </div>
 
 <main class="main" id="main">
+
+  <!-- CARROUSEL -->
+  <div class="faq-hero" id="faq-hero">
+    <div class="faq-hero-track" id="faq-track">
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086525/Reunisevent_carrousel_mariage_panneau_tkfjaj.jpg" alt="Mariage"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_bapteme_table_tjpkvm.jpg" alt="Baptême"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086527/Reunisevent_carrousel_fleurs_ur15if.jpg" alt="Fleurs"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_details_omxw8o.jpg" alt="Détails"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_anniversaire_backdrops_dbarei.jpg" alt="Anniversaire"></div>
+    </div>
+    <div class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</div>
+    <div class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</div>
+    <div class="faq-hero-dots" id="faq-dots"></div>
+  </div>
+
   <div class="planifier-wrap">
     <h1>Planifier</h1>
-    <p class="planifier-intro">Vous avez un événement en tête mais vous ne savez pas par où commencer ? Nous sommes là pour vous accompagner de A à Z — de la conception à l'installation, en passant par la sélection des décors et la personnalisation.</p>
+    <p class="planifier-intro">Vous avez un événement en tête mais vous ne savez pas par où commencer ? Nous sommes là pour vous accompagner de A à Z — de la conception à l'installation.</p>
 
 <div class="planifier-steps">
   <div class="planifier-step">
     <div class="step-num">01</div>
     <div class="step-title">On échange</div>
-    <div class="step-text">Un premier contact pour nous parler de votre projet : le type d'événement, la date, le lieu, l'ambiance souhaitée. Rien de formel — juste une belle conversation.</div>
+    <div class="step-text">Tout commence par un premier échange, sans engagement et sans frais. Parlez-nous de votre projet — le type d'événement, la date, le lieu, l'ambiance souhaitée — et nous élaborons ensemble la formule qui vous correspond vraiment.</div>
   </div>
   <div class="planifier-step">
     <div class="step-num">02</div>
     <div class="step-title">On imagine</div>
-    <div class="step-text">Nous vous proposons une sélection de décors, couleurs et articles adaptés à votre vision. Chaque événement est unique, chaque sélection l'est aussi.</div>
+    <div class="step-text">Sur la base de vos envies, nous concevons une proposition sur mesure : backdrop &amp; photocall, décoration de table, fleurs, ballons, personnalisation… Chaque détail est pensé pour créer un univers cohérent et à votre image. Nous réalisons une ou plusieurs maquettes visuelles pour vous permettre de vous projeter et d'affiner ensemble la scénographie de votre événement.</div>
   </div>
   <div class="planifier-step">
     <div class="step-num">03</div>
     <div class="step-title">On prépare</div>
-    <div class="step-text">Votre devis est validé, les articles réservés. Nous préparons tout avec soin — compositions florales, personnalisations, mise en scène.</div>
+    <div class="step-text">Une fois les maquettes et le devis validés, nous nous mettons au travail : articles réservés, fleurs commandées, personnalisations en cours, prestataires suivis… Nous pouvons prendre en charge tout ou partie de l'organisation — animations, traiteur, coordination jour J — pour vous libérer du temps et vous permettre de profiter pleinement de chaque instant.</div>
   </div>
   <div class="planifier-step">
     <div class="step-num">04</div>
     <div class="step-title">On installe</div>
-    <div class="step-text">Le jour J, nous livrons et installons tout sur place. Vous n'avez plus qu'à profiter. La désinstallation est également proposée en option.</div>
+    <div class="step-text">Le jour J, nous livrons et installons tout sur place : décors, fleurs, photobooth, signalétique… À l'issue de votre événement, nous prenons en charge la désinstallation, la reprise et le nettoyage du matériel. Pour aller encore plus loin, nous assurons sur demande la coordination jour J — une présence à vos côtés pour que chaque détail se déroule comme imaginé.</div>
   </div>
 </div>
 
-<a class="planifier-cta" href="configurateur.html">Démarrer mon projet →</a>
+<div class="planifier-cta-wrap">
+  <p class="planifier-cta-eyebrow">Utiliser notre configurateur pour</p>
+  <a class="planifier-cta" href="configurateur.html">Démarrer mon projet →</a>
+  <div class="planifier-cta-secondary">
+    <a href="contact.html">Nous contacter</a>
+    <a href="galerie.html">Voir nos réalisations</a>
+  </div>
+</div>
 
 <div class="planifier-note">
-  <p>💡 Vous pouvez aussi composer vous-même votre sélection depuis le <a href="decorer.html" style="color:var(--rose);font-weight:600;">catalogue</a>, ajouter vos articles aux favoris et nous envoyer votre liste — nous nous occupons du reste.</p>
+  <p>💡 Besoin uniquement de matériel ? Vous souhaitez être autonome ? Composez vous-même votre sélection depuis notre <a href="decorer.html" style="color:var(--rose);font-weight:600;">catalogue</a>, ajoutez vos articles aux favoris et transmettez-nous <a href="favoris.html" style="color:var(--rose);font-weight:600;">votre sélection</a> — nous préparons votre devis personnalisé et convenons ensemble des modalités de retrait ou de livraison.</p>
 </div>
 
   </div>
@@ -152,6 +193,28 @@ if(window.innerWidth > 860){
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('main').style.marginLeft = 'var(--sb-w)';
 }
+
+var heroIndex=0;
+var heroTotal=5;
+var autoplay;
+(function(){
+  var dotsEl=document.getElementById('faq-dots');
+  for(var i=0;i<heroTotal;i++){
+    var d=document.createElement('div');
+    d.className='faq-hero-dot'+(i===0?' active':'');
+    (function(n){d.onclick=function(){heroGoTo(n);};})(i);
+    dotsEl.appendChild(d);
+  }
+  startAutoplay();
+})();
+function heroGoTo(n){
+  heroIndex=(n+heroTotal)%heroTotal;
+  document.getElementById('faq-track').style.transform='translateX(-'+heroIndex*100+'%)';
+  document.querySelectorAll('.faq-hero-dot').forEach(function(d,i){d.classList.toggle('active',i===heroIndex);});
+  clearInterval(autoplay);startAutoplay();
+}
+function heroSlide(dir){heroGoTo(heroIndex+dir);}
+function startAutoplay(){autoplay=setInterval(function(){heroGoTo(heroIndex+1);},4500);}
 </script>
 
 </body>
