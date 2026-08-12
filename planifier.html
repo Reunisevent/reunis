@@ -17,8 +17,13 @@
 .step-num { font-family:'Abril Fatface',serif; font-size:2rem; color:var(--rose); line-height:1; margin-bottom:12px; }
 .step-title { font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
 .step-text { font-size:13px; line-height:1.75; color:var(--muted); }
+.planifier-cta-wrap { text-align:center; margin-bottom:20px; }
+.planifier-cta-eyebrow { font-size:13px; color:var(--muted); margin-bottom:14px; }
 .planifier-cta { background:var(--noir); color:var(--white); border:none; border-radius:8px; padding:16px 32px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; display:inline-block; text-decoration:none; }
 .planifier-cta:hover { background:var(--rose); }
+.planifier-cta-secondary { display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+.planifier-cta-secondary a { font-family:'Arimo',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--noir); text-decoration:none; border:1px solid rgba(0,0,0,.15); border-radius:100px; padding:10px 20px; transition:border-color .2s,color .2s; }
+.planifier-cta-secondary a:hover { border-color:var(--rose); color:var(--rose); }
 .planifier-note { margin-top:48px; padding:24px; background:var(--white); border-radius:12px; border-left:3px solid var(--rose); }
 .planifier-note p { font-size:13px; color:var(--muted); line-height:1.75; margin:0; }
 @media(max-width:680px){ .planifier-wrap{ padding:32px 20px 60px; } .planifier-steps{ grid-template-columns:1fr; } }
@@ -139,7 +144,14 @@
   </div>
 </div>
 
-<a class="planifier-cta" href="configurateur.html">Démarrer mon projet →</a>
+<div class="planifier-cta-wrap">
+  <p class="planifier-cta-eyebrow">Utiliser notre configurateur pour</p>
+  <a class="planifier-cta" href="configurateur.html">Démarrer mon projet →</a>
+  <div class="planifier-cta-secondary">
+    <a href="contact.html">Nous contacter</a>
+    <a href="galerie.html">Voir nos réalisations</a>
+  </div>
+</div>
 
 <div class="planifier-note">
   <p>💡 Vous pouvez aussi composer vous-même votre sélection depuis le <a href="decorer.html" style="color:var(--rose);font-weight:600;">catalogue</a>, ajouter vos articles aux favoris et nous envoyer votre liste — nous nous occupons du reste.</p>
