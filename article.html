@@ -53,6 +53,7 @@
 .perso-fields { display:none; }
 .perso-label { display:block; font-size:11px; font-weight:600; letter-spacing:.5px; color:var(--noir); margin-bottom:6px; margin-top:16px; }
 .perso-label:first-of-type { margin-top:0; }
+.perso-color-name { font-weight:400; color:var(--muted); }
 .perso-textarea { width:100%; border:1px solid rgba(0,0,0,.15); border-radius:8px; padding:12px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:var(--white); color:var(--noir); outline:none; resize:vertical; min-height:90px; transition:border-color .2s; }
 .perso-textarea:focus { border-color:var(--rose); }
 .perso-color-palette { display:flex; flex-wrap:wrap; gap:10px; }
@@ -178,7 +179,7 @@
         <div class="perso-fields" id="perso-fields">
           <label class="perso-label">Texte ou motif souhaité</label>
           <textarea class="perso-textarea" id="perso-texte" placeholder="N'hésitez pas à ajouter le maximum d'informations (police, taille, position…)"></textarea>
-          <label class="perso-label">Couleur</label>
+          <label class="perso-label">Couleur <span class="perso-color-name" id="perso-couleur-name"></span></label>
           <div class="perso-color-palette" id="perso-couleur-palette">
             <div class="perso-color-swatch" style="background:#FFFFFF;border:2px solid #eee;" data-color="Blanc" onclick="selectPersoColor(this)" title="Blanc"></div>
             <div class="perso-color-swatch" style="background:#F5E6CA;" data-color="Crème" onclick="selectPersoColor(this)" title="Crème"></div>
@@ -387,6 +388,7 @@ function selectPersoColor(el){
   document.querySelectorAll('.perso-color-swatch').forEach(function(s){ s.classList.remove('selected'); });
   el.classList.add('selected');
   document.getElementById('perso-couleur').value = el.dataset.color;
+  document.getElementById('perso-couleur-name').textContent = '— ' + el.dataset.color;
 }
 function handleFile(input){
   var file = input.files[0];

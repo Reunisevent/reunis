@@ -43,6 +43,7 @@
 .fav-perso-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .fav-perso-field { margin-bottom:8px; }
 .fav-perso-label { font-size:10px; color:var(--muted); margin-bottom:4px; display:block; }
+.fav-perso-color-name { color:var(--noir); font-weight:600; }
 .fav-perso-input { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; resize:none; transition:border-color .2s; }
 .fav-perso-input:focus { border-color:var(--rose); }
 .fav-perso-color-palette { display:flex; flex-wrap:wrap; gap:8px; }
@@ -326,7 +327,7 @@ function makeCardPerso(f,i){
   if(f.perso){
     persoHtml+='<div class="fav-perso-field"><label class="fav-perso-label">Texte ou motif souhaité</label>'
       +'<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea></div>'
-      +'<div class="fav-perso-field"><label class="fav-perso-label">Couleur</label>'
+      +'<div class="fav-perso-field"><label class="fav-perso-label">Couleur <span class="fav-perso-color-name" id="fav-couleur-name-'+i+'">'+(couleurVal?'— '+couleurVal:'')+'</span></label>'
       +'<div class="fav-perso-color-palette">'
       +PERSO_COLORS.map(function(c){
         var sel=couleurVal===c[0]?' selected':'';
@@ -402,6 +403,8 @@ function selectPersoColorFav(i,el){
   el.parentElement.querySelectorAll('.fav-perso-color-swatch').forEach(function(s){s.classList.remove('selected');});
   el.classList.add('selected');
   updatePersoField(i,'couleur',el.dataset.color);
+  var nameEl=document.getElementById('fav-couleur-name-'+i);
+  if(nameEl)nameEl.textContent='— '+el.dataset.color;
 }
 function activerPerso(i){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
