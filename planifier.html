@@ -22,6 +22,20 @@
 .planifier-note { margin-top:48px; padding:24px; background:var(--white); border-radius:12px; border-left:3px solid var(--rose); }
 .planifier-note p { font-size:13px; color:var(--muted); line-height:1.75; margin:0; }
 @media(max-width:680px){ .planifier-wrap{ padding:32px 20px 60px; } .planifier-steps{ grid-template-columns:1fr; } }
+
+/* ── Carrousel ── */
+.faq-hero { position:relative; height:380px; overflow:hidden; background:var(--bg); }
+.faq-hero-track { display:flex; height:100%; transition:transform .7s cubic-bezier(.4,0,.2,1); }
+.faq-hero-slide { flex:0 0 100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--bg); }
+.faq-hero-slide img { width:100%; height:100%; object-fit:cover; }
+.faq-hero-dots { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+.faq-hero-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.45); cursor:pointer; transition:all .3s; }
+.faq-hero-dot.active { background:white; width:20px; border-radius:3px; }
+.faq-hero-arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.85); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; color:var(--noir); box-shadow:0 2px 8px rgba(0,0,0,.1); transition:background .2s; }
+.faq-hero-arrow:hover { background:white; }
+.faq-hero-arrow.left { left:14px; }
+.faq-hero-arrow.right { right:14px; }
+@media(max-width:860px){ .faq-hero { height:240px; } }
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,9 +97,24 @@
 </div>
 
 <main class="main" id="main">
+
+  <!-- CARROUSEL -->
+  <div class="faq-hero" id="faq-hero">
+    <div class="faq-hero-track" id="faq-track">
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086525/Reunisevent_carrousel_mariage_panneau_tkfjaj.jpg" alt="Mariage"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_bapteme_table_tjpkvm.jpg" alt="Baptême"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086527/Reunisevent_carrousel_fleurs_ur15if.jpg" alt="Fleurs"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_details_omxw8o.jpg" alt="Détails"></div>
+      <div class="faq-hero-slide"><img src="https://res.cloudinary.com/dhdzcow9l/image/upload/v1779086526/Reunisevent_carrousel_anniversaire_backdrops_dbarei.jpg" alt="Anniversaire"></div>
+    </div>
+    <div class="faq-hero-arrow left" onclick="heroSlide(-1)">&#8249;</div>
+    <div class="faq-hero-arrow right" onclick="heroSlide(1)">&#8250;</div>
+    <div class="faq-hero-dots" id="faq-dots"></div>
+  </div>
+
   <div class="planifier-wrap">
     <h1>Planifier</h1>
-    <p class="planifier-intro">Vous avez un événement en tête mais vous ne savez pas par où commencer ? Nous sommes là pour vous accompagner de A à Z — de la conception à l'installation, en passant par la sélection des décors et la personnalisation.</p>
+    <p class="planifier-intro">Vous avez un événement en tête mais vous ne savez pas par où commencer ? Nous sommes là pour vous accompagner de A à Z — de la conception à l'installation.</p>
 
 <div class="planifier-steps">
   <div class="planifier-step">
@@ -152,6 +181,28 @@ if(window.innerWidth > 860){
   document.getElementById('sidebar').classList.add('open');
   document.getElementById('main').style.marginLeft = 'var(--sb-w)';
 }
+
+var heroIndex=0;
+var heroTotal=5;
+var autoplay;
+(function(){
+  var dotsEl=document.getElementById('faq-dots');
+  for(var i=0;i<heroTotal;i++){
+    var d=document.createElement('div');
+    d.className='faq-hero-dot'+(i===0?' active':'');
+    (function(n){d.onclick=function(){heroGoTo(n);};})(i);
+    dotsEl.appendChild(d);
+  }
+  startAutoplay();
+})();
+function heroGoTo(n){
+  heroIndex=(n+heroTotal)%heroTotal;
+  document.getElementById('faq-track').style.transform='translateX(-'+heroIndex*100+'%)';
+  document.querySelectorAll('.faq-hero-dot').forEach(function(d,i){d.classList.toggle('active',i===heroIndex);});
+  clearInterval(autoplay);startAutoplay();
+}
+function heroSlide(dir){heroGoTo(heroIndex+dir);}
+function startAutoplay(){autoplay=setInterval(function(){heroGoTo(heroIndex+1);},4500);}
 </script>
 
 </body>
