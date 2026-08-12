@@ -213,7 +213,7 @@
   </div>
 </main>
 <script>
-var PERSO_COLORS=[['Blanc','#FFFFFF'],['Crème','#F5E6CA'],['Jaune poussin','#F9E04B'],['Doré','#C9A96E'],['Terracotta','#E07B54'],['Marron','#8B5E3C'],['Rose poudré','#F4C2C2'],['Rose','#D65B80'],['Violet','#6B4C82'],['Lavande','#C1C3E6'],['Bleu marine','#1C3A5E'],['Vert sauge','#4A7C59'],['Vert pâle','#B8D8B0'],['Argenté','#C0C0C0'],['Noir','#1a1a1a']];
+var PERSO_COLORS=[['Blanc','#FFFFFF'],['Crème','#F5E6CA'],['Jaune poussin','#F9E04B'],['Doré','#C9A96E'],['Terracotta','#E07B54'],['Marron','#8B5E3C'],['Rose poudré','#F4C2C2'],['Rose Fuchsia','#D65B80'],['Violet','#6B4C82'],['Lavande','#C1C3E6'],['Bleu ciel','#A8D8EA'],['Bleu marine','#1C3A5E'],['Vert sapin','#4A7C59'],['Vert sauge','#B8D8B0'],['Argenté','#C0C0C0'],['Noir','#1a1a1a']];
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
 function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
