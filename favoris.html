@@ -45,8 +45,11 @@
 .fav-perso-label { font-size:10px; color:var(--muted); margin-bottom:4px; display:block; }
 .fav-perso-input { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; resize:none; transition:border-color .2s; }
 .fav-perso-input:focus { border-color:var(--rose); }
-.fav-perso-select { width:100%; border:1px solid rgba(0,0,0,.12); border-radius:6px; padding:8px 10px; font-family:'Arimo',sans-serif; font-size:12px; background:var(--white); color:var(--noir); outline:none; appearance:none; transition:border-color .2s; }
-.fav-perso-select:focus { border-color:var(--rose); }
+.fav-perso-color-palette { display:flex; flex-wrap:wrap; gap:8px; }
+.fav-perso-color-swatch { width:26px; height:26px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:all .2s; position:relative; flex-shrink:0; }
+.fav-perso-color-swatch:hover { transform:scale(1.15); }
+.fav-perso-color-swatch.selected { border-color:var(--noir); transform:scale(1.15); }
+.fav-perso-color-swatch.selected::after { content:'✓'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:white; text-shadow:0 1px 3px rgba(0,0,0,.5); }
 .fav-perso-file { font-size:11px; color:var(--rose); margin-top:4px; }
 .favoris-total { background:var(--white); border-radius:8px; padding:16px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
 .favoris-total-left { display:flex; flex-direction:column; gap:4px; }
@@ -209,6 +212,7 @@
   </div>
 </main>
 <script>
+var PERSO_COLORS=[['Blanc','#FFFFFF'],['Crème','#F5E6CA'],['Jaune poussin','#F9E04B'],['Doré','#C9A96E'],['Terracotta','#E07B54'],['Marron','#8B5E3C'],['Rose poudré','#F4C2C2'],['Rose','#D65B80'],['Violet','#6B4C82'],['Lavande','#C1C3E6'],['Bleu marine','#1C3A5E'],['Vert sauge','#4A7C59'],['Vert pâle','#B8D8B0'],['Argenté','#C0C0C0'],['Noir','#1a1a1a']];
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
 function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
@@ -315,7 +319,6 @@ function makeCardPerso(f,i){
     ?'<img src="'+f.photo+'" alt="'+f.name+'" style="width:100%;height:100%;object-fit:cover;">'
     :'<div style="font-size:2rem;color:#ccc;display:flex;align-items:center;justify-content:center;height:100%;">&#x2726;</div>';
   var couleurVal=(f.perso&&f.perso.couleur)?f.perso.couleur:'';
-  var couleurAutreVal=(f.perso&&f.perso.couleurAutre)?f.perso.couleurAutre:'';
   var texteVal=(f.perso&&f.perso.texte)?f.perso.texte:'';
   var fileUrl=(f.perso&&f.perso.fileUrl)?f.perso.fileUrl:'';
   var fileName=(f.perso&&f.perso.fileName)?f.perso.fileName:'';
@@ -324,13 +327,13 @@ function makeCardPerso(f,i){
     persoHtml+='<div class="fav-perso-field"><label class="fav-perso-label">Texte ou motif souhaité</label>'
       +'<textarea class="fav-perso-input" rows="2" onchange="updatePersoField('+i+',\'texte\',this.value)" placeholder="Décrivez votre demande…">'+texteVal+'</textarea></div>'
       +'<div class="fav-perso-field"><label class="fav-perso-label">Couleur</label>'
-      +'<select class="fav-perso-select" onchange="updatePersoSelect('+i+',this)">'
-      +'<option value="">Choisissez une couleur</option>'
-      +['Doré','Argenté','Blanc','Noir','Jaune','Bleu','Rose','Vert foncé','Autre'].map(function(c){
-        return '<option value="'+c+'"'+(couleurVal===c?' selected':'')+'>'+c+'</option>';
+      +'<div class="fav-perso-color-palette">'
+      +PERSO_COLORS.map(function(c){
+        var sel=couleurVal===c[0]?' selected':'';
+        var border=c[0]==='Blanc'?'border:2px solid #eee;':'';
+        return '<div class="fav-perso-color-swatch'+sel+'" style="background:'+c[1]+';'+border+'" data-color="'+c[0]+'" onclick="selectPersoColorFav('+i+',this)" title="'+c[0]+'"></div>';
       }).join('')
-      +'</select>'
-      +'<input class="fav-perso-input" id="autre-'+i+'" style="margin-top:6px;display:'+(couleurVal==='Autre'?'block':'none')+';" type="text" placeholder="Précisez la couleur…" value="'+couleurAutreVal+'" onchange="updatePersoField('+i+',\'couleurAutre\',this.value)">'
+      +'</div>'
       +'</div>'
       +(fileUrl?'<div class="fav-perso-file">&#x1F4CE; <a href="'+fileUrl+'" target="_blank" onclick="event.stopPropagation()">'+fileName+'</a></div>':'');
   } else {
@@ -395,10 +398,10 @@ function updatePersoField(i,field,value){
   if(!favs[i].perso)favs[i].perso={};
   favs[i].perso[field]=value;localStorage.setItem('reunis_favoris',JSON.stringify(favs));
 }
-function updatePersoSelect(i,sel){
-  var value=sel.value;updatePersoField(i,'couleur',value);
-  var autreInput=document.getElementById('autre-'+i);
-  if(autreInput)autreInput.style.display=value==='Autre'?'block':'none';
+function selectPersoColorFav(i,el){
+  el.parentElement.querySelectorAll('.fav-perso-color-swatch').forEach(function(s){s.classList.remove('selected');});
+  el.classList.add('selected');
+  updatePersoField(i,'couleur',el.dataset.color);
 }
 function activerPerso(i){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
