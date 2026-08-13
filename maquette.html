@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Créez votre maquette de décor en ligne — choisissez vos fonds, leur forme et leur couleur, ajoutez du texte, des fleurs et des ballons, et visualisez le prix en temps réel. Réunis, Centre-Val de Loire.">
+<title>Ma maquette — Réunis</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.maq-header{padding:40px 24px 0;}
+.maq-title{font-family:'Abril Fatface',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1;margin-bottom:8px;}
+.maq-intro{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:8px;max-width:600px;}
+
+.maq-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;padding:24px 24px 60px;align-items:start;}
+@media(max-width:960px){.maq-layout{grid-template-columns:1fr;padding:20px 20px 40px;}}
+
+/* ── STAGE ── */
+.maq-stage-card{background:var(--white);border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.05);}
+.maq-stage-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.maq-stage-count{font-size:11px;color:var(--muted);letter-spacing:.5px;}
+.maq-reset-btn{background:none;border:none;color:var(--muted);font-size:11px;letter-spacing:.5px;text-decoration:underline;cursor:pointer;font-family:'Arimo',sans-serif;}
+.maq-reset-btn:hover{color:var(--rose);}
+.maq-stage-outer{width:100%;max-width:600px;margin:0 auto;}
+.maq-stage{position:relative;width:100%;aspect-ratio:4/5;border-radius:16px;overflow:hidden;
+  background:linear-gradient(180deg,#F5EFEF 0%,#F5EFEF 72%,#EADCDC 72%,#DECDCD 100%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);touch-action:none;}
+#backdrop-row{position:absolute;left:0;right:0;top:6%;display:flex;justify-content:center;align-items:flex-end;pointer-events:none;}
+.backdrop-panel{flex-shrink:0;position:relative;box-shadow:0 14px 30px rgba(0,0,0,.16);overflow:hidden;transition:background .25s;}
+.backdrop-panel::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.32),transparent 55%);pointer-events:none;}
+.shape-rect{border-radius:12px;}
+.shape-arch{border-radius:50% 50% 6px 6px / 58% 58% 6px 6px;}
+.shape-circle{border-radius:50%;}
+.shape-hex{clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);}
+#layers-layer{position:absolute;inset:0;}
+.text-layer{position:absolute;transform:translate(-50%,-50%);cursor:move;touch-action:none;user-select:none;padding:2px 6px;white-space:nowrap;}
+.text-layer-label{pointer-events:none;}
+.el-layer{position:absolute;transform:translate(-50%,-50%);cursor:move;touch-action:none;}
+.el-layer img{display:block;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));}
+.layer-del,.layer-resize{position:absolute;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;cursor:pointer;opacity:.85;transition:opacity .15s,transform .15s;}
+.layer-del:hover,.layer-resize:hover{opacity:1;transform:scale(1.12);}
+.layer-del{top:-8px;right:-8px;background:white;color:var(--rose);box-shadow:0 1px 4px rgba(0,0,0,.25);}
+.layer-resize{bottom:-8px;right:-8px;background:var(--noir);color:white;cursor:nwse-resize;box-shadow:0 1px 4px rgba(0,0,0,.25);}
+.maq-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6;}
+
+/* ── PANEL ── */
+.maq-panel{background:var(--white);border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.05);position:sticky;top:16px;}
+@media(max-width:960px){.maq-panel{position:static;}}
+.maq-tabs{display:flex;gap:6px;margin-bottom:18px;}
+.maq-tab-btn{flex:1;background:var(--bg);border:none;border-radius:8px;padding:10px 6px;font-family:'Arimo',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;}
+.maq-tab-btn.active{background:var(--noir);color:white;}
+.maq-tab-content{display:none;}
+.maq-tab-content.active{display:block;}
+.maq-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px;}
+.maq-label:first-child{margin-top:0;}
+
+.toggle-group{display:flex;gap:8px;flex-wrap:wrap;}
+.toggle-btn{padding:10px 18px;border-radius:100px;border:2px solid rgba(0,0,0,.12);background:var(--white);font-family:'Arimo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--noir);}
+.toggle-btn:hover{border-color:var(--rose);color:var(--rose);}
+.toggle-btn.selected{background:var(--noir);color:white;border-color:var(--noir);}
+
+.shape-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.shape-card{background:var(--bg);border:2px solid transparent;border-radius:10px;padding:12px 4px;text-align:center;cursor:pointer;transition:all .2s;color:var(--noir);}
+.shape-card:hover{border-color:rgba(214,91,128,.3);}
+.shape-card svg{width:22px;height:22px;margin-bottom:5px;}
+.shape-card.selected{border-color:var(--rose);background:rgba(214,91,128,.06);color:var(--rose);}
+.shape-card-label{font-size:9px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;display:block;}
+
+.color-palette{display:flex;flex-wrap:wrap;gap:9px;}
+.color-swatch{width:30px;height:30px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative;flex-shrink:0;}
+.color-swatch:hover{transform:scale(1.12);}
+.color-swatch.selected{border-color:var(--noir);transform:scale(1.12);}
+.color-swatch.selected::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;text-shadow:0 1px 3px rgba(0,0,0,.5);}
+
+.backdrop-price-hint{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;}
+.backdrop-price-hint strong{color:var(--rose);}
+
+.text-add-btn{width:100%;background:var(--bg);border:2px dashed rgba(0,0,0,.15);border-radius:10px;padding:12px;font-family:'Arimo',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:14px;}
+.text-add-btn:hover{border-color:var(--rose);color:var(--rose);}
+.text-card{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:12px;}
+.text-card-row{display:flex;gap:8px;margin-bottom:10px;}
+.text-card-input{flex:1;min-width:0;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:9px 10px;font-size:13px;font-family:'Arimo',sans-serif;background:var(--white);color:var(--noir);outline:none;}
+.text-card-input:focus{border-color:var(--rose);}
+.text-card-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;flex-shrink:0;padding:0 4px;}
+.text-card-del:hover{color:var(--rose);}
+.text-font-toggle{display:flex;gap:6px;margin-bottom:10px;}
+.text-font-btn{flex:1;padding:7px;border-radius:6px;border:1px solid rgba(0,0,0,.15);background:var(--white);font-size:11px;cursor:pointer;color:var(--noir);}
+.text-font-btn.selected{background:var(--noir);color:white;border-color:var(--noir);}
+.text-mini-colors{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.text-mini-swatch{width:17px;height:17px;border-radius:50%;cursor:pointer;border:2px solid transparent;flex-shrink:0;}
+.text-mini-swatch.selected{border-color:var(--noir);}
+.text-size-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px;}
+.text-size-range{width:100%;accent-color:var(--rose);}
+.text-perso-note{font-size:10.5px;color:var(--muted);line-height:1.6;margin-top:8px;}
+
+.el-subtabs{display:flex;gap:6px;margin-bottom:10px;}
+.el-subtab-btn{flex:1;background:var(--bg);border:none;border-radius:100px;padding:8px;font-family:'Arimo',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;}
+.el-subtab-btn.active{background:var(--rose);color:white;}
+.el-search-input{width:100%;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:9px 12px;font-size:12px;margin-bottom:12px;font-family:'Arimo',sans-serif;background:var(--white);color:var(--noir);outline:none;}
+.el-search-input:focus{border-color:var(--rose);}
+.el-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;max-height:420px;overflow-y:auto;padding:2px 2px 4px 0;}
+.mini-card{position:relative;background:var(--bg);border-radius:10px;overflow:hidden;}
+.mini-card-img{aspect-ratio:1/1;background:var(--white);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.mini-card-img img{width:100%;height:100%;object-fit:cover;}
+.mini-card-info{padding:6px 30px 10px 8px;}
+.mini-card-name{font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;line-height:1.3;color:var(--noir);margin-bottom:2px;}
+.mini-card-price{font-size:10px;color:var(--muted);}
+.mini-card-addbtn{position:absolute;bottom:6px;right:6px;width:26px;height:26px;border-radius:50%;background:var(--rose);color:white;border:none;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform .15s,background .2s;}
+.mini-card-addbtn:hover{background:var(--noir);transform:scale(1.1);}
+
+/* ── PRICE BOX ── */
+.maq-price-box{margin-top:22px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08);}
+.price-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);padding:4px 0;}
+.price-row span:last-child{font-weight:600;color:var(--noir);flex-shrink:0;}
+.price-row.total{font-size:16px;margin-top:8px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.14);}
+.price-row.total span{color:var(--noir);font-weight:700;}
+.price-row.total span:last-child{color:var(--rose);}
+.price-note{font-size:10px;color:var(--muted);line-height:1.65;margin-top:10px;}
+.btn-devis{width:100%;background:var(--rose);color:white;border:none;border-radius:100px;padding:15px;font-family:'Arimo',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:16px;transition:background .2s;}
+.btn-devis:hover{background:var(--noir);}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:12px;padding:36px;max-width:480px;width:90%;max-height:90vh;overflow-y:auto;position:relative;}
+.modal h2{font-family:'Abril Fatface',serif;font-size:1.6rem;font-weight:400;margin-bottom:8px;}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:24px;letter-spacing:.5px;}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.2rem;color:var(--noir);cursor:pointer;}
+.modal-label{display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;margin-top:16px;}
+.modal-input{width:100%;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:12px 14px;font-family:'Arimo',sans-serif;font-size:14px;background:var(--bg);color:var(--noir);outline:none;transition:border-color .2s;}
+.modal-input:focus{border-color:var(--rose);}
+.modal-textarea{width:100%;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:12px 14px;font-family:'Arimo',sans-serif;font-size:13px;background:var(--bg);color:var(--noir);outline:none;resize:vertical;min-height:80px;transition:border-color .2s;}
+.modal-textarea:focus{border-color:var(--rose);}
+.modal-select{width:100%;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:12px 14px;font-family:'Arimo',sans-serif;font-size:14px;background:var(--bg);color:var(--noir);outline:none;appearance:none;transition:border-color .2s;}
+.modal-select:focus{border-color:var(--rose);}
+.btn-modal-send{width:100%;background:var(--noir);color:white;border:none;border-radius:8px;padding:15px;font-family:'Arimo',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:24px;}
+.btn-modal-send:hover{background:var(--rose);}
+.modal-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6;}
+.sb-config{background:var(--rose)!important;}
+.sb-config:hover{background:var(--noir)!important;}
+</style>
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Réunis" />
+<link rel="manifest" href="/site.webmanifest" />
+</head>
+<body>
+<div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar desktop-open" id="sidebar">
+  <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
+  <nav>
+    <a class="sb-axis" href="planifier.html">Planifier</a>
+    <div class="sb-axis-wrap">
+      <a class="sb-axis" href="decorer.html">Décorer</a>
+      <span class="sb-axis-toggle" onclick="toggleCats(this)">▾</span>
+    </div>
+    <div class="sb-cats">
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-signaletique.html#panneaux">Panneaux d'accueil</a><a class="sb-subcat" href="cat-signaletique.html#miroirs">Miroirs</a><a class="sb-subcat" href="cat-signaletique.html#petits">Petits panneaux</a><a class="sb-subcat" href="cat-signaletique.html#marque-place">Marque place</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="cat-table.html#vaisselles">Vaisselles</a><a class="sb-subcat" href="cat-table.html#presentoirs">Présentoirs</a><a class="sb-subcat" href="cat-table.html#candy-bar">Candy bar</a><a class="sb-subcat" href="cat-table.html#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="cat-table.html#carafes">Carafes</a><a class="sb-subcat" href="cat-table.html#service">Service</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a><div class="sb-subcats"><a class="sb-subcat" href="cat-textile.html#nappes">Nappes</a><a class="sb-subcat" href="cat-textile.html#chemins">Chemins de table</a><a class="sb-subcat" href="cat-textile.html#serviettes">Serviettes de table</a><a class="sb-subcat" href="cat-textile.html#tapis">Tapis</a><a class="sb-subcat" href="cat-textile.html#coussins">Coussins</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a><div class="sb-subcats"><a class="sb-subcat" href="cat-floral.html#dame-jeanne">Dame jeanne</a><a class="sb-subcat" href="cat-floral.html#vases">Vases</a><a class="sb-subcat" href="cat-floral.html#soliflores">Soliflores</a><a class="sb-subcat" href="cat-floral.html#seches">Fleurs séchées</a><a class="sb-subcat" href="cat-floral.html#fraiches">Fleurs fraîches</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs &amp; chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes &amp; éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-details.html">Les détails</a><div class="sb-subcats"><a class="sb-subcat" href="cat-details.html#livre-dor">Livre d'or</a><a class="sb-subcat" href="cat-details.html#disco">Boules disco</a><a class="sb-subcat" href="cat-details.html#zinc">Bassines en zinc</a><a class="sb-subcat" href="cat-details.html#caisses">Caisses en bois</a><a class="sb-subcat" href="cat-details.html#vintage">Objets vintages</a><a class="sb-subcat" href="cat-details.html#accessoires">Accessoires</a><a class="sb-subcat" href="cat-details.html#jeux">Jeux</a></div></div>
+      <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-pratique.html#video">Vidéoprojecteur</a><a class="sb-subcat" href="cat-pratique.html#vestiaire">Vestiaire</a><a class="sb-subcat" href="cat-pratique.html#rallonges">Rallonges</a><a class="sb-subcat" href="cat-pratique.html#cuisine">Ustensiles de cuisine</a></div></div>
+    </div>
+    <hr class="sb-sep">
+    <div class="sb-secondary">
+      <a href="index.html">Home</a>
+      <a href="faq.html">FAQ</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="manifest.html">Manifest</a>
+      <a href="le-club.html">Le Club</a>
+    </div>
+    <a class="sb-contact" href="contact.html">Contact</a>
+    <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
+  </nav>
+  <div class="sb-footer">
+    <img class="sb-club-img" src="le-club-logo.jpg" alt="Le Club" onclick="location.href='le-club.html'">
+    <div class="sb-legal">
+      <a href="mentions.html">| Mentions légales</a>
+      <a href="cgv.html">| CGV</a>
+    </div>
+  </div>
+</aside>
+<div class="topbar visible">
+  <button class="topbar-icon" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="topbar-logo" href="index.html">Réunis</a>
+  <a class="topbar-icon" href="favoris.html" aria-label="Favoris" style="position:relative;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <span class="heart-badge" id="fav-badge"></span>
+  </a>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <h2>Votre maquette</h2>
+    <p class="modal-sub">Quelques informations pour recevoir votre devis personnalisé</p>
+    <label class="modal-label">Nom complet *</label>
+    <input class="modal-input" id="m-nom" type="text" placeholder="Prénom Nom">
+    <label class="modal-label">Email *</label>
+    <input class="modal-input" id="m-email" type="email" placeholder="votre@email.com">
+    <label class="modal-label">Téléphone</label>
+    <input class="modal-input" id="m-tel" type="tel" placeholder="06 00 00 00 00">
+    <label class="modal-label">Date de l'événement</label>
+    <input class="modal-input" id="m-date" type="date">
+    <label class="modal-label">Type d'événement</label>
+    <select class="modal-select" id="m-type">
+      <option value="">Sélectionnez…</option>
+      <option>Mariage</option>
+      <option>Anniversaire</option>
+      <option>Baptême</option>
+      <option>Communion</option>
+      <option>Baby shower</option>
+      <option>EVJF / EVG</option>
+      <option>Événement professionnel</option>
+      <option>Autre</option>
+    </select>
+    <label class="modal-label">Message (optionnel)</label>
+    <textarea class="modal-textarea" id="m-message" placeholder="Précisions, questions…"></textarea>
+    <button class="btn-modal-send" onclick="envoyerMaquette()">Recevoir mon devis &#x2192;</button>
+    <p class="modal-note">Nous revenons vers vous dans les meilleurs délais pour affiner votre maquette et confirmer la disponibilité.</p>
+  </div>
+</div>
+
+<main class="main" id="main">
+  <div class="maq-header">
+    <div class="maq-title">Ma maquette</div>
+    <p class="maq-intro">Composez votre décor comme vous l'imaginez : nombre de fonds, forme, couleur, texte personnalisé, fleurs et ballons à placer où vous voulez. L'aperçu et le prix se mettent à jour en temps réel. ✨</p>
+  </div>
+
+  <div class="maq-layout" id="maq-layout">
+    <div class="maq-stage-card">
+      <div class="maq-stage-toolbar">
+        <span class="maq-stage-count" id="maq-stage-count"></span>
+        <button class="maq-reset-btn" onclick="resetMaquette()">Réinitialiser</button>
+      </div>
+      <div class="maq-stage-outer">
+        <div class="maq-stage" id="maq-stage">
+          <div id="backdrop-row"></div>
+          <div id="layers-layer"></div>
+        </div>
+      </div>
+      <p class="maq-hint">Glissez les éléments pour les repositionner &middot; utilisez le point noir pour les redimensionner &middot; la croix les supprime.</p>
+    </div>
+
+    <div class="maq-panel">
+      <div class="maq-tabs">
+        <button class="maq-tab-btn active" data-tab="fond" onclick="setTab('fond')">Fond</button>
+        <button class="maq-tab-btn" data-tab="texte" onclick="setTab('texte')">Texte</button>
+        <button class="maq-tab-btn" data-tab="elements" onclick="setTab('elements')">Éléments</button>
+      </div>
+
+      <div class="maq-tab-content active" id="tab-fond">
+        <div class="maq-label">Nombre de fonds</div>
+        <div class="toggle-group">
+          <button class="toggle-btn count-btn" data-n="1" onclick="setCount(1)">1</button>
+          <button class="toggle-btn count-btn" data-n="2" onclick="setCount(2)">2</button>
+          <button class="toggle-btn count-btn" data-n="3" onclick="setCount(3)">3</button>
+        </div>
+        <div class="maq-label">Forme</div>
+        <div class="shape-grid" id="shape-grid"></div>
+        <div class="maq-label">Couleur</div>
+        <div class="color-palette" id="color-grid"></div>
+        <p class="backdrop-price-hint" id="backdrop-price-hint"></p>
+      </div>
+
+      <div class="maq-tab-content" id="tab-texte">
+        <button class="text-add-btn" onclick="addText()">+ Ajouter un texte</button>
+        <div id="text-list"></div>
+        <p class="text-perso-note">La personnalisation texte (police, taille, position exacte) est incluse dans votre maquette ; son tarif final vous sera communiqué avec votre devis.</p>
+      </div>
+
+      <div class="maq-tab-content" id="tab-elements">
+        <div class="el-subtabs">
+          <button class="el-subtab-btn active" data-f="floral" onclick="setElementFilter('floral')">Fleurs</button>
+          <button class="el-subtab-btn" data-f="decors" onclick="setElementFilter('decors')">Ballons &amp; décors</button>
+        </div>
+        <input class="el-search-input" id="el-search" type="text" placeholder="Rechercher un article…">
+        <div class="el-grid" id="el-grid">
+          <div style="grid-column:1/-1;text-align:center;padding:24px 8px;color:var(--muted);font-size:12px;">Chargement du catalogue…</div>
+        </div>
+      </div>
+
+      <div class="maq-price-box">
+        <div id="price-box"></div>
+        <p class="price-note">Estimation indicative hors livraison et installation. Le devis définitif vous sera transmis après étude de votre demande.</p>
+        <button class="btn-devis" onclick="openModal()">Recevoir mon devis &#x2192;</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+function toggleSidebar(){var sb=document.getElementById('sidebar'),ov=document.getElementById('sb-overlay'),isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
+if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
+function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});}
+updateBadge();
+function showToast(msg){
+  var t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--noir);color:white;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:1px;z-index:999;transition:opacity .3s;pointer-events:none;';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},1800);
+}
+
+/* ── data ── */
+var COLORS=[
+  {hex:'#FFFFFF',name:'Blanc'},{hex:'#F5E6CA',name:'Crème'},{hex:'#F9E04B',name:'Jaune poussin'},
+  {hex:'linear-gradient(135deg,#FFF6D9,#C9A96E 60%,#8A6D3B)',name:'Doré'},
+  {hex:'#E07B54',name:'Terracotta'},{hex:'#8B5E3C',name:'Marron'},{hex:'#F4C2C2',name:'Rose poudré'},
+  {hex:'#D65B80',name:'Rose Fuchsia'},{hex:'#6B4C82',name:'Violet'},{hex:'#C1C3E6',name:'Lavande'},
+  {hex:'#C6E4F0',name:'Bleu ciel'},{hex:'#1C3A5E',name:'Bleu marine'},{hex:'#4A7C59',name:'Vert sapin'},
+  {hex:'#B8D8B0',name:'Vert sauge'},{hex:'linear-gradient(135deg,#F5F5F5,#C0C0C0 60%,#8A8A8A)',name:'Argenté'},
+  {hex:'#1a1a1a',name:'Noir'}
+];
+var SHAPES={
+  rect:{label:'Rectangle',aspect:1.35,keywords:['rectangle','rectangulaire','panneau','mur','droit']},
+  arch:{label:'Arche',aspect:1.55,keywords:['arche','arch','porte']},
+  circle:{label:'Cercle',aspect:1,keywords:['cercle','rond','lune','circulaire','disque']},
+  hex:{label:'Hexagone',aspect:1.2,keywords:['hexagone','hexagonal']}
+};
+var SHAPE_ICONS={
+  rect:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="currentColor"/></svg>',
+  arch:'<svg viewBox="0 0 24 24"><path d="M4 20V11a8 8 0 0 1 16 0v9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  circle:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor"/></svg>',
+  hex:'<svg viewBox="0 0 24 24"><polygon points="8,3 16,3 21,12 16,21 8,21 3,12" fill="currentColor"/></svg>'
+};
+var STORE_KEY='reunis_maquette';
+var uidCounter=0,zTop=0;
+var state={count:2,shape:'arch',color:'#F4C2C2',colorName:'Rose poudré',texts:[],elements:[]};
+try{
+  var saved=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
+  if(saved){
+    for(var k in saved){if(state.hasOwnProperty(k))state[k]=saved[k];}
+    state.texts.forEach(function(t){uidCounter=Math.max(uidCounter,parseInt((t.uid||'t0').slice(1),10)||0);zTop=Math.max(zTop,t.z||0);});
+    state.elements.forEach(function(e){uidCounter=Math.max(uidCounter,parseInt((e.uid||'e0').slice(1),10)||0);zTop=Math.max(zTop,e.z||0);});
+  }
+}catch(e){}
+function saveState(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state));}catch(e){}}
+function norm(s){return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
+function fontFamilyFor(f){return f==='sans' ? "'Arimo',sans-serif" : "'Abril Fatface',serif";}
+
+/* ── catalogue ── */
+var decorArticles=[],floralArticles=[],catalogueOk=false;
+Promise.all([
+  fetch('/api/catalogue?categorie='+encodeURIComponent('Les décors')).then(function(r){return r.json();}).catch(function(){return [];}),
+  fetch('/api/catalogue?categorie='+encodeURIComponent('Le floral')).then(function(r){return r.json();}).catch(function(){return [];})
+]).then(function(results){
+  decorArticles=Array.isArray(results[0])?results[0]:[];
+  floralArticles=Array.isArray(results[1])?results[1]:[];
+  catalogueOk=(decorArticles.length+floralArticles.length)>0;
+  renderPalette();updatePriceBox();
+}).catch(function(){renderPalette();updatePriceBox();});
+
+function backdropUnitPrice(){
+  var kws=SHAPES[state.shape].keywords;
+  var priced=decorArticles.filter(function(a){return a.prix_location;});
+  var matches=priced.filter(function(a){
+    var hay=norm(a.nom+' '+a.mots_cles+' '+a.sous_categorie+' '+a.sous_sous_categorie);
+    return kws.some(function(kw){return hay.indexOf(kw)>=0;});
+  });
+  if(!matches.length){
+    var fbKws=['arche','backdrop','structure','support','mur','panneau'];
+    matches=priced.filter(function(a){
+      var hay=norm(a.nom+' '+a.sous_categorie+' '+a.sous_sous_categorie);
+      return fbKws.some(function(kw){return hay.indexOf(kw)>=0;});
+    });
+  }
+  if(!matches.length)return null;
+  matches.sort(function(a,b){return a.prix_location-b.prix_location;});
+  return matches[0].prix_location;
+}
+
+/* ── stage layout ── */
+function layoutBackdrops(){
+  var stage=document.getElementById('maq-stage'),row=document.getElementById('backdrop-row');
+  if(!stage||!row)return;
+  var rect=stage.getBoundingClientRect();
+  if(!rect.width)return;
+  var n=state.count,gap=rect.width*0.035,maxRowW=rect.width*0.86,maxRowH=rect.height*0.7;
+  var panelW=(maxRowW-gap*(n-1))/n;
+  var aspect=SHAPES[state.shape].aspect;
+  var panelH=panelW*aspect;
+  if(panelH>maxRowH){panelH=maxRowH;panelW=panelH/aspect;}
+  row.style.gap=gap+'px';
+  row.innerHTML='';
+  for(var i=0;i<n;i++){
+    var p=document.createElement('div');
+    p.className='backdrop-panel shape-'+state.shape;
+    p.style.width=panelW+'px';p.style.height=panelH+'px';p.style.background=state.color;
+    row.appendChild(p);
+  }
+  var cEl=document.getElementById('maq-stage-count');
+  if(cEl)cEl.textContent=n+' fond'+(n>1?'s':'')+' · '+state.elements.length+' élément'+(state.elements.length>1?'s':'')+' ajouté'+(state.elements.length>1?'s':'');
+}
+function applyTextSize(t,rect){var el=document.querySelector('.text-layer[data-uid="'+t.uid+'"]');if(el)el.style.fontSize=(t.size/100*rect.width)+'px';}
+function applyElementSize(e,rect){
+  var wrap=document.querySelector('.el-layer[data-uid="'+e.uid+'"]');if(!wrap)return;
+  var w=(e.scale/100*rect.width)+'px',img=wrap.querySelector('img');
+  if(img)img.style.width=w;else{wrap.style.width=w;wrap.style.height=w;}
+}
+function relayout(){
+  layoutBackdrops();
+  var stage=document.getElementById('maq-stage');if(!stage)return;
+  var rect=stage.getBoundingClientRect();
+  state.texts.forEach(function(t){applyTextSize(t,rect);});
+  state.elements.forEach(function(e){applyElementSize(e,rect);});
+}
+var resizeTimer;
+window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(relayout,120);});
+
+/* ── drag & resize ── */
+function attachDrag(el,obj){
+  var dragging=false,startX,startY,startLeft,startTop,moved=false;
+  el.addEventListener('pointerdown',function(e){
+    if(e.target.closest('.layer-resize')||e.target.closest('.layer-del'))return;
+    dragging=true;moved=false;
+    try{el.setPointerCapture(e.pointerId);}catch(err){}
+    obj.z=++zTop;el.style.zIndex=obj.z;
+    startX=e.clientX;startY=e.clientY;startLeft=obj.x;startTop=obj.y;
+    e.preventDefault();
+  });
+  el.addEventListener('pointermove',function(e){
+    if(!dragging)return;
+    var rect=document.getElementById('maq-stage').getBoundingClientRect();
+    var dx=(e.clientX-startX)/rect.width*100,dy=(e.clientY-startY)/rect.height*100;
+    if(Math.abs(dx)>0.3||Math.abs(dy)>0.3)moved=true;
+    obj.x=clamp(startLeft+dx,3,97);obj.y=clamp(startTop+dy,3,97);
+    el.style.left=obj.x+'%';el.style.top=obj.y+'%';
+  });
+  function end(){if(dragging){dragging=false;if(moved)saveState();}}
+  el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);
+}
+function attachResize(handle,obj,kind){
+  var resizing=false,startX,startVal;
+  handle.addEventListener('pointerdown',function(e){
+    e.stopPropagation();resizing=true;
+    try{handle.setPointerCapture(e.pointerId);}catch(err){}
+    startX=e.clientX;startVal=(kind==='text')?obj.size:obj.scale;
+    e.preventDefault();
+  });
+  handle.addEventListener('pointermove',function(e){
+    if(!resizing)return;
+    var rect=document.getElementById('maq-stage').getBoundingClientRect();
+    var dx=(e.clientX-startX)/rect.width*100;
+    if(kind==='text'){obj.size=clamp(startVal+dx*0.7,2.5,16);applyTextSize(obj,rect);}
+    else{obj.scale=clamp(startVal+dx,6,46);applyElementSize(obj,rect);}
+  });
+  function end(){if(resizing){resizing=false;saveState();}}
+  handle.addEventListener('pointerup',end);handle.addEventListener('pointercancel',end);
+}
+
+/* ── layers ── */
+function renderLayers(){
+  var container=document.getElementById('layers-layer');
+  container.innerHTML='';
+  var rect=document.getElementById('maq-stage').getBoundingClientRect();
+  state.texts.forEach(function(t){container.appendChild(buildTextEl(t,rect));});
+  state.elements.forEach(function(e){container.appendChild(buildElementEl(e,rect));});
+  layoutBackdrops();
+}
+function buildTextEl(t,rect){
+  var el=document.createElement('div');
+  el.className='text-layer';el.dataset.uid=t.uid;
+  el.style.left=t.x+'%';el.style.top=t.y+'%';el.style.color=t.color;
+  el.style.fontFamily=fontFamilyFor(t.font);el.style.fontSize=(t.size/100*rect.width)+'px';el.style.zIndex=t.z||1;
+  var label=document.createElement('span');label.className='text-layer-label';label.textContent=t.content;
+  var del=document.createElement('div');del.className='layer-del';del.innerHTML='&#10005;';
+  del.addEventListener('click',function(e){e.stopPropagation();removeText(t.uid);});
+  var rs=document.createElement('div');rs.className='layer-resize';
+  el.appendChild(label);el.appendChild(del);el.appendChild(rs);
+  attachDrag(el,t);attachResize(rs,t,'text');
+  return el;
+}
+function buildElementEl(e,rect){
+  var el=document.createElement('div');
+  el.className='el-layer';el.dataset.uid=e.uid;
+  el.style.left=e.x+'%';el.style.top=e.y+'%';el.style.zIndex=e.z||1;
+  if(e.photo){
+    var img=document.createElement('img');img.src=e.photo;img.alt=e.nom;img.draggable=false;
+    img.style.width=(e.scale/100*rect.width)+'px';
+    el.appendChild(img);
+  } else {
+    var w=(e.scale/100*rect.width)+'px';
+    el.style.width=w;el.style.height=w;el.style.display='flex';el.style.alignItems='center';el.style.justifyContent='center';
+    el.style.background='var(--bg)';el.style.borderRadius='10px';el.style.fontSize='1.4rem';el.style.color='#ccc';
+    el.appendChild(document.createTextNode('✦'));
+  }
+  var del=document.createElement('div');del.className='layer-del';del.innerHTML='&#10005;';
+  del.addEventListener('click',function(ev){ev.stopPropagation();removeElement(e.uid);});
+  var rs=document.createElement('div');rs.className='layer-resize';
+  el.appendChild(del);el.appendChild(rs);
+  attachDrag(el,e);attachResize(rs,e,'el');
+  return el;
+}
+function removeText(uid){state.texts=state.texts.filter(function(t){return t.uid!==uid;});saveState();renderLayers();renderTextPanel();}
+function removeElement(uid){state.elements=state.elements.filter(function(e){return e.uid!==uid;});saveState();renderLayers();updatePriceBox();}
+
+/* ── fond tab ── */
+function renderShapeGrid(){
+  var g=document.getElementById('shape-grid');g.innerHTML='';
+  Object.keys(SHAPES).forEach(function(kk){
+    var c=document.createElement('div');c.className='shape-card'+(state.shape===kk?' selected':'');
+    c.innerHTML=SHAPE_ICONS[kk]+'<span class="shape-card-label">'+SHAPES[kk].label+'</span>';
+    c.onclick=function(kk){return function(){state.shape=kk;saveState();renderShapeGrid();layoutBackdrops();updatePriceBox();};}(kk);
+    g.appendChild(c);
+  });
+}
+function renderColorPalette(){
+  var g=document.getElementById('color-grid');g.innerHTML='';
+  COLORS.forEach(function(c){
+    var s=document.createElement('div');s.className='color-swatch'+(state.color===c.hex?' selected':'');
+    s.style.background=c.hex;s.title=c.name;if(c.name==='Blanc')s.style.border='2px solid #eee';
+    s.onclick=function(c){return function(){state.color=c.hex;state.colorName=c.name;saveState();renderColorPalette();layoutBackdrops();};}(c);
+    g.appendChild(s);
+  });
+}
+function syncCountButtons(){document.querySelectorAll('.count-btn').forEach(function(b){b.classList.toggle('selected',parseInt(b.dataset.n,10)===state.count);});}
+function setCount(n){state.count=n;saveState();syncCountButtons();layoutBackdrops();updatePriceBox();}
+
+/* ── texte tab ── */
+function addText(){
+  var uid='t'+(++uidCounter),n=state.texts.length;
+  var t={uid:uid,content:n===0?'Vos initiales':'Votre texte',font:'script',color:'#000000',size:6,x:50,y:20+n*13,z:++zTop};
+  state.texts.push(t);saveState();renderLayers();renderTextPanel();
+}
+function updateText(uid,field,value){
+  var t=state.texts.find(function(x){return x.uid===uid;});if(!t)return;
+  t[field]=value;
+  var el=document.querySelector('.text-layer[data-uid="'+uid+'"]');
+  if(el){
+    if(field==='content'){var lbl=el.querySelector('.text-layer-label');if(lbl)lbl.textContent=value;}
+    if(field==='color')el.style.color=value;
+    if(field==='font')el.style.fontFamily=fontFamilyFor(value);
+    if(field==='size'){var rect=document.getElementById('maq-stage').getBoundingClientRect();el.style.fontSize=(value/100*rect.width)+'px';}
+  }
+  saveState();
+}
+function renderTextPanel(){
+  var wrap=document.getElementById('text-list');if(!wrap)return;
+  wrap.innerHTML='';
+  if(!state.texts.length){
+    wrap.innerHTML='<p style="font-size:12px;color:var(--muted);line-height:1.7;">Ajoutez un texte pour personnaliser votre fond : initiales, date, message…</p>';
+    return;
+  }
+  state.texts.forEach(function(t){
+    var card=document.createElement('div');card.className='text-card';
+    var row=document.createElement('div');row.className='text-card-row';
+    var input=document.createElement('input');input.className='text-card-input';input.type='text';input.maxLength=40;input.value=t.content;
+    input.addEventListener('input',function(){updateText(t.uid,'content',this.value);});
+    var del=document.createElement('button');del.className='text-card-del';del.innerHTML='&#10005;';del.onclick=function(){removeText(t.uid);};
+    row.appendChild(input);row.appendChild(del);
+    var fonts=document.createElement('div');fonts.className='text-font-toggle';
+    [['script','Élégant'],['sans','Moderne']].forEach(function(pair){
+      var b=document.createElement('button');b.className='text-font-btn'+(t.font===pair[0]?' selected':'');
+      b.textContent=pair[1];b.style.fontFamily=fontFamilyFor(pair[0]);
+      b.onclick=function(){t.font=pair[0];updateText(t.uid,'font',pair[0]);renderTextPanel();};
+      fonts.appendChild(b);
+    });
+    var colors=document.createElement('div');colors.className='text-mini-colors';
+    COLORS.forEach(function(c){
+      var s=document.createElement('div');s.className='text-mini-swatch'+(t.color===c.hex?' selected':'');
+      s.style.background=c.hex;s.title=c.name;
+      s.onclick=function(){updateText(t.uid,'color',c.hex);renderTextPanel();};
+      colors.appendChild(s);
+    });
+    var sizeWrap=document.createElement('div');
+    sizeWrap.innerHTML='<span class="text-size-label">Taille</span>';
+    var range=document.createElement('input');range.type='range';range.className='text-size-range';
+    range.min='2.5';range.max='16';range.step='0.5';range.value=t.size;
+    range.addEventListener('input',function(){updateText(t.uid,'size',parseFloat(this.value));});
+    sizeWrap.appendChild(range);
+    card.appendChild(row);card.appendChild(fonts);card.appendChild(colors);card.appendChild(sizeWrap);
+    wrap.appendChild(card);
+  });
+}
+
+/* ── éléments tab ── */
+var elementFilter='floral';
+function setElementFilter(f){
+  elementFilter=f;
+  document.querySelectorAll('.el-subtab-btn').forEach(function(b){b.classList.toggle('active',b.dataset.f===f);});
+  renderPalette();
+}
+function renderPalette(){
+  var grid=document.getElementById('el-grid');if(!grid)return;
+  var qEl=document.getElementById('el-search');
+  var q=norm(qEl?qEl.value:'');
+  var source=elementFilter==='floral'?floralArticles:decorArticles;
+  grid.innerHTML='';
+  if(!catalogueOk){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:24px 8px;color:var(--muted);font-size:12px;">Catalogue momentanément indisponible. Réessayez plus tard.</div>';
+    return;
+  }
+  var list=source.filter(function(a){
+    if(!q)return true;
+    return norm(a.nom+' '+a.mots_cles+' '+a.sous_categorie).indexOf(q)>=0;
+  });
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:24px 8px;color:var(--muted);font-size:12px;">Aucun article trouvé.</div>';
+    return;
+  }
+  list.forEach(function(a){
+    var card=document.createElement('div');card.className='mini-card';
+    var imgDiv=document.createElement('div');imgDiv.className='mini-card-img';
+    if(a.photo){var img=document.createElement('img');img.src=a.photo;img.alt=a.nom;img.loading='lazy';imgDiv.appendChild(img);}
+    else{imgDiv.innerHTML='<span style="color:#ccc;font-size:1.4rem;">&#10022;</span>';}
+    var info=document.createElement('div');info.className='mini-card-info';
+    info.innerHTML='<div class="mini-card-name">'+a.nom+'</div><div class="mini-card-price">'+(a.prix_location?parseFloat(a.prix_location).toFixed(2)+'€':'Sur devis')+'</div>';
+    var addBtn=document.createElement('button');addBtn.className='mini-card-addbtn';addBtn.innerHTML='+';addBtn.title='Ajouter à ma maquette';
+    addBtn.onclick=function(){addElement(a);};
+    card.appendChild(imgDiv);card.appendChild(info);card.appendChild(addBtn);
+    grid.appendChild(card);
+  });
+}
+function addElement(article){
+  var uid='e'+(++uidCounter);
+  var e={uid:uid,articleId:article.id,nom:article.nom,photo:article.photo||'',prix:article.prix_location||0,
+    x:28+Math.random()*44,y:52+Math.random()*32,scale:16,z:++zTop};
+  state.elements.push(e);saveState();renderLayers();updatePriceBox();
+  showToast(article.nom+' ajouté à votre maquette ✨');
+}
+
+/* ── price ── */
+function updatePriceBox(){
+  var box=document.getElementById('price-box');if(!box)return;
+  var bp=backdropUnitPrice(),known=bp!=null,backdropTotal=known?bp*state.count:0;
+  var groups={};
+  state.elements.forEach(function(e){
+    if(!groups[e.articleId])groups[e.articleId]={nom:e.nom,prix:e.prix,qty:0};
+    groups[e.articleId].qty++;
+  });
+  var elTotal=0,elCount=0;
+  Object.keys(groups).forEach(function(kk){elTotal+=(groups[kk].prix||0)*groups[kk].qty;elCount+=groups[kk].qty;});
+  var total=backdropTotal+elTotal;
+  var html='';
+  html+='<div class="price-row"><span>Fond ('+state.count+'&times; '+SHAPES[state.shape].label+')</span><span>'+(known?backdropTotal.toFixed(2)+'€':'Sur devis')+'</span></div>';
+  html+='<div class="price-row"><span>Éléments décoratifs ('+elCount+')</span><span>'+elTotal.toFixed(2)+'€</span></div>';
+  if(state.texts.length)html+='<div class="price-row"><span>Texte personnalisé</span><span>Sur devis</span></div>';
+  html+='<div class="price-row total"><span>Total estimé</span><span>'+total.toFixed(2)+'€</span></div>';
+  box.innerHTML=html;
+  var hint=document.getElementById('backdrop-price-hint');
+  if(hint)hint.innerHTML=known?('Fond : environ <strong>'+bp.toFixed(2)+'€</strong> / pièce, basé sur nos structures les plus proches de cette forme.'):'Fond : tarif communiqué sur devis pour cette forme.';
+}
+
+/* ── tabs & reset ── */
+function setTab(tab){
+  document.querySelectorAll('.maq-tab-btn').forEach(function(b){b.classList.toggle('active',b.dataset.tab===tab);});
+  document.querySelectorAll('.maq-tab-content').forEach(function(c){c.classList.toggle('active',c.id==='tab-'+tab);});
+}
+function resetMaquette(){
+  if(!confirm('Réinitialiser toute votre maquette ?'))return;
+  state={count:2,shape:'arch',color:'#F4C2C2',colorName:'Rose poudré',texts:[],elements:[]};
+  saveState();
+  renderShapeGrid();renderColorPalette();syncCountButtons();
+  renderLayers();renderTextPanel();updatePriceBox();
+}
+
+/* ── devis modal ── */
+function openModal(){document.getElementById('modal-overlay').classList.add('open');}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function buildMaquetteArticles(){
+  var bp=backdropUnitPrice(),articles=[];
+  articles.push({
+    id:'fond-'+state.shape,
+    name:'Fond décoratif — '+SHAPES[state.shape].label+' × '+state.count+' ('+state.colorName+')',
+    qty:1,prix:bp!=null?bp*state.count:null,personnalisable:'Non'
+  });
+  var groups={};
+  state.elements.forEach(function(e){
+    if(!groups[e.articleId])groups[e.articleId]={nom:e.nom,prix:e.prix,qty:0};
+    groups[e.articleId].qty++;
+  });
+  Object.keys(groups).forEach(function(kk){
+    articles.push({id:kk,name:groups[kk].nom,qty:groups[kk].qty,prix:groups[kk].prix,personnalisable:'Non'});
+  });
+  if(state.texts.length){
+    articles.push({
+      id:'texte-perso',name:'Personnalisation texte du fond ('+state.texts.length+')',
+      qty:1,prix:null,personnalisable:'Oui',
+      perso:{texte:state.texts.map(function(t){return t.content;}).join(' / ')}
+    });
+  }
+  return articles;
+}
+function buildMaquetteMessage(userMsg){
+  var lines=[];
+  lines.push('Maquette créée avec l\'outil « Ma maquette » du site.');
+  lines.push('Fond : '+state.count+' × '+SHAPES[state.shape].label+', couleur '+state.colorName+'.');
+  if(state.texts.length)lines.push('Textes souhaités : '+state.texts.map(function(t){return '"'+t.content+'"';}).join(', ')+'.');
+  if(state.elements.length)lines.push('Éléments décoratifs positionnés : '+state.elements.length+' article(s) — détail dans le tableau ci-dessus.');
+  if(userMsg)lines.push('\nMessage : '+userMsg);
+  return lines.join('\n');
+}
+function envoyerMaquette(){
+  var nom=document.getElementById('m-nom').value.trim();
+  var email=document.getElementById('m-email').value.trim();
+  if(!nom||!email){alert('Merci de renseigner votre nom et votre email.');return;}
+  var btn=document.querySelector('.btn-modal-send');
+  btn.textContent='Envoi en cours…';btn.disabled=true;
+  fetch('/api/envoyer-devis',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      nom:nom,email:email,
+      telephone:document.getElementById('m-tel').value.trim(),
+      date_evenement:document.getElementById('m-date').value,
+      type_evenement:document.getElementById('m-type').value,
+      message:buildMaquetteMessage(document.getElementById('m-message').value.trim()),
+      articles:buildMaquetteArticles()
+    })})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.succes){
+      closeModal();
+      document.getElementById('maq-layout').innerHTML='<div style="text-align:center;padding:80px 20px;grid-column:1/-1;">'
+        +'<div style="font-size:3rem;margin-bottom:20px;">&#x2728;</div>'
+        +'<h2 style="font-family:\'Abril Fatface\',serif;font-size:2rem;font-weight:400;margin-bottom:12px;">Merci '+nom.split(' ')[0]+' !</h2>'
+        +'<p style="font-size:14px;color:var(--muted);line-height:1.85;max-width:420px;margin:0 auto 28px;">Votre maquette a bien été envoyée. Nous revenons vers vous dans les meilleurs délais pour l\'affiner ensemble et vous transmettre votre devis.</p>'
+        +'<a href="decorer.html" style="background:var(--noir);color:white;border-radius:8px;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;">Continuer à explorer &#x2192;</a>'
+        +'</div>';
+      localStorage.removeItem(STORE_KEY);
+    } else {
+      alert('Une erreur est survenue. Merci de réessayer.');
+      btn.textContent='Recevoir mon devis →';btn.disabled=false;
+    }
+  })
+  .catch(function(){
+    alert('Une erreur est survenue. Merci de réessayer.');
+    btn.textContent='Recevoir mon devis →';btn.disabled=false;
+  });
+}
+
+/* ── bootstrap ── */
+document.getElementById('el-search').addEventListener('input',renderPalette);
+renderShapeGrid();
+renderColorPalette();
+syncCountButtons();
+renderLayers();
+renderTextPanel();
+updatePriceBox();
+renderPalette();
+setTimeout(relayout,60);
+</script>
+</body>
+</html>
