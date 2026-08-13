@@ -20,7 +20,9 @@ module.exports = async function handler(req, res) {
     var date_evenement = body.date_evenement || '';
     var type_evenement = body.type_evenement || '';
     var message = body.message || '';
+    var messageHtml = message.replace(/\n/g, '<br>');
     var articles = body.articles || [];
+    var image = body.image || '';
     var prenom = nom.split(' ')[0];
 
     // Formater la date JJ/MM/AAAA
@@ -31,6 +33,13 @@ module.exports = async function handler(req, res) {
       return d;
     }
     var date_evenement_fmt = formatDate(date_evenement);
+
+    // ── Pièce jointe : aperçu visuel de la maquette (optionnel) ──
+    var attachments = [];
+    if(image && typeof image === 'string' && image.indexOf('base64,') !== -1) {
+      var base64Data = image.substring(image.indexOf('base64,') + 7);
+      attachments.push({ filename: 'ma-maquette.jpg', content: Buffer.from(base64Data, 'base64') });
+    }
 
     // ── Lignes articles ──
     var lignesArticles = articles.map(function(a){
@@ -92,7 +101,8 @@ module.exports = async function handler(req, res) {
       + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
       + '</table>'
       + (message ? '<h2 style="font-size:16px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;color:#222;">Message</h2>'
-      + '<p style="font-size:14px;line-height:1.7;color:#444;background:white;padding:16px;border-radius:6px;">' + message + '</p>' : '')
+      + '<p style="font-size:14px;line-height:1.7;color:#444;background:white;padding:16px;border-radius:6px;">' + messageHtml + '</p>' : '')
+      + (attachments.length ? '<p style="font-size:13px;color:#444;">📎 Un aperçu visuel de la maquette est joint à cet email.</p>' : '')
       + '</div>'
       + '<div style="padding:16px;text-align:center;background:#FAF1F1;border-top:1px solid rgba(0,0,0,.1);font-size:11px;color:#aaa;">'
       + 'Réunis — <a href="mailto:contact@reunisevent.com" style="color:#D65B80;">contact@reunisevent.com</a>'
@@ -103,7 +113,8 @@ module.exports = async function handler(req, res) {
       to: 'contact@reunisevent.com',
       reply_to: email,
       subject: '✨ Nouvelle demande de devis — ' + nom,
-      html: htmlReunis
+      html: htmlReunis,
+      attachments: attachments.length ? attachments : undefined
     });
 
     // ── Email de confirmation au client ──
@@ -112,7 +123,7 @@ module.exports = async function handler(req, res) {
     if(type_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Type d\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + type_evenement + '</td></tr>';
     if(livraison) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Mode de livraison</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + livraison + '</td></tr>';
     if(totalArticles > 0) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Montant estimé</td><td style="padding:7px 0;font-size:13px;font-weight:700;color:#D65B80;">' + totalArticles.toFixed(2) + '€</td></tr>';
-    if(message) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;vertical-align:top;">Votre message</td><td style="padding:7px 0;font-size:13px;color:#444;font-style:italic;">' + message + '</td></tr>';
+    if(message) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;vertical-align:top;">Votre message</td><td style="padding:7px 0;font-size:13px;color:#444;font-style:italic;">' + messageHtml + '</td></tr>';
 
     var htmlClient = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#FAF1F1;">'
 
@@ -140,6 +151,9 @@ module.exports = async function handler(req, res) {
       + '<p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin:0 0 14px;">Récapitulatif de votre demande</p>'
       + '<table style="width:100%;border-collapse:collapse;">' + recapRows + '</table>'
       + '</div>' : '')
+
+      // Aperçu visuel joint
+      + (attachments.length ? '<p style="font-size:13px;color:#444;margin:0 0 28px;">📎 Vous trouverez ci-joint un aperçu visuel de votre maquette.</p>' : '')
 
       // Séparateur
       + '<hr style="border:none;border-top:1px solid rgba(0,0,0,.08);margin:0 0 28px;">'
@@ -173,7 +187,8 @@ module.exports = async function handler(req, res) {
       from: 'Réunis <contact@reunisevent.com>',
       to: email,
       subject: 'Votre sélection Réunis — on revient vers vous très vite ✨',
-      html: htmlClient
+      html: htmlClient,
+      attachments: attachments.length ? attachments : undefined
     });
 
     res.status(200).json({ succes: true });
