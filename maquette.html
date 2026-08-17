@@ -501,9 +501,12 @@ function attachResize(handle,obj,kind){
 
 /* ── background removal (photos catalogue → fond transparent) ── */
 var bgCache={},bgPending={};
+function proxiedUrl(url){
+  if(!url)return url;
+  return '/api/proxy-image?url='+encodeURIComponent(url);
+}
 function stripWhiteBackground(url,cb){
   var img=new Image();
-  img.crossOrigin='anonymous';
   img.onload=function(){
     try{
       var canvas=document.createElement('canvas');
@@ -522,7 +525,7 @@ function stripWhiteBackground(url,cb){
     }catch(err){cb(url);}
   };
   img.onerror=function(){cb(url);};
-  img.src=url;
+  img.src=proxiedUrl(url);
 }
 function getTransparentPhoto(url,cb){
   if(!url){cb(url);return;}
