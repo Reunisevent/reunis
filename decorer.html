@@ -12,9 +12,15 @@
 
 .cat-header{padding:40px 24px 0;}
 .cat-title{font-family:'Abril Fatface',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1;margin-bottom:8px;}
-.cat-intro{font-size:13px;font-style:italic;color:var(--noir);line-height:1.85;margin-bottom:16px;max-width:600px;padding-left:14px;border-left:2px solid var(--rose);}
-@media(min-width:861px){.cat-intro{font-size:11px;max-width:420px;}}
-.cat-toolbar{display:flex;align-items:center;gap:10px;padding:16px 24px;flex-wrap:wrap;}
+.cat-intro{font-size:13px;font-weight:500;color:var(--noir);line-height:1.75;margin-bottom:16px;max-width:600px;}
+@media(min-width:861px){.cat-intro{font-size:18px;max-width:640px;}}
+.cat-toolbar{display:flex;flex-direction:column;gap:14px;padding:16px 24px;}
+.cat-toolbar-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;}
+.cat-toolbar-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+@media(min-width:861px){
+.cat-toolbar{flex-direction:row;align-items:center;justify-content:space-between;}
+.cat-toolbar-controls{flex:0 0 auto;}
+}
 .cat-search-wrap{display:flex;align-items:center;flex:1;min-width:160px;max-width:360px;border:1px solid rgba(0,0,0,.15);border-radius:8px;overflow:hidden;background:var(--white);}
 .cat-search-input{flex:1;border:none;outline:none;padding:10px 14px;font-family:'Arimo',sans-serif;font-size:13px;background:transparent;color:var(--noir);}
 .cat-search-clear{background:none;border:none;padding:0 12px;color:var(--muted);cursor:pointer;font-size:1rem;display:none;}
@@ -34,7 +40,7 @@
 .filter-chip.active{background:var(--noir);color:var(--white);border-color:var(--noir);}
 .filter-reset{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Arimo',sans-serif;text-decoration:underline;align-self:flex-end;padding:5px 0;transition:color .2s;}
 .filter-reset:hover{color:var(--noir);}
-.cat-content{padding:0 24px 60px;}
+.cat-content{padding:0 24px 24px;}
 .cat-section{margin-bottom:24px;scroll-margin-top:80px;}
 .cat-section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;margin-bottom:20px;padding:0 24px;}
 .cats-carousel-wrap{position:relative;margin-bottom:0;overflow:hidden;width:100%;}
@@ -78,7 +84,7 @@
 .item-price{font-size:11px;color:var(--muted);}
 .cat-no-results{display:none;text-align:center;padding:60px 24px;color:var(--muted);font-size:14px;}
 .cat-no-results strong{display:block;font-family:'Abril Fatface',serif;font-size:1.8rem;font-weight:400;margin-bottom:8px;color:var(--noir);}
-.cat-footer{background:var(--white);padding:32px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:24px;margin-bottom:24px;}
+.cat-footer{background:var(--white);padding:32px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin:40px 0;}
 .cat-footer-num{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;}
 .cat-footer-text{font-size:13px;color:#444;line-height:1.75;}
 .decorer-cta-footer{background:var(--rose);padding:48px 28px;text-align:center;}
@@ -93,7 +99,7 @@
 .cat-config-btn{display:none;}
 .cat-header{padding:40px 20px 0;}
 .cat-toolbar{padding:0 20px 14px;}
-.cat-content{padding:0 20px 60px;}
+.cat-content{padding:0 20px 24px;}
 }
 @media(max-width:400px){.cat-footer{grid-template-columns:1fr;}}
 #cats-section{margin:0;padding:0;}
@@ -163,16 +169,18 @@
   </div>
   <div id="cats-section"></div>
   <div class="cat-toolbar">
-    <div class="cat-search-wrap">
-      <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
-      <button class="cat-search-clear" id="cat-search-clear" title="Effacer">✕</button>
+    <div class="cat-toolbar-title" id="cat-toolbar-title">Nouveautés</div>
+    <div class="cat-toolbar-controls">
+      <div class="cat-search-wrap">
+        <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
+        <button class="cat-search-clear" id="cat-search-clear" title="Effacer">✕</button>
+      </div>
+      <button class="cat-filter-btn" id="filter-btn" onclick="toggleFiltersPanel()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filtres
+        <span class="filter-count" id="filter-count">0</span>
+      </button>
     </div>
-    <button class="cat-filter-btn" id="filter-btn" onclick="toggleFiltersPanel()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-      Filtres
-      <span class="filter-count" id="filter-count">0</span>
-    </button>
-    
   </div>
   <div class="cat-filters-panel" id="filters-panel">
     <div class="filter-group">
@@ -314,14 +322,17 @@ function afficherModeNormal(){
     '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
   var catsSection=document.getElementById('cats-section');if(catsSection)catsSection.innerHTML='';if(catsSection)catsSection.appendChild(secCats);
+  var toolbarTitle=document.getElementById('cat-toolbar-title');
   if(nouveaux.length){
+    if(toolbarTitle)toolbarTitle.textContent='Nouveautés';
     var secNouv=document.createElement('div');secNouv.className='cat-section';
-    secNouv.innerHTML='<div class="cat-section-title">Nouveautés</div>';
     var gridNouv=document.createElement('div');gridNouv.className='items-grid';
     var limit=Math.min(nouveaux.length,10);
     for(var i=0;i<limit;i++)gridNouv.appendChild(makeCard(nouveaux[i],favIds));
     secNouv.appendChild(gridNouv);
     content.insertBefore(secNouv,loader);
+  } else if(toolbarTitle){
+    toolbarTitle.textContent='';
   }
 }
 function afficherModeRecherche(articles){
@@ -329,11 +340,12 @@ function afficherModeRecherche(articles){
   content.querySelectorAll('.cat-section').forEach(function(s){s.remove();});
   var noRes=document.getElementById('cat-no-results');
   var loader=document.getElementById('cat-loader');
-  if(!articles.length){noRes.style.display='block';return;}
+  var toolbarTitle=document.getElementById('cat-toolbar-title');
+  if(!articles.length){noRes.style.display='block';if(toolbarTitle)toolbarTitle.textContent='';return;}
   noRes.style.display='none';
+  if(toolbarTitle)toolbarTitle.textContent=articles.length+' résultat'+(articles.length>1?'s':'');
   var favIds=getFavIds();
   var sec=document.createElement('div');sec.className='cat-section';
-  sec.innerHTML='<div class="cat-section-title">'+articles.length+' résultat'+(articles.length>1?'s':'')+'</div>';
   var grid=document.createElement('div');grid.className='items-grid';
   articles.forEach(function(a){grid.appendChild(makeCard(a,favIds));});
   sec.appendChild(grid);
