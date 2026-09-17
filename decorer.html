@@ -266,7 +266,7 @@ var HEART_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColo
 var allArticles=[];
 var activeFilters={badge:[],couleur:[],tag:[]};
 function isNew(a){
-  return !!a.date_ajout;
+  return !!a.is_new;
 }
 function chargerCatalogue(){
   fetch('/api/catalogue')
