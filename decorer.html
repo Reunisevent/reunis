@@ -40,7 +40,7 @@
 .filter-chip.active{background:var(--noir);color:var(--white);border-color:var(--noir);}
 .filter-reset{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Arimo',sans-serif;text-decoration:underline;align-self:flex-end;padding:5px 0;transition:color .2s;}
 .filter-reset:hover{color:var(--noir);}
-.cat-content{padding:0 24px 24px;}
+.cat-content{padding:0 24px 0;}
 .cat-section{margin-bottom:24px;scroll-margin-top:80px;}
 .cat-section-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;margin-bottom:20px;padding:0 24px;}
 .cats-carousel-wrap{position:relative;margin-bottom:0;overflow:hidden;width:100%;}
@@ -51,8 +51,7 @@
 @media(max-width:860px){.cat-tile{flex:0 0 calc(50% - 1px);min-width:0;}}
 .cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
 .cat-tile:hover img{transform:scale(1.05);}
-.cat-tile::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.22);z-index:1;}
-.cat-tile-label{position:relative;z-index:2;background:rgba(0,0,0,.6);color:white;padding:10px 18px;font-size:clamp(13px,1.8vw,17px);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-align:center;border-radius:4px;max-width:88%;}
+.cat-tile-label{position:relative;z-index:2;width:100%;background:rgba(0,0,0,.6);color:white;padding:10px 18px;font-size:clamp(13px,1.8vw,17px);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-align:center;}
 .cats-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;font-size:1.1rem;color:var(--noir);box-shadow:0 2px 8px rgba(0,0,0,.12);transition:background .2s;}
 .cats-arrow:hover{background:white;}
 .cats-arrow.left{left:8px;}
@@ -99,7 +98,7 @@
 .cat-config-btn{display:none;}
 .cat-header{padding:40px 20px 0;}
 .cat-toolbar{padding:0 20px 14px;}
-.cat-content{padding:0 20px 24px;}
+.cat-content{padding:0 20px 0;}
 }
 @media(max-width:400px){.cat-footer{grid-template-columns:1fr;}}
 #cats-section{margin:0;padding:0;}
