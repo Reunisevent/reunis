@@ -10,9 +10,9 @@
 <style>
 
 
-.cat-header{padding:40px 24px 0;}
+.cat-header{padding:40px 24px 16px;}
 .cat-title{font-family:'Abril Fatface',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1;margin-bottom:8px;}
-.cat-intro{font-size:13px;font-weight:400;color:#444;line-height:1.75;margin:0 auto 16px;max-width:680px;text-align:center;}
+.cat-intro{font-size:13px;font-weight:400;color:#444;line-height:1.75;margin:24px auto 0;max-width:680px;text-align:center;padding:0 24px;}
 .cat-toolbar{display:flex;flex-direction:column;gap:14px;padding:16px 24px;}
 .cat-toolbar-title{font-family:'Abril Fatface',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;}
 .cat-toolbar-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -95,7 +95,8 @@
 .cats-grid{grid-template-columns:repeat(2,1fr);}
 .cat-footer{grid-template-columns:repeat(2,1fr);gap:20px;}
 .cat-config-btn{display:none;}
-.cat-header{padding:40px 20px 0;}
+.cat-header{padding:40px 20px 16px;}
+.cat-intro{padding:0 20px;}
 .cat-toolbar{padding:0 20px 14px;}
 .cat-content{padding:0 20px 0;}
 }
@@ -163,9 +164,9 @@
 <main class="main" id="main">
   <div class="cat-header">
     <div class="cat-title">Décorer</div>
-    <p class="cat-intro">Des pièces chinées, bichonnées et créées avec amour pour donner vie à vos plus beaux moments. Parcourez notre sélection, ajoutez vos coups de cœur et laissez-nous faire le reste. ✨</p>
   </div>
   <div id="cats-section"></div>
+  <p class="cat-intro">Des pièces chinées, bichonnées et créées avec amour pour donner vie à vos plus beaux moments.<br>Parcourez notre sélection, ajoutez vos coups de cœur et laissez-nous faire le reste. ✨</p>
   <div class="cat-toolbar">
     <div class="cat-toolbar-title" id="cat-toolbar-title">Nouveautés</div>
     <div class="cat-toolbar-controls">
