@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/cat-details", "destination": "/cat-accessoires.html", "permanent": true },
+    { "source": "/cat-details.html", "destination": "/cat-accessoires.html", "permanent": true }
+  ]
+}
