@@ -1,41 +1,27 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="Le Club Réunis — nos événements, vide-greniers, ateliers floraux et soirées tout au long de l'année.">
+<meta name="description" content="Politique de confidentialité de Réunis — protection de vos données personnelles.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le Club — Réunis</title>
+<title>Confidentialité — Réunis</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.club-hero {
-  padding:48px 24px;
-  background:var(--noir);
-  display:flex; align-items:center; justify-content:center;
-  text-align:center; color:white;
-  position:relative; overflow:hidden;
-}
-.club-hero-content { position:relative; z-index:2; }
-.club-hero h1 { font-family:'Abril Fatface',serif; font-size:clamp(1.6rem,3.2vw,2.4rem); font-weight:400; line-height:1; margin-bottom:8px; }
-.topbar { background:var(--noir); border-bottom:none; }
-.topbar-logo { display:none; }
-.topbar-icon { color:white; }
-.club-hero p { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.6); }
-.club-intro { max-width:620px; margin:0 auto; padding:52px 28px 40px; text-align:center; }
-.club-intro p { font-size:14px; line-height:1.9; color:#444; }
-.club-events { padding:0 0 60px; }
-.club-events-title { font-family:'Abril Fatface',serif; font-size:clamp(1.5rem,3vw,2rem); margin:0 24px 20px; }
-.club-grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:3px;
-}
-.club-event-item { position:relative; overflow:hidden; aspect-ratio:16/9; background:var(--bg); }
-.club-event-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#ececec; }
-.club-event-placeholder span { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
-@media(max-width:680px){
-  .club-grid { grid-template-columns:1fr; }
-  .club-hero { padding:32px 20px; }
-}
+.page-wrap { max-width:780px; margin:0 auto; padding:52px 28px 80px; }
+.page-wrap h1 { font-family:'Abril Fatface',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; margin-bottom:8px; }
+.page-eyebrow { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:40px; }
+.page-section { margin-bottom:52px; }
+.page-section-title { font-family:'Abril Fatface',serif; font-size:1.6rem; font-weight:400; color:var(--noir); margin-bottom:24px; }
+.page-wrap h2 { font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin:28px 0 10px; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.07); }
+.page-wrap p { font-size:14px; line-height:1.85; color:#444; margin-bottom:14px; }
+.page-wrap strong { color:var(--noir); }
+.page-wrap a { color:var(--rose); text-decoration:none; font-weight:600; }
+.page-wrap a:hover { opacity:.7; }
+.page-wrap ul { margin:0 0 14px 0; padding-left:0; list-style:none; }
+.page-wrap ul li { font-size:14px; line-height:1.85; color:#444; padding:4px 0 4px 18px; position:relative; }
+.page-wrap ul li::before { content:"—"; position:absolute; left:0; color:var(--rose); font-weight:700; }
+@media(max-width:680px){ .page-wrap{ padding:32px 20px 60px; } }
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -71,7 +57,7 @@
       <a href="faq.html">FAQ</a>
       <a href="galerie.html">Galerie</a>
       <a href="manifest.html">Manifest</a>
-      <a href="le-club.html" class="active">Le Club</a>
+      <a href="le-club.html">Le Club</a>
     </div>
     <a class="sb-contact" href="contact.html">Contact</a>
     <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
@@ -81,7 +67,7 @@
     <div class="sb-legal">
       <a href="mentions.html">| Mentions légales</a>
       <a href="cgv.html">| CGV</a>
-      <a href="confidentialite.html">| Confidentialité</a>
+      <a href="confidentialite.html" class="active">| Confidentialité</a>
     </div>
   </div>
 </aside>
@@ -96,48 +82,99 @@
   </a>
 </div>
 <main class="main desktop-shifted" id="main">
+  <div class="page-wrap">
+    <h1>Confidentialité</h1>
+    <p class="page-eyebrow">Politique de confidentialité</p>
 
-  <div class="club-hero">
-    <div class="club-hero-content">
-      <h1>Le Club Réunis</h1>
-      <p>L'amour de la fête et des belles choses</p>
-    </div>
-  </div>
-  <div class="club-intro">
-    <p>Tout au long de l'année, nous organisons des événements ouverts à tous — des espaces de rencontres et de partage, pour se réunir et célébrer ensemble.</p>
-  </div>
-  <div class="club-events">
-    <div class="club-events-title">Nos événements</div>
-    <div class="club-grid">
-      <div class="club-event-item">
-  <div class="club-event-placeholder">
-    <span>À venir</span>
-  </div>
-</div><div class="club-event-item">
-  <div class="club-event-placeholder">
-    <span>À venir</span>
-  </div>
+<!-- RESPONSABLE -->
+<div class="page-section">
+  <div class="page-section-title">Responsable du traitement</div>
+
+  <p>Le responsable du traitement des données collectées sur ce site est l'<strong>Association RÉUNIS</strong>, association loi 1901.</p>
+  <ul>
+    <li>Siège social : 15 route d'Epuisay, Soudris – 41170 Sargé-sur-Braye</li>
+    <li>RNA : W412005377</li>
+    <li>SIRET : 101 411 007 00012</li>
+    <li>Email : <a href="mailto:contact@reunisevent.com">contact@reunisevent.com</a></li>
+  </ul>
 </div>
-    </div>
+
+<!-- DONNEES COLLECTEES -->
+<div class="page-section">
+  <div class="page-section-title">Données collectées</div>
+
+  <h2>Ce que nous recueillons</h2>
+  <p>Selon les formulaires que vous utilisez, nous pouvons collecter : nom, prénom, email, téléphone, adresse de livraison, date et type d'événement, lieu, nombre d'invités, budget, préférences de décoration, message libre, sélection d'articles favoris ainsi que des fichiers d'inspiration que vous nous transmettez.</p>
+
+  <h2>Formulaires concernés</h2>
+  <p>Ces données peuvent être recueillies via la sélection de favoris, le configurateur et le formulaire de contact.</p>
+</div>
+
+<!-- FINALITES -->
+<div class="page-section">
+  <div class="page-section-title">Pourquoi nous les utilisons</div>
+
+  <h2>Finalités</h2>
+  <p>Vos données nous servent uniquement à répondre à vos demandes, établir vos devis, et organiser la location et les prestations que vous nous confiez.</p>
+
+  <h2>Base légale</h2>
+  <p>Ce traitement repose sur la mise en œuvre de mesures précontractuelles prises à votre demande, conformément à l'article 6.1.b du RGPD.</p>
+
+  <h2>Durée de conservation</h2>
+  <p>Vos données sont conservées <strong>3 ans</strong> à compter de notre dernier contact si votre demande n'aboutit pas à une location. Si vous devenez cliente, vos données sont conservées pendant la durée légale de conservation des pièces comptables.</p>
+</div>
+
+<!-- DESTINATAIRES -->
+<div class="page-section">
+  <div class="page-section-title">Qui a accès à vos données</div>
+
+  <p>Vos données ne sont jamais vendues ni cédées à des tiers. Elles peuvent être transmises à nos prestataires techniques, qui nous aident à faire fonctionner le site et à vous répondre :</p>
+  <ul>
+    <li><strong>Vercel</strong> — hébergement du site</li>
+    <li><strong>Resend</strong> — envoi des emails</li>
+    <li><strong>Notion</strong> — gestion interne de nos demandes et devis</li>
+    <li><strong>Cloudinary</strong> — hébergement des images</li>
+  </ul>
+  <p>Certains de ces prestataires sont situés aux États-Unis. Ces transferts de données hors Union européenne sont encadrés par des garanties reconnues par le RGPD, telles que le Data Privacy Framework ou des clauses contractuelles types.</p>
+</div>
+
+<!-- STOCKAGE LOCAL -->
+<div class="page-section">
+  <div class="page-section-title">Stockage dans votre navigateur</div>
+
+  <p>Vos favoris et votre progression dans le configurateur sont enregistrés uniquement dans le navigateur de votre appareil (stockage local). Ces informations ne nous sont pas transmises tant que vous n'envoyez pas votre demande, et elles sont supprimées si vous videz les données de navigation de votre appareil.</p>
+  <p>Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience.</p>
+</div>
+
+<!-- POLICES -->
+<div class="page-section">
+  <div class="page-section-title">Polices de caractères</div>
+
+  <p>Les polices utilisées sur ce site sont hébergées directement sur nos serveurs. Aucune donnée n'est transmise à un service tiers pour leur affichage.</p>
+</div>
+
+<!-- DROITS -->
+<div class="page-section">
+  <div class="page-section-title">Vos droits</div>
+
+  <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données personnelles.</p>
+  <p>Pour exercer ces droits, il vous suffit de nous écrire à <a href="mailto:contact@reunisevent.com">contact@reunisevent.com</a>. Nous nous engageons à vous répondre dans un délai d'un mois.</p>
+  <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la CNIL — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+</div>
+
+<!-- MAJ -->
+<div class="page-section">
+  <div class="page-section-title">Mise à jour</div>
+  <p>Dernière mise à jour de cette politique de confidentialité : 22 septembre 2026.</p>
+</div>
+
   </div>
 </main>
 <script>
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){
-  var wrap=btn.closest('.sb-axis-wrap');
-  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
-  if(cats)cats.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-
-function updateBadge(){
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  document.querySelectorAll('.heart-badge').forEach(function(b){
-    b.textContent = favs.length;
-    b.classList.toggle('visible', favs.length > 0);
-  });
-}
+function toggleCats(btn){var wrap=btn.closest('.sb-axis-wrap');var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;if(cats)cats.classList.toggle('open');btn.classList.toggle('open');}
+function updateBadge(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');document.querySelectorAll('.heart-badge').forEach(function(b){b.textContent=favs.length;b.classList.toggle('visible',favs.length>0);});}
 updateBadge();
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');}
 </script>
