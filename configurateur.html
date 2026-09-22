@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Configurateur — Réunis</title>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
 .config-wrap{max-width:700px;margin:0 auto;padding:48px 28px 80px;}
@@ -169,6 +168,7 @@
     <div class="sb-legal">
       <a href="mentions.html">| Mentions légales</a>
       <a href="cgv.html">| CGV</a>
+      <a href="confidentialite.html">| Confidentialité</a>
     </div>
   </div>
 </aside>
@@ -470,6 +470,7 @@
     <button class="btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden">&#8592; Précédent</button>
     <button class="btn-next" id="btn-next" onclick="nextStep()">Suivant &#8594;</button>
   </div>
+  <p class="form-privacy-note" id="config-privacy-note" style="display:none">Vos données sont utilisées uniquement pour répondre à votre demande. <a href="confidentialite.html">En savoir plus</a></p>
 </div>
 
 <div class="success-wrap" id="success-wrap">
@@ -567,7 +568,7 @@ function goToStep(n){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function updateProgress(){var pct=Math.round((currentStep/totalSteps)*100);document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-text').textContent='Étape '+currentStep+' sur '+totalSteps;document.getElementById('progress-pct').textContent=pct+'%';}
-function updateNav(){var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next');prev.style.visibility=currentStep>1?'visible':'hidden';if(currentStep===totalSteps){next.innerHTML='Envoyer ma demande ✨';next.style.background='var(--rose)';}else{next.innerHTML='Suivant &#8594;';next.style.background='';}}
+function updateNav(){var prev=document.getElementById('btn-prev'),next=document.getElementById('btn-next'),note=document.getElementById('config-privacy-note');prev.style.visibility=currentStep>1?'visible':'hidden';if(currentStep===totalSteps){next.innerHTML='Envoyer ma demande ✨';next.style.background='var(--rose)';if(note)note.style.display='block';}else{next.innerHTML='Suivant &#8594;';next.style.background='';if(note)note.style.display='none';}}
 
 function selectChoice(el,key,value){el.closest('.choice-grid').querySelectorAll('.choice-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');data[key]=value;save();}
 function selectToggle(el,key,value){el.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(function(b){b.classList.remove('selected');});el.classList.add('selected');data[key]=value;save();}
