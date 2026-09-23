@@ -474,10 +474,23 @@ function addToFav(){
 function chargerSimilaires(){
   var track = document.getElementById('similar-track');
   if(!track || !article) return;
-  fetch('/api/catalogue?categorie=' + encodeURIComponent(article.categorie || ''))
+  var liesIds = article.lies || [];
+  var normId = function(id){ return String(id || '').replace(/-/g,''); };
+  var estLie = function(a){
+    return liesIds.some(function(id){ return normId(id) === normId(a.id); });
+  };
+  // Les articles liés peuvent être dans une autre catégorie : on charge tout le catalogue dans ce cas
+  var url = liesIds.length ? '/api/catalogue' : '/api/catalogue?categorie=' + encodeURIComponent(article.categorie || '');
+  fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(articles){
-      var filtres = articles.filter(function(a){ return a.id !== article.id; });
+      var autres = articles.filter(function(a){ return a.id !== article.id; });
+      var lies = liesIds.map(function(id){
+        return autres.filter(function(a){ return normId(a.id) === normId(id); })[0];
+      }).filter(Boolean);
+      var filtres = autres.filter(function(a){
+        return !estLie(a) && (!liesIds.length || a.categorie === article.categorie);
+      });
       var couleursCourantes = typeof article.couleurs === 'string'
         ? article.couleurs.split(',').filter(Boolean)
         : (article.couleurs || []);
@@ -488,6 +501,7 @@ function chargerSimilaires(){
         var bM = bC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
         return (bM ? 1 : 0) - (aM ? 1 : 0);
       });
+      filtres = lies.concat(filtres);
       if(filtres.length < 8) {
         fetch('/api/catalogue')
           .then(function(r){ return r.json(); })
