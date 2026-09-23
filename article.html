@@ -11,6 +11,13 @@
 .article-gallery-col { background:var(--bg); padding:24px; display:flex; flex-direction:column; gap:10px; position:sticky; top:0; height:100vh; overflow:hidden; }
 .article-main-img { flex:1; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; min-height:300px; }
 .article-main-img img { width:100%; height:100%; object-fit:contain; display:block; }
+.art-main-img-inner { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.article-img-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.1); border-radius:100px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 8px rgba(0,0,0,.1); transition:all .2s; font-size:1rem; color:var(--noir); opacity:0; }
+.article-main-img:hover .article-img-nav { opacity:1; }
+.article-img-nav:hover { background:var(--noir); color:white; }
+.article-img-nav.prev { left:12px; }
+.article-img-nav.next { right:12px; }
+@media (hover:none) { .article-img-nav { opacity:1; } }
 .article-thumbs { display:flex; gap:8px; }
 .article-thumb { width:72px; height:72px; background:var(--white); border-radius:4px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid transparent; transition:border-color .2s; font-size:1.4rem; flex-shrink:0; overflow:hidden; }
 .article-thumb.active, .article-thumb:hover { border-color:var(--noir); }
@@ -148,7 +155,11 @@
 <main class="main" id="main" style="margin-left:0">
   <div class="article-page">
     <div class="article-gallery-col">
-      <div class="article-main-img" id="art-main">✦</div>
+      <div class="article-main-img" id="art-main">
+        <div class="art-main-img-inner" id="art-main-inner">✦</div>
+        <button class="article-img-nav prev" id="art-nav-prev" onclick="navImg(-1)" aria-label="Photo précédente" style="display:none;">&#10094;</button>
+        <button class="article-img-nav next" id="art-nav-next" onclick="navImg(1)" aria-label="Photo suivante" style="display:none;">&#10095;</button>
+      </div>
       <div class="article-thumbs" id="art-thumbs"></div>
     </div>
     <div class="article-info-col">
@@ -277,6 +288,8 @@ var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null')
 var qtyMax = 1;
 var qtyCurrent = 1;
 var persoFileUrl = null;
+var articleImages = [];
+var currentImgIndex = 0;
 
 if(article) {
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
@@ -352,31 +365,30 @@ if(article) {
       }
     }
   }
-  var mainImg = document.getElementById('art-main');
-  if(mainImg && article.photo) {
-    mainImg.innerHTML = '<img src="'+article.photo+'" alt="'+(article.nom||'')+'" style="width:100%;height:100%;object-fit:contain;">';
-  }
+  articleImages = [];
+  if(article.photo) articleImages.push(article.photo);
+  var ambianceImgs = typeof article.photos_ambiance === 'string'
+    ? article.photos_ambiance.split('|').filter(Boolean)
+    : (article.photos_ambiance || []);
+  articleImages = articleImages.concat(ambianceImgs);
+  currentImgIndex = 0;
+  if(articleImages.length) setMainImg(articleImages[0]);
   var thumbsWrap = document.getElementById('art-thumbs');
   if(thumbsWrap) {
     thumbsWrap.innerHTML = '';
-    if(article.photo) {
-      var t0 = document.createElement('div');
-      t0.className = 'article-thumb active';
-      t0.innerHTML = '<img src="'+article.photo+'" style="width:100%;height:100%;object-fit:cover;">';
-      t0.onclick = function(){ setMainImg(article.photo); setActiveThumb(this); };
-      thumbsWrap.appendChild(t0);
-    }
-    var ambiance = typeof article.photos_ambiance === 'string'
-      ? article.photos_ambiance.split('|').filter(Boolean)
-      : (article.photos_ambiance || []);
-    ambiance.forEach(function(url){
+    articleImages.forEach(function(url, i){
       var t = document.createElement('div');
-      t.className = 'article-thumb';
+      t.className = 'article-thumb' + (i === 0 ? ' active' : '');
       t.innerHTML = '<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">';
-      t.onclick = function(){ setMainImg(url); setActiveThumb(this); };
+      t.onclick = function(){ currentImgIndex = i; setMainImg(url); setActiveThumb(this); };
       thumbsWrap.appendChild(t);
     });
   }
+  var navPrev = document.getElementById('art-nav-prev');
+  var navNext = document.getElementById('art-nav-next');
+  var showNav = articleImages.length > 1;
+  if(navPrev) navPrev.style.display = showNav ? 'flex' : 'none';
+  if(navNext) navNext.style.display = showNav ? 'flex' : 'none';
   document.title = (article.nom || article.name || 'Article') + ' — Réunis';
   updateQtyButtons();
   chargerSimilaires();
@@ -425,13 +437,26 @@ function updateQtyButtons(){
   if(btnMoins) btnMoins.style.opacity = qtyCurrent <= 1 ? '.3' : '1';
 }
 function setMainImg(url){
-  var mainImg = document.getElementById('art-main');
+  var mainImg = document.getElementById('art-main-inner');
   if(mainImg) mainImg.innerHTML = '<img src="'+url+'" alt="" style="width:100%;height:100%;object-fit:contain;">';
 }
 function setActiveThumb(el){
   document.querySelectorAll('.article-thumb').forEach(function(t){ t.classList.remove('active'); });
   el.classList.add('active');
 }
+function navImg(delta){
+  if(!articleImages.length) return;
+  currentImgIndex = (currentImgIndex + delta + articleImages.length) % articleImages.length;
+  setMainImg(articleImages[currentImgIndex]);
+  var thumbs = document.querySelectorAll('.article-thumb');
+  if(thumbs[currentImgIndex]) setActiveThumb(thumbs[currentImgIndex]);
+}
+document.addEventListener('keydown', function(e){
+  if(!articleImages.length || articleImages.length < 2) return;
+  if(e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+  if(e.key === 'ArrowLeft') navImg(-1);
+  if(e.key === 'ArrowRight') navImg(1);
+});
 function addToFav(){
   if(!article) return;
   var btn = document.querySelector('.btn-add-fav');
