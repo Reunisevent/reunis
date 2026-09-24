@@ -16,6 +16,21 @@ function getAllFileUrls(prop) {
   return (prop.files || []).map(f => f.file?.url || f.external?.url).filter(Boolean);
 }
 
+// Catégorie de l'événement (mariage, anniversaire…) — accepte select, multi-select ou texte
+function getCategorie(props) {
+  const key = Object.keys(props).find(k =>
+    k.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z]/g, '').startsWith('categorie')
+  );
+  const p = key && props[key];
+  if (!p) return '';
+  if (p.type === 'select') return p.select?.name || '';
+  if (p.type === 'multi_select') return (p.multi_select || []).map(o => o.name).join(' · ');
+  if (p.type === 'status') return p.status?.name || '';
+  if (p.type === 'rich_text') return (p.rich_text || []).map(t => t.plain_text).join('');
+  if (p.type === 'formula') return p.formula?.string || '';
+  return '';
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -40,6 +55,7 @@ module.exports = async function handler(req, res) {
       const cover = getFileUrl(props['Cover']);
       const photos = getAllFileUrls(props['Photos']);
       const description = props['Description @']?.rich_text?.[0]?.plain_text || '';
+      const categorie = getCategorie(props);
       const inventaireIds = (props['Inventaire']?.relation || []).map(r => r.id);
 
       const articles = [];
@@ -56,7 +72,7 @@ module.exports = async function handler(req, res) {
       }
 
       if (titre && cover) {
-        evenements.push({ id: page.id, titre, cover, photos, description, articles });
+        evenements.push({ id: page.id, titre, categorie, cover, photos, description, articles });
       }
     }
 

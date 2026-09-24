@@ -38,8 +38,9 @@
 /* PC : 3 événements côte à côte (bandeaux verticaux) */
 @media(min-width:861px){
   .galerie-slide { flex: 0 0 calc(100% / 3); border-right: 3px solid var(--noir); box-sizing: border-box; }
-  .galerie-slide .galerie-slide-title { font-size: clamp(1.4rem, 2.2vw, 2.2rem); letter-spacing: 1px; margin-bottom: 8px; }
-  .galerie-slide .galerie-slide-bandeau { padding: 18px 16px; }
+  .galerie-slide .galerie-slide-title-wrap { font-size: clamp(1.4rem, 2.2vw, 2.2rem); }
+  .galerie-slide .galerie-slide-title { letter-spacing: 1px; }
+  .galerie-slide .galerie-slide-bandeau { padding: 0 16px; height: 190px; }
   /* Le carrousel suit la sidebar pour que le 1er événement ne soit pas masqué */
   .sidebar.desktop-open ~ .galerie-hero,
   .sidebar.open ~ .galerie-hero { margin-left: var(--sb-w); }
@@ -56,23 +57,50 @@
 }
 .galerie-slide-bandeau {
   background: rgba(0,0,0,.52);
-  padding: 20px 24px 20px;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
+  width: 100%;
+  height: 210px; /* hauteur fixe : identique quel que soit le titre */
+  box-sizing: border-box;
+}
+.galerie-slide-cat {
+  font-family: 'Arimo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  min-height: 12px;
+  line-height: 12px;
+}
+.galerie-slide-title-wrap {
+  /* zone titre de 2 lignes réservée : catégorie et bouton alignés sur tous les bandeaux */
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  height: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 }
 .galerie-slide-title {
   font-family: 'Abril Fatface', serif;
-  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-size: 1em;
   font-weight: 400;
   color: white;
   text-align: center;
   letter-spacing: 2px;
-  margin-bottom: 16px;
   text-transform: uppercase;
   line-height: 1.1;
+  /* 2 lignes max pour ne jamais déborder du bandeau */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .galerie-slide-cta {
   font-family: 'Arimo', sans-serif;
@@ -535,7 +563,12 @@ var autoplay;
 fetch('/api/galerie')
   .then(function(r){ return r.json(); })
   .then(function(data){
-    evenements = data;
+    // Ordre aléatoire à chaque visite (Fisher-Yates)
+    evenements = Array.isArray(data) ? data.slice() : [];
+    for(var i = evenements.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = evenements[i]; evenements[i] = evenements[j]; evenements[j] = t;
+    }
     buildCarrousel();
   })
   .catch(function(){
@@ -559,7 +592,8 @@ function buildCarrousel(){
     slide.innerHTML = '<img src="' + ev.cover + '" alt="' + ev.titre + '" loading="' + (i===0?'eager':'lazy') + '">'
       + '<div class="galerie-slide-overlay">'
       + '<div class="galerie-slide-bandeau">'
-      + '<div class="galerie-slide-title">' + ev.titre + '</div>'
+      + '<div class="galerie-slide-cat">' + (ev.categorie || '') + '</div>'
+      + '<div class="galerie-slide-title-wrap"><div class="galerie-slide-title">' + ev.titre + '</div></div>'
       + '<div class="galerie-slide-cta" onclick="openModal(' + i + ')">Découvrir</div>'
       + '</div>'
       + '</div>';
