@@ -214,10 +214,45 @@
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   padding: 16px 20px;
   background: var(--bg);
 }
+.modal-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Arimo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--noir);
+  background: none;
+  border: 1px solid rgba(0,0,0,.2);
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.modal-share-btn:hover { background: var(--noir); color: white; }
+.galerie-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translate(-50%, 20px);
+  background: var(--noir);
+  color: white;
+  font-family: 'Arimo', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 12px 20px;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .3s;
+}
+.galerie-toast.show { opacity: 1; transform: translate(-50%, 0); }
 .modal-close-btn {
   background: none;
   border: none;
@@ -515,6 +550,10 @@
   <div class="galerie-modal-backdrop" onclick="closeModal()"></div>
   <div class="galerie-modal-inner">
     <div class="modal-close">
+      <button class="modal-share-btn" onclick="shareEvent()" aria-label="Partager cet événement">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Partager
+      </button>
       <button class="modal-close-btn" onclick="closeModal()">&#x2715;</button>
     </div>
     <img class="modal-cover" id="modal-cover" src="" alt="">
@@ -538,6 +577,8 @@
     </div>
   </div>
 </div>
+
+<div class="galerie-toast" id="galerie-toast"></div>
 
 <!-- LIGHTBOX -->
 <div class="galerie-lightbox" id="galerie-lightbox" onclick="closeLightbox()">
@@ -570,6 +611,7 @@ fetch('/api/galerie')
       var t = evenements[i]; evenements[i] = evenements[j]; evenements[j] = t;
     }
     buildCarrousel();
+    openEventFromUrl();
   })
   .catch(function(){
     document.getElementById('galerie-track').innerHTML = '<div class="galerie-loader">Erreur de chargement</div>';
@@ -641,10 +683,67 @@ function galerieSlide(dir){ galerieGoTo(galerieIndex + dir); }
 function startAutoplay(){ clearInterval(autoplay); if(galeriePositions() < 2) return; autoplay = setInterval(function(){ galerieGoTo(galerieIndex+1); }, 5000); }
 
 // ── Modale ──
-function openModal(idx){
+// ── Lien partageable : galerie.html?evenement=<id> ──
+function eventUrl(ev){
+  var url = new URL(window.location.href);
+  url.hash = '';
+  url.searchParams.set('evenement', ev.id);
+  return url.toString();
+}
+function galerieUrl(){
+  var url = new URL(window.location.href);
+  url.searchParams.delete('evenement');
+  return url.toString();
+}
+function eventIndexFromUrl(){
+  var id = new URLSearchParams(window.location.search).get('evenement');
+  if(!id) return -1;
+  for(var i=0;i<evenements.length;i++){ if(evenements[i].id === id) return i; }
+  return -1;
+}
+function openEventFromUrl(){
+  var idx = eventIndexFromUrl();
+  if(idx >= 0) openModal(idx, true);
+  else if(new URLSearchParams(window.location.search).has('evenement')) history.replaceState(null, '', galerieUrl());
+}
+// Bouton retour du navigateur : ferme / rouvre la fiche
+window.addEventListener('popstate', function(){
+  var idx = eventIndexFromUrl();
+  if(idx >= 0) openModal(idx, true);
+  else if(document.getElementById('galerie-modal').classList.contains('open')) closeModal(true);
+});
+
+var currentEvent = null;
+function shareEvent(){
+  if(!currentEvent) return;
+  var url = eventUrl(currentEvent);
+  if(navigator.share){
+    navigator.share({ title: currentEvent.titre + ' — Réunis', url: url }).catch(function(){});
+    return;
+  }
+  var done = function(){ showToast('Lien copié !'); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done, function(){ window.prompt('Copiez ce lien :', url); });
+  } else {
+    window.prompt('Copiez ce lien :', url);
+  }
+}
+var toastTimer;
+function showToast(msg){
+  var t = document.getElementById('galerie-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+function openModal(idx, fromHistory){
   clearInterval(autoplay);
   var ev = evenements[idx];
   if(!ev) return;
+  currentEvent = ev;
+  // L'URL affiche l'événement ouvert, pour pouvoir la copier / partager
+  if(!fromHistory) history.pushState({ evenement: ev.id }, '', eventUrl(ev));
 
   document.getElementById('modal-cover').src = ev.cover;
   document.getElementById('modal-cover').alt = ev.titre;
@@ -713,7 +812,13 @@ function openModal(idx){
   document.body.style.overflow = 'hidden';
 }
 
-function closeModal(){
+function closeModal(fromHistory){
+  currentEvent = null;
+  if(!fromHistory && new URLSearchParams(window.location.search).has('evenement')){
+    // Ouvert depuis la galerie : on revient dans l'historique ; ouvert via un lien partagé : on nettoie l'URL
+    if(history.state && history.state.evenement){ history.back(); return; }
+    history.replaceState(null, '', galerieUrl());
+  }
   document.getElementById('galerie-modal').classList.remove('open');
   document.body.style.overflow = '';
   startAutoplay();
