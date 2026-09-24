@@ -35,6 +35,15 @@
   filter: brightness(.75);
 }
 .galerie-slide:hover img { transform: scale(1.03); }
+/* PC : 3 événements côte à côte (bandeaux verticaux) */
+@media(min-width:861px){
+  .galerie-slide { flex: 0 0 calc(100% / 3); border-right: 3px solid var(--noir); box-sizing: border-box; }
+  .galerie-slide .galerie-slide-title { font-size: clamp(1.4rem, 2.2vw, 2.2rem); letter-spacing: 1px; margin-bottom: 8px; }
+  .galerie-slide .galerie-slide-bandeau { padding: 18px 16px; }
+  /* Le carrousel suit la sidebar pour que le 1er événement ne soit pas masqué */
+  .sidebar.desktop-open ~ .galerie-hero,
+  .sidebar.open ~ .galerie-hero { margin-left: var(--sb-w); }
+}
 .galerie-slide-overlay {
   position: absolute;
   inset: 0;
@@ -339,14 +348,11 @@
 .modal-articles-arrow.left { left: -12px; }
 .modal-articles-arrow.right { right: -12px; }
 
-/* Grille photos */
+/* Grille photos (même rendu que les 2 photos fixes) */
 .modal-photos-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 3px;
-}
-@media(min-width:860px){
-  .modal-photos-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .modal-photo-item {
   aspect-ratio: 1/1;
@@ -366,9 +372,6 @@
   max-width: 50%;
   margin: 0 auto;
   width: 100%;
-}
-@media(min-width:860px){
-  .modal-photo-item.centered { max-width: 33.33%; }
 }
 
 /* Lightbox */
@@ -496,7 +499,7 @@
 
       <!-- Articles liés -->
       <div id="modal-articles-wrap" style="margin-bottom:40px;">
-        <div class="modal-articles-title">Articles utilisés</div>
+        <div class="modal-articles-title">Articles Associés</div>
         <div class="modal-articles-wrap-inner"><div class="modal-articles-arrow left" onclick="articlesScroll(-1)">&#8249;</div><div class="modal-articles-track" id="modal-articles-grid"></div><div class="modal-articles-arrow right" onclick="articlesScroll(1)">&#8250;</div></div>
       </div>
 
@@ -562,24 +565,46 @@ function buildCarrousel(){
       + '</div>';
     slide.onclick = function(e){ if(e.target.classList.contains('galerie-slide-cta'))return; openModal(i); };
     track.appendChild(slide);
-
-    var dot = document.createElement('div');
-    dot.className = 'galerie-dot' + (i===0?' active':'');
-    dot.onclick = function(){ galerieGoTo(i); };
-    dots.appendChild(dot);
   });
 
+  buildDots();
   startAutoplay();
 }
 
+// Nombre d'événements visibles : 3 sur PC, 1 sur mobile
+function galeriePerView(){ return window.matchMedia('(min-width:861px)').matches ? 3 : 1; }
+function galeriePositions(){ return Math.max(1, evenements.length - galeriePerView() + 1); }
+
+function buildDots(){
+  var dots = document.getElementById('galerie-dots');
+  dots.innerHTML = '';
+  var n = galeriePositions();
+  if(n < 2) return;
+  for(var i=0;i<n;i++){
+    var dot = document.createElement('div');
+    dot.className = 'galerie-dot' + (i===galerieIndex?' active':'');
+    dot.onclick = (function(k){ return function(){ galerieGoTo(k); }; })(i);
+    dots.appendChild(dot);
+  }
+}
+
 function galerieGoTo(n){
-  galerieIndex = (n + evenements.length) % evenements.length;
-  document.getElementById('galerie-track').style.transform = 'translateX(-' + galerieIndex*100 + '%)';
+  var positions = galeriePositions();
+  galerieIndex = (n + positions) % positions;
+  document.getElementById('galerie-track').style.transform = 'translateX(-' + galerieIndex*(100/galeriePerView()) + '%)';
   document.querySelectorAll('.galerie-dot').forEach(function(d,i){ d.classList.toggle('active', i===galerieIndex); });
   clearInterval(autoplay); startAutoplay();
 }
+
+window.addEventListener('resize', function(){
+  if(!evenements.length) return;
+  var positions = galeriePositions();
+  if(galerieIndex >= positions) galerieIndex = positions - 1;
+  buildDots();
+  document.getElementById('galerie-track').style.transform = 'translateX(-' + galerieIndex*(100/galeriePerView()) + '%)';
+});
 function galerieSlide(dir){ galerieGoTo(galerieIndex + dir); }
-function startAutoplay(){ autoplay = setInterval(function(){ galerieGoTo(galerieIndex+1); }, 5000); }
+function startAutoplay(){ clearInterval(autoplay); if(galeriePositions() < 2) return; autoplay = setInterval(function(){ galerieGoTo(galerieIndex+1); }, 5000); }
 
 // ── Modale ──
 function openModal(idx){
@@ -641,7 +666,7 @@ function openModal(idx){
     photosWrap.style.display = 'block';
     allPhotos.forEach(function(url){
       var slide = document.createElement('div');
-      slide.className = 'modal-photo-slide';
+      slide.className = 'modal-photo-item';
       slide.innerHTML = '<img src="'+url+'" alt="'+ev.titre+'" loading="lazy">';
       slide.onclick = function(){ openLightbox(url); };
       photosTrack.appendChild(slide);
