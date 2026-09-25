@@ -1,86 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="La table — Vaisselles, présentoirs, candy bar, fontaines et service à louer pour vos événements. Réunis, Centre-Val de Loire.">
 <title>La table — Réunis</title>
+<link rel="stylesheet" href="style.css">
 <style>
-@font-face { font-family:'Abril Fatface'; font-style:normal; font-weight:400; font-display:swap; src:url('/fonts/abril-fatface-v25-latin-400.woff2') format('woff2'); }
-@font-face { font-family:'Arimo'; font-style:normal; font-weight:400; font-display:swap; src:url('/fonts/arimo-v36-latin-400.woff2') format('woff2'); }
-@font-face { font-family:'Arimo'; font-style:normal; font-weight:500; font-display:swap; src:url('/fonts/arimo-v36-latin-500.woff2') format('woff2'); }
-@font-face { font-family:'Arimo'; font-style:normal; font-weight:600; font-display:swap; src:url('/fonts/arimo-v36-latin-600.woff2') format('woff2'); }
-@font-face { font-family:'Arimo'; font-style:normal; font-weight:700; font-display:swap; src:url('/fonts/arimo-v36-latin-700.woff2') format('woff2'); }
-:root {
-  --bg:      #FAF1F1;
-  --white:   #FFFFFF;
-  --noir:    #000000;
-  --rose:    #D65B80;
-  --corail:  #F86A6A;
-  --muted:   #888080;
-  --sb-w:    170px;
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; }
-body { font-family:'Arimo',sans-serif; background:var(--bg); color:var(--noir); }
-a { text-decoration:none; color:inherit; }
-button { cursor:pointer; font-family:inherit; }
-
-/* ── TOPBAR ── */
-.topbar { display:none; align-items:center; justify-content:space-between; padding:14px 20px; background:var(--bg); border-bottom:1px solid rgba(0,0,0,.07); position:sticky; top:0; z-index:120; }
-.topbar.visible { display:flex; }
-.topbar-logo { font-family:'Abril Fatface',serif; font-size:1.5rem; letter-spacing:-.5px; }
-.topbar-icon { background:none; border:none; color:var(--noir); display:flex; align-items:center; padding:4px; transition:color .2s; }
-.topbar-icon:hover { color:var(--rose); }
-
-/* ── SIDEBAR ── */
-.sidebar { position:fixed; top:0; left:0; width:var(--sb-w); height:100dvh; background:var(--white); border-right:1px solid rgba(0,0,0,.07); display:flex; flex-direction:column; padding:28px 18px 32px; z-index:160; overflow-y:auto; -webkit-overflow-scrolling:touch; transform:translateX(-100%); transition:transform .3s ease; }
-.sidebar.open { transform:translateX(0); }
-.sb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.25); z-index:155; }
-.sb-overlay.on { display:block; }
-.sb-axis { display:block; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--rose); padding:5px 0; transition:color .2s; background:none; border:none; text-align:left; width:100%; font-family:'Arimo',sans-serif; }
-.sb-axis:hover { color:var(--corail); }
-.sb-cats { display:none; padding-left:8px; margin:3px 0 6px; }
-.sb-cats.open { display:block; }
-.sb-cat-wrap { position:relative; }
-.sb-cat { display:block; font-size:11.5px; color:var(--muted); padding:3px 0; transition:color .2s; cursor:pointer; background:none; border:none; text-align:left; width:100%; font-family:'Arimo',sans-serif; letter-spacing:.3px; }
-.sb-cat::before { content:"| "; }
-.sb-cat:hover, .sb-cat.active { color:var(--rose); }
-.sb-subcats { display:none; padding-left:12px; margin:2px 0 4px; }
-.sb-cat-wrap:hover .sb-subcats, .sb-cat-wrap.open .sb-subcats { display:block; }
-.sb-subcat { display:block; font-size:10.5px; color:#aaa; padding:2px 0; transition:color .2s; letter-spacing:.2px; }
-.sb-subcat:hover { color:var(--rose); }
-.sb-sep { border:none; border-top:1px solid rgba(0,0,0,.08); margin:14px 0; }
-.sb-secondary a { display:block; font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--noir); padding:4px 0; transition:color .2s; }
-.sb-secondary a:hover, .sb-secondary a.active { color:var(--rose); }
-.sb-contact { display:block; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--noir); padding:5px 0; margin-top:4px; transition:color .2s; }
-.sb-contact:hover { color:var(--rose); }
-.sb-config { margin-top:10px; background:var(--noir); color:var(--white); border:none; border-radius:100px; padding:12px 14px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; width:100%; transition:background .2s; font-family:'Arimo',sans-serif; }
-.sb-config:hover { background:var(--rose); }
-.sb-footer { margin-top:auto; padding-top:12px; }
-.sb-legal { font-size:9px; color:var(--muted); line-height:2; }
-.sb-legal a { display:block; color:var(--muted); transition:color .2s; }
-.sb-legal a:hover { color:var(--noir); }
-.sb-close { position:absolute; top:16px; right:14px; background:none; border:none; font-size:1.2rem; color:var(--muted); cursor:pointer; line-height:1; padding:4px; transition:color .2s; }
-.sb-close:hover { color:var(--noir); }
-
-/* ── MAIN ── */
-.main { min-height:100vh; display:flex; flex-direction:column; transition:margin-left .3s ease; }
-.heart-badge { position:absolute; top:-6px; right:-6px; background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 5px; font-weight:700; min-width:16px; text-align:center; display:none; }
-.heart-badge.visible { display:block; }
-
-/* ── EN-TÊTE ── */
 .cat-header { padding:16px 24px 0; }
 .cat-back { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); display:inline-flex; align-items:center; gap:6px; transition:color .2s; margin-bottom:8px; }
 .cat-back:hover { color:var(--rose); }
 .cat-title { font-family:'Abril Fatface',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:400; line-height:1; margin-bottom:8px; }
-
-/* Ancres sous-catégories clicables */
 .cat-anchors { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
 .cat-anchor-link { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); background:none; border:1px solid rgba(0,0,0,.12); border-radius:100px; padding:4px 12px; transition:all .2s; white-space:nowrap; }
 .cat-anchor-link:hover { color:var(--rose); border-color:var(--rose); }
-
-/* ── BARRE OUTILS ── */
 .cat-toolbar { display:flex; align-items:center; gap:10px; padding:0 24px 16px; flex-wrap:wrap; }
 .cat-search-wrap { display:flex; align-items:center; flex:1; min-width:160px; max-width:360px; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
 .cat-search-input { flex:1; border:none; outline:none; padding:10px 14px; font-family:'Arimo',sans-serif; font-size:13px; background:transparent; }
@@ -91,8 +25,6 @@ button { cursor:pointer; font-family:inherit; }
 .filter-count { background:var(--rose); color:white; border-radius:100px; font-size:9px; padding:1px 6px; font-weight:700; display:none; }
 .cat-config-btn { background:var(--noir); color:white; border:none; border-radius:8px; padding:10px 18px; font-family:'Arimo',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:background .2s; white-space:nowrap; margin-left:auto; }
 .cat-config-btn:hover { background:var(--rose); }
-
-/* ── PANNEAU FILTRES ── */
 .cat-filters-panel { display:none; background:var(--white); border-top:1px solid rgba(0,0,0,.07); border-bottom:1px solid rgba(0,0,0,.07); padding:20px 24px; gap:28px; flex-wrap:wrap; align-items:flex-start; }
 .cat-filters-panel.open { display:flex; }
 .filter-group { display:flex; flex-direction:column; gap:8px; min-width:140px; }
@@ -103,69 +35,40 @@ button { cursor:pointer; font-family:inherit; }
 .filter-chip.active { background:var(--noir); color:var(--white); border-color:var(--noir); }
 .filter-reset { font-size:11px; color:var(--muted); background:none; border:none; cursor:pointer; font-family:'Arimo',sans-serif; text-decoration:underline; align-self:flex-end; padding:5px 0; transition:color .2s; }
 .filter-reset:hover { color:var(--noir); }
-
-/* ── SECTIONS ── */
 .cat-content { padding:0 24px 60px; }
 .cat-section { margin-bottom:48px; scroll-margin-top:80px; }
-.cat-section.hidden { display:none; }
 .cat-section-title { font-family:'Abril Fatface',serif; font-size:clamp(1.6rem,3vw,2.2rem); font-weight:400; margin-bottom:20px; }
-
-/* ── GRILLE — 5 col desktop / 2 col mobile ── */
 .items-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
-
-/* ── CARTE ── */
 .item-card { position:relative; background:var(--white); cursor:pointer; overflow:hidden; }
 .item-img { aspect-ratio:3/4; overflow:hidden; background:var(--bg); position:relative; }
 .item-img-inner { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
 .item-img-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#ddd; }
-
-/* Overlay hover — opacité réduite */
 .item-overlay { position:absolute; inset:0; background:rgba(0,0,0,.18); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s; }
 .item-card:hover .item-overlay { opacity:1; }
 .item-card:hover .item-img-inner { transform:scale(1.03); }
 .item-overlay-text { color:white; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-align:center; line-height:1.4; text-shadow:0 1px 4px rgba(0,0,0,.3); }
-
-/* Badges — taille réduite, pas de débordement */
 .item-badge { position:absolute; top:8px; left:8px; font-size:8px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 7px; border-radius:100px; z-index:2; max-width:calc(100% - 44px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.badge-new { background:#C1C3E6; color:white; }
+.badge-new { background:#C1C3E6; color:var(--noir); }
 .badge-perso { background:var(--rose); color:white; }
-
-/* Bouton cœur */
 .item-heart { position:absolute; top:8px; right:8px; background:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; box-shadow:0 2px 6px rgba(0,0,0,.12); transition:all .2s; color:var(--muted); flex-shrink:0; }
 .item-heart:hover { color:var(--rose); transform:scale(1.1); }
 .item-heart.active { color:var(--rose); }
-
-/* Navigation photos */
 .item-nav { position:absolute; bottom:8px; left:0; right:0; display:none; justify-content:space-between; padding:0 6px; z-index:3; }
 .item-card:hover .item-nav { display:flex; }
 .item-nav-btn { background:rgba(255,255,255,.9); border:none; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.8rem; color:var(--noir); transition:background .2s; box-shadow:0 1px 4px rgba(0,0,0,.15); }
 .item-nav-btn:hover { background:white; }
-
-/* Points */
 .item-dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:3; pointer-events:none; }
 .item-dot { width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,.5); transition:background .2s; }
 .item-dot.active { background:white; }
-
-/* Infos */
 .item-info { padding:10px 8px 12px; }
 .item-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; line-height:1.3; }
 .item-price { font-size:11px; color:var(--muted); }
-
-/* ── AUCUN RÉSULTAT ── */
 .cat-no-results { display:none; text-align:center; padding:60px 24px; color:var(--muted); font-size:14px; }
 .cat-no-results strong { display:block; font-family:'Abril Fatface',serif; font-size:1.8rem; font-weight:400; margin-bottom:8px; color:var(--noir); }
-
-/* ── FOOTER ── */
 .cat-footer { background:var(--white); padding:40px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:28px; border-top:1px solid rgba(0,0,0,.07); margin-top:auto; }
-.cat-footer-step {}
 .cat-footer-num { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--rose); margin-bottom:8px; }
 .cat-footer-text { font-size:13px; color:#444; line-height:1.75; }
-
-/* ── RESPONSIVE ── */
-@media (min-width:861px) { .sb-overlay { display:none !important; } }
-@media (max-width:860px) {
-  .main { padding-top:56px; }
-  /* 2 colonnes sur mobile pour éviter les badges coupés */
+@media(max-width:860px){
   .items-grid { grid-template-columns:repeat(2,1fr); }
   .cat-footer { grid-template-columns:repeat(2,1fr); gap:20px; }
   .cat-config-btn { display:none; }
@@ -173,9 +76,7 @@ button { cursor:pointer; font-family:inherit; }
   .cat-toolbar { padding:0 20px 14px; }
   .cat-content { padding:0 20px 60px; }
 }
-@media (max-width:400px) {
-  .cat-footer { grid-template-columns:1fr; }
-}
+@media(max-width:400px){ .cat-footer { grid-template-columns:1fr; } }
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -186,33 +87,38 @@ button { cursor:pointer; font-family:inherit; }
 </head>
 <body>
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar desktop-open" id="sidebar">
   <button class="sb-close" onclick="closeSidebar()">&#x2715;</button>
   <nav>
     <a class="sb-axis" href="planifier.html">Planifier</a>
-    <button class="sb-axis" onclick="toggleCats(this)">Décorer</button>
+    <div class="sb-axis-wrap">
+      <a class="sb-axis" href="decorer.html">Décorer</a>
+      <span class="sb-axis-toggle open" onclick="toggleCats(this)">▾</span>
+    </div>
     <div class="sb-cats open">
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-mobilier.html">Le mobilier</a><div class="sb-subcats"><a class="sb-subcat" href="cat-mobilier.html#canapes">Canapés &amp; fauteuils</a><a class="sb-subcat" href="cat-mobilier.html#consoles">Consoles &amp; dessertes</a><a class="sb-subcat" href="cat-mobilier.html#chaises">Chaises &amp; bancs</a><a class="sb-subcat" href="cat-mobilier.html#tables">Tables &amp; mange-debout</a><a class="sb-subcat" href="cat-mobilier.html#pupitre">Pupitre</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-decors.html">Les décors</a><div class="sb-subcats"><a class="sb-subcat" href="cat-decors.html#arches">Arches &amp; backdrops</a><a class="sb-subcat" href="cat-decors.html#supports">Supports</a><a class="sb-subcat" href="cat-decors.html#ballons">Ballons</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-signaletique.html">La signalétique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-signaletique.html#panneaux">Panneaux d'accueil</a><a class="sb-subcat" href="cat-signaletique.html#miroirs">Miroirs</a><a class="sb-subcat" href="cat-signaletique.html#petits">Petits panneaux</a><a class="sb-subcat" href="cat-signaletique.html#marque-place">Marque place</a></div></div>
-      <div class="sb-cat-wrap open"><a class="sb-cat active" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="#vaisselles">Vaisselles</a><a class="sb-subcat" href="#presentoirs">Présentoirs</a><a class="sb-subcat" href="#candy-bar">Candy bar</a><a class="sb-subcat" href="#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="#carafes">Carafes</a><a class="sb-subcat" href="#service">Service</a></div></div>
+      <div class="sb-cat-wrap open"><a class="sb-cat active" href="cat-table.html">La table</a><div class="sb-subcats"><a class="sb-subcat" href="cat-table.html#vaisselles">Vaisselles</a><a class="sb-subcat" href="cat-table.html#presentoirs">Présentoirs</a><a class="sb-subcat" href="cat-table.html#candy-bar">Candy bar</a><a class="sb-subcat" href="cat-table.html#fontaines">Fontaines à boisson</a><a class="sb-subcat" href="cat-table.html#carafes">Carafes</a><a class="sb-subcat" href="cat-table.html#service">Service</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-textile.html">Le textile</a><div class="sb-subcats"><a class="sb-subcat" href="cat-textile.html#nappes">Nappes</a><a class="sb-subcat" href="cat-textile.html#chemins">Chemins de table</a><a class="sb-subcat" href="cat-textile.html#serviettes">Serviettes de table</a><a class="sb-subcat" href="cat-textile.html#tapis">Tapis</a><a class="sb-subcat" href="cat-textile.html#coussins">Coussins</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-floral.html">Le floral</a><div class="sb-subcats"><a class="sb-subcat" href="cat-floral.html#dame-jeanne">Dame jeanne</a><a class="sb-subcat" href="cat-floral.html#vases">Vases</a><a class="sb-subcat" href="cat-floral.html#soliflores">Soliflores</a><a class="sb-subcat" href="cat-floral.html#seches">Fleurs séchées</a><a class="sb-subcat" href="cat-floral.html#fraiches">Fleurs fraîches</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-lumiere.html">La lumière</a><div class="sb-subcats"><a class="sb-subcat" href="cat-lumiere.html#bougies">Bougies</a><a class="sb-subcat" href="cat-lumiere.html#photophores">Photophores</a><a class="sb-subcat" href="cat-lumiere.html#bougeoirs">Bougeoirs &amp; chandeliers</a><a class="sb-subcat" href="cat-lumiere.html#lanternes">Lanternes</a><a class="sb-subcat" href="cat-lumiere.html#neons">Néons</a><a class="sb-subcat" href="cat-lumiere.html#guirlandes">Guirlandes &amp; éclairage</a><a class="sb-subcat" href="cat-lumiere.html#suspensions">Suspensions</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-accessoires.html">Les accessoires</a><div class="sb-subcats"><a class="sb-subcat" href="cat-accessoires.html#livre-dor">Livre d'or</a><a class="sb-subcat" href="cat-accessoires.html#disco">Boules disco</a><a class="sb-subcat" href="cat-accessoires.html#zinc">Bassines en zinc</a><a class="sb-subcat" href="cat-accessoires.html#caisses">Caisses en bois</a><a class="sb-subcat" href="cat-accessoires.html#vintage">Objets vintages</a><a class="sb-subcat" href="cat-accessoires.html#jeux">Jeux</a></div></div>
       <div class="sb-cat-wrap"><a class="sb-cat" href="cat-pratique.html">Le pratique</a><div class="sb-subcats"><a class="sb-subcat" href="cat-pratique.html#video">Vidéoprojecteur</a><a class="sb-subcat" href="cat-pratique.html#vestiaire">Vestiaire</a><a class="sb-subcat" href="cat-pratique.html#rallonges">Rallonges</a><a class="sb-subcat" href="cat-pratique.html#cuisine">Ustensiles de cuisine</a></div></div>
-    </div>
+      </div>
     <hr class="sb-sep">
     <div class="sb-secondary">
       <a href="index.html">Home</a>
       <a href="faq.html">FAQ</a>
       <a href="galerie.html">Galerie</a>
       <a href="manifest.html">Manifest</a>
+      <a href="le-club.html">Le Club</a>
     </div>
     <a class="sb-contact" href="contact.html">Contact</a>
     <button class="sb-config" onclick="location.href='configurateur.html'">Configurateur</button>
   </nav>
   <div class="sb-footer">
+    <img class="sb-club-img" src="le-club-logo.jpg" alt="Le Club" onclick="location.href='le-club.html'">
     <div class="sb-legal">
       <a href="mentions.html">| Mentions légales</a>
       <a href="cgv.html">| CGV</a>
@@ -232,15 +138,12 @@ button { cursor:pointer; font-family:inherit; }
   </a>
 </div>
 
-<main class="main" id="main" style="margin-left:0">
-
+<main class="main desktop-shifted" id="main">
   <div class="cat-header">
     <a class="cat-back" href="decorer.html">← Décorer</a>
     <div class="cat-title">La table</div>
-    <!-- Ancres dynamiques générées par JS -->
     <div class="cat-anchors" id="cat-anchors"></div>
   </div>
-
   <div class="cat-toolbar">
     <div class="cat-search-wrap">
       <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
@@ -253,7 +156,6 @@ button { cursor:pointer; font-family:inherit; }
     </button>
     <button class="cat-config-btn" onclick="location.href='configurateur.html'">Configurer mon événement →</button>
   </div>
-
   <div class="cat-filters-panel" id="filters-panel">
     <div class="filter-group">
       <div class="filter-group-title">Badge</div>
@@ -272,16 +174,13 @@ button { cursor:pointer; font-family:inherit; }
     </div>
     <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
   </div>
-
   <div class="cat-content" id="cat-content">
-    <div class="cat-loader" id="cat-loader" style="text-align:center;padding:80px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;">Chargement du catalogue…</div>
+    <div id="cat-loader" style="text-align:center;padding:80px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;">Chargement du catalogue…</div>
     <div class="cat-no-results" id="cat-no-results">
       <strong>Aucun résultat</strong>
       Essayez un autre mot-clé ou réinitialisez les filtres.
     </div>
   </div>
-
-  <!-- FOOTER -->
   <div class="cat-footer">
     <div class="cat-footer-step">
       <div class="cat-footer-num">1 — Faites votre sélection</div>
@@ -297,361 +196,210 @@ button { cursor:pointer; font-family:inherit; }
     </div>
     <div class="cat-footer-step">
       <div class="cat-footer-num">4 — Récupérez vos articles</div>
-      <div class="cat-footer-text">Optez pour la livraison ou venez nous rendre visite. Deux points de retraits sont disponibles : Épuisay (41) — Épieds-en-Beauce (45).</div>
+      <div class="cat-footer-text">Optez pour la livraison ou venez nous rendre visite. Deux points de retrait : Épuisay (41) — Épieds-en-Beauce (45).</div>
     </div>
   </div>
-
 </main>
 
 <script>
-// ── Sidebar ──
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
-function toggleCats(btn){var c=btn.nextElementSibling;if(c)c.classList.toggle('open');}
+function toggleCats(btn){
+  var wrap=btn.closest('.sb-axis-wrap');
+  var cats=wrap?wrap.nextElementSibling:btn.nextElementSibling;
+  if(cats)cats.classList.toggle('open');
+  btn.classList.toggle('open');
+}
 if(window.innerWidth>860){document.getElementById('sidebar').classList.add('open');document.getElementById('main').style.marginLeft='var(--sb-w)';}
 
-// ── Badge favoris ──
 function updateBadge(){
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   document.querySelectorAll('.heart-badge').forEach(function(b){
-    b.textContent = favs.length;
-    b.classList.toggle('visible', favs.length > 0);
+    b.textContent=favs.length;
+    b.classList.toggle('visible',favs.length>0);
   });
 }
 updateBadge();
 
-// ── Toast ──
 function showToast(msg){
-  var t = document.getElementById('toast');
-  if(!t){ t=document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--noir);color:white;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:1px;z-index:999;transition:opacity .3s;pointer-events:none;'; document.body.appendChild(t); }
-  t.textContent=msg; t.style.opacity='1';
-  clearTimeout(t._t);
-  t._t=setTimeout(function(){t.style.opacity='0';},2000);
+  var t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--noir);color:white;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:1px;z-index:999;transition:opacity .3s;pointer-events:none;';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},2000);
 }
 
-// ── État global ──
-var allArticles = [];
-var activeFilters = { badge:[], couleur:[], tag:[] };
-var HEART_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+var allArticles=[];
+var activeFilters={badge:[],couleur:[],tag:[]};
+var HEART_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 
-// ── Détection nouveauté (20 articles les plus récents, calculé côté API) ──
-function isNew(article){
-  return !!article.is_new;
+function isNew(a){
+  return !!a.is_new;
 }
-
-// ── Chargement Notion ──
-function chargerCatalogue(){
-  fetch('/api/catalogue?categorie=La table')
-    .then(function(r){ return r.json(); })
-    .then(function(articles){
-      allArticles = articles;
-      document.getElementById('cat-loader').style.display = 'none';
-      construireFiltresDynamiques(articles);
-      afficherArticles(articles);
-    })
-    .catch(function(){
-      document.getElementById('cat-loader').textContent = 'Erreur de chargement.';
-    });
-}
-
-// ── Filtres dynamiques depuis données Notion ──
-function construireFiltresDynamiques(articles){
-  var couleurs = {}, tags = {};
-  articles.forEach(function(a){
-    (a.couleurs||[]).forEach(function(c){ if(c) couleurs[c]=true; });
-    if(a.sous_sous_categorie) tags[a.sous_sous_categorie]=true;
-  });
-
-  var chipsCouleur = document.getElementById('chips-couleur');
-  Object.keys(couleurs).sort().forEach(function(c){
-    var btn = document.createElement('button');
-    btn.className='filter-chip'; btn.dataset.type='couleur'; btn.dataset.value=c; btn.textContent=c;
-    btn.onclick=function(){ toggleChip(this); };
-    chipsCouleur.appendChild(btn);
-  });
-
-  var chipsTag = document.getElementById('chips-tag');
-  Object.keys(tags).sort().forEach(function(t){
-    var btn = document.createElement('button');
-    btn.className='filter-chip'; btn.dataset.type='tag'; btn.dataset.value=t; btn.textContent=t;
-    btn.onclick=function(){ toggleChip(this); };
-    chipsTag.appendChild(btn);
-  });
-}
-
-// ── Ancres dynamiques (seulement sous-catégories non vides) ──
-function mettreAJourAncres(sections){
-  var anchorsEl = document.getElementById('cat-anchors');
-  anchorsEl.innerHTML = '';
-  Object.keys(sections).forEach(function(sc){
-    var ancre = toAncre(sc);
-    var a = document.createElement('a');
-    a.className = 'cat-anchor-link';
-    a.href = '#'+ancre;
-    a.textContent = sc;
-    anchorsEl.appendChild(a);
-  });
-}
-
 function toAncre(sc){
   return sc.toLowerCase().replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u').replace(/[ôö]/g,'o').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
 }
-
-// ── Afficher articles ──
+function mettreAJourAncres(sections){
+  var anchorsEl=document.getElementById('cat-anchors');
+  anchorsEl.innerHTML='';
+  Object.keys(sections).forEach(function(sc){
+    var a=document.createElement('a');
+    a.className='cat-anchor-link';a.href='#'+toAncre(sc);a.textContent=sc;
+    anchorsEl.appendChild(a);
+  });
+}
+function chargerCatalogue(){
+  fetch('/api/catalogue?categorie=La table')
+    .then(function(r){return r.json();})
+    .then(function(articles){
+      allArticles=articles;
+      document.getElementById('cat-loader').style.display='none';
+      construireFiltresDynamiques(articles);
+      afficherArticles(articles);
+    })
+    .catch(function(){document.getElementById('cat-loader').textContent='Erreur de chargement.';});
+}
+function construireFiltresDynamiques(articles){
+  var couleurs={},tags={};
+  articles.forEach(function(a){
+    (a.couleurs||[]).forEach(function(c){if(c)couleurs[c]=true;});
+    if(a.sous_sous_categorie)tags[a.sous_sous_categorie]=true;
+  });
+  var cc=document.getElementById('chips-couleur');
+  Object.keys(couleurs).sort().forEach(function(c){
+    var btn=document.createElement('button');btn.className='filter-chip';btn.dataset.type='couleur';btn.dataset.value=c;btn.textContent=c;
+    btn.onclick=function(){toggleChip(this);};cc.appendChild(btn);
+  });
+  var ct=document.getElementById('chips-tag');
+  Object.keys(tags).sort().forEach(function(t){
+    var btn=document.createElement('button');btn.className='filter-chip';btn.dataset.type='tag';btn.dataset.value=t;btn.textContent=t;
+    btn.onclick=function(){toggleChip(this);};ct.appendChild(btn);
+  });
+}
 function afficherArticles(articles){
-  var content = document.getElementById('cat-content');
-  content.querySelectorAll('.cat-section').forEach(function(s){ s.remove(); });
-
+  var content=document.getElementById('cat-content');
+  content.querySelectorAll('.cat-section').forEach(function(s){s.remove();});
   if(!articles.length){
     document.getElementById('cat-no-results').style.display='block';
     document.getElementById('cat-anchors').innerHTML='';
     return;
   }
   document.getElementById('cat-no-results').style.display='none';
-
-  // Grouper par sous-catégorie
-  var sections = {}, ordre = [];
+  var sections={},ordre=[];
   articles.forEach(function(a){
-    var sc = a.sous_categorie || 'Autres';
-    if(!sections[sc]){ sections[sc]=[]; ordre.push(sc); }
+    var sc=a.sous_categorie||'Autres';
+    if(!sections[sc]){sections[sc]=[];ordre.push(sc);}
     sections[sc].push(a);
   });
-
-  // Mettre à jour les ancres (seulement sections présentes)
   mettreAJourAncres(sections);
-
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var favIds = favs.map(function(f){ return f.id||f.name; });
-  var loader = document.getElementById('cat-loader');
-
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var favIds=favs.map(function(f){return f.id||f.name;});
+  var loader=document.getElementById('cat-loader');
   ordre.forEach(function(sc){
-    var ancre = toAncre(sc);
-    var sec = document.createElement('div');
-    sec.className='cat-section'; sec.id=ancre;
-
-    var title = document.createElement('div');
-    title.className='cat-section-title'; title.textContent=sc;
+    var sec=document.createElement('div');sec.className='cat-section';sec.id=toAncre(sc);
+    var title=document.createElement('div');title.className='cat-section-title';title.textContent=sc;
     sec.appendChild(title);
-
-    var grid = document.createElement('div');
-    grid.className='items-grid';
-    sections[sc].forEach(function(a){ grid.appendChild(makeCard(a,favIds)); });
+    var grid=document.createElement('div');grid.className='items-grid';
+    sections[sc].forEach(function(a){grid.appendChild(makeCard(a,favIds));});
     sec.appendChild(grid);
-    content.insertBefore(sec, loader);
+    content.insertBefore(sec,loader);
   });
 }
-
-// ── Construire carte ──
-function makeCard(a, favIds){
-  var nouveau = isNew(a);
-  var perso = a.personnalisable==='Oui';
-  var isFav = favIds.indexOf(a.id)>=0 || favIds.indexOf(a.nom)>=0;
-  var photos = [a.photo].concat(a.photos_ambiance||[]).filter(Boolean);
-  var prix = a.prix_location ? parseFloat(a.prix_location).toFixed(2)+'€' : 'Sur devis';
-
-  var card = document.createElement('div');
-  card.className='item-card';
-  card.dataset.photoIndex='0';
-  card.dataset.photos=photos.join('|');
-
-  // Image
-  var imgDiv = document.createElement('div');
-  imgDiv.className='item-img';
-
-  if(photos.length){
-    var img = document.createElement('img');
-    img.className='item-img-inner'; img.src=photos[0]; img.alt=a.nom; img.loading='lazy';
-    imgDiv.appendChild(img);
-  } else {
-    var ph = document.createElement('div');
-    ph.className='item-img-placeholder'; ph.textContent='✦';
-    imgDiv.appendChild(ph);
-  }
-
-  // Overlay
-  var overlay = document.createElement('div');
-  overlay.className='item-overlay';
+function makeCard(a,favIds){
+  var nouveau=isNew(a),perso=a.personnalisable==='Oui';
+  var isFav=favIds.indexOf(a.id)>=0||favIds.indexOf(a.nom)>=0;
+  var photos=[a.photo].concat(a.photos_ambiance||[]).filter(Boolean);
+  var prix=a.prix_location?parseFloat(a.prix_location).toFixed(2)+'€':'Sur devis';
+  var card=document.createElement('div');card.className='item-card';
+  card.dataset.photoIndex='0';card.dataset.photos=photos.join('|');
+  var imgDiv=document.createElement('div');imgDiv.className='item-img';
+  if(photos.length){var img=document.createElement('img');img.className='item-img-inner';img.src=photos[0];img.alt=a.nom;img.loading='lazy';imgDiv.appendChild(img);}
+  else{var ph=document.createElement('div');ph.className='item-img-placeholder';ph.textContent='✦';imgDiv.appendChild(ph);}
+  var overlay=document.createElement('div');overlay.className='item-overlay';
   overlay.innerHTML='<span class="item-overlay-text">Voir<br>l\'article →</span>';
   imgDiv.appendChild(overlay);
-
-  // Navigation photos si plusieurs
   if(photos.length>1){
-    var nav = document.createElement('div');
-    nav.className='item-nav';
-    var bl = document.createElement('button'); bl.className='item-nav-btn'; bl.innerHTML='‹';
-    bl.onclick=function(e){ e.stopPropagation(); navigatePhoto(card,-1); };
-    var br = document.createElement('button'); br.className='item-nav-btn'; br.innerHTML='›';
-    br.onclick=function(e){ e.stopPropagation(); navigatePhoto(card,1); };
-    nav.appendChild(bl); nav.appendChild(br);
-    imgDiv.appendChild(nav);
-
-    var dots = document.createElement('div');
-    dots.className='item-dots';
-    photos.forEach(function(_,i){
-      var d = document.createElement('div');
-      d.className='item-dot'+(i===0?' active':'');
-      dots.appendChild(d);
-    });
+    var nav=document.createElement('div');nav.className='item-nav';
+    var bl=document.createElement('button');bl.className='item-nav-btn';bl.innerHTML='‹';
+    bl.onclick=function(e){e.stopPropagation();navigatePhoto(card,-1);};
+    var br=document.createElement('button');br.className='item-nav-btn';br.innerHTML='›';
+    br.onclick=function(e){e.stopPropagation();navigatePhoto(card,1);};
+    nav.appendChild(bl);nav.appendChild(br);imgDiv.appendChild(nav);
+    var dots=document.createElement('div');dots.className='item-dots';
+    photos.forEach(function(_,i){var d=document.createElement('div');d.className='item-dot'+(i===0?' active':'');dots.appendChild(d);});
     imgDiv.appendChild(dots);
   }
-
   card.appendChild(imgDiv);
-
-  // Badge (nouveauté prioritaire)
-  if(nouveau){
-  var b = document.createElement('div');
-  b.className='item-badge badge-new'; b.textContent='Nouveauté';
-  card.appendChild(b);
-}
-if(perso){
-  var b2 = document.createElement('div');
-  b2.className='item-badge badge-perso';
-  b2.textContent='Personnalisable';
-  b2.style.top = nouveau ? '32px' : '8px';
-  card.appendChild(b2);
-}
-
-  // Cœur
-  var heart = document.createElement('button');
-  heart.className='item-heart'+(isFav?' active':'');
-  heart.innerHTML=HEART_SVG; heart.setAttribute('aria-label','Favori');
-  heart.onclick=function(e){ e.stopPropagation(); toggleHeart(this,a); };
+  if(nouveau){var b=document.createElement('div');b.className='item-badge badge-new';b.textContent='Nouveauté';card.appendChild(b);}
+  if(perso){var b2=document.createElement('div');b2.className='item-badge badge-perso';b2.textContent='Personnalisable';b2.style.top=nouveau?'32px':'8px';card.appendChild(b2);}
+  var heart=document.createElement('button');heart.className='item-heart'+(isFav?' active':'');
+  heart.innerHTML=HEART_SVG;heart.setAttribute('aria-label','Favori');
+  heart.onclick=function(e){e.stopPropagation();toggleHeart(this,a);};
   card.appendChild(heart);
-
-  // Infos
-  var info = document.createElement('div');
-  info.className='item-info';
+  var info=document.createElement('div');info.className='item-info';
   info.innerHTML='<div class="item-name">'+a.nom+'</div><div class="item-price">'+prix+'</div>';
   card.appendChild(info);
-
-  // Clic → article
-  card.onclick=function(){
-    localStorage.setItem('reunis_article_courant', JSON.stringify(a));
-    window.location.href='article.html';
-  };
-
+  card.onclick=function(){localStorage.setItem('reunis_article_courant',JSON.stringify(a));window.location.href='article.html';};
   return card;
 }
-
-// ── Navigation photos ──
 function navigatePhoto(card,dir){
-  var photos = card.dataset.photos.split('|').filter(Boolean);
-  if(photos.length<=1) return;
-  var idx = (parseInt(card.dataset.photoIndex)||0+dir+photos.length)%photos.length;
-  idx = ((parseInt(card.dataset.photoIndex)||0)+dir+photos.length)%photos.length;
+  var photos=card.dataset.photos.split('|').filter(Boolean);if(photos.length<=1)return;
+  var idx=((parseInt(card.dataset.photoIndex)||0)+dir+photos.length)%photos.length;
   card.dataset.photoIndex=idx;
-  var img = card.querySelector('.item-img-inner');
-  if(img) img.src=photos[idx];
-  card.querySelectorAll('.item-dot').forEach(function(d,i){ d.classList.toggle('active',i===idx); });
+  var img=card.querySelector('.item-img-inner');if(img)img.src=photos[idx];
+  card.querySelectorAll('.item-dot').forEach(function(d,i){d.classList.toggle('active',i===idx);});
 }
-
-// ── Favoris ──
 function toggleHeart(btn,a){
   btn.classList.toggle('active');
-  var favs = JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
+  var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   if(btn.classList.contains('active')){
-    if(!favs.find(function(f){ return f.id===a.id||f.name===a.nom; })){
-      favs.push({ id:a.id||'', name:a.nom, qty:1, prix:parseFloat(a.prix_location)||0, photo:a.photo||'', categorie:a.categorie||'', personnalisable:a.personnalisable||'Non', qtite_en_ligne:a.qtite_en_ligne||'', perso:null });
+    if(!favs.find(function(f){return f.id===a.id||f.name===a.nom;})){
+      favs.push({id:a.id||'',name:a.nom,qty:1,prix:parseFloat(a.prix_location)||0,photo:a.photo||'',categorie:a.categorie||'',personnalisable:a.personnalisable||'Non',qtite_en_ligne:a.qtite_en_ligne||'',perso:null});
     }
     showToast('Ajouté à la sélection ♥');
   } else {
-    favs = favs.filter(function(f){ return f.id!==a.id&&f.name!==a.nom; });
+    favs=favs.filter(function(f){return f.id!==a.id&&f.name!==a.nom;});
   }
-  localStorage.setItem('reunis_favoris', JSON.stringify(favs));
+  localStorage.setItem('reunis_favoris',JSON.stringify(favs));
   updateBadge();
 }
-
-// ── Recherche ──
-// La recherche porte sur : nom + couleurs + sous_categorie + sous_sous_categorie + mots_cles
-var searchInput = document.getElementById('cat-search');
-var searchClear = document.getElementById('cat-search-clear');
-if(searchInput){
-  searchInput.addEventListener('input', function(){
-    searchClear.style.display = this.value.trim()?'block':'none';
-    applyFilters();
-  });
-}
-if(searchClear){
-  searchClear.addEventListener('click', function(){
-    searchInput.value=''; this.style.display='none'; applyFilters();
-  });
-}
-
-// ── Filtres ──
-function toggleFiltersPanel(){
-  document.getElementById('filters-panel').classList.toggle('open');
-}
-
+var searchInput=document.getElementById('cat-search');
+var searchClear=document.getElementById('cat-search-clear');
+if(searchInput){searchInput.addEventListener('input',function(){searchClear.style.display=this.value.trim()?'block':'none';applyFilters();});}
+if(searchClear){searchClear.addEventListener('click',function(){searchInput.value='';this.style.display='none';applyFilters();});}
+function toggleFiltersPanel(){document.getElementById('filters-panel').classList.toggle('open');}
 function toggleChip(btn){
-  var type=btn.dataset.type, value=btn.dataset.value;
+  var type=btn.dataset.type,value=btn.dataset.value;
   btn.classList.toggle('active');
   var idx=activeFilters[type].indexOf(value);
-  if(idx>=0) activeFilters[type].splice(idx,1);
-  else activeFilters[type].push(value);
-  updateFilterCount();
-  applyFilters();
+  if(idx>=0)activeFilters[type].splice(idx,1);else activeFilters[type].push(value);
+  updateFilterCount();applyFilters();
 }
-
 function resetFilters(){
   activeFilters={badge:[],couleur:[],tag:[]};
-  document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
-  if(searchInput) searchInput.value='';
-  if(searchClear) searchClear.style.display='none';
-  updateFilterCount();
-  applyFilters();
+  document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.remove('active');});
+  if(searchInput)searchInput.value='';
+  if(searchClear)searchClear.style.display='none';
+  updateFilterCount();applyFilters();
 }
-
 function updateFilterCount(){
   var n=activeFilters.badge.length+activeFilters.couleur.length+activeFilters.tag.length;
   var fc=document.getElementById('filter-count');
-  if(fc){ fc.textContent=n; fc.style.display=n?'inline':'none'; }
+  if(fc){fc.textContent=n;fc.style.display=n?'inline':'none';}
   document.getElementById('filter-btn').classList.toggle('active',n>0);
 }
-
 function applyFilters(){
-  var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-  var filtered = allArticles.filter(function(a){
-    // Recherche multi-champs (nom + couleurs + mots_cles)
-    if(q){
-      var haystack = [
-        a.nom||'',
-        (a.couleurs||[]).join(' '),
-        a.sous_categorie||'',
-        a.sous_sous_categorie||'',
-        a.mots_cles||''
-      ].join(' ').toLowerCase();
-      if(!haystack.includes(q)) return false;
-    }
-
-    // Badges (ET)
-    if(activeFilters.badge.length){
-      var ok=activeFilters.badge.every(function(b){
-        if(b==='new') return isNew(a);
-        if(b==='perso') return a.personnalisable==='Oui';
-        return true;
-      });
-      if(!ok) return false;
-    }
-
-    // Couleurs (ET)
-    if(activeFilters.couleur.length){
-      var ac=a.couleurs||[];
-      if(!activeFilters.couleur.every(function(c){ return ac.indexOf(c)>=0; })) return false;
-    }
-
-    // Tags (ET)
-    if(activeFilters.tag.length){
-      if(!activeFilters.tag.every(function(t){ return a.sous_sous_categorie===t; })) return false;
-    }
-
+  var q=searchInput?searchInput.value.toLowerCase().trim():'';
+  var filtered=allArticles.filter(function(a){
+    if(q){var h=[a.nom||'',(a.couleurs||[]).join(' '),a.sous_categorie||'',a.sous_sous_categorie||'',a.mots_cles||''].join(' ').toLowerCase();if(!h.includes(q))return false;}
+    if(activeFilters.badge.length){if(!activeFilters.badge.every(function(b){if(b==='new')return isNew(a);if(b==='perso')return a.personnalisable==='Oui';return true;}))return false;}
+    if(activeFilters.couleur.length){var ac=a.couleurs||[];if(!activeFilters.couleur.every(function(c){return ac.indexOf(c)>=0;}))return false;}
+    if(activeFilters.tag.length){if(!activeFilters.tag.every(function(t){return a.sous_sous_categorie===t;}))return false;}
     return true;
   });
-
   afficherArticles(filtered);
 }
-
 chargerCatalogue();
 </script>
+
 </body>
 </html>
