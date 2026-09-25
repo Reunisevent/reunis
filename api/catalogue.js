@@ -21,17 +21,6 @@ async function getNewCutoff() {
   return dates.length ? dates[dates.length - 1] : null;
 }
 
-function lireMateriaux(prop) {
-  if (!prop) return [];
-  if (prop.type === 'multi_select') return prop.multi_select.map(m => m.name);
-  if (prop.type === 'select') return prop.select ? [prop.select.name] : [];
-  if (prop.type === 'rich_text') {
-    return prop.rich_text.map(t => t.plain_text).join('')
-      .split(',').map(m => m.trim()).filter(Boolean);
-  }
-  return [];
-}
-
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -87,7 +76,7 @@ module.exports = async function handler(req, res) {
         description: p['Description']?.rich_text?.[0]?.plain_text ?? '',
         dimensions: p['Dimensions']?.rich_text?.[0]?.plain_text ?? '',
         couleurs: p['Couleurs']?.multi_select?.map(c => c.name) ?? [],
-        materiaux: lireMateriaux(p['Matériaux']),
+        materiaux: p['Matière']?.multi_select?.map(m => m.name) ?? [],
         lies: p['Lié aux articles']?.relation?.map(r => r.id) ?? [],
         statut_stock: p['Statut stock']?.select?.name ?? '',
         qtite_en_ligne: p['Qtité en ligne']?.number ?? 0,
