@@ -197,6 +197,10 @@
       <div class="filter-group-title">Tag</div>
       <div class="filter-chips" id="chips-tag"></div>
     </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Matériaux</div>
+      <div class="filter-chips" id="chips-materiau"></div>
+    </div>
     <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
   </div>
   <div class="cat-content" id="cat-content">
@@ -271,7 +275,7 @@ function showToast(msg){
 }
 var HEART_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 var allArticles=[];
-var activeFilters={badge:[],couleur:[],tag:[]};
+var activeFilters={badge:[],couleur:[],materiau:[],tag:[]};
 function isNew(a){
   return !!a.is_new;
 }
@@ -287,15 +291,21 @@ function chargerCatalogue(){
     .catch(function(){document.getElementById('cat-loader').textContent='Erreur de chargement.';});
 }
 function construireFiltres(articles){
-  var couleurs={},tags={};
+  var couleurs={},materiaux={},tags={};
   articles.forEach(function(a){
     (a.couleurs||[]).forEach(function(c){if(c)couleurs[c]=true;});
+    (a.materiaux||[]).forEach(function(m){if(m)materiaux[m]=true;});
     if(a.sous_sous_categorie)tags[a.sous_sous_categorie]=true;
   });
   var cc=document.getElementById('chips-couleur');
   Object.keys(couleurs).sort().forEach(function(c){
     var btn=document.createElement('button');btn.className='filter-chip';btn.dataset.type='couleur';btn.dataset.value=c;btn.textContent=c;
     btn.onclick=function(){toggleChip(this);};cc.appendChild(btn);
+  });
+  var cm=document.getElementById('chips-materiau');
+  Object.keys(materiaux).sort().forEach(function(m){
+    var btn=document.createElement('button');btn.className='filter-chip';btn.dataset.type='materiau';btn.dataset.value=m;btn.textContent=m;
+    btn.onclick=function(){toggleChip(this);};cm.appendChild(btn);
   });
   var ct=document.getElementById('chips-tag');
   Object.keys(tags).sort().forEach(function(t){
@@ -423,26 +433,27 @@ function toggleChip(btn){
   updateFilterCount();applyFilters();
 }
 function resetFilters(){
-  activeFilters={badge:[],couleur:[],tag:[]};
+  activeFilters={badge:[],couleur:[],materiau:[],tag:[]};
   document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.remove('active');});
   if(searchInput)searchInput.value='';
   if(searchClear)searchClear.style.display='none';
   updateFilterCount();applyFilters();
 }
 function updateFilterCount(){
-  var n=activeFilters.badge.length+activeFilters.couleur.length+activeFilters.tag.length;
+  var n=activeFilters.badge.length+activeFilters.couleur.length+activeFilters.materiau.length+activeFilters.tag.length;
   var fc=document.getElementById('filter-count');
   if(fc){fc.textContent=n;fc.style.display=n?'inline':'none';}
   document.getElementById('filter-btn').classList.toggle('active',n>0);
 }
 function applyFilters(){
   var q=searchInput?searchInput.value.toLowerCase().trim():'';
-  var hasFiltre=q||(activeFilters.badge.length+activeFilters.couleur.length+activeFilters.tag.length>0);
+  var hasFiltre=q||(activeFilters.badge.length+activeFilters.couleur.length+activeFilters.materiau.length+activeFilters.tag.length>0);
   if(!hasFiltre){afficherModeNormal();return;}
   var filtered=allArticles.filter(function(a){
     if(q){var h=[a.nom||'',(a.couleurs||[]).join(' '),a.sous_categorie||'',a.sous_sous_categorie||'',a.mots_cles||''].join(' ').toLowerCase();if(!h.includes(q))return false;}
     if(activeFilters.badge.length){if(!activeFilters.badge.every(function(b){if(b==='new')return isNew(a);if(b==='perso')return a.personnalisable==='Oui';return true;}))return false;}
     if(activeFilters.couleur.length){var ac=a.couleurs||[];if(!activeFilters.couleur.every(function(c){return ac.indexOf(c)>=0;}))return false;}
+    if(activeFilters.materiau.length){var am=a.materiaux||[];if(!activeFilters.materiau.every(function(m){return am.indexOf(m)>=0;}))return false;}
     if(activeFilters.tag.length){if(!activeFilters.tag.every(function(t){return a.sous_sous_categorie===t;}))return false;}
     return true;
   });
