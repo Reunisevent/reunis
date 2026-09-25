@@ -131,9 +131,9 @@ button { cursor:pointer; font-family:inherit; }
 .item-heart.active { color:var(--rose); }
 
 /* Navigation photos */
-.item-nav { position:absolute; bottom:8px; left:0; right:0; display:none; justify-content:space-between; padding:0 6px; z-index:3; }
+.item-nav { position:absolute; top:50%; transform:translateY(-50%); pointer-events:none; left:0; right:0; display:none; justify-content:space-between; padding:0 6px; z-index:3; }
 .item-card:hover .item-nav { display:flex; }
-.item-nav-btn { background:rgba(255,255,255,.9); border:none; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.8rem; color:var(--noir); transition:background .2s; box-shadow:0 1px 4px rgba(0,0,0,.15); }
+.item-nav-btn { pointer-events:auto; background:rgba(255,255,255,.9); border:none; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.8rem; color:var(--noir); transition:background .2s; box-shadow:0 1px 4px rgba(0,0,0,.15); }
 .item-nav-btn:hover { background:white; }
 
 /* Points */
