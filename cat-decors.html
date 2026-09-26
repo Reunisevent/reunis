@@ -290,7 +290,7 @@ function construireFiltresDynamiques(articles){
   });
 }
 function normNav(s){
-  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').replace(/s\b/g,'').trim();
 }
 function rangNav(sc,nav){
   var n=normNav(sc),i=nav.indexOf(n);
