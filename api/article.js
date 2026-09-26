@@ -24,7 +24,7 @@ module.exports = async function handler(req, res) {
       throw err;
     }
 
-    const dbId = String(process.env.NOTION_DB_ID || '').replace(/-/g, '');
+    const dbId = String(process.env.NOTION_DB_ID || '').trim().replace(/-/g, '');
     const parentDb = String(page.parent?.database_id || '').replace(/-/g, '');
     const visible = page.properties?.['Visible sur le site']?.checkbox === true;
     if (page.archived || (dbId && parentDb !== dbId) || !visible) {

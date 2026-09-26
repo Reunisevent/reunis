@@ -172,10 +172,12 @@
     <div class="article-info-col">
       <div class="article-breadcrumb">
         <a href="decorer.html">Décorer</a>
-        <span>›</span>
-        <a href="cat-table.html" id="bc-categorie">La table</a>
-        <span>›</span>
-        <span id="bc-sous-categorie">—</span>
+        <span id="bc-cat-wrap" style="display:none;">
+          <span>›</span>
+          <a href="decorer.html" id="bc-categorie"></a>
+          <span>›</span>
+          <span id="bc-sous-categorie">—</span>
+        </span>
       </div>
       <h1 class="article-name" id="art-nom">—</h1>
       <div class="article-ref" id="art-ref"></div>
@@ -335,6 +337,8 @@ function renderArticle() {
   var bcSC = document.getElementById('bc-sous-categorie');
   if(bcSC) bcSC.textContent = article.sous_categorie || '—';
   var bcCat = document.getElementById('bc-categorie');
+  var bcWrap = document.getElementById('bc-cat-wrap');
+  if(bcWrap) bcWrap.style.display = article.categorie ? 'contents' : 'none';
   if(bcCat && article.categorie) {
     var catMap = {
       'Le mobilier': 'mobilier',
