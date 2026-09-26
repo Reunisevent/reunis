@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 const { mapArticle } = require('./_article');
+const { queryAll } = require('./_notion');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const NEW_BADGE_COUNT = 20;
@@ -51,16 +52,15 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const [response, newCutoff] = await Promise.all([
-      notion.databases.query({
+    const [pages, newCutoff] = await Promise.all([
+      queryAll(notion, {
         database_id: process.env.NOTION_DB_ID,
-        filter: { and: filters },
-        page_size: 100
+        filter: { and: filters }
       }),
       getNewCutoff()
     ]);
 
-    const articles = response.results.map(page => mapArticle(page, newCutoff));
+    const articles = pages.map(page => mapArticle(page, newCutoff));
 
     res.status(200).json(articles);
 
