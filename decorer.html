@@ -86,7 +86,7 @@
 .cat-footer-num{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;}
 .cat-footer-text{font-size:13px;color:#444;line-height:1.75;}
 .decorer-cta-footer{background:var(--rose);padding:48px 28px;text-align:center;}
-.decorer-cta-btn{display:inline-block;background:white;color:var(--rose);border-radius:100px;padding:14px 28px;font-family:'Arimo',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:opacity .2s;margin-top:8px;}
+.decorer-cta-btn{display:inline-block;background:white;color:var(--rose);border-radius:8px;padding:16px 32px;font-family:'Arimo',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:opacity .2s;margin-top:8px;}
 .decorer-cta-btn:hover{opacity:.85;}
 .decorer-cta-text{font-size:14px;color:white;line-height:1.75;margin-bottom:20px;}
 @media(max-width:860px){
@@ -108,9 +108,9 @@
 .deco-loader{text-align:center;padding:60px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;}
 .deco-more{display:none;text-align:center;padding-top:32px;}
 .deco-more.visible{display:block;}
-.deco-more-btn{background:none;border:1px solid var(--noir);border-radius:100px;padding:14px 32px;font-family:'Arimo',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--noir);cursor:pointer;transition:background .2s,color .2s;}
-.deco-more-btn:hover{background:var(--noir);color:var(--white);}
-.deco-more-btn:disabled{opacity:.5;cursor:default;background:none;color:var(--noir);}
+.deco-more-btn{background:var(--rose);color:var(--white);border:none;border-radius:8px;padding:16px 32px;font-family:'Arimo',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.deco-more-btn:hover{background:var(--noir);}
+.deco-more-btn:disabled{opacity:.6;cursor:default;background:var(--rose);}
 @media(max-width:860px){.cat-section .items-grid{grid-template-columns:repeat(2,1fr) !important;}}
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -188,7 +188,7 @@
   </section>
   <section class="deco-block" id="bloc-best">
     <div class="cat-toolbar">
-      <div class="cat-toolbar-title" id="cat-toolbar-title">Best-sellers</div>
+      <div class="cat-toolbar-title" id="cat-toolbar-title">Populaires</div>
       <div class="cat-toolbar-controls">
         <div class="cat-search-wrap">
           <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
@@ -225,7 +225,7 @@
     </div>
     <div class="cat-content" id="cat-content">
       <div class="items-grid" id="grid-best"></div>
-      <div class="deco-loader" id="cat-loader">Chargement des best-sellers…</div>
+      <div class="deco-loader" id="cat-loader">Chargement des articles populaires…</div>
       <div class="cat-no-results" id="cat-no-results">
         <strong>Aucun résultat</strong>
         Essayez un autre mot-clé ou réinitialisez les filtres.
@@ -372,10 +372,10 @@ function afficherBestSellers(){
   modeRecherche=false;
   var grid=document.getElementById('grid-best');grid.innerHTML='';
   document.getElementById('cat-no-results').style.display='none';
-  document.getElementById('cat-toolbar-title').textContent='Best-sellers';
+  document.getElementById('cat-toolbar-title').textContent='Populaires';
   var loader=document.getElementById('cat-loader');
   if(best.articles.length){loader.style.display='none';ajouterCartes(grid,best.articles);}
-  else{loader.style.display='';loader.textContent='Chargement des best-sellers…';if(!best.chargement)chargerBestSellers();}
+  else{loader.style.display='';loader.textContent='Chargement des articles populaires…';if(!best.chargement)chargerBestSellers();}
   majVoirPlus();
 }
 function afficherResultats(articles){
@@ -383,7 +383,7 @@ function afficherResultats(articles){
   var grid=document.getElementById('grid-best');grid.innerHTML='';
   document.getElementById('cat-loader').style.display='none';
   document.getElementById('cat-no-results').style.display=articles.length?'none':'block';
-  document.getElementById('cat-toolbar-title').textContent=articles.length?articles.length+' résultat'+(articles.length>1?'s':''):'Best-sellers';
+  document.getElementById('cat-toolbar-title').textContent=articles.length?articles.length+' résultat'+(articles.length>1?'s':''):'Populaires';
   voirPlus();
 }
 function construireFiltres(articles){
