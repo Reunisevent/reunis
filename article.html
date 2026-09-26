@@ -36,10 +36,14 @@
 .article-specs td { padding:8px 4px; font-size:12px; }
 .article-specs td:first-child { color:var(--muted); width:45%; }
 .article-specs td:last-child { font-weight:600; }
-.qty-row { display:flex; gap:10px; align-items:stretch; margin-bottom:10px; }
+.qty-row { display:flex; gap:10px; align-items:stretch; margin-bottom:10px; position:relative; }
 .qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:8px; overflow:hidden; background:var(--white); }
-.qty-btn { width:40px; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--noir); transition:opacity .2s; }
-.qty-num { min-width:32px; text-align:center; font-weight:700; font-size:14px; }
+.qty-btn { width:44px; min-height:44px; align-self:stretch; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--noir); transition:opacity .2s; touch-action:manipulation; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
+.qty-num { width:3.6ch; min-width:36px; padding:0; border:none; background:none; text-align:center; font-family:inherit; font-weight:700; font-size:14px; color:var(--noir); -moz-appearance:textfield; appearance:textfield; }
+.qty-num::-webkit-outer-spin-button, .qty-num::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.qty-num:focus { outline:none; background:rgba(0,0,0,.04); }
+.qty-msg { position:absolute; left:0; top:100%; margin-top:3px; font-size:11px; color:var(--muted); opacity:0; transition:opacity .2s; pointer-events:none; white-space:nowrap; }
+.qty-msg.visible { opacity:1; }
 .btn-add-fav { flex:1; background:var(--noir); color:white; border:none; border-radius:8px; padding:15px; font-family:'Arimo',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:8px; }
 .btn-add-fav:hover { background:var(--rose); }
 .btn-configurateur { width:100%; background:transparent; color:var(--noir); border:1px solid rgba(0,0,0,.2); border-radius:8px; padding:13px; font-family:'Arimo',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all .2s; margin-bottom:24px; margin-top:10px; }
@@ -90,6 +94,7 @@
   .article-page { grid-template-columns:1fr; }
   .article-gallery-col { position:static; height:auto; }
   .article-info-col { border-left:none; border-top:1px solid rgba(0,0,0,.07); padding:28px 20px; }
+  .qty-num { font-size:16px; }
 }
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -222,10 +227,11 @@
 
       <div class="qty-row" style="margin-top:24px;">
         <div class="qty-control">
-          <button class="qty-btn" id="btn-moins" onclick="changeQty(-1)">−</button>
-          <span class="qty-num" id="art-qty">1</span>
-          <button class="qty-btn" id="btn-plus" onclick="changeQty(1)">+</button>
+          <button type="button" class="qty-btn" id="btn-moins" aria-label="Diminuer la quantité">−</button>
+          <input type="number" class="qty-num" id="art-qty" value="1" min="1" step="1" inputmode="numeric" pattern="[0-9]*" aria-label="Quantité">
+          <button type="button" class="qty-btn" id="btn-plus" aria-label="Augmenter la quantité">+</button>
         </div>
+        <div class="qty-msg" id="art-qty-msg" aria-live="polite"></div>
         <button class="btn-add-fav" onclick="addToFav()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           Ajouter à ma sélection
@@ -264,6 +270,7 @@
   </div>
 </main>
 
+<script src="qty-input.js"></script>
 <script>
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('on');document.body.classList.remove('sb-open');}
@@ -425,11 +432,14 @@ function handleFile(input){
     nameEl.textContent = '✗ Erreur d\'envoi — réessayez';
   });
 }
-function changeQty(delta){
-  qtyCurrent = Math.min(qtyMax, Math.max(1, qtyCurrent + delta));
-  document.getElementById('art-qty').textContent = qtyCurrent;
-  updateQtyButtons();
-}
+var qtyCtl = initQtyInput({
+  input: document.getElementById('art-qty'),
+  minus: document.getElementById('btn-moins'),
+  plus: document.getElementById('btn-plus'),
+  msg: document.getElementById('art-qty-msg'),
+  max: function(){ return qtyMax; },
+  onChange: function(n){ qtyCurrent = n; updateQtyButtons(); }
+});
 function updateQtyButtons(){
   var btnPlus = document.getElementById('btn-plus');
   var btnMoins = document.getElementById('btn-moins');
