@@ -88,7 +88,7 @@
 .modal-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.6; }
 @media (max-width:860px) {
   .favoris-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
-  .fav-qty-num { font-size:16px; }
+  .fav-qty-num { font-size:16px; transform:scale(.75); } /* 16px évite le zoom iOS, affiché comme 12px */
   .fav-card-perso { grid-template-columns:120px 1fr; }
   .fav-card-perso .fav-img { min-height:140px; }
 }
