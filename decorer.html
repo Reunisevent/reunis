@@ -303,35 +303,50 @@ var PAS=10;
 var allArticles=null;// catalogue complet : chargé seulement pour la recherche et les filtres
 var chargementCatalogue=null;
 var activeFilters={badge:[],couleur:[],materiau:[],tag:[]};
-var best={articles:[],suivant:null,chargement:false};
+// Populaires : articles affichés, file d'attente (déjà reçus, pas encore affichés), curseur Notion
+var best={articles:[],file:[],suivant:null,fini:false,chargement:false};
+// Les articles déjà visibles dans « Nouveautés » ne sont pas répétés dans « Populaires »
+var nouveautesIds={},nouveautesPrets=Promise.resolve();
 var modeRecherche=false,resultats=[],nbAffiches=0;
 function isNew(a){
   return !!a.is_new;
 }
-function chargerPage(tri,curseur){
-  return fetch('/api/catalogue?tri='+tri+'&limite='+PAS+(curseur?'&curseur='+encodeURIComponent(curseur):''))
+function chargerPage(tri,curseur,limite){
+  return fetch('/api/catalogue?tri='+tri+'&limite='+(limite||PAS)+(curseur?'&curseur='+encodeURIComponent(curseur):''))
     .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});
 }
 function chargerNouveautes(){
   var loader=document.getElementById('loader-nouveautes');
-  chargerPage('nouveautes')
+  nouveautesPrets=chargerPage('nouveautes')
     .then(function(d){
       loader.style.display='none';
+      d.articles.forEach(function(a){nouveautesIds[a.id]=true;});
       if(!d.articles.length){document.getElementById('bloc-nouveautes').style.display='none';return;}
       ajouterCartes(document.getElementById('grid-nouveautes'),d.articles);
     })
     .catch(function(){loader.textContent='Erreur de chargement.';});
 }
+// Remplit la file jusqu'à avoir PAS articles à afficher (ou la fin du catalogue)
+function remplirPopulaires(){
+  if(best.file.length>=PAS||best.fini)return Promise.resolve();
+  return Promise.all([chargerPage('best',best.suivant,PAS*2),nouveautesPrets]).then(function(r){
+    var d=r[0];
+    best.suivant=d.suivant;best.fini=!d.suivant;
+    best.file=best.file.concat(d.articles.filter(function(a){return !nouveautesIds[a.id];}));
+    return remplirPopulaires();
+  });
+}
 function chargerBestSellers(){
   if(best.chargement)return;
   best.chargement=true;majVoirPlus();
-  chargerPage('best',best.suivant)
-    .then(function(d){
+  remplirPopulaires()
+    .then(function(){
+      var lot=best.file.splice(0,PAS);
       best.chargement=false;
-      best.articles=best.articles.concat(d.articles);best.suivant=d.suivant;
+      best.articles=best.articles.concat(lot);
       if(!modeRecherche){
         document.getElementById('cat-loader').style.display='none';
-        ajouterCartes(document.getElementById('grid-best'),d.articles);
+        ajouterCartes(document.getElementById('grid-best'),lot);
       }
       majVoirPlus();
     })
@@ -356,7 +371,7 @@ function ajouterCartes(grid,articles){
 }
 function majVoirPlus(){
   var wrap=document.getElementById('deco-more'),btn=document.getElementById('btn-voir-plus');
-  var reste=modeRecherche?nbAffiches<resultats.length:!!best.suivant;
+  var reste=modeRecherche?nbAffiches<resultats.length:(best.articles.length>0&&(best.file.length>0||!best.fini));
   wrap.classList.toggle('visible',reste);
   btn.disabled=!modeRecherche&&best.chargement;
   btn.textContent=btn.disabled?'Chargement…':'Voir plus';

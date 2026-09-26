@@ -83,7 +83,7 @@
 .similar-track-wrap { position:relative; }
 .similar-track { display:flex; gap:2px; overflow-x:auto; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:0 24px; }
 .similar-track::-webkit-scrollbar { display:none; }
-.similar-card { flex:1 0 160px; cursor:pointer; background:var(--white); }
+.similar-card { flex:0 0 160px; cursor:pointer; background:var(--white); }
 .similar-card-img { aspect-ratio:3/4; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:2rem; overflow:hidden; }
 .similar-card-img img { width:100%; height:100%; object-fit:cover; }
 .similar-card-name { padding:8px 6px 4px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
@@ -622,10 +622,16 @@ function afficherSimilaires(liste){
     };
     track.appendChild(card);
   });
-  if(liste.length <= 3){
-    document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display='none'; });
-  }
+  majFlechesSimilaires();
 }
+// Flèches seulement quand les suggestions dépassent de l'écran
+function majFlechesSimilaires(){
+  var track = document.getElementById('similar-track');
+  if(!track) return;
+  var deborde = track.scrollWidth > track.clientWidth + 1;
+  document.querySelectorAll('.similar-arrow').forEach(function(a){ a.style.display = deborde ? '' : 'none'; });
+}
+window.addEventListener('resize', majFlechesSimilaires);
 function scrollSimilar(dir){
   var track = document.getElementById('similar-track');
   if(track) track.scrollBy({ left: dir * 340, behavior: 'smooth' });
