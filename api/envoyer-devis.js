@@ -122,7 +122,6 @@ module.exports = async function handler(req, res) {
     if(date_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;width:45%;">Date de l\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + date_evenement_fmt + '</td></tr>';
     if(type_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Type d\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + type_evenement + '</td></tr>';
     if(livraison) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Mode de livraison</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + livraison + '</td></tr>';
-    if(totalArticles > 0) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Montant estimé</td><td style="padding:7px 0;font-size:13px;font-weight:700;color:#D65B80;">' + totalArticles.toFixed(2) + '€</td></tr>';
     if(message) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;vertical-align:top;">Votre message</td><td style="padding:7px 0;font-size:13px;color:#444;font-style:italic;">' + messageHtml + '</td></tr>';
 
     var htmlClient = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#FAF1F1;">'
@@ -150,6 +149,21 @@ module.exports = async function handler(req, res) {
       + (recapRows ? '<div style="background:white;border-radius:8px;padding:20px 24px;margin-bottom:28px;">'
       + '<p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin:0 0 14px;">Récapitulatif de votre demande</p>'
       + '<table style="width:100%;border-collapse:collapse;">' + recapRows + '</table>'
+      + '</div>' : '')
+
+      // Sélection d'articles
+      + (articles.length ? '<div style="background:white;border-radius:8px;padding:20px 24px;margin-bottom:28px;">'
+      + '<p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin:0 0 14px;">Votre sélection (' + articles.length + ' article' + (articles.length > 1 ? 's' : '') + ')</p>'
+      + '<table style="width:100%;border-collapse:collapse;">'
+      + '<thead><tr style="border-bottom:1px solid #ede8e8;">'
+      + '<th style="padding:8px;text-align:left;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Article</th>'
+      + '<th style="padding:8px;text-align:center;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Qté</th>'
+      + '<th style="padding:8px;text-align:right;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Prix/pcs</th>'
+      + '</tr></thead>'
+      + '<tbody>' + lignesArticles + '</tbody>'
+      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé (hors perso)</td>'
+      + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
+      + '</table>'
       + '</div>' : '')
 
       // Aperçu visuel joint
