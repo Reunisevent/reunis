@@ -175,7 +175,7 @@ module.exports = async function handler(req, res) {
 
       // Catalogue
       + '<p style="font-size:13px;font-weight:700;color:#222;margin:0 0 6px;">Vous avez oublié quelque chose ?</p>'
-      + '<p style="font-size:13px;line-height:1.75;color:#444;margin:0 0 12px;">Votre sélection reste modifiable** sans frais jusqu\'à 5 jours avant votre événement.</p>'
+      + '<p style="font-size:13px;line-height:1.75;color:#444;margin:0 0 12px;">Votre sélection reste modifiable sans frais jusqu\'à 5 jours avant votre événement**.</p>'
       + '<p style="margin:0 0 28px;"><a href="https://www.reunisevent.com/decorer.html" style="color:#D65B80;font-size:13px;font-weight:700;text-decoration:none;">Explorer le catalogue →</a></p>'
 
       // Configurateur
@@ -194,7 +194,7 @@ module.exports = async function handler(req, res) {
       + '<div style="padding:20px 32px;background:#FAF1F1;border-top:1px solid rgba(0,0,0,.1);text-align:center;">'
       + '<p style="font-size:11px;color:#aaa;margin:0 0 6px;">Réunis — <a href="mailto:contact@reunisevent.com" style="color:#D65B80;text-decoration:none;">contact@reunisevent.com</a></p>'
       + (articles.length && totalArticles > 0 ? '<p style="font-size:10px;line-height:1.6;color:#bbb;margin:0 0 6px;">*Chaque personnalisation est unique et réalisée avec soin dans nos ateliers. Le tarif final, calculé selon la taille et la complexité de votre motif, vous sera communiqué par e-mail après réception de votre sélection. Sauf mention contraire, les articles personnalisés restent la propriété de Réunis et devront nous être restitués après votre événement.</p>' : '')
-      + '<p style="font-size:10px;color:#bbb;margin:0;">**Sélection modifiable sous réserve de disponibilité.</p>'
+      + '<p style="font-size:10px;color:#bbb;margin:0;">**Sélection modifiable sans frais jusqu\'à 5 jours avant votre événement, <strong>sous réserve</strong> de disponibilité des articles.</p>'
       + '</div>'
 
       + '</div>';
