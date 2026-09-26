@@ -2,7 +2,7 @@
 // Partagé par /api/catalogue et /api/article pour que la fiche article
 // reçoive toujours les mêmes champs, quelle que soit la page d'où l'on vient.
 // (Le préfixe « _ » empêche Vercel d'en faire une route.)
-function mapArticle(page, newCutoff) {
+function mapArticle(page, newIds) {
   const p = page.properties;
   const titleProp = Object.keys(p).find(k => p[k].type === 'title');
   const date_ajout = p['Date ajout']?.date?.start ?? null;
@@ -11,7 +11,7 @@ function mapArticle(page, newCutoff) {
     nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
     reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
     date_ajout,
-    is_new: !!(date_ajout && newCutoff && date_ajout >= newCutoff),
+    is_new: !!(newIds && newIds.has(page.id)),
     mots_cles: p['Mots clés']?.multi_select?.map(function(m){ return m.name; }).join(' ') ?? '',
     categorie: p['Catégorie']?.select?.name ?? '',
     sous_categorie: p['Sous catégorie']?.select?.name ?? '',

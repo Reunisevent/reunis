@@ -3,9 +3,12 @@ const { mapArticle } = require('./_article');
 const { queryAll } = require('./_notion');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
+// Badge « Nouveauté » : exactement les NEW_BADGE_COUNT articles visibles les
+// plus récents. On renvoie la liste des identifiants (et non une date seuil) :
+// des articles ajoutés le même jour ne font donc pas déborder le badge au-delà.
 const NEW_BADGE_COUNT = 20;
 
-async function getNewCutoff() {
+async function getNewIds() {
   const response = await notion.databases.query({
     database_id: process.env.NOTION_DB_ID,
     filter: {
@@ -14,13 +17,13 @@ async function getNewCutoff() {
         { property: 'Date ajout', date: { is_not_empty: true } }
       ]
     },
-    sorts: [{ property: 'Date ajout', direction: 'descending' }],
+    sorts: [
+      { property: 'Date ajout', direction: 'descending' },
+      { timestamp: 'created_time', direction: 'descending' }
+    ],
     page_size: NEW_BADGE_COUNT
   });
-  const dates = response.results
-    .map(page => page.properties['Date ajout']?.date?.start)
-    .filter(Boolean);
-  return dates.length ? dates[dates.length - 1] : null;
+  return new Set(response.results.map(page => page.id));
 }
 
 const TRIS = {
@@ -45,7 +48,7 @@ async function chargerPage({ tri, limite, curseur }, filters) {
     page_size: Math.min(Math.max(parseInt(limite, 10) || 10, 1), 100),
     start_cursor: curseur || undefined
   };
-  const cutoff = getNewCutoff().catch(() => null);
+  const nouveaux = getNewIds().catch(() => new Set());
   let response;
   try {
     response = await notion.databases.query(params);
@@ -59,9 +62,9 @@ async function chargerPage({ tri, limite, curseur }, filters) {
       sorts: [{ timestamp: 'created_time', direction: 'descending' }]
     });
   }
-  const newCutoff = await cutoff;
+  const newIds = await nouveaux;
   return {
-    articles: response.results.map(page => mapArticle(page, newCutoff)),
+    articles: response.results.map(page => mapArticle(page, newIds)),
     suivant: response.has_more ? response.next_cursor : null
   };
 }
@@ -101,15 +104,15 @@ module.exports = async function handler(req, res) {
       return res.status(200).json(await chargerPage(req.query, filters));
     }
 
-    const [pages, newCutoff] = await Promise.all([
+    const [pages, newIds] = await Promise.all([
       queryAll(notion, {
         database_id: process.env.NOTION_DB_ID,
         filter: { and: filters }
       }),
-      getNewCutoff()
+      getNewIds().catch(() => new Set())
     ]);
 
-    const articles = pages.map(page => mapArticle(page, newCutoff));
+    const articles = pages.map(page => mapArticle(page, newIds));
 
     res.status(200).json(articles);
 
