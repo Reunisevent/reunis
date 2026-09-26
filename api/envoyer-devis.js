@@ -122,7 +122,6 @@ module.exports = async function handler(req, res) {
     if(date_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;width:45%;">Date de l\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + date_evenement_fmt + '</td></tr>';
     if(type_evenement) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Type d\'événement</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + type_evenement + '</td></tr>';
     if(livraison) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Mode de livraison</td><td style="padding:7px 0;font-size:13px;font-weight:600;color:#333;">' + livraison + '</td></tr>';
-    if(totalArticles > 0) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;">Montant estimé</td><td style="padding:7px 0;font-size:13px;font-weight:700;color:#D65B80;">' + totalArticles.toFixed(2) + '€</td></tr>';
     if(message) recapRows += '<tr><td style="padding:7px 0;color:#888;font-size:13px;vertical-align:top;">Votre message</td><td style="padding:7px 0;font-size:13px;color:#444;font-style:italic;">' + messageHtml + '</td></tr>';
 
     var htmlClient = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#FAF1F1;">'
@@ -152,6 +151,22 @@ module.exports = async function handler(req, res) {
       + '<table style="width:100%;border-collapse:collapse;">' + recapRows + '</table>'
       + '</div>' : '')
 
+      // Sélection d'articles
+      + (articles.length ? '<div style="background:white;border-radius:8px;padding:20px 24px;margin-bottom:28px;">'
+      + '<p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin:0 0 14px;">Votre sélection (' + articles.length + ' article' + (articles.length > 1 ? 's' : '') + ')</p>'
+      + '<table style="width:100%;border-collapse:collapse;">'
+      + '<thead><tr style="border-bottom:1px solid #ede8e8;">'
+      + '<th style="padding:8px;text-align:left;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Article</th>'
+      + '<th style="padding:8px;text-align:center;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Qté</th>'
+      + '<th style="padding:8px;text-align:right;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Prix/pcs</th>'
+      + '</tr></thead>'
+      + '<tbody>' + lignesArticles + '</tbody>'
+      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé'
+      + '<br><span style="font-size:11px;font-weight:400;color:#888;">hors personnalisations*</span></td>'
+      + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
+      + '</table>'
+      + '</div>' : '')
+
       // Aperçu visuel joint
       + (attachments.length ? '<p style="font-size:13px;color:#444;margin:0 0 28px;">📎 Vous trouverez ci-joint un aperçu visuel de votre maquette.</p>' : '')
 
@@ -160,7 +175,7 @@ module.exports = async function handler(req, res) {
 
       // Catalogue
       + '<p style="font-size:13px;font-weight:700;color:#222;margin:0 0 6px;">Vous avez oublié quelque chose ?</p>'
-      + '<p style="font-size:13px;line-height:1.75;color:#444;margin:0 0 12px;">Votre sélection reste modifiable sans frais jusqu\'à 5 jours avant votre événement.</p>'
+      + '<p style="font-size:13px;line-height:1.75;color:#444;margin:0 0 12px;">Votre sélection reste modifiable sans frais jusqu\'à 5 jours avant votre événement**.</p>'
       + '<p style="margin:0 0 28px;"><a href="https://www.reunisevent.com/decorer.html" style="color:#D65B80;font-size:13px;font-weight:700;text-decoration:none;">Explorer le catalogue →</a></p>'
 
       // Configurateur
@@ -178,7 +193,8 @@ module.exports = async function handler(req, res) {
       // Footer
       + '<div style="padding:20px 32px;background:#FAF1F1;border-top:1px solid rgba(0,0,0,.1);text-align:center;">'
       + '<p style="font-size:11px;color:#aaa;margin:0 0 6px;">Réunis — <a href="mailto:contact@reunisevent.com" style="color:#D65B80;text-decoration:none;">contact@reunisevent.com</a></p>'
-      + '<p style="font-size:10px;color:#bbb;margin:0;">*Sélection modifiable sous réserve de disponibilité.</p>'
+      + (articles.length && totalArticles > 0 ? '<p style="font-size:10px;line-height:1.6;color:#bbb;margin:0 0 6px;">*Chaque personnalisation est unique et réalisée avec soin dans nos ateliers. Le tarif final, calculé selon la taille et la complexité de votre motif, vous sera communiqué par e-mail après réception de votre sélection. Sauf mention contraire, les articles personnalisés restent la propriété de Réunis et devront nous être restitués après votre événement.</p>' : '')
+      + '<p style="font-size:10px;color:#bbb;margin:0;">**Sélection modifiable sans frais jusqu\'à 5 jours avant votre événement, <strong>sous réserve</strong> de disponibilité des articles.</p>'
       + '</div>'
 
       + '</div>';
