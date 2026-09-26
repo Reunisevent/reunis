@@ -3,22 +3,18 @@ const { mapArticle } = require('./_article');
 const { queryAll } = require('./_notion');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-// Badge « Nouveauté » : au plus NEW_BADGE_COUNT articles, et seulement ceux
-// ajoutés depuis moins de NEW_BADGE_DAYS jours. On renvoie la liste exacte des
-// identifiants (et non une date seuil) : plusieurs articles ajoutés le même jour
-// ne font donc plus déborder le badge sur tout le catalogue.
-const NEW_BADGE_COUNT = 8;
-const NEW_BADGE_DAYS = 30;
+// Badge « Nouveauté » : exactement les NEW_BADGE_COUNT articles visibles les
+// plus récents. On renvoie la liste des identifiants (et non une date seuil) :
+// des articles ajoutés le même jour ne font donc pas déborder le badge au-delà.
+const NEW_BADGE_COUNT = 20;
 
 async function getNewIds() {
-  const depuis = new Date(Date.now() - NEW_BADGE_DAYS * 24 * 60 * 60 * 1000)
-    .toISOString().slice(0, 10);
   const response = await notion.databases.query({
     database_id: process.env.NOTION_DB_ID,
     filter: {
       and: [
         { property: 'Visible sur le site', checkbox: { equals: true } },
-        { property: 'Date ajout', date: { on_or_after: depuis } }
+        { property: 'Date ajout', date: { is_not_empty: true } }
       ]
     },
     sorts: [
