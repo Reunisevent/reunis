@@ -104,7 +104,10 @@ function initQtyInput(o){
   bindButton(o.minus, -1);
   bindButton(o.plus, 1);
 
-  set(toInt(input.value) || 1);
+  // Valeur initiale reprise telle quelle (pas d'enregistrement au chargement)
+  value = toInt(input.value) || 1;
+  input.value = value;
+  input.max = getMax();
   return {
     get: function(){ return value; },
     set: set,

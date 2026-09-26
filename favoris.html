@@ -22,12 +22,21 @@
 .fav-remove:hover { background:var(--rose); color:white; }
 .fav-info { padding:10px 8px 12px; }
 .fav-name { font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; line-height:1.3; }
-.fav-qty-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+.fav-qty-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; position:relative; }
 .fav-qty-label { font-size:10px; color:var(--muted); }
-.fav-qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:6px; overflow:hidden; }
-.fav-qty-btn { width:26px; height:26px; border:none; background:none; font-size:1rem; cursor:pointer; color:var(--noir); transition:background .2s; }
+.fav-qty-control { display:flex; align-items:center; border:1px solid rgba(0,0,0,.15); border-radius:6px; }
+.fav-qty-btn { position:relative; width:36px; height:28px; padding:0; border:none; background:none; font-size:1rem; cursor:pointer; color:var(--noir); transition:background .2s; touch-action:manipulation; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
+.fav-qty-btn::after { content:''; position:absolute; top:-8px; bottom:-8px; left:0; right:0; }
+.fav-qty-btn:first-child { border-radius:5px 0 0 5px; }
+.fav-qty-btn:first-child::after { left:-8px; }
+.fav-qty-btn:last-child { border-radius:0 5px 5px 0; }
+.fav-qty-btn:last-child::after { right:-8px; }
 .fav-qty-btn:hover { background:var(--bg); }
-.fav-qty-num { min-width:22px; text-align:center; font-size:12px; font-weight:700; }
+.fav-qty-num { width:3.6ch; min-width:30px; padding:0; border:none; background:none; text-align:center; font-family:inherit; font-size:12px; font-weight:700; color:var(--noir); -moz-appearance:textfield; appearance:textfield; }
+.fav-qty-num::-webkit-outer-spin-button, .fav-qty-num::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.fav-qty-num:focus { outline:none; background:rgba(0,0,0,.04); }
+.fav-qty-msg { position:absolute; left:0; top:100%; z-index:3; padding:1px 0; font-size:10px; color:var(--muted); background:var(--white); opacity:0; transition:opacity .2s; pointer-events:none; white-space:nowrap; }
+.fav-qty-msg.visible { opacity:1; }
 .fav-prix { font-size:11px; color:var(--muted); }
 .fav-card-perso { background:var(--white); border-radius:4px; overflow:hidden; position:relative; cursor:pointer; display:grid; grid-template-columns:180px 1fr; margin-bottom:12px; }
 .fav-card-perso .fav-img { aspect-ratio:unset; min-height:180px; height:100%; }
@@ -79,6 +88,7 @@
 .modal-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.6; }
 @media (max-width:860px) {
   .favoris-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
+  .fav-qty-num { font-size:16px; }
   .fav-card-perso { grid-template-columns:120px 1fr; }
   .fav-card-perso .fav-img { min-height:140px; }
 }
@@ -213,6 +223,7 @@
     </div>
   </div>
 </main>
+<script src="qty-input.js"></script>
 <script>
 var PERSO_COLORS=[['Blanc','#FFFFFF'],['Crème','#F5E6CA'],['Jaune poussin','#F9E04B'],['Doré','radial-gradient(circle closest-side at 35% 30%,#FFF6D9,#C9A96E 60%,#8A6D3B 100%)'],['Terracotta','#E07B54'],['Marron','#8B5E3C'],['Rose poudré','#F4C2C2'],['Rose Fuchsia','#D65B80'],['Violet','#6B4C82'],['Lavande','#C1C3E6'],['Bleu ciel','#C6E4F0'],['Bleu marine','#1C3A5E'],['Vert sapin','#4A7C59'],['Vert sauge','#B8D8B0'],['Argenté','radial-gradient(circle closest-side at 35% 30%,#F5F5F5,#C0C0C0 60%,#8A8A8A 100%)'],['Noir','#1a1a1a']];
 function toggleSidebar(){var sb=document.getElementById('sidebar');var ov=document.getElementById('sb-overlay');var isOpen=sb.classList.contains('open');sb.classList.toggle('open');ov.classList.toggle('on');document.body.classList.toggle('sb-open',!isOpen);}
@@ -304,12 +315,13 @@ function makeCardNormal(f,i){
     +'<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     +'<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>'
     +'<div class="fav-qty-control">'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">&#x2212;</button>'
-    +'<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
-    +'</div></div>'
+    +'<button type="button" class="fav-qty-btn fav-qty-moins" aria-label="Diminuer la quantité">&#x2212;</button>'
+    +'<input type="number" class="fav-qty-num" id="qty-'+i+'" value="'+(f.qty||1)+'" min="1" step="1" inputmode="numeric" pattern="[0-9]*" aria-label="Quantité">'
+    +'<button type="button" class="fav-qty-btn fav-qty-plus" aria-label="Augmenter la quantité">+</button>'
+    +'</div><span class="fav-qty-msg" aria-live="polite"></span></div>'
     +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'&#x20AC;/pcs</div>':'')
     +'</div>';
+  bindFavQty(card,i);
   return card;
 }
 function makeCardPerso(f,i){
@@ -349,12 +361,13 @@ function makeCardPerso(f,i){
     +'<div class="fav-name">'+(f.nom||f.name||'')+'</div>'
     +'<div class="fav-qty-row"><span class="fav-qty-label">Qté</span>'
     +'<div class="fav-qty-control">'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',-1)">&#x2212;</button>'
-    +'<span class="fav-qty-num" id="qty-'+i+'">'+(f.qty||1)+'</span>'
-    +'<button class="fav-qty-btn" onclick="event.stopPropagation();changeQtyFav('+i+',1)">+</button>'
-    +'</div></div>'
+    +'<button type="button" class="fav-qty-btn fav-qty-moins" aria-label="Diminuer la quantité">&#x2212;</button>'
+    +'<input type="number" class="fav-qty-num" id="qty-'+i+'" value="'+(f.qty||1)+'" min="1" step="1" inputmode="numeric" pattern="[0-9]*" aria-label="Quantité">'
+    +'<button type="button" class="fav-qty-btn fav-qty-plus" aria-label="Augmenter la quantité">+</button>'
+    +'</div><span class="fav-qty-msg" aria-live="polite"></span></div>'
     +(f.prix?'<div class="fav-prix">'+(parseFloat(f.prix)||0).toFixed(2)+'&#x20AC;/pcs</div>':'')
     +persoHtml+'</div>';
+  bindFavQty(card,i);
   return card;
 }
 function goToArticle(f){
@@ -387,12 +400,20 @@ function removeFav(i){
   favs.splice(i,1);localStorage.setItem('reunis_favoris',JSON.stringify(favs));
   loadFavoris();updateBadge();
 }
-function changeQtyFav(i,delta){
+function bindFavQty(card,i){
+  initQtyInput({
+    input:card.querySelector('.fav-qty-num'),
+    minus:card.querySelector('.fav-qty-moins'),
+    plus:card.querySelector('.fav-qty-plus'),
+    msg:card.querySelector('.fav-qty-msg'),
+    max:function(){var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');return favs[i]?parseInt(favs[i].qtite_en_ligne)||99:99;},
+    onChange:function(n){setQtyFav(i,n);}
+  });
+}
+function setQtyFav(i,n){
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
-  var max=parseInt(favs[i].qtite_en_ligne)||99;
-  var newQty=Math.min(max,Math.max(1,(favs[i].qty||1)+delta));
-  favs[i].qty=newQty;localStorage.setItem('reunis_favoris',JSON.stringify(favs));
-  var el=document.getElementById('qty-'+i);if(el)el.textContent=newQty;
+  if(!favs[i])return;
+  favs[i].qty=n;localStorage.setItem('reunis_favoris',JSON.stringify(favs));
   updateTotal();
 }
 function updatePersoField(i,field,value){
