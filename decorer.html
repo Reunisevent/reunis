@@ -102,6 +102,15 @@
 }
 @media(max-width:400px){.cat-footer{grid-template-columns:1fr;}}
 #cats-section{margin:0;padding:0;}
+/* Rythme vertical : 40px entre les blocs, 16px entre un titre et sa grille */
+.deco-block{margin-top:24px;}
+@media(max-width:860px){.deco-block{margin-top:40px;}.deco-block .cat-toolbar{padding-bottom:16px;}}
+.deco-loader{text-align:center;padding:60px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;}
+.deco-more{display:none;text-align:center;padding-top:32px;}
+.deco-more.visible{display:block;}
+.deco-more-btn{background:none;border:1px solid var(--noir);border-radius:100px;padding:14px 32px;font-family:'Arimo',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--noir);cursor:pointer;transition:background .2s,color .2s;}
+.deco-more-btn:hover{background:var(--noir);color:var(--white);}
+.deco-more-btn:disabled{opacity:.5;cursor:default;background:none;color:var(--noir);}
 @media(max-width:860px){.cat-section .items-grid{grid-template-columns:repeat(2,1fr) !important;}}
 </style>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -168,49 +177,64 @@
   </div>
   <div id="cats-section"></div>
   <p class="cat-intro">Des pièces chinées, bichonnées et créées avec amour pour donner vie à vos plus beaux moments.<br>Parcourez notre sélection, ajoutez vos coups de cœur et laissez-nous faire le reste. ✨</p>
-  <div class="cat-toolbar">
-    <div class="cat-toolbar-title" id="cat-toolbar-title">Nouveautés</div>
-    <div class="cat-toolbar-controls">
-      <div class="cat-search-wrap">
-        <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
-        <button class="cat-search-clear" id="cat-search-clear" title="Effacer">✕</button>
+  <section class="deco-block" id="bloc-nouveautes">
+    <div class="cat-toolbar">
+      <div class="cat-toolbar-title">Nouveautés</div>
+    </div>
+    <div class="cat-content">
+      <div class="items-grid" id="grid-nouveautes"></div>
+      <div class="deco-loader" id="loader-nouveautes">Chargement des nouveautés…</div>
+    </div>
+  </section>
+  <section class="deco-block" id="bloc-best">
+    <div class="cat-toolbar">
+      <div class="cat-toolbar-title" id="cat-toolbar-title">Best-sellers</div>
+      <div class="cat-toolbar-controls">
+        <div class="cat-search-wrap">
+          <input class="cat-search-input" id="cat-search" type="text" placeholder="Rechercher un article…" autocomplete="off">
+          <button class="cat-search-clear" id="cat-search-clear" title="Effacer">✕</button>
+        </div>
+        <button class="cat-filter-btn" id="filter-btn" onclick="toggleFiltersPanel()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          Filtres
+          <span class="filter-count" id="filter-count">0</span>
+        </button>
       </div>
-      <button class="cat-filter-btn" id="filter-btn" onclick="toggleFiltersPanel()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-        Filtres
-        <span class="filter-count" id="filter-count">0</span>
-      </button>
     </div>
-  </div>
-  <div class="cat-filters-panel" id="filters-panel">
-    <div class="filter-group">
-      <div class="filter-group-title">Badge</div>
-      <div class="filter-chips">
-        <button class="filter-chip" data-type="badge" data-value="new" onclick="toggleChip(this)">Nouveauté</button>
-        <button class="filter-chip" data-type="badge" data-value="perso" onclick="toggleChip(this)">Personnalisable</button>
+    <div class="cat-filters-panel" id="filters-panel">
+      <div class="filter-group">
+        <div class="filter-group-title">Badge</div>
+        <div class="filter-chips">
+          <button class="filter-chip" data-type="badge" data-value="new" onclick="toggleChip(this)">Nouveauté</button>
+          <button class="filter-chip" data-type="badge" data-value="perso" onclick="toggleChip(this)">Personnalisable</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Couleur</div>
+        <div class="filter-chips" id="chips-couleur"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Tag</div>
+        <div class="filter-chips" id="chips-tag"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Matériaux</div>
+        <div class="filter-chips" id="chips-materiau"></div>
+      </div>
+      <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
+    </div>
+    <div class="cat-content" id="cat-content">
+      <div class="items-grid" id="grid-best"></div>
+      <div class="deco-loader" id="cat-loader">Chargement des best-sellers…</div>
+      <div class="cat-no-results" id="cat-no-results">
+        <strong>Aucun résultat</strong>
+        Essayez un autre mot-clé ou réinitialisez les filtres.
+      </div>
+      <div class="deco-more" id="deco-more">
+        <button type="button" class="deco-more-btn" id="btn-voir-plus" onclick="voirPlus()">Voir plus</button>
       </div>
     </div>
-    <div class="filter-group">
-      <div class="filter-group-title">Couleur</div>
-      <div class="filter-chips" id="chips-couleur"></div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-group-title">Tag</div>
-      <div class="filter-chips" id="chips-tag"></div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-group-title">Matériaux</div>
-      <div class="filter-chips" id="chips-materiau"></div>
-    </div>
-    <button class="filter-reset" onclick="resetFilters()">Réinitialiser</button>
-  </div>
-  <div class="cat-content" id="cat-content">
-    <div id="cat-loader" style="text-align:center;padding:80px 24px;color:var(--muted);font-size:13px;letter-spacing:1px;">Chargement du catalogue…</div>
-    <div class="cat-no-results" id="cat-no-results">
-      <strong>Aucun résultat</strong>
-      Essayez un autre mot-clé ou réinitialisez les filtres.
-    </div>
-  </div>
+  </section>
   <div class="cat-footer">
     <div class="cat-footer-step">
       <div class="cat-footer-num">1 — Faites votre sélection</div>
@@ -275,21 +299,92 @@ function showToast(msg){
   clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},2000);
 }
 var HEART_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-var allArticles=[];
+var PAS=10;
+var allArticles=null;// catalogue complet : chargé seulement pour la recherche et les filtres
+var chargementCatalogue=null;
 var activeFilters={badge:[],couleur:[],materiau:[],tag:[]};
+var best={articles:[],suivant:null,chargement:false};
+var modeRecherche=false,resultats=[],nbAffiches=0;
 function isNew(a){
   return !!a.is_new;
 }
-function chargerCatalogue(){
-  fetch('/api/catalogue')
-    .then(function(r){return r.json();})
-    .then(function(articles){
-      allArticles=articles;
-      document.getElementById('cat-loader').style.display='none';
-      construireFiltres(articles);
-      afficherModeNormal();
+function chargerPage(tri,curseur){
+  return fetch('/api/catalogue?tri='+tri+'&limite='+PAS+(curseur?'&curseur='+encodeURIComponent(curseur):''))
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});
+}
+function chargerNouveautes(){
+  var loader=document.getElementById('loader-nouveautes');
+  chargerPage('nouveautes')
+    .then(function(d){
+      loader.style.display='none';
+      if(!d.articles.length){document.getElementById('bloc-nouveautes').style.display='none';return;}
+      ajouterCartes(document.getElementById('grid-nouveautes'),d.articles);
     })
-    .catch(function(){document.getElementById('cat-loader').textContent='Erreur de chargement.';});
+    .catch(function(){loader.textContent='Erreur de chargement.';});
+}
+function chargerBestSellers(){
+  if(best.chargement)return;
+  best.chargement=true;majVoirPlus();
+  chargerPage('best',best.suivant)
+    .then(function(d){
+      best.chargement=false;
+      best.articles=best.articles.concat(d.articles);best.suivant=d.suivant;
+      if(!modeRecherche){
+        document.getElementById('cat-loader').style.display='none';
+        ajouterCartes(document.getElementById('grid-best'),d.articles);
+      }
+      majVoirPlus();
+    })
+    .catch(function(){
+      best.chargement=false;majVoirPlus();
+      if(!best.articles.length&&!modeRecherche)document.getElementById('cat-loader').textContent='Erreur de chargement.';
+    });
+}
+// Le catalogue complet n'est demandé qu'au premier usage de la recherche ou des filtres
+function chargerCatalogueComplet(){
+  if(!chargementCatalogue){
+    chargementCatalogue=fetch('/api/catalogue')
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(function(articles){allArticles=articles;construireFiltres(articles);return articles;})
+      .catch(function(e){chargementCatalogue=null;throw e;});
+  }
+  return chargementCatalogue;
+}
+function ajouterCartes(grid,articles){
+  var favIds=getFavIds();
+  articles.forEach(function(a){grid.appendChild(makeCard(a,favIds));});
+}
+function majVoirPlus(){
+  var wrap=document.getElementById('deco-more'),btn=document.getElementById('btn-voir-plus');
+  var reste=modeRecherche?nbAffiches<resultats.length:!!best.suivant;
+  wrap.classList.toggle('visible',reste);
+  btn.disabled=!modeRecherche&&best.chargement;
+  btn.textContent=btn.disabled?'Chargement…':'Voir plus';
+}
+function voirPlus(){
+  if(!modeRecherche){chargerBestSellers();return;}
+  var suite=resultats.slice(nbAffiches,nbAffiches+PAS);
+  nbAffiches+=suite.length;
+  ajouterCartes(document.getElementById('grid-best'),suite);
+  majVoirPlus();
+}
+function afficherBestSellers(){
+  modeRecherche=false;
+  var grid=document.getElementById('grid-best');grid.innerHTML='';
+  document.getElementById('cat-no-results').style.display='none';
+  document.getElementById('cat-toolbar-title').textContent='Best-sellers';
+  var loader=document.getElementById('cat-loader');
+  if(best.articles.length){loader.style.display='none';ajouterCartes(grid,best.articles);}
+  else{loader.style.display='';loader.textContent='Chargement des best-sellers…';if(!best.chargement)chargerBestSellers();}
+  majVoirPlus();
+}
+function afficherResultats(articles){
+  modeRecherche=true;resultats=articles;nbAffiches=0;
+  var grid=document.getElementById('grid-best');grid.innerHTML='';
+  document.getElementById('cat-loader').style.display='none';
+  document.getElementById('cat-no-results').style.display=articles.length?'none':'block';
+  document.getElementById('cat-toolbar-title').textContent=articles.length?articles.length+' résultat'+(articles.length>1?'s':''):'Best-sellers';
+  voirPlus();
 }
 function construireFiltres(articles){
   var couleurs={},materiaux={},tags={};
@@ -314,14 +409,7 @@ function construireFiltres(articles){
     btn.onclick=function(){toggleChip(this);};ct.appendChild(btn);
   });
 }
-function afficherModeNormal(){
-  var content=document.getElementById('cat-content');
-  content.querySelectorAll('.cat-section').forEach(function(s){s.remove();});
-  document.getElementById('cat-no-results').style.display='none';
-  var favIds=getFavIds();
-  var loader=document.getElementById('cat-loader');
-  var nouveaux=allArticles.filter(function(a){return isNew(a);}).sort(function(a,b){return new Date(b.date_ajout)-new Date(a.date_ajout);});
-  // Carrousel catégories - toujours affiché
+function afficherCarrouselCategories(){
   var secCats=document.createElement('div');secCats.className='cat-section';
   secCats.innerHTML='<div class="cats-carousel-wrap">'+
     '<div class="cats-arrow left" onclick="catsScroll(-1)">&#8249;</div>'+
@@ -331,34 +419,6 @@ function afficherModeNormal(){
     '<div class="cats-arrow right" onclick="catsScroll(1)">&#8250;</div>'+
     '</div>';
   var catsSection=document.getElementById('cats-section');if(catsSection)catsSection.innerHTML='';if(catsSection)catsSection.appendChild(secCats);
-  var toolbarTitle=document.getElementById('cat-toolbar-title');
-  if(nouveaux.length){
-    if(toolbarTitle)toolbarTitle.textContent='Nouveautés';
-    var secNouv=document.createElement('div');secNouv.className='cat-section';
-    var gridNouv=document.createElement('div');gridNouv.className='items-grid';
-    var limit=Math.min(nouveaux.length,10);
-    for(var i=0;i<limit;i++)gridNouv.appendChild(makeCard(nouveaux[i],favIds));
-    secNouv.appendChild(gridNouv);
-    content.insertBefore(secNouv,loader);
-  } else if(toolbarTitle){
-    toolbarTitle.textContent='';
-  }
-}
-function afficherModeRecherche(articles){
-  var content=document.getElementById('cat-content');
-  content.querySelectorAll('.cat-section').forEach(function(s){s.remove();});
-  var noRes=document.getElementById('cat-no-results');
-  var loader=document.getElementById('cat-loader');
-  var toolbarTitle=document.getElementById('cat-toolbar-title');
-  if(!articles.length){noRes.style.display='block';if(toolbarTitle)toolbarTitle.textContent='';return;}
-  noRes.style.display='none';
-  if(toolbarTitle)toolbarTitle.textContent=articles.length+' résultat'+(articles.length>1?'s':'');
-  var favIds=getFavIds();
-  var sec=document.createElement('div');sec.className='cat-section';
-  var grid=document.createElement('div');grid.className='items-grid';
-  articles.forEach(function(a){grid.appendChild(makeCard(a,favIds));});
-  sec.appendChild(grid);
-  content.insertBefore(sec,loader);
 }
 function getFavIds(){
   return JSON.parse(localStorage.getItem('reunis_favoris')||'[]').map(function(f){return f.id||f.name;});
@@ -423,9 +483,12 @@ function navigatePhoto(card,dir){
 }
 var searchInput=document.getElementById('cat-search');
 var searchClear=document.getElementById('cat-search-clear');
-if(searchInput){searchInput.addEventListener('input',function(){searchClear.style.display=this.value.trim()?'block':'none';applyFilters();});}
+if(searchInput){searchInput.addEventListener('focus',function(){chargerCatalogueComplet().catch(function(){});});searchInput.addEventListener('input',function(){searchClear.style.display=this.value.trim()?'block':'none';applyFilters();});}
 if(searchClear){searchClear.addEventListener('click',function(){searchInput.value='';this.style.display='none';applyFilters();});}
-function toggleFiltersPanel(){document.getElementById('filters-panel').classList.toggle('open');}
+function toggleFiltersPanel(){
+  var open=document.getElementById('filters-panel').classList.toggle('open');
+  if(open)chargerCatalogueComplet().catch(function(){});
+}
 function toggleChip(btn){
   var type=btn.dataset.type,value=btn.dataset.value;
   btn.classList.toggle('active');
@@ -449,7 +512,15 @@ function updateFilterCount(){
 function applyFilters(){
   var q=searchInput?searchInput.value.toLowerCase().trim():'';
   var hasFiltre=q||(activeFilters.badge.length+activeFilters.couleur.length+activeFilters.materiau.length+activeFilters.tag.length>0);
-  if(!hasFiltre){afficherModeNormal();return;}
+  if(!hasFiltre){afficherBestSellers();return;}
+  if(!allArticles){
+    modeRecherche=true;resultats=[];nbAffiches=0;majVoirPlus();
+    document.getElementById('grid-best').innerHTML='';
+    document.getElementById('cat-no-results').style.display='none';
+    var loader=document.getElementById('cat-loader');loader.style.display='';loader.textContent='Recherche en cours…';
+    chargerCatalogueComplet().then(applyFilters).catch(function(){loader.textContent='Erreur de chargement.';});
+    return;
+  }
   var filtered=allArticles.filter(function(a){
     if(q){var h=[a.nom||'',(a.couleurs||[]).join(' '),a.sous_categorie||'',a.sous_sous_categorie||'',a.mots_cles||''].join(' ').toLowerCase();if(!h.includes(q))return false;}
     if(activeFilters.badge.length){if(!activeFilters.badge.every(function(b){if(b==='new')return isNew(a);if(b==='perso')return a.personnalisable==='Oui';return true;}))return false;}
@@ -458,10 +529,12 @@ function applyFilters(){
     if(activeFilters.tag.length){if(!activeFilters.tag.every(function(t){return a.sous_sous_categorie===t;}))return false;}
     return true;
   });
-  afficherModeRecherche(filtered);
+  afficherResultats(filtered);
 }
 function catsScroll(dir){var el=document.getElementById('cats-carousel');if(el)el.scrollBy({left:dir*300,behavior:'smooth'});}
-chargerCatalogue();
+afficherCarrouselCategories();
+chargerNouveautes();
+chargerBestSellers();
 </script>
 </body>
 </html>
