@@ -395,9 +395,9 @@
       <div class="file-upload" id="inspi-drop" onclick="document.getElementById('inspi-file').click()">
         <div class="file-upload-label">📎 Glissez vos images ici ou cliquez pour parcourir</div>
         <div class="file-upload-name" id="inspi-file-name"></div>
-        <input type="file" id="inspi-file" style="display:none" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" onchange="handleInspiFile(this)">
+        <input type="file" id="inspi-file" style="display:none" multiple accept="image/jpeg,image/png,.jpg,.jpeg,.png" onchange="handleInspiFile(this)">
       </div>
-      <div class="file-upload-hint">Formats acceptés : JPG, PNG ou WEBP — 10 Mo maximum par image, 5 images maximum</div>
+      <div class="file-upload-hint">Jusqu'à 5 images — JPG ou PNG, 10 Mo maximum par image</div>
     </div>
   </div>
 
@@ -597,7 +597,7 @@ function handleInspiFile(input){addInspiFiles(input.files);input.value='';}
 function addInspiFiles(fileList){
   var files=Array.prototype.slice.call(fileList||[]),errors=[];
   files.forEach(function(file){
-    if(!/\.(jpe?g|png|webp)$/i.test(file.name)){errors.push(file.name+' : format non pris en charge (JPG, PNG ou WEBP uniquement).');return;}
+    if(!/\.(jpe?g|png)$/i.test(file.name)){errors.push(file.name+' : format non pris en charge (JPG ou PNG uniquement).');return;}
     if(file.size>INSPI_MAX_SIZE){errors.push(file.name+' : fichier trop lourd ('+(file.size/1024/1024).toFixed(1).replace('.',',')+' Mo, 10 Mo maximum).');return;}
     if(data.inspi_files.length+inspiUploading>=INSPI_MAX_FILES){errors.push(file.name+' : 5 images maximum.');return;}
     inspiUploading++;
