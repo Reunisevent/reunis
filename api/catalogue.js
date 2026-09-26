@@ -1,4 +1,6 @@
 const { Client } = require('@notionhq/client');
+const { mapArticle } = require('./_article');
+const { queryAll } = require('./_notion');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const NEW_BADGE_COUNT = 20;
@@ -19,6 +21,49 @@ async function getNewCutoff() {
     .map(page => page.properties['Date ajout']?.date?.start)
     .filter(Boolean);
   return dates.length ? dates[dates.length - 1] : null;
+}
+
+const TRIS = {
+  nouveautes: {
+    filtre: { property: 'Date ajout', date: { is_not_empty: true } },
+    sorts: [{ property: 'Date ajout', direction: 'descending' }]
+  },
+  best: {
+    sorts: [
+      { property: 'Nbre de location', direction: 'descending' },
+      { property: 'Date ajout', direction: 'descending' }
+    ]
+  }
+};
+
+async function chargerPage({ tri, limite, curseur }, filters) {
+  const t = TRIS[tri] || TRIS.best;
+  const params = {
+    database_id: process.env.NOTION_DB_ID,
+    filter: { and: t.filtre ? filters.concat([t.filtre]) : filters },
+    sorts: t.sorts,
+    page_size: Math.min(Math.max(parseInt(limite, 10) || 10, 1), 100),
+    start_cursor: curseur || undefined
+  };
+  const cutoff = getNewCutoff().catch(() => null);
+  let response;
+  try {
+    response = await notion.databases.query(params);
+  } catch (err) {
+    // Propriété de tri absente ou renommée dans Notion : on affiche quand même
+    // les articles (les plus récents d'abord) plutôt qu'une section vide.
+    if (err.code !== 'validation_error' || t !== TRIS.best) throw err;
+    console.error('Tri best-sellers impossible, repli sur la date :', err.message);
+    response = await notion.databases.query({
+      ...params,
+      sorts: [{ timestamp: 'created_time', direction: 'descending' }]
+    });
+  }
+  const newCutoff = await cutoff;
+  return {
+    articles: response.results.map(page => mapArticle(page, newCutoff)),
+    suivant: response.has_more ? response.next_cursor : null
+  };
 }
 
 module.exports = async function handler(req, res) {
@@ -50,46 +95,21 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const [response, newCutoff] = await Promise.all([
-      notion.databases.query({
+    // Mode « page par page » (?limite=10&tri=nouveautes|best&curseur=…) :
+    // renvoie { articles, suivant } au lieu du catalogue complet.
+    if (req.query.limite) {
+      return res.status(200).json(await chargerPage(req.query, filters));
+    }
+
+    const [pages, newCutoff] = await Promise.all([
+      queryAll(notion, {
         database_id: process.env.NOTION_DB_ID,
-        filter: { and: filters },
-        page_size: 100
+        filter: { and: filters }
       }),
       getNewCutoff()
     ]);
 
-    const articles = response.results.map(page => {
-      const p = page.properties;
-      const titleProp = Object.keys(p).find(k => p[k].type === 'title');
-      const date_ajout = p['Date ajout']?.date?.start ?? null;
-      return {
-        id: page.id,
-        nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
-        reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
-        date_ajout,
-        is_new: !!(date_ajout && newCutoff && date_ajout >= newCutoff),
-        mots_cles: p['Mots clés']?.multi_select?.map(function(m){ return m.name; }).join(' ') ?? '',
-        categorie: p['Catégorie']?.select?.name ?? '',
-        sous_categorie: p['Sous catégorie']?.select?.name ?? '',
-        sous_sous_categorie: p['Sous-sous catégorie']?.select?.name ?? '',
-        description: p['Description']?.rich_text?.[0]?.plain_text ?? '',
-        dimensions: p['Dimensions']?.rich_text?.[0]?.plain_text ?? '',
-        couleurs: p['Couleurs']?.multi_select?.map(c => c.name) ?? [],
-        materiaux: p['Matière']?.multi_select?.map(m => m.name) ?? [],
-        lies: p['Lié aux articles']?.relation?.map(r => r.id) ?? [],
-        statut_stock: p['Statut stock']?.select?.name ?? '',
-        qtite_en_ligne: p['Qtité en ligne']?.number ?? 0,
-        personnalisable: p['Personnalisable']?.select?.name ?? '',
-        prix_location: p['Prix location']?.number ?? null,
-        photo: p['Photo principale']?.files?.[0]?.file?.url
-            ?? p['Photo principale']?.files?.[0]?.external?.url
-            ?? null,
-        photos_ambiance: (p['Photos d\'ambiance']?.files ?? []).map(f =>
-            f?.file?.url ?? f?.external?.url ?? null
-        ).filter(Boolean),
-      };
-    });
+    const articles = pages.map(page => mapArticle(page, newCutoff));
 
     res.status(200).json(articles);
 

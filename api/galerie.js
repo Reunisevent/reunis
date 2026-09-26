@@ -1,4 +1,5 @@
 const { Client } = require('@notionhq/client');
+const { queryAll } = require('./_notion');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const GALERIE_DB = '33be9b0ba25480fab0c2ed465b599176';
@@ -35,7 +36,7 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   try {
-    const response = await notion.databases.query({
+    const pages = await queryAll(notion, {
       database_id: GALERIE_DB,
       filter: {
         property: 'Publié @',
@@ -45,7 +46,7 @@ module.exports = async function handler(req, res) {
 
     const evenements = [];
 
-    for (const page of response.results) {
+    for (const page of pages) {
       const props = page.properties;
 
       // Titre — apostrophe typographique
