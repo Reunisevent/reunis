@@ -84,7 +84,9 @@ module.exports = async function handler(req, res) {
       + section('Décoration', [
           row('Thème', d.theme),
           row('Couleurs', d.couleurs),
-          row('Fichiers inspiration', d.inspi_files),
+          row('Images inspiration', (d.inspi_files || []).filter(function(f){ return f && f.url; }).map(function(f){
+            return '<a href="' + f.url + '" target="_blank" style="color:#D65B80;">' + f.name + '</a>';
+          })),
           row('Formule', d.formule_deco),
           row('Budget', d.budget_deco >= 8000 ? '8 000€+' : parseInt(d.budget_deco).toLocaleString('fr-FR') + '€'),
           row('Photo call / backdrop', d.photocall),

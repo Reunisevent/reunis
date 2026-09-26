@@ -106,6 +106,8 @@
 .file-upload:hover{border-color:var(--rose);}
 .file-upload-label{font-size:12px;color:var(--muted);}
 .file-upload-name{font-size:12px;font-weight:600;color:var(--rose);margin-top:8px;}
+.file-upload-name .error{color:#C0392B;}
+.file-upload-hint{font-size:11px;color:var(--muted);margin-top:6px;}
 .success-wrap{text-align:center;padding:60px 20px;display:none;max-width:700px;margin:0 auto;}
 .success-wrap.show{display:block;}
 .success-icon{font-size:4rem;margin-bottom:20px;}
@@ -390,11 +392,12 @@
     </div>
     <div class="input-group">
       <label class="input-label">Partagez vos inspirations</label>
-      <div class="file-upload" onclick="document.getElementById('inspi-file').click()">
+      <div class="file-upload" id="inspi-drop" onclick="document.getElementById('inspi-file').click()">
         <div class="file-upload-label">📎 Glissez vos images ici ou cliquez pour parcourir</div>
         <div class="file-upload-name" id="inspi-file-name"></div>
-        <input type="file" id="inspi-file" style="display:none" multiple accept="image/*" onchange="handleInspiFile(this)">
+        <input type="file" id="inspi-file" style="display:none" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" onchange="handleInspiFile(this)">
       </div>
+      <div class="file-upload-hint">Formats acceptés : JPG, PNG ou WEBP — 10 Mo maximum par image, 5 images maximum</div>
     </div>
   </div>
 
@@ -497,6 +500,8 @@ try{
   var saved=localStorage.getItem(STORE_KEY);
   if(saved){var p=JSON.parse(saved);for(var k in p){if(data.hasOwnProperty(k))data[k]=p[k];}}
 }catch(e){}
+// Seules les images réellement envoyées (avec un lien) sont conservées
+data.inspi_files=(data.inspi_files||[]).filter(function(f){return f&&f.url;});
 
 var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
 if(favs.length){data.articles_selectionnes=favs.map(function(f){return f.name||f.nom;});}
@@ -516,6 +521,7 @@ function startConfig(){
 }
 
 function restoreUI(){
+  renderInspiFiles();
   var texts=['type_event_details','date_event','lieu_nom','lieu_adresse','invites_details','prestataires_autres','repas_formule','theme','autres_besoins','prenom','nom','email','telephone'];
   texts.forEach(function(id){var el=document.getElementById(id);if(el&&data[id])el.value=data[id];});
   if(data.nb_invites){var r=document.getElementById('invites-range');if(r){r.value=data.nb_invites;document.getElementById('invites-display').textContent=parseInt(data.nb_invites)>=500?'500+':data.nb_invites;}}
@@ -578,7 +584,41 @@ function toggleColor(el){el.classList.toggle('selected');var c=el.dataset.color,
 function updateColorPreview(){var preview=document.getElementById('color-preview'),sw=document.getElementById('color-preview-swatches');if(!preview)return;if(!data.couleurs.length){preview.style.display='none';return;}preview.style.display='block';sw.innerHTML='';document.querySelectorAll('.color-swatch.selected').forEach(function(s){var d=document.createElement('div');d.style.cssText='display:flex;flex-direction:column;align-items:center;gap:4px;';d.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:'+s.style.background+';border:2px solid rgba(0,0,0,.1);"></div><div style="font-size:9px;color:var(--muted);letter-spacing:.5px;">'+s.dataset.color+'</div>';sw.appendChild(d);});}
 function updateBudget(val){var v=parseInt(val);document.getElementById('budget-display').textContent=v>=8000?'8 000€ et plus':v.toLocaleString('fr-FR')+'€';data.budget_deco=val;save();}
 function updateInvites(val){var v=parseInt(val);document.getElementById('invites-display').textContent=v>=500?'500+':v;data.nb_invites=val;save();}
-function handleInspiFile(input){var names=Array.prototype.slice.call(input.files).map(function(f){return f.name;});document.getElementById('inspi-file-name').textContent=names.length+' fichier(s) : '+names.join(', ');data.inspi_files=names;save();}
+var INSPI_MAX_SIZE=10*1024*1024,INSPI_MAX_FILES=5,inspiUploading=0;
+function escHtml(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function renderInspiFiles(errors){
+  var el=document.getElementById('inspi-file-name');if(!el)return;
+  var lines=data.inspi_files.map(function(f){return'<div>✓ '+escHtml(f.name)+'</div>';});
+  if(inspiUploading)lines.push('<div>⏳ Envoi en cours ('+inspiUploading+')…</div>');
+  (errors||[]).forEach(function(e){lines.push('<div class="error">✗ '+escHtml(e)+'</div>');});
+  el.innerHTML=lines.join('');
+}
+function handleInspiFile(input){addInspiFiles(input.files);input.value='';}
+function addInspiFiles(fileList){
+  var files=Array.prototype.slice.call(fileList||[]),errors=[];
+  files.forEach(function(file){
+    if(!/\.(jpe?g|png|webp)$/i.test(file.name)){errors.push(file.name+' : format non pris en charge (JPG, PNG ou WEBP uniquement).');return;}
+    if(file.size>INSPI_MAX_SIZE){errors.push(file.name+' : fichier trop lourd ('+(file.size/1024/1024).toFixed(1).replace('.',',')+' Mo, 10 Mo maximum).');return;}
+    if(data.inspi_files.length+inspiUploading>=INSPI_MAX_FILES){errors.push(file.name+' : 5 images maximum.');return;}
+    inspiUploading++;
+    var fd=new FormData();fd.append('file',file);fd.append('upload_preset','Reunis_personnalisation');
+    fetch('https://api.cloudinary.com/v1_1/dhdzcow9l/auto/upload',{method:'POST',body:fd})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        inspiUploading--;
+        if(res&&res.secure_url){data.inspi_files.push({name:file.name,url:res.secure_url});save();}
+        else{console.error('Cloudinary',res&&res.error);errors.push(file.name+' : l\'image n\'a pas pu être envoyée, réessayez.');}
+        renderInspiFiles(errors);
+      })
+      .catch(function(){inspiUploading--;errors.push(file.name+' : erreur d\'envoi, vérifiez votre connexion et réessayez.');renderInspiFiles(errors);});
+  });
+  renderInspiFiles(errors);
+}
+(function(){
+  var drop=document.getElementById('inspi-drop');if(!drop)return;
+  drop.addEventListener('dragover',function(e){e.preventDefault();});
+  drop.addEventListener('drop',function(e){e.preventDefault();addInspiFiles(e.dataTransfer.files);});
+})();
 
 function buildRecap(){
   var html='';
@@ -607,10 +647,19 @@ function buildRecap(){
 function envoyerConfig(){
   var prenom=document.getElementById('prenom').value.trim(),email=document.getElementById('email').value.trim();
   if(!prenom||!email){alert('Merci de renseigner votre prénom et votre email pour finaliser votre demande.');return;}
+  if(inspiUploading){alert('Vos images d\'inspiration sont encore en cours d\'envoi. Merci de patienter quelques secondes.');return;}
   data.prenom=prenom;data.nom=document.getElementById('nom').value.trim();data.email=email;data.telephone=document.getElementById('telephone').value.trim();
   var btn=document.getElementById('btn-next');btn.innerHTML='Envoi en cours…';btn.disabled=true;
   fetch('/api/envoyer-config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-    .then(function(r){return r.json();}).then(function(){finish();}).catch(function(){finish();});
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(res&&res.succes){finish();return;}
+      throw new Error('envoi');
+    })
+    .catch(function(){
+      alert('Une erreur est survenue lors de l\'envoi de votre demande. Merci de réessayer ou de nous écrire à contact@reunisevent.com.');
+      btn.disabled=false;updateNav();
+    });
 }
 function finish(){try{localStorage.removeItem(STORE_KEY);}catch(e){}showSuccess();}
 function showSuccess(){document.getElementById('config-wrap').style.display='none';document.getElementById('success-wrap').classList.add('show');window.scrollTo({top:0,behavior:'smooth'});}
