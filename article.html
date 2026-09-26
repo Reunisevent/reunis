@@ -219,11 +219,11 @@
           <input type="hidden" id="perso-couleur" value="">
           <label class="perso-label">Exemple ou visuel de référence</label>
           <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
-            <div class="perso-upload-label">+ Ajouter un fichier</div>
+            <div class="perso-upload-label">+ Ajouter une image</div>
             <div class="perso-upload-name" id="perso-file-name"></div>
-            <input type="file" id="perso-file" accept="image/jpeg,image/png,image/webp,application/pdf,.jpg,.jpeg,.png,.webp,.pdf" style="display:none" onchange="handleFile(this)">
+            <input type="file" id="perso-file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" style="display:none" onchange="handleFile(this)">
           </div>
-          <div class="perso-upload-hint">Formats acceptés : JPG, PNG, WEBP ou PDF — 10 Mo maximum</div>
+          <div class="perso-upload-hint">Une seule image — JPG ou PNG, 10 Mo maximum</div>
         </div>
         <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos ateliers. Le tarif final, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection. Sauf mention contraire, les articles personnalisés restent la propriété de Réunis et devront nous être restitués après votre événement.</p>
       </div>
@@ -299,7 +299,7 @@ var qtyMax = 1;
 var qtyCurrent = 1;
 var persoFileUrl = null;
 var persoUploading = false;
-var PERSO_MAX_SIZE = 10 * 1024 * 1024; // limite Cloudinary (plan gratuit) pour images et PDF
+var PERSO_MAX_SIZE = 10 * 1024 * 1024; // limite Cloudinary (plan gratuit) pour les images
 var articleImages = [];
 var currentImgIndex = 0;
 
@@ -428,8 +428,8 @@ function handleFile(input){
     nameEl.classList.add('error');
     input.value = '';
   }
-  var formatOk = /\.(jpe?g|png|webp|pdf)$/i.test(file.name);
-  if(!formatOk) return erreur('Format non pris en charge. Formats acceptés : JPG, PNG, WEBP ou PDF.');
+  var formatOk = /\.(jpe?g|png)$/i.test(file.name);
+  if(!formatOk) return erreur('Format non pris en charge. Formats acceptés : JPG ou PNG.');
   if(file.size > PERSO_MAX_SIZE) {
     return erreur('Fichier trop lourd (' + (file.size / 1024 / 1024).toFixed(1).replace('.', ',') + ' Mo). Taille maximum : 10 Mo. Vous pouvez aussi nous l\'envoyer par mail à contact@reunisevent.com.');
   }
