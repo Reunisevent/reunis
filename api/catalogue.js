@@ -1,4 +1,5 @@
 const { Client } = require('@notionhq/client');
+const { mapArticle } = require('./_article');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const NEW_BADGE_COUNT = 20;
@@ -59,37 +60,7 @@ module.exports = async function handler(req, res) {
       getNewCutoff()
     ]);
 
-    const articles = response.results.map(page => {
-      const p = page.properties;
-      const titleProp = Object.keys(p).find(k => p[k].type === 'title');
-      const date_ajout = p['Date ajout']?.date?.start ?? null;
-      return {
-        id: page.id,
-        nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
-        reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
-        date_ajout,
-        is_new: !!(date_ajout && newCutoff && date_ajout >= newCutoff),
-        mots_cles: p['Mots clés']?.multi_select?.map(function(m){ return m.name; }).join(' ') ?? '',
-        categorie: p['Catégorie']?.select?.name ?? '',
-        sous_categorie: p['Sous catégorie']?.select?.name ?? '',
-        sous_sous_categorie: p['Sous-sous catégorie']?.select?.name ?? '',
-        description: p['Description']?.rich_text?.[0]?.plain_text ?? '',
-        dimensions: p['Dimensions']?.rich_text?.[0]?.plain_text ?? '',
-        couleurs: p['Couleurs']?.multi_select?.map(c => c.name) ?? [],
-        materiaux: p['Matière']?.multi_select?.map(m => m.name) ?? [],
-        lies: p['Lié aux articles']?.relation?.map(r => r.id) ?? [],
-        statut_stock: p['Statut stock']?.select?.name ?? '',
-        qtite_en_ligne: p['Qtité en ligne']?.number ?? 0,
-        personnalisable: p['Personnalisable']?.select?.name ?? '',
-        prix_location: p['Prix location']?.number ?? null,
-        photo: p['Photo principale']?.files?.[0]?.file?.url
-            ?? p['Photo principale']?.files?.[0]?.external?.url
-            ?? null,
-        photos_ambiance: (p['Photos d\'ambiance']?.files ?? []).map(f =>
-            f?.file?.url ?? f?.external?.url ?? null
-        ).filter(Boolean),
-      };
-    });
+    const articles = response.results.map(page => mapArticle(page, newCutoff));
 
     res.status(200).json(articles);
 

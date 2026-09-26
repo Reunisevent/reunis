@@ -303,7 +303,31 @@ var PERSO_MAX_SIZE = 10 * 1024 * 1024; // limite Cloudinary (plan gratuit) pour 
 var articleImages = [];
 var currentImgIndex = 0;
 
+// Une fiche est incomplète quand elle vient d'une sauvegarde partielle
+// (ex. élément de la sélection sans réponse de l'API) : on la recharge depuis Notion.
+function articleIncomplet(a){
+  return !!(a && a.id && !('description' in a && 'categorie' in a && 'personnalisable' in a));
+}
 if(article) {
+  renderArticle();
+  if(articleIncomplet(article)) {
+    fetch('/api/article?id=' + encodeURIComponent(article.id))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(fresh){
+        if(!fresh || fresh.erreur) { chargerSimilaires(); return; }
+        if(article.perso) fresh.perso = article.perso;
+        article = fresh;
+        try { localStorage.setItem('reunis_article_courant', JSON.stringify(article)); } catch(e) {}
+        renderArticle();
+        chargerSimilaires();
+      })
+      .catch(function(){ chargerSimilaires(); });
+  } else {
+    chargerSimilaires();
+  }
+}
+
+function renderArticle() {
   qtyMax = parseInt(article.qtite_en_ligne) || 1;
   document.getElementById('art-nom').textContent = article.nom || article.name || '—';
   var refEl = document.getElementById('art-ref');
@@ -403,7 +427,6 @@ if(article) {
   if(navNext) navNext.style.display = showNav ? 'flex' : 'none';
   document.title = (article.nom || article.name || 'Article') + ' — Réunis';
   updateQtyButtons();
-  chargerSimilaires();
 }
 
 function togglePerso(checkbox){
