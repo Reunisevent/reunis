@@ -72,6 +72,10 @@ module.exports = async function handler(req, res) {
       return acc + ((parseFloat(a.prix) || 0) * (a.qty || 1));
     }, 0);
 
+    var mentionHors = livraison === 'Livraison et reprise (sur devis)'
+      ? 'hors personnalisations* et livraison'
+      : 'hors personnalisations*';
+
     // ── Email à Réunis ──
     var htmlReunis = '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#FAF1F1;">'
       + '<div style="background:#FAF1F1;padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(0,0,0,.1);">'
@@ -97,7 +101,8 @@ module.exports = async function handler(req, res) {
       + '<th style="padding:10px 8px;text-align:right;font-size:11px;letter-spacing:1px;">Prix/pcs</th>'
       + '</tr></thead>'
       + '<tbody>' + lignesArticles + '</tbody>'
-      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé (hors perso)</td>'
+      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé'
+      + '<br><span style="font-size:11px;font-weight:400;color:#888;">' + mentionHors.replace('*', '') + '</span></td>'
       + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
       + '</table>'
       + (message ? '<h2 style="font-size:16px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;color:#222;">Message</h2>'
@@ -162,7 +167,7 @@ module.exports = async function handler(req, res) {
       + '</tr></thead>'
       + '<tbody>' + lignesArticles + '</tbody>'
       + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé'
-      + '<br><span style="font-size:11px;font-weight:400;color:#888;">hors personnalisations*</span></td>'
+      + '<br><span style="font-size:11px;font-weight:400;color:#888;">' + mentionHors + '</span></td>'
       + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
       + '</table>'
       + '</div>' : '')

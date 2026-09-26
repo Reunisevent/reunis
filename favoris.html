@@ -166,7 +166,7 @@
     <input class="modal-input" id="m-email" type="email" placeholder="votre@email.com">
     <label class="modal-label">Téléphone</label>
     <input class="modal-input" id="m-tel" type="tel" placeholder="06 00 00 00 00">
-    <label class="modal-label">Date de l'événement</label>
+    <label class="modal-label">Date de l'événement *</label>
     <input class="modal-input" id="m-date" type="date">
     <label class="modal-label">Type d'événement</label>
     <select class="modal-select" id="m-type">
@@ -188,7 +188,7 @@
       <option value="Livraison et reprise (sur devis)">Livraison et reprise (sur devis)</option>
     </select>
     <div id="m-adresse-wrap" style="display:none;margin-top:8px;">
-      <input class="modal-input" id="m-adresse" type="text" placeholder="Adresse de livraison complète">
+      <input class="modal-input" id="m-adresse" type="text" placeholder="Adresse de livraison complète *">
     </div>
     <label class="modal-label">Message (optionnel)</label>
     <textarea class="modal-textarea" id="m-message" placeholder="Informations complémentaires, questions…"></textarea>
@@ -449,7 +449,9 @@ function envoyerSelection(){
   var email=document.getElementById('m-email').value.trim();
   var livraison=document.getElementById('m-livraison').value;
   if(!nom||!email){alert('Merci de renseigner votre nom et votre email.');return;}
+  if(!document.getElementById('m-date').value){alert('Merci de renseigner la date de votre événement.');return;}
   if(!livraison){alert('Merci de sélectionner une option de livraison.');return;}
+  if(livraison==='Livraison et reprise (sur devis)'&&!document.getElementById('m-adresse').value.trim()){alert('Merci de renseigner l\'adresse de livraison.');return;}
   var favs=JSON.parse(localStorage.getItem('reunis_favoris')||'[]');
   var btn=document.querySelector('.btn-modal-send');
   btn.textContent='Envoi en cours…';btn.disabled=true;
