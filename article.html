@@ -71,6 +71,8 @@
 .perso-upload:hover { border-color:var(--rose); }
 .perso-upload-label { font-size:12px; color:var(--muted); letter-spacing:.5px; }
 .perso-upload-name { font-size:12px; font-weight:600; color:var(--noir); margin-top:6px; display:none; }
+.perso-upload-hint { font-size:11px; color:var(--muted); margin-top:6px; }
+.perso-upload-name.error { color:#C0392B; }
 .perso-note { font-size:11.5px; color:var(--muted); line-height:1.7; margin-top:16px; font-style:italic; }
 .similar-section { padding:32px 0 60px; border-top:1px solid rgba(0,0,0,.07); }
 .similar-title { font-family:'Abril Fatface',serif; font-size:1.5rem; margin-bottom:16px; padding:0 24px; }
@@ -214,8 +216,9 @@
           <div class="perso-upload" onclick="document.getElementById('perso-file').click()">
             <div class="perso-upload-label">+ Ajouter un fichier</div>
             <div class="perso-upload-name" id="perso-file-name"></div>
-            <input type="file" id="perso-file" style="display:none" onchange="handleFile(this)">
+            <input type="file" id="perso-file" accept="image/jpeg,image/png,image/webp,application/pdf,.jpg,.jpeg,.png,.webp,.pdf" style="display:none" onchange="handleFile(this)">
           </div>
+          <div class="perso-upload-hint">Formats acceptés : JPG, PNG, WEBP ou PDF — 10 Mo maximum</div>
         </div>
         <p class="perso-note">Chaque personnalisation est unique et réalisée avec soin dans nos ateliers. Le tarif final, calculé selon la taille et la complexité de votre motif, vous sera communiqué par mail après réception de votre sélection. Sauf mention contraire, les articles personnalisés restent la propriété de Réunis et devront nous être restitués après votre événement.</p>
       </div>
@@ -288,6 +291,8 @@ var article = JSON.parse(localStorage.getItem('reunis_article_courant')||'null')
 var qtyMax = 1;
 var qtyCurrent = 1;
 var persoFileUrl = null;
+var persoUploading = false;
+var PERSO_MAX_SIZE = 10 * 1024 * 1024; // limite Cloudinary (plan gratuit) pour images et PDF
 var articleImages = [];
 var currentImgIndex = 0;
 
@@ -407,8 +412,22 @@ function handleFile(input){
   var file = input.files[0];
   if(!file) return;
   var nameEl = document.getElementById('perso-file-name');
-  nameEl.textContent = '⏳ Envoi en cours…';
   nameEl.style.display = 'block';
+  nameEl.classList.remove('error');
+  persoFileUrl = null;
+  function erreur(msg){
+    persoUploading = false;
+    nameEl.textContent = '✗ ' + msg;
+    nameEl.classList.add('error');
+    input.value = '';
+  }
+  var formatOk = /\.(jpe?g|png|webp|pdf)$/i.test(file.name);
+  if(!formatOk) return erreur('Format non pris en charge. Formats acceptés : JPG, PNG, WEBP ou PDF.');
+  if(file.size > PERSO_MAX_SIZE) {
+    return erreur('Fichier trop lourd (' + (file.size / 1024 / 1024).toFixed(1).replace('.', ',') + ' Mo). Taille maximum : 10 Mo. Vous pouvez aussi nous l\'envoyer par mail à contact@reunisevent.com.');
+  }
+  persoUploading = true;
+  nameEl.textContent = '⏳ Envoi en cours…';
   var formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', 'Reunis_personnalisation');
@@ -418,11 +437,16 @@ function handleFile(input){
   })
   .then(function(r){ return r.json(); })
   .then(function(data){
+    if(!data || !data.secure_url) {
+      console.error('Cloudinary', data && data.error);
+      return erreur('Le fichier n\'a pas pu être envoyé — réessayez ou envoyez-le-nous par mail à contact@reunisevent.com.');
+    }
+    persoUploading = false;
     persoFileUrl = data.secure_url;
     nameEl.textContent = '✓ ' + file.name;
   })
   .catch(function(){
-    nameEl.textContent = '✗ Erreur d\'envoi — réessayez';
+    erreur('Erreur d\'envoi — vérifiez votre connexion et réessayez.');
   });
 }
 function changeQty(delta){
@@ -464,6 +488,10 @@ function addToFav(){
   var idx = favs.findIndex(function(f){ return f.name === (article.nom || article.name); });
   var perso = null;
   if(article.personnalisable === 'Oui' && document.getElementById('perso-toggle').checked) {
+    if(persoUploading) {
+      alert('Votre fichier est encore en cours d\'envoi. Merci de patienter quelques secondes avant d\'ajouter l\'article à votre sélection.');
+      return;
+    }
     perso = {
       texte: document.getElementById('perso-texte').value,
       couleur: document.getElementById('perso-couleur').value,
