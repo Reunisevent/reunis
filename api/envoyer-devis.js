@@ -161,7 +161,8 @@ module.exports = async function handler(req, res) {
       + '<th style="padding:8px;text-align:right;font-size:11px;letter-spacing:1px;color:#888;font-weight:700;">Prix/pcs</th>'
       + '</tr></thead>'
       + '<tbody>' + lignesArticles + '</tbody>'
-      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé (hors perso)</td>'
+      + (totalArticles > 0 ? '<tfoot><tr style="background:#f5f0f0;"><td colspan="2" style="padding:12px 8px;font-weight:700;font-size:13px;">Total estimé'
+      + '<br><span style="font-size:11px;font-weight:400;color:#888;">hors personnalisations*</span></td>'
       + '<td style="padding:12px 8px;text-align:right;font-weight:700;color:#D65B80;font-size:14px;">' + totalArticles.toFixed(2) + '€</td></tr></tfoot>' : '')
       + '</table>'
       + '</div>' : '')
@@ -192,6 +193,7 @@ module.exports = async function handler(req, res) {
       // Footer
       + '<div style="padding:20px 32px;background:#FAF1F1;border-top:1px solid rgba(0,0,0,.1);text-align:center;">'
       + '<p style="font-size:11px;color:#aaa;margin:0 0 6px;">Réunis — <a href="mailto:contact@reunisevent.com" style="color:#D65B80;text-decoration:none;">contact@reunisevent.com</a></p>'
+      + (articles.length && totalArticles > 0 ? '<p style="font-size:10px;line-height:1.6;color:#bbb;margin:0 0 6px;">*Chaque personnalisation est unique et réalisée avec soin dans nos ateliers. Le tarif final, calculé selon la taille et la complexité de votre motif, vous sera communiqué par e-mail après réception de votre sélection. Sauf mention contraire, les articles personnalisés restent la propriété de Réunis et devront nous être restitués après votre événement.</p>' : '')
       + '<p style="font-size:10px;color:#bbb;margin:0;">*Sélection modifiable sous réserve de disponibilité.</p>'
       + '</div>'
 
