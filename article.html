@@ -564,53 +564,47 @@ function addToFav(){
 function chargerSimilaires(){
   var track = document.getElementById('similar-track');
   if(!track || !article) return;
-  var liesIds = article.lies || [];
   var normId = function(id){ return String(id || '').replace(/-/g,''); };
+  var idCourant = normId(article.id);
+  var liesIds = (article.lies || []).filter(function(id){ return normId(id) !== idCourant; }).slice(0, 12);
   var estLie = function(a){
     return liesIds.some(function(id){ return normId(id) === normId(a.id); });
   };
-  // Les articles liés peuvent être dans une autre catégorie : on charge tout le catalogue dans ce cas
-  var url = liesIds.length ? '/api/catalogue' : '/api/catalogue?categorie=' + encodeURIComponent(article.categorie || '');
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(articles){
-      var autres = articles.filter(function(a){ return a.id !== article.id; });
-      var lies = liesIds.map(function(id){
-        return autres.filter(function(a){ return normId(a.id) === normId(id); })[0];
-      }).filter(Boolean);
-      var filtres = autres.filter(function(a){
-        return !estLie(a) && (!liesIds.length || a.categorie === article.categorie);
-      });
-      var couleursCourantes = typeof article.couleurs === 'string'
-        ? article.couleurs.split(',').filter(Boolean)
-        : (article.couleurs || []);
-      filtres.sort(function(a, b){
-        var aC = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
-        var bC = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
-        var aM = aC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        var bM = bC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
-        return (bM ? 1 : 0) - (aM ? 1 : 0);
-      });
-      filtres = lies.concat(filtres);
-      if(filtres.length < 12) {
-        fetch('/api/catalogue')
-          .then(function(r){ return r.json(); })
-          .then(function(tous){
-            var ids = filtres.map(function(a){ return a.id; });
-            ids.push(article.id);
-            var complement = tous.filter(function(a){ return ids.indexOf(a.id) < 0; });
-            afficherSimilaires(filtres.concat(complement).slice(0, 12));
-          });
-      } else {
-        afficherSimilaires(filtres.slice(0, 12));
-      }
-    })
-    .catch(function(){});
+  // On ne charge que la catégorie de l'article + ses articles liés (un par un, ils peuvent
+  // être dans une autre catégorie), jamais le catalogue complet.
+  var pCategorie = article.categorie
+    ? fetch('/api/catalogue?categorie=' + encodeURIComponent(article.categorie))
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .catch(function(){ return []; })
+    : Promise.resolve([]);
+  var pLies = Promise.all(liesIds.map(function(id){
+    return fetch('/api/article?id=' + encodeURIComponent(id))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .catch(function(){ return null; });
+  }));
+  Promise.all([pCategorie, pLies]).then(function(res){
+    var articles = Array.isArray(res[0]) ? res[0] : [];
+    var lies = res[1].filter(function(a){ return a && !a.erreur && a.id; });
+    var filtres = articles.filter(function(a){ return normId(a.id) !== idCourant && !estLie(a); });
+    var couleursCourantes = typeof article.couleurs === 'string'
+      ? article.couleurs.split(',').filter(Boolean)
+      : (article.couleurs || []);
+    filtres.sort(function(a, b){
+      var aC = typeof a.couleurs === 'string' ? a.couleurs.split(',') : (a.couleurs || []);
+      var bC = typeof b.couleurs === 'string' ? b.couleurs.split(',') : (b.couleurs || []);
+      var aM = aC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+      var bM = bC.some(function(c){ return couleursCourantes.indexOf(c.trim()) >= 0; });
+      return (bM ? 1 : 0) - (aM ? 1 : 0);
+    });
+    afficherSimilaires(lies.concat(filtres).slice(0, 12));
+  });
 }
 function afficherSimilaires(liste){
   var track = document.getElementById('similar-track');
   if(!track) return;
   track.innerHTML = '';
+  var section = track.closest('.similar-section');
+  if(section) section.style.display = liste.length ? '' : 'none';
   liste.forEach(function(a){
     var prix = parseFloat(a.prix_location);
     var card = document.createElement('div');
