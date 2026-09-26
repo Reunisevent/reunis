@@ -71,6 +71,9 @@ button { cursor:pointer; font-family:inherit; }
   z-index: 120;
 }
 .topbar.visible { display:flex; }
+.topbar-actions { display:flex; align-items:center; gap:10px; }
+/* Logo centré même quand il y a deux icônes à droite (loupe + favoris) */
+.topbar-recherche .topbar-logo { position:absolute; left:50%; transform:translateX(-50%); }
 .topbar-logo {
   font-family: 'Abril Fatface', serif;
   font-size: 1.5rem;
