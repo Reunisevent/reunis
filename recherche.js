@@ -31,8 +31,6 @@
     +   '.rr-liste{grid-template-columns:repeat(2,1fr);}'
     + '}';
 
-  function normaliser(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
-
   function construire(){
     var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     var fond = document.createElement('div'); fond.className = 'rr-fond'; fond.onclick = fermer;
@@ -61,13 +59,11 @@
   }
 
   function afficher(){
-    var q = normaliser(champ.value.trim());
+    var q = ReunisRecherche.normaliser(champ.value);
     liste.innerHTML = '';
     if(!q){ info.textContent = catalogue ? 'Tapez un mot : chaise, nappe, bougie…' : 'Chargement du catalogue…'; return; }
     if(!catalogue){ info.textContent = 'Chargement du catalogue…'; return; }
-    var res = catalogue.filter(function(a){
-      return normaliser([a.nom, (a.couleurs || []).join(' '), a.categorie, a.sous_categorie, a.sous_sous_categorie, a.mots_cles].join(' ')).indexOf(q) >= 0;
-    });
+    var res = catalogue.filter(function(a){ return ReunisRecherche.correspond(a, q); });
     var limite = toutAfficher ? res.length : MAX;
     info.textContent = res.length ? res.length + ' résultat' + (res.length > 1 ? 's' : '') + (res.length > limite ? ' — les ' + limite + ' premiers' : '') : 'Aucun résultat';
     res.slice(0, limite).forEach(function(a){
