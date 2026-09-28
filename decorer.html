@@ -541,7 +541,7 @@ function updateFilterCount(){
   document.getElementById('filter-btn').classList.toggle('active',n>0);
 }
 function applyFilters(){
-  var q=searchInput?searchInput.value.toLowerCase().trim():'';
+  var q=searchInput?searchInput.value.trim():'';
   var hasFiltre=q||(activeFilters.badge.length+activeFilters.couleur.length+activeFilters.materiau.length+activeFilters.tag.length>0);
   if(!hasFiltre){afficherBestSellers();return;}
   if(!allArticles){
@@ -553,7 +553,7 @@ function applyFilters(){
     return;
   }
   var filtered=allArticles.filter(function(a){
-    if(q){var h=[a.nom||'',(a.couleurs||[]).join(' '),a.sous_categorie||'',a.sous_sous_categorie||'',a.mots_cles||''].join(' ').toLowerCase();if(!h.includes(q))return false;}
+    if(q&&!ReunisRecherche.correspond(a,q))return false;
     if(activeFilters.badge.length){if(!activeFilters.badge.every(function(b){if(b==='new')return isNew(a);if(b==='perso')return a.personnalisable==='Oui';return true;}))return false;}
     if(activeFilters.couleur.length){var ac=a.couleurs||[];if(!activeFilters.couleur.every(function(c){return ac.indexOf(c)>=0;}))return false;}
     if(activeFilters.materiau.length){var am=a.materiaux||[];if(!activeFilters.materiau.every(function(m){return am.indexOf(m)>=0;}))return false;}
@@ -576,6 +576,7 @@ afficherCarrouselCategories();
 chargerNouveautes();
 chargerBestSellers();
 </script>
+<script src="recherche-texte.js"></script>
 <script src="recherche.js"></script>
 </body>
 </html>

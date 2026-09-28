@@ -7,6 +7,7 @@
 <title>Ma maquette — Réunis</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="recherche-texte.js"></script>
 <style>
 @font-face{font-family:'Dancing Script';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/dancing-script-v29-latin-600.woff2') format('woff2');}
 @font-face{font-family:'Dancing Script';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/dancing-script-v29-latin-700.woff2') format('woff2');}
@@ -737,7 +738,7 @@ function renderPalette(){
   }
   var list=source.filter(function(a){
     if(!q)return true;
-    return norm(a.nom+' '+a.mots_cles+' '+a.sous_categorie).indexOf(q)>=0;
+    return ReunisRecherche.correspond(a,q);
   });
   if(!list.length){
     grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:24px 8px;color:var(--muted);font-size:12px;">Aucun article trouvé.</div>';
