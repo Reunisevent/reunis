@@ -28,14 +28,21 @@ function texte(prop) {
   }
 }
 
+// Texte complet d'un titre ou texte riche : Notion le découpe en plusieurs
+// segments dès que la mise en forme change (gras, lien, collage…), il faut
+// donc tous les assembler et pas seulement lire le premier.
+function brut(prop) {
+  return (prop?.[prop.type] ?? []).map(r => r.plain_text).join('');
+}
+
 function mapArticle(page, newIds) {
   const p = page.properties;
   const titleProp = Object.keys(p).find(k => p[k].type === 'title');
   const date_ajout = p['Date ajout']?.date?.start ?? null;
   return {
     id: page.id,
-    nom: p[titleProp]?.title?.[0]?.plain_text ?? '',
-    reference: p['Référence']?.rich_text?.[0]?.plain_text ?? '',
+    nom: brut(p[titleProp]).trim(),
+    reference: brut(p['Référence']),
     date_ajout,
     is_new: !!(newIds && newIds.has(page.id)),
     mots_cles: texte(p['Mots clés']).join(' '),
@@ -45,8 +52,8 @@ function mapArticle(page, newIds) {
     sous_sous_categorie: texte(p['Sous-sous catégorie'])[0] ?? '',
     // Toutes les valeurs, pour la recherche (si la propriété est multiple).
     sous_sous_categories: texte(p['Sous-sous catégorie']),
-    description: p['Description']?.rich_text?.[0]?.plain_text ?? '',
-    dimensions: p['Dimensions']?.rich_text?.[0]?.plain_text ?? '',
+    description: brut(p['Description']),
+    dimensions: brut(p['Dimensions']),
     couleurs: p['Couleurs']?.multi_select?.map(c => c.name) ?? [],
     materiaux: p['Matière']?.multi_select?.map(m => m.name) ?? [],
     lies: p['Lié aux articles']?.relation?.map(r => r.id) ?? [],

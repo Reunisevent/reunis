@@ -51,11 +51,11 @@ module.exports = async function handler(req, res) {
 
       // Titre — apostrophe typographique
       const titleProp = props['Nom de l\u2019\u00e9v\u00e9nement'];
-      const titre = titleProp?.title?.[0]?.plain_text || '';
+      const titre = (titleProp?.title || []).map(t => t.plain_text).join('').trim();
 
       const cover = getFileUrl(props['Cover']);
       const photos = getAllFileUrls(props['Photos']);
-      const description = props['Description @']?.rich_text?.[0]?.plain_text || '';
+      const description = (props['Description @']?.rich_text || []).map(t => t.plain_text).join('');
       const categorie = getCategorie(props);
       const inventaireIds = (props['Inventaire']?.relation || []).map(r => r.id);
 
@@ -65,7 +65,7 @@ module.exports = async function handler(req, res) {
           const articlePage = await notion.pages.retrieve({ page_id: id });
           const ap = articlePage.properties;
           const nomProp = Object.values(ap).find(p => p.type === 'title');
-          const nom = nomProp?.title?.[0]?.plain_text || '';
+          const nom = (nomProp?.title || []).map(t => t.plain_text).join('').trim();
           const photo = getFileUrl(ap['Photo principale'] || ap['Photo'] || ap['Photos']);
           const prix = ap['Prix location']?.number || ap['Prix']?.number || null;
           if (nom) articles.push({ id, nom, photo, prix });
