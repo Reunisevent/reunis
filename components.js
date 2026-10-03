@@ -19,7 +19,7 @@ const NAV = {
         { label: 'La table', href: 'cat-table.html', subs: ['Vaisselles','Présentoirs','Candy bar','Fontaines à boisson','Carafes','Service'] },
         { label: 'Le textile', href: 'cat-textile.html', subs: ['Nappes','Chemins de table','Serviettes de table','Tapis','Coussins'] },
         { label: 'Le floral', href: 'cat-floral.html', subs: ['Dame jeanne','Vases','Soliflores','Fleurs séchées','Fleurs fraîches'] },
-        { label: 'La lumière', href: 'cat-lumiere.html', subs: ['Bougies','Photophores','Bougeoirs & chandeliers','Lanternes','Néons','Guirlandes & éclairage','Suspensions'] },
+        { label: 'La lumière', href: 'cat-lumiere.html', subs: ['Bougies','Bougeoirs & chandeliers','Lanternes','Néons','Guirlandes & éclairage','Suspensions'] },
         { label: 'Les accessoires', href: 'cat-accessoires.html', subs: ['Livre d\'or','Boules disco','Bassines en zinc','Caisses en bois','Objets vintages','Jeux'] },
         { label: 'Le pratique', href: 'cat-pratique.html', subs: ['Vidéoprojecteur','Vestiaire','Rallonges','Ustensiles de cuisine'] },
       ]
